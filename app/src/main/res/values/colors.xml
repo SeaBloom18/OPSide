@@ -14,4 +14,7 @@
     <color name="warning">#F2B705</color>
     <color name="error">#F21B91</color>
     <color name="info">#6852F2</color>
+
+    <!-- Custom -->
+    <color name="primaryTransparentLightColor">#B3586B86</color>
 </resources>

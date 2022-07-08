@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="WhiteTextTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="WhiteTextSubTitle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/subtitle</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="WhiteTextBody" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/body</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="SecondaryTextBody" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/secondaryDarkColor</item>
+        <item name="android:textSize">@dimen/body</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="WhiteLargeTextCardView" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/largeTextCardView</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="PrimaryLightOptionButton" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:buttonCornerRadius">0dp</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/primaryLightColor</item>
+    </style>
+
+    <dimen name="largeTextCardView">42sp</dimen>
+</resources>
