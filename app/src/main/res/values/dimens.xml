@@ -5,4 +5,5 @@
     <dimen name="common_padding_middle">24dp</dimen>
     <dimen name="common_padding_large">32dp</dimen>
     <dimen name="common_padding_corners_btn">20dp</dimen>
+    <dimen name="common_icon_size">20dp</dimen>
 </resources>
