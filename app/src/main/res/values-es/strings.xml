@@ -3,7 +3,7 @@
     <string name="app_name">OPSide</string>
 
     <!--Login Module Strings-->
-    <string name="login_hint_user">Usuario</string>
+    <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="login_til_required">Requerido</string>
     <string name="login_btn">Entrar</string>

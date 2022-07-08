@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         mBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.btnLogin.setOnClickListener {
+        mBinding.btnLoginSplash.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
