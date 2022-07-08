@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">OPSide</string>
+    <string name="dashboard_analytics">Análiticas</string>
+    <string name="dashboard_weekly">Semanal</string>
+    <string name="dashboard_monthly">Mensual</string>
+    <string name="dashboard_all_time">Todo Tiempo</string>
+    <string name="dashboard_daily">Diario</string>
+    <string name="dashboard_user_profile">Perfil de usuario</string>
+    <string name="dashboard_notifications">Notificaciones</string>
+    <string name="dashboard_arrow">Flecha</string>
+    <string name="dashboard_chart">Grafico Estadístico</string>
+    <string name="dashboard_penalty_fee">Multas</string>
+    <string name="dashboard_absences">Inasistencias</string>
+    <string name="dashboard_active_dealers">Concesionarios activos</string>
+    <string name="dashboard_tax_collections">Recaudaciones</string>
 </resources>

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".flows.sign_on.dashboard.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
