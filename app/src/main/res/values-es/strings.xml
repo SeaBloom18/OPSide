@@ -9,4 +9,13 @@
     <string name="login_btn">Entrar</string>
     <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
     <string name="login_sw_remember_account">Recordar mis credenciales</string>
+
+    <!-- Tax Collection Module Strins -->
+    <string name="tax_collection_scan" translatable="false">Escanear</string>
+    <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
+    <string name="tax_collection_linear_meters">Metros Lineales</string>
+    <string name="tax_collection_line_of_business">Giro del Negocio</string>
+    <string name="tax_collection_total_amount">Monto Total</string>
+    <string name="tax_collection_finalize">Finalizar</string>
+    <string name="tax_collection_record">Historial</string>
 </resources>

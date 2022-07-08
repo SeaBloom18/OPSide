@@ -1,15 +1,12 @@
-package com.ops.opside.flows.sign_on.dashboard
+package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
 import com.ops.opside.R
 
-class MainActivity : AppCompatActivity() {
+class TaxCollectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        supportActionBar?.hide()
-
+        setContentView(R.layout.activity_tax_collection)
     }
 }
