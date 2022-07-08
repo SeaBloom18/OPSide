@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">OPSide</string>
+
+    <!--Login Module Strings-->
+    <string name="login_hint_user">User Name</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_til_required">Required</string>
+    <string name="login_btn">Login</string>
+    <string name="login_txt_create_account">Don\'t have an account? Sign up</string>
+    <string name="login_sw_remember_account">Remember my credentials</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OPSide</string>
+
+    <!--Login Module Strings-->
+    <string name="login_hint_user">Usuario</string>
+    <string name="login_hint_password">Contraseña</string>
+    <string name="login_til_required">Requerido</string>
+    <string name="login_btn">Entrar</string>
+    <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
+    <string name="login_sw_remember_account">Recordar mis credenciales</string>
+</resources>
