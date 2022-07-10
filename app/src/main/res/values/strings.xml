@@ -1,27 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
+    <!--General Strings-->
+    <string name="app_name" >OPSide</string>
+
     <!-- Dashboard Module Strings -->
-    <string name="app_name" translatable = "false">OPSide</string>
-    <string name="dashboard_analytics" translatable = "false">Análiticas</string>
-    <string name="dashboard_weekly" translatable = "false">Semanal</string>
-    <string name="dashboard_monthly" translatable = "false">Mensual</string>
-    <string name="dashboard_all_time" translatable = "false">Todo Tiempo</string>
-    <string name="dashboard_daily" translatable = "false">Diario</string>
-    <string name="dashboard_user_profile" translatable = "false">Perfil de usuario</string>
-    <string name="dashboard_notifications" translatable = "false">Notificaciones</string>
-    <string name="dashboard_arrow" translatable = "false">Flecha</string>
-    <string name="dashboard_chart" translatable = "false">Grafico Estadístico</string>
-    <string name="dashboard_penalty_fee" translatable = "false">Multas</string>
-    <string name="dashboard_absences" translatable = "false">Inasistencias</string>
-    <string name="dashboard_active_dealers" translatable = "false">Concesionarios activos</string>
-    <string name="dashboard_tax_collections" translatable = "false">Recaudaciones</string>
+    <string name="dashboard_analytics" >Analytics</string>
+    <string name="dashboard_weekly" >Weekly</string>
+    <string name="dashboard_monthly" >Monthly</string>
+    <string name="dashboard_all_time" >all time</string>
+    <string name="dashboard_daily" >Daily</string>
+    <string name="dashboard_user_profile" >User profile</string>
+    <string name="dashboard_notifications" >Notifications</string>
+    <string name="dashboard_arrow" >Arrow</string>
+    <string name="dashboard_chart" >Statistical Graph</string>
+    <string name="dashboard_penalty_fee" >Fines</string>
+    <string name="dashboard_absences" >Absences</string>
+    <string name="dashboard_active_dealers" >Active dealers</string>
+    <string name="dashboard_tax_collections">Collections</string>
 
     <!--Login Module Strings-->
     <string name="login_hint_email">Email</string>
-    <string name="login_hint_password">Contraseña</string>
-    <string name="login_til_required">Requerido</string>
-    <string name="login_btn">Entrar</string>
-    <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
-    <string name="login_sw_remember_account">Recordar mis credenciales</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_til_required">Required</string>
+    <string name="login_btn">Login</string>
+    <string name="login_txt_create_account">Don\'t have an account? Sign up</string>
+    <string name="login_sw_remember_account">Remember me</string>
+
+    <!--Registration Module Strings-->
+    <string name="registration_hint_username">Name(s)</string>
+    <string name="registration_hint_lastname">Last Name(s)</string>
+    <string name="registration_hint_address">Address</string>
+    <string name="registration_hint_phone">Phone</string>
+    <string name="registration_hint_email">Email</string>
+    <string name="registration_hint_market">Participating market</string>
+    <string name="registration_hint_pass_confirm">Confirm password</string>
+    <string name="registration_tv_title">Sign Up</string>
 
 </resources>

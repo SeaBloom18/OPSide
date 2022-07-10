@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.ops.opside.MainActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
+import com.ops.opside.flows.sign_off.registrationModule.View.RegistrationActivity
+import com.ops.opside.flows.sign_on.dashboard.MainActivity
 
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +22,10 @@ class LoginActivity : AppCompatActivity() {
 
         mBinding.btnLogin.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        mBinding.tvSignUp.setOnClickListener {
+            startActivity(Intent(this, RegistrationActivity::class.java))
         }
 
         //setUpViewModel()

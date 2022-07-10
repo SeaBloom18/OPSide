@@ -5,16 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryColor"
     tools:context=".flows.sign_off.loginModule.view.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="@dimen/common_padding_default"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="@dimen/common_padding_default"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,17 +33,18 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        style="@style/TextInputLayoutStyle">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teUserName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/primaryTextColor"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_padding_middle"
@@ -51,13 +53,26 @@
         app:helperText="@string/login_til_required"
         app:layout_constraintEnd_toEndOf="@+id/tilUserName"
         app:layout_constraintStart_toStartOf="@+id/tilUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tilUserName">
+        app:layout_constraintTop_toBottomOf="@+id/tilUserName"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        style="@style/TextInputLayoutStyle">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tePassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/primaryTextColor"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Switch
+        android:id="@+id/swRememberUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_min"
+        android:text="@string/login_sw_remember_account"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintStart_toStartOf="@+id/tilPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -72,22 +87,14 @@
         app:layout_constraintTop_toBottomOf="@+id/swRememberUser" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_padding_middle"
         android:text="@string/login_txt_create_account"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <Switch
-        android:id="@+id/swRememberUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_min"
-        android:text="@string/login_sw_remember_account"
-        app:layout_constraintStart_toStartOf="@+id/tilPassword"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

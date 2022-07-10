@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--General Strings-->
     <string name="app_name">OPSide</string>
+
+    <!-- Dashboard Module Strings -->
+    <string name="dashboard_analytics" >Análiticas</string>
+    <string name="dashboard_weekly" >Semanal</string>
+    <string name="dashboard_monthly" >Mensual</string>
+    <string name="dashboard_all_time" >Todo Tiempo</string>
+    <string name="dashboard_daily" >Diario</string>
+    <string name="dashboard_user_profile" >Perfil de usuario</string>
+    <string name="dashboard_notifications" >Notificaciones</string>
+    <string name="dashboard_arrow" >Flecha</string>
+    <string name="dashboard_chart" >Grafico Estadístico</string>
+    <string name="dashboard_penalty_fee" >Multas</string>
+    <string name="dashboard_absences" >Inasistencias</string>
+    <string name="dashboard_active_dealers">Concesionarios activos</string>
+    <string name="dashboard_tax_collections">Recaudaciones</string>
 
     <!--Login Module Strings-->
     <string name="login_hint_email">Email</string>
@@ -8,5 +25,15 @@
     <string name="login_til_required">Requerido</string>
     <string name="login_btn">Entrar</string>
     <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
-    <string name="login_sw_remember_account">Recordar mis credenciales</string>
+    <string name="login_sw_remember_account">Recordar mi correo</string>
+
+    <!--Registration Module Strings-->
+    <string name="registration_hint_username">Nombre(s)</string>
+    <string name="registration_hint_lastname">Apellidos(s)</string>
+    <string name="registration_hint_address">Direccion</string>
+    <string name="registration_hint_phone">Telefono</string>
+    <string name="registration_hint_email">Correo electronico</string>
+    <string name="registration_hint_market">Tinaguis participante</string>
+    <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
+    <string name="registration_tv_title">Crear Cuenta</string>
 </resources>

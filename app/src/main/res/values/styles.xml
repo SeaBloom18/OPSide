@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="WhiteTextTitle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textSize">@dimen/title</item>
