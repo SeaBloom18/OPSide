@@ -4,6 +4,15 @@
     <!--General Strings-->
     <string name="app_name">OPSide</string>
 
+    <!-- Tax Collection Module Strins -->
+    <string name="tax_collection_scan" translatable="false">Escanear</string>
+    <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
+    <string name="tax_collection_linear_meters">Metros Lineales</string>
+    <string name="tax_collection_line_of_business">Giro del Negocio</string>
+    <string name="tax_collection_total_amount">Monto Total</string>
+    <string name="tax_collection_finalize">Finalizar</string>
+    <string name="tax_collection_record">Historial</string>
+
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>
     <string name="dashboard_weekly" >Semanal</string>
@@ -42,6 +51,6 @@
     <string name="registration_tv_success">Te has registrado con éxito!</string>
     <string name="registration_btn_register">Registrarse!</string>
     <string name="registration_btn_bs_close">Salir</string>
-    <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?!</string>
+    <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
 
 </resources>

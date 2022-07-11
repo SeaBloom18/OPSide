@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".flows.sign_on.dashboard.MainActivity">
+    tools:context=".flows.sign_on.dashboardModule.view.MainActivity">
 
     <TextView
         android:id="@+id/tvAnalitycs"
@@ -113,7 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/dashboard_arrow"
-            android:src="@drawable/ic_double_arrow_up"/>
+            android:src="@drawable/ic_double_arrow_up" />
+
         <ImageView
             android:id="@+id/imgArrowWeekly"
             android:layout_width="0dp"
@@ -121,7 +121,8 @@
             android:layout_weight="1"
             android:contentDescription="@string/dashboard_arrow"
             android:visibility="invisible"
-            android:src="@drawable/ic_double_arrow_up"/>
+            android:src="@drawable/ic_double_arrow_up" />
+
         <ImageView
             android:id="@+id/imgArrowMonthly"
             android:layout_width="0dp"
@@ -129,7 +130,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/dashboard_arrow"
             android:visibility="invisible"
-            android:src="@drawable/ic_double_arrow_up"/>
+            android:src="@drawable/ic_double_arrow_up" />
     </LinearLayout>
 
     <ImageView
@@ -142,7 +143,7 @@
         android:contentDescription="@string/dashboard_chart"
         app:layout_constraintTop_toBottomOf="@id/linearArrows"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -189,7 +190,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="@dimen/common_padding_default"
                     android:layout_marginTop="@dimen/common_padding_default"
-                    tools:text="34" />
+                    android:text="34" />
 
             </RelativeLayout>
 
@@ -229,7 +230,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="@dimen/common_padding_default"
                     android:layout_marginTop="@dimen/common_padding_default"
-                    tools:text="5" />
+                    android:text="5" />
 
 
             </RelativeLayout>
@@ -270,7 +271,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="@dimen/common_padding_default"
                     android:layout_marginTop="@dimen/common_padding_default"
-                    tools:text="1293" />
+                    android:text="1293" />
 
             </RelativeLayout>
 
@@ -310,7 +311,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="@dimen/common_padding_default"
                     android:layout_marginTop="@dimen/common_padding_default"
-                    tools:text="2" />
+                    android:text="2" />
 
             </RelativeLayout>
 
@@ -318,8 +319,16 @@
 
     </GridLayout>
 
-
-
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabInitTaxCollection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:contentDescription="@string/tax_collection_record"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_money_withdrawal"
+        app:tint="@android:color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
