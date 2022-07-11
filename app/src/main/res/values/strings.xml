@@ -27,7 +27,7 @@
     <string name="login_txt_create_account">Don\'t have an account? Sign up</string>
     <string name="login_sw_remember_account">Remember me</string>
     <string name="login_tv_title_bottom_sheet">Are you sure you want to get out of OPS?</string>
-    <string name="login_btn_close_bottom_sheet">Close</string>
+    <string name="login_btn_close_bottom_sheet">Close app</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>
@@ -38,7 +38,8 @@
     <string name="registration_hint_market">Participating market</string>
     <string name="registration_hint_pass_confirm">Confirm password</string>
     <string name="registration_tv_title">Sign Up</string>
-    <string name="registration_btn_exit">Exit</string>
+    <string name="registration_btn_exit">Go Login</string>
     <string name="registration_tv_success">You have successfully registered!</string>
+    <string name="registration_btn_register">Register!</string>
 
 </resources>

@@ -12,7 +12,7 @@
         android:id="@+id/lottieAnimationView"
         android:layout_width="114dp"
         android:layout_height="114dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/common_padding_default"
         android:background="@color/primaryLightColor"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/registration_tv_success"
         android:textColor="@color/primaryTextColor"
-        android:textSize="18dp"
+        android:textSize="@dimen/subtitle"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />

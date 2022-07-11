@@ -27,7 +27,7 @@
     <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
     <string name="login_sw_remember_account">Recordar mi correo</string>
     <string name="login_tv_title_bottom_sheet">¿Seguro que quieres salir de OPS?</string>
-    <string name="login_btn_close_bottom_sheet">Cerrar</string>
+    <string name="login_btn_close_bottom_sheet">Cerrar app</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>
@@ -38,8 +38,8 @@
     <string name="registration_hint_market">Tinaguis participante</string>
     <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
     <string name="registration_tv_title">Crear Cuenta</string>
-    <string name="registration_btn_exit">Salir</string>
+    <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
-
+    <string name="registration_btn_register">Registrarse!</string>
 
 </resources>

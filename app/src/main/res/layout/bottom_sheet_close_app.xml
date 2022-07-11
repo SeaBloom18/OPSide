@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="25dp"
-    android:background="@color/primaryColor">
+    android:background="@color/primaryLightColor">
 
     <TextView
         android:id="@+id/textView2"
@@ -16,7 +16,7 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/login_tv_title_bottom_sheet"
         android:textColor="@color/primaryTextColor"
-        android:textSize="18dp"
+        android:textSize="@dimen/subtitle"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/common_padding_default"
         android:text="@string/login_btn_close_bottom_sheet"
         app:backgroundTint="@color/secondaryColor"
         app:cornerRadius="@dimen/common_padding_corners_btn"

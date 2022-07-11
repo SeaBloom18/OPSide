@@ -40,12 +40,10 @@
 
         <View
             android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/primaryLightColor"
+            style="@style/Divider"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/tvRegTitle"
             app:layout_constraintStart_toStartOf="@+id/tvRegTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvRegTitle" />
@@ -212,27 +210,6 @@
                 android:textColor="@color/primaryTextColor"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilMarket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:hint="Tianguis"
-            app:endIconMode="clear_text"
-            app:helperText="@string/login_til_required"
-            app:layout_constraintEnd_toEndOf="@+id/tilPasswordConfirm"
-            app:layout_constraintStart_toStartOf="@+id/tilPasswordConfirm"
-            app:layout_constraintTop_toBottomOf="@+id/tilPasswordConfirm"
-            app:boxStrokeColor="@drawable/states_colors_text_field"
-            style="@style/TextInputLayoutStyleAuto">
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/teMarket"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primaryTextColor"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
@@ -242,15 +219,16 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
-            android:text="Registrame"
+            app:backgroundTint="@color/secondaryColor"
+            android:text="@string/registration_btn_register"
             app:cornerRadius="@dimen/common_padding_corners_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilMarket" />
+            app:layout_constraintTop_toBottomOf="@id/tilPasswordConfirm" />
 
         <ImageButton
-            android:id="@+id/imageView3"
+            android:id="@+id/imgBtnClose"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="16dp"
