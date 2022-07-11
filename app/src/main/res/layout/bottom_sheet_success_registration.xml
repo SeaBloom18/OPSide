@@ -14,7 +14,7 @@
         android:layout_height="114dp"
         android:layout_marginBottom="@dimen/common_padding_default"
         android:background="@color/primaryLightColor"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/tvBSTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +22,7 @@
         app:lottie_rawRes="@raw/register_successful" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvBSTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

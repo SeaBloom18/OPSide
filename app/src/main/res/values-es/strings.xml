@@ -41,5 +41,7 @@
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
     <string name="registration_btn_register">Registrarse!</string>
+    <string name="registration_btn_bs_close">Salir</string>
+    <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?!</string>
 
 </resources>
