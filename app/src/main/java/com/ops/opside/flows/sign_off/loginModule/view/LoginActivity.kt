@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.ops.opside.MainActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
+import com.ops.opside.flows.sign_on.dashboardModule.view.MainActivity
 
 
 class LoginActivity : AppCompatActivity() {

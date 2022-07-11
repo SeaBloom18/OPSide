@@ -1,20 +1,20 @@
 <resources>
-    
+
     <!-- Dashboard Module Strings -->
-    <string name="app_name" translatable = "false">OPSide</string>
-    <string name="dashboard_analytics" translatable = "false">Análiticas</string>
-    <string name="dashboard_weekly" translatable = "false">Semanal</string>
-    <string name="dashboard_monthly" translatable = "false">Mensual</string>
-    <string name="dashboard_all_time" translatable = "false">Todo Tiempo</string>
-    <string name="dashboard_daily" translatable = "false">Diario</string>
-    <string name="dashboard_user_profile" translatable = "false">Perfil de usuario</string>
-    <string name="dashboard_notifications" translatable = "false">Notificaciones</string>
-    <string name="dashboard_arrow" translatable = "false">Flecha</string>
-    <string name="dashboard_chart" translatable = "false">Grafico Estadístico</string>
-    <string name="dashboard_penalty_fee" translatable = "false">Multas</string>
-    <string name="dashboard_absences" translatable = "false">Inasistencias</string>
-    <string name="dashboard_active_dealers" translatable = "false">Concesionarios activos</string>
-    <string name="dashboard_tax_collections" translatable = "false">Recaudaciones</string>
+    <string name="app_name" translatable="false">OPSide</string>
+    <string name="dashboard_analytics" translatable="false">Análiticas</string>
+    <string name="dashboard_weekly" translatable="false">Semanal</string>
+    <string name="dashboard_monthly" translatable="false">Mensual</string>
+    <string name="dashboard_all_time" translatable="false">Todo Tiempo</string>
+    <string name="dashboard_daily" translatable="false">Diario</string>
+    <string name="dashboard_user_profile" translatable="false">Perfil de usuario</string>
+    <string name="dashboard_notifications" translatable="false">Notificaciones</string>
+    <string name="dashboard_arrow" translatable="false">Flecha</string>
+    <string name="dashboard_chart" translatable="false">Grafico Estadístico</string>
+    <string name="dashboard_penalty_fee" translatable="false">Multas</string>
+    <string name="dashboard_absences" translatable="false">Inasistencias</string>
+    <string name="dashboard_active_dealers" translatable="false">Concesionarios activos</string>
+    <string name="dashboard_tax_collections" translatable="false">Recaudaciones</string>
 
     <!--Login Module Strings-->
     <string name="login_hint_email">Email</string>
@@ -23,5 +23,14 @@
     <string name="login_btn">Entrar</string>
     <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
     <string name="login_sw_remember_account">Recordar mis credenciales</string>
+
+    <!-- Tax Collection Module Strins -->
+    <string name="tax_collection_scan">Escanear</string>
+    <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
+    <string name="tax_collection_linear_meters">Metros Lineales</string>
+    <string name="tax_collection_line_of_business">Giro del Negocio</string>
+    <string name="tax_collection_total_amount">Monto Total</string>
+    <string name="tax_collection_finalize">Finalizar</string>
+    <string name="tax_collection_record">Historial</string>
 
 </resources>
