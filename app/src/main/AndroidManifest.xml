@@ -19,6 +19,9 @@
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"
             android:exported="false" />
         <activity
+            android:name=".flows.sign_off.registrationModule.View.RegistrationActivity"
+            android:exported="false" />
+        <activity
             android:name=".flows.sign_off.SplashModule.SplashActivity"
             android:exported="true">
             <intent-filter>

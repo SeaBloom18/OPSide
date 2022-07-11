@@ -5,47 +5,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
-    tools:context=".flows.sign_off.SplashModule.SplashActivity">
+    android:background="@color/primaryLightColor"
+    android:paddingTop="20dp">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/primaryColor"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:background="@color/primaryLightColor"
+        app:layout_constraintBottom_toTopOf="@+id/tvBSTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/splash_ops_logo" />
+        app:lottie_rawRes="@raw/register_successful" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvBSTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="@string/app_name"
+        android:text="@string/registration_tv_success"
         android:textColor="@color/primaryTextColor"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="@dimen/subtitle"
+        app:layout_constraintBottom_toTopOf="@+id/btnClose"
+        app:layout_constraintEnd_toEndOf="@+id/btnClose"
+        app:layout_constraintStart_toStartOf="@+id/btnClose" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClose"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="16dp"
-        android:indeterminateTint="@color/secondaryColor"
+        android:text="@string/registration_btn_exit"
+        app:backgroundTint="@color/secondaryColor"
+        app:cornerRadius="@dimen/common_padding_corners_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="?android:progressBarStyleHorizontal"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

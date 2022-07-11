@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OPSide</string>
 
-    <!--Login Module Strings-->
-    <string name="login_hint_email">Email</string>
-    <string name="login_hint_password">Contraseña</string>
-    <string name="login_til_required">Requerido</string>
-    <string name="login_btn">Entrar</string>
-    <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
-    <string name="login_sw_remember_account">Recordar mis credenciales</string>
+    <!--General Strings-->
+    <string name="app_name">OPSide</string>
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
@@ -18,4 +12,45 @@
     <string name="tax_collection_total_amount">Monto Total</string>
     <string name="tax_collection_finalize">Finalizar</string>
     <string name="tax_collection_record">Historial</string>
+
+    <!-- Dashboard Module Strings -->
+    <string name="dashboard_analytics" >Análiticas</string>
+    <string name="dashboard_weekly" >Semanal</string>
+    <string name="dashboard_monthly" >Mensual</string>
+    <string name="dashboard_all_time" >Todo Tiempo</string>
+    <string name="dashboard_daily" >Diario</string>
+    <string name="dashboard_user_profile" >Perfil de usuario</string>
+    <string name="dashboard_notifications" >Notificaciones</string>
+    <string name="dashboard_arrow" >Flecha</string>
+    <string name="dashboard_chart" >Grafico Estadístico</string>
+    <string name="dashboard_penalty_fee" >Multas</string>
+    <string name="dashboard_absences" >Inasistencias</string>
+    <string name="dashboard_active_dealers">Concesionarios activos</string>
+    <string name="dashboard_tax_collections">Recaudaciones</string>
+
+    <!--Login Module Strings-->
+    <string name="login_hint_email">Email</string>
+    <string name="login_hint_password">Contraseña</string>
+    <string name="login_til_required">Requerido</string>
+    <string name="login_btn">Entrar</string>
+    <string name="login_txt_create_account">No tienes cuanta aun? Registrate</string>
+    <string name="login_sw_remember_account">Recordar mi correo</string>
+    <string name="login_tv_title_bottom_sheet">¿Seguro que quieres salir de OPS?</string>
+    <string name="login_btn_close_bottom_sheet">Cerrar app</string>
+
+    <!--Registration Module Strings-->
+    <string name="registration_hint_username">Nombre(s)</string>
+    <string name="registration_hint_lastname">Apellidos(s)</string>
+    <string name="registration_hint_address">Direccion</string>
+    <string name="registration_hint_phone">Telefono</string>
+    <string name="registration_hint_email">Correo electronico</string>
+    <string name="registration_hint_market">Tinaguis participante</string>
+    <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
+    <string name="registration_tv_title">Crear Cuenta</string>
+    <string name="registration_btn_exit">Iniciar Sesión</string>
+    <string name="registration_tv_success">Te has registrado con éxito!</string>
+    <string name="registration_btn_register">Registrarse!</string>
+    <string name="registration_btn_bs_close">Salir</string>
+    <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
+
 </resources>
