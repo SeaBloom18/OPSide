@@ -77,15 +77,13 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
-        android:layout_height="55dp"
         android:layout_marginTop="@dimen/common_padding_middle"
         android:layout_marginEnd="@dimen/common_padding_middle"
         android:text="@string/login_btn"
-        app:backgroundTint="@color/secondaryColor"
-        app:cornerRadius="@dimen/common_padding_corners_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/swRememberUser"
-        app:layout_constraintTop_toBottomOf="@+id/swRememberUser" />
+        app:layout_constraintTop_toBottomOf="@+id/swRememberUser"
+        style="@style/ButtonStyle"/>
 
     <TextView
         android:id="@+id/tvSignUp"

@@ -28,4 +28,14 @@
         <item name="hintTextColor">@color/primaryTextColor</item>
         <item name="helperTextTextColor">@color/primaryTextColor</item>
     </style>
+
+    <!--Button Style-->
+    <style name="ButtonStyle">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="backgroundTint">@color/secondaryColor</item>
+        <item name="iconSize">@dimen/common_icon_size</item>
+        <item name="android:layout_height">@dimen/common_height_default</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="fontFamily">@font/montserrat_semibold</item>
+    </style>
 </resources>
