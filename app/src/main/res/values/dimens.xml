@@ -7,11 +7,9 @@
     <dimen name="common_padding_corners_btn">20dp</dimen>
     <dimen name="common_icon_size">20dp</dimen>
     <dimen name="button_corner_radius">10dp</dimen>
-
+    <dimen name="common_height_default">60dp</dimen>
 
     <dimen name="title">22sp</dimen>
     <dimen name="subtitle">18sp</dimen>
     <dimen name="body">14sp</dimen>
-
-
 </resources>

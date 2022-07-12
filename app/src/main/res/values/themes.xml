@@ -13,4 +13,29 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--TextInputLayout Style-->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="endIconTint">@color/primaryTextColor</item>
+        <item name="hintTextColor">@color/primaryTextColor</item>
+        <item name="helperTextTextColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="TextInputLayoutStyleAuto" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="endIconTint">@color/primaryTextColor</item>
+        <item name="hintTextColor">@color/primaryTextColor</item>
+        <item name="helperTextTextColor">@color/primaryTextColor</item>
+    </style>
+
+    <!--Button Style-->
+    <style name="ButtonStyle">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="backgroundTint">@color/secondaryColor</item>
+        <item name="iconSize">@dimen/common_icon_size</item>
+        <item name="android:layout_height">@dimen/common_height_default</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="fontFamily">@font/montserrat_semibold</item>
+    </style>
 </resources>
