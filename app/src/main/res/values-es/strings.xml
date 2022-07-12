@@ -52,5 +52,7 @@
     <string name="registration_btn_register">Registrarse!</string>
     <string name="registration_btn_bs_close">Salir</string>
     <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
+    <string name="dealer_show_qr">Mostrar código QR</string>
+    <string name="description_record_icon">Icono del Evento</string>
 
 </resources>

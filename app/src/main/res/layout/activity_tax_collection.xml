@@ -7,56 +7,86 @@
     android:background="@color/primaryColor"
     tools:context=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity">
 
-    <ImageView
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/chartTaxMoney"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
         android:layout_marginHorizontal="@dimen/common_padding_min"
-        android:src="@drawable/ic_query_stats"
-        android:contentDescription="@string/dashboard_chart"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/common_padding_default"
+        app:cpb_background_progressbar_color="@color/primaryLightColor"
+        app:cpb_background_progressbar_width="30dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color="@color/secondaryColor"
+        app:cpb_progressbar_width="10dp"
+        app:cpb_round_border="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/chartTaxMoney"
+        app:layout_constraintEnd_toEndOf="@+id/chartTaxMoney"
+        app:layout_constraintStart_toStartOf="@+id/chartTaxMoney"
+        app:layout_constraintTop_toTopOf="@+id/chartTaxMoney" >
+        <TextView
+            android:id="@+id/tvTotalAmount"
+            style="@style/WhiteLargeTextCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="$ 2680.00" />
+
+        <TextView
+            android:id="@+id/tvTianguis"
+            style="@style/WhiteTextBody"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sabinos 1" />
+    </LinearLayout>
+
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnScan"
+        style="@style/ButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/secondaryColor"
+        android:layout_marginHorizontal="@dimen/common_padding_large"
+        android:layout_marginTop="@dimen/common_padding_default"
         android:text="@string/tax_collection_scan"
-        android:fontFamily="@font/montserrat_semibold"
-        app:cornerRadius="@dimen/button_corner_radius"
         app:icon="@drawable/ic_camera_shutter"
         app:iconPadding="-20dp"
-        app:iconSize="@dimen/common_icon_size"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:layout_marginHorizontal="@dimen/common_padding_large"
-        app:layout_constraintTop_toBottomOf="@id/chartTaxMoney"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/chartTaxMoney" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilDealerName"
         style="@style/WhiteTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/tax_collection_dealer_name"
         android:layout_marginHorizontal="@dimen/common_padding_default"
         android:layout_marginTop="@dimen/common_padding_large"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="@string/tax_collection_dealer_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnScan">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDealerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mario Armando Razo Valenzuela"
-            android:textColor="@color/primaryTextColor"
             android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="Mario Armando Razo Valenzuela"
+            android:textColor="@color/primaryTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,11 +108,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
+            android:text="5 Metros"
             android:textAlignment="center"
-            android:textColor="@color/primaryTextColor"
-            android:text="5 Metros" />
+            android:textColor="@color/primaryTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,9 +122,9 @@
         style="@style/WhiteTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/common_padding_default"
         android:layout_marginStart="@dimen/common_padding_min"
         android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginEnd="@dimen/common_padding_default"
         android:hint="@string/tax_collection_line_of_business"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tilLinearMeters"
@@ -104,11 +135,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
+            android:text="Verdulería"
             android:textAlignment="center"
-            android:textColor="@color/primaryTextColor"
-            android:text="Verdulería" />
+            android:textColor="@color/primaryTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,40 +161,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
             android:fontFamily="@font/montserrat_semibold"
-            android:textSize="@dimen/title"
             android:inputType="textPersonName"
+            android:text="$42"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
-            android:text="$42" />
+            android:textSize="@dimen/title" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFinalize"
+        style="@style/ButtonStyle"
         android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/secondaryColor"
-        android:text="@string/tax_collection_finalize"
-        android:fontFamily="@font/montserrat_semibold"
-        app:cornerRadius="@dimen/button_corner_radius"
-        app:icon="@drawable/ic_tax_colletion"
-        app:iconSize="@dimen/common_icon_size"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_default"
+        android:text="@string/tax_collection_finalize"
+        app:icon="@drawable/ic_tax_colletion"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common_padding_default"
         android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_default"
         android:contentDescription="@string/tax_collection_record"
+        android:src="@drawable/ic_record"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_record"
-        app:tint="@android:color/white"/>
+        app:tint="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

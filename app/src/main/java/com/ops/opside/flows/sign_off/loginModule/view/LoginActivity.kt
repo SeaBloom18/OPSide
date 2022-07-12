@@ -13,6 +13,7 @@ import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.View.RegistrationActivity
 import com.ops.opside.flows.sign_on.dashboardModule.view.MainActivity
+import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
 
 
 class LoginActivity : AppCompatActivity() {
@@ -31,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
 
         mBinding.tvSignUp.setOnClickListener {
             startActivity(Intent(this, RegistrationActivity::class.java))
+        }
+
+        mBinding.btnLogin.setOnLongClickListener {
+            startActivity(Intent(this, DealerActivity::class.java))
+            return@setOnLongClickListener true
         }
 
         //setUpViewModel()
