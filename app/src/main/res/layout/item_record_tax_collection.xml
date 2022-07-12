@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginHorizontal="@dimen/common_padding_default"
+    android:layout_marginVertical="@dimen/common_padding_min"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="@dimen/button_corner_radius"
+    app:cardBackgroundColor="@color/primaryColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
+            android:contentDescription="@string/description_record_icon"
+            android:layout_marginHorizontal="@dimen/common_padding_min"
+            android:layout_marginVertical="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1"
+            android:textColor="@color/secondaryColor"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:layout_marginEnd="@dimen/common_padding_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvAmount"
+            app:layout_constraintStart_toEndOf="@id/imgIcon">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/primaryTextColor"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:maxLength="@integer/max_characteres"
+                android:ellipsize="end"
+                tools:text="Nombre Completo" />
+
+            <TextView
+                android:id="@+id/tvAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/primaryTextColor"
+
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                tools:text="Acción" />
+
+            <TextView
+                android:id="@+id/tvHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/primaryTextColor"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                tools:text="Hora" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

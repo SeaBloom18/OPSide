@@ -43,7 +43,7 @@
         <item name="android:background">@color/primaryLightColor</item>
     </style>
 
-    <dimen name="largeTextCardView">42sp</dimen>
+    <dimen name="largeTextCardView">35sp</dimen>
 
     <style name="WhiteTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/primaryLightColor</item>

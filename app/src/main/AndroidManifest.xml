@@ -16,6 +16,9 @@
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
         <activity
+            android:name=".flows.sign_on.dealerModule.view.DealerActivity"
+            android:exported="false" />
+        <activity
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"
             android:exported="false" />
         <activity
