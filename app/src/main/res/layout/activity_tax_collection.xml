@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
     tools:context=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity">
-
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/chartTaxMoney"
@@ -24,40 +24,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvTotalAmount"
+        style="@style/WhiteLargeTextCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:text="$ 2680.00"
         app:layout_constraintBottom_toBottomOf="@+id/chartTaxMoney"
         app:layout_constraintEnd_toEndOf="@+id/chartTaxMoney"
         app:layout_constraintStart_toStartOf="@+id/chartTaxMoney"
-        app:layout_constraintTop_toTopOf="@+id/chartTaxMoney" >
-        <TextView
-            android:id="@+id/tvTotalAmount"
-            style="@style/WhiteLargeTextCardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="$ 2680.00" />
+        app:layout_constraintTop_toTopOf="@+id/chartTaxMoney" />
 
-        <TextView
-            android:id="@+id/tvTianguis"
-            style="@style/WhiteTextBody"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sabinos 1" />
-    </LinearLayout>
-
-
+    <TextView
+        android:id="@+id/tvTianguis"
+        style="@style/WhiteTextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Sabinos 1"
+        app:layout_constraintEnd_toEndOf="@+id/tvTotalAmount"
+        app:layout_constraintStart_toStartOf="@+id/tvTotalAmount"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalAmount" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnScan"
         style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_marginHorizontal="@dimen/common_padding_large"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginEnd="16dp"
         android:text="@string/tax_collection_scan"
         app:icon="@drawable/ic_camera_shutter"
         app:iconPadding="-20dp"
@@ -67,14 +64,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilDealerName"
-        style="@style/WhiteTextInputLayout"
-        android:layout_width="0dp"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/common_padding_default"
-        android:layout_marginTop="@dimen/common_padding_large"
+        android:layout_marginTop="8dp"
         android:hint="@string/tax_collection_dealer_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnScan"
+        app:layout_constraintStart_toStartOf="@+id/btnScan"
         app:layout_constraintTop_toBottomOf="@id/btnScan">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,12 +84,11 @@
             android:inputType="textPersonName"
             android:text="Mario Armando Razo Valenzuela"
             android:textColor="@color/primaryTextColor" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilLinearMeters"
-        style="@style/WhiteTextInputLayout"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_padding_default"
@@ -100,6 +96,7 @@
         android:layout_marginEnd="@dimen/common_padding_min"
         android:hint="@string/tax_collection_linear_meters"
         app:layout_constraintEnd_toStartOf="@+id/tilLineOfBusiness"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilDealerName">
 
@@ -114,22 +111,21 @@
             android:text="5 Metros"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilLineOfBusiness"
-        style="@style/WhiteTextInputLayout"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_padding_min"
-        android:layout_marginTop="@dimen/common_padding_default"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:hint="@string/tax_collection_line_of_business"
+        app:layout_constraintBottom_toBottomOf="@+id/tilLinearMeters"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tilLinearMeters"
-        app:layout_constraintTop_toBottomOf="@id/tilDealerName">
-
+        app:layout_constraintTop_toTopOf="@+id/tilLinearMeters">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLineOfBusiness"
             android:layout_width="match_parent"
@@ -141,19 +137,18 @@
             android:text="Verdulería"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTotalAmount"
-        style="@style/WhiteTextInputLayout"
-        android:layout_width="0dp"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginHorizontal="@dimen/common_padding_default"
         android:layout_marginTop="@dimen/common_padding_default"
         android:hint="@string/tax_collection_total_amount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tilLineOfBusiness"
+        app:layout_constraintStart_toStartOf="@+id/tilLinearMeters"
         app:layout_constraintTop_toBottomOf="@id/tilLinearMeters">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -168,7 +163,6 @@
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/title" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

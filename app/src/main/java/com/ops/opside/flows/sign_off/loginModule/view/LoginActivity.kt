@@ -12,8 +12,8 @@ import com.ops.opside.common.Utils.Constants
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.View.RegistrationActivity
-import com.ops.opside.flows.sign_on.dashboardModule.view.MainActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
+import com.ops.opside.flows.sign_on.mainModule.MainActivity
 
 
 class LoginActivity : AppCompatActivity() {
