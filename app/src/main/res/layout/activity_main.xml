@@ -1,334 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/container"
     android:background="@color/primaryColor"
-    tools:context=".flows.sign_on.dashboardModule.view.MainActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvAnalitycs"
-        style="@style/WhiteTextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_padding_default"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:text="@string/dashboard_analytics"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_bottom_nav_menu"
+        app:cornerRadius="80dp"
+        app:itemIconTint="@color/primaryTextColor"
+        app:itemTextColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-    <ImageButton
-        android:id="@+id/imgProfile"
-        android:layout_width="@dimen/common_icon_size"
-        android:layout_height="@dimen/common_icon_size"
-        android:layout_marginTop="@dimen/common_padding_middle"
-        android:layout_marginEnd="@dimen/common_padding_middle"
-        android:backgroundTint="@color/fui_transparent"
-        android:contentDescription="@string/dashboard_user_profile"
-        android:src="@drawable/ic_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imgNotifications"
-        android:layout_width="@dimen/common_icon_size"
-        android:layout_height="@dimen/common_icon_size"
-        android:layout_marginTop="@dimen/common_padding_middle"
-        android:layout_marginEnd="@dimen/common_padding_default"
-        android:backgroundTint="@color/fui_transparent"
-        android:contentDescription="@string/dashboard_notifications"
-        android:src="@drawable/ic_bell"
-        app:layout_constraintEnd_toStartOf="@+id/imgProfile"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider"
-        android:layout_marginTop="@dimen/common_padding_default"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAnalitycs" />
-
-    <LinearLayout
-        android:id="@+id/linearOptionsAnalitycs"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:elevation="10dp"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider">
-
-        <Button
-            android:id="@+id/btnDaily"
-            style="@style/PrimaryLightOptionButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="bottom|center_horizontal"
-            android:text="@string/dashboard_daily"
-            android:textColor="@color/secondaryColor"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnWeekly"
-            style="@style/PrimaryLightOptionButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="bottom|center_horizontal"
-            android:textColor="@color/primaryTextColor"
-            android:text="@string/dashboard_weekly"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnMonthly"
-            style="@style/PrimaryLightOptionButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="bottom|center_horizontal"
-            android:textColor="@color/primaryTextColor"
-            android:text="@string/dashboard_monthly"
-            app:backgroundTint="@null" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearArrows"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearOptionsAnalitycs">
-
-        <ImageView
-            android:id="@+id/imgArrowDaily"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/dashboard_arrow"
-            android:src="@drawable/ic_double_arrow_up" />
-
-        <ImageView
-            android:id="@+id/imgArrowWeekly"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/dashboard_arrow"
-            android:visibility="invisible"
-            android:src="@drawable/ic_double_arrow_up" />
-
-        <ImageView
-            android:id="@+id/imgArrowMonthly"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/dashboard_arrow"
-            android:visibility="invisible"
-            android:src="@drawable/ic_double_arrow_up" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/chartTaxMoney"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:layout_marginHorizontal="@dimen/common_padding_min"
-        android:src="@drawable/ic_query_stats"
-        android:contentDescription="@string/dashboard_chart"
-        app:layout_constraintTop_toBottomOf="@id/linearArrows"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <GridLayout
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/common_padding_min"
-        android:rowCount="2"
-        android:columnCount="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chartTaxMoney">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:backgroundTint="@color/primaryTransparentLightColor"
-            android:layout_margin="@dimen/common_padding_min"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imgAbsence"
-                    android:layout_width="@dimen/common_icon_size"
-                    android:layout_height="@dimen/common_icon_size"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:contentDescription="@string/dashboard_penalty_fee"
-                    android:backgroundTint="@color/fui_transparent"
-                    android:src="@drawable/ic_absence" />
-
-                <TextView
-                    android:id="@+id/tvAbsence"
-                    style="@style/WhiteLargeTextCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:text="34" />
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:backgroundTint="@color/primaryTransparentLightColor"
-            android:layout_margin="@dimen/common_padding_min"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imgPenaltyFee"
-                    android:layout_width="@dimen/common_icon_size"
-                    android:layout_height="@dimen/common_icon_size"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:contentDescription="@string/dashboard_absences"
-                    android:backgroundTint="@color/fui_transparent"
-                    android:src="@drawable/ic_penalty_fee" />
-
-                <TextView
-                    android:id="@+id/tvPenaltyFee"
-                    style="@style/WhiteLargeTextCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:text="5" />
-
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:backgroundTint="@color/primaryTransparentLightColor"
-            android:layout_margin="@dimen/common_padding_min"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imgActiveDealers"
-                    android:layout_width="@dimen/common_icon_size"
-                    android:layout_height="@dimen/common_icon_size"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:contentDescription="@string/dashboard_active_dealers"
-                    android:backgroundTint="@color/fui_transparent"
-                    android:src="@drawable/ic_shop" />
-
-                <TextView
-                    android:id="@+id/tvActiveDealers"
-                    style="@style/WhiteLargeTextCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:text="1293" />
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="2"
-            android:layout_columnWeight="1"
-            android:backgroundTint="@color/primaryTransparentLightColor"
-            android:layout_margin="@dimen/common_padding_min"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imgTaxCollections"
-                    android:layout_width="@dimen/common_icon_size"
-                    android:layout_height="@dimen/common_icon_size"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:contentDescription="@string/dashboard_tax_collections"
-                    android:backgroundTint="@color/fui_transparent"
-                    android:src="@drawable/ic_tax_colletion" />
-
-                <TextView
-                    android:id="@+id/tvTaxCollection"
-                    style="@style/WhiteLargeTextCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/common_padding_default"
-                    android:layout_marginTop="@dimen/common_padding_default"
-                    android:text="2" />
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </GridLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabInitTaxCollection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common_padding_default"
-        android:layout_marginEnd="@dimen/common_padding_default"
-        android:contentDescription="@string/tax_collection_record"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_money_withdrawal"
-        app:tint="@android:color/white"/>
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/bottom_menu_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

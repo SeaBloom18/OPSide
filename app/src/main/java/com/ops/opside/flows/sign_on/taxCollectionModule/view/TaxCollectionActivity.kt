@@ -1,9 +1,8 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import android.graphics.Color
-import android.graphics.Typeface
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTIO
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.PENALTY_FEE
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.RecordTaxCollectionAdapter
 import com.ops.opside.flows.sign_on.taxCollectionModule.pojos.ItemRecord
-
 
 class TaxCollectionActivity : AppCompatActivity() {
 

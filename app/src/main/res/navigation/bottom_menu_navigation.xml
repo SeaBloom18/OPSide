@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_menu_navigation"
+    app:startDestination="@id/navigation_market">
+
+    <fragment
+        android:id="@+id/navigation_market"
+        android:name="com.ops.opside.flows.sign_on.marketModule.MarketFragment"
+        android:label="fragment_market"
+        tools:layout="@layout/fragment_market" />
+
+    <fragment
+        android:id="@+id/navigation_concessionaire"
+        android:name="com.ops.opside.flows.sign_on.concessionaireModule.ConcessionaireFragment"
+        android:label="fragment_concessionaire"
+        tools:layout="@layout/fragment_concessionaire" />
+
+    <fragment
+        android:id="@+id/navigation_control_panel"
+        android:name="com.ops.opside.flows.sign_on.controlPanelModule.ControlPanelFragment"
+        android:label="fragment_control_panel"
+        tools:layout="@layout/fragment_control_panel" />
+
+    <fragment
+        android:id="@+id/navigation_incidents"
+        android:name="com.ops.opside.flows.sign_on.incidentsModule.IncidentsFragment"
+        android:label="fragment_incidents"
+        tools:layout="@layout/fragment_incidents" />
+    <fragment
+        android:id="@+id/navigation_dashBoard"
+        android:name="com.ops.opside.flows.sign_on.dashboardModule.view.DashBoardFragment"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board" />
+</navigation>

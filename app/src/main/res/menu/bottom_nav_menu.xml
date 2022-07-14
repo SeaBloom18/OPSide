@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_market"
+        android:enabled="true"
+        android:icon="@drawable/ic_bn_market"
+        android:title="@string/bn_menu_market_opc1"/>
+    <item
+        android:id="@+id/navigation_concessionaire"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/bn_menu_concessionaire_opc2"/>
+
+    <item
+        android:id="@+id/navigation_dashBoard"
+        android:enabled="true"
+        android:icon="@drawable/ic_bn_dollar"
+        android:title="@string/bn_menu_tax_collection_opc3"/>
+
+    <item
+        android:id="@+id/navigation_control_panel"
+        android:enabled="true"
+        android:icon="@drawable/ic_bn_equaliser"
+        android:title="@string/bn_menu_control_panel_opc4"/>
+
+    <item
+        android:id="@+id/navigation_incidents"
+        android:enabled="true"
+        android:icon="@drawable/ic_bn_exclamation_mark"
+        android:title="@string/bn_menu_incidents_opc5"/>
+</menu>

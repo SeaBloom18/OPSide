@@ -2,7 +2,7 @@
 <resources>
 
     <!--General Strings-->
-    <string name="app_name" >OPSide</string>
+    <string name="app_name">OPSide</string>
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan">Escanear</string>
@@ -14,18 +14,18 @@
     <string name="tax_collection_record">Historial</string>
 
     <!-- Dashboard Module Strings -->
-    <string name="dashboard_analytics" >Analytics</string>
-    <string name="dashboard_weekly" >Weekly</string>
-    <string name="dashboard_monthly" >Monthly</string>
-    <string name="dashboard_all_time" >all time</string>
-    <string name="dashboard_daily" >Daily</string>
-    <string name="dashboard_user_profile" >User profile</string>
-    <string name="dashboard_notifications" >Notifications</string>
-    <string name="dashboard_arrow" >Arrow</string>
-    <string name="dashboard_chart" >Statistical Graph</string>
-    <string name="dashboard_penalty_fee" >Fines</string>
-    <string name="dashboard_absences" >Absences</string>
-    <string name="dashboard_active_dealers" >Active dealers</string>
+    <string name="dashboard_analytics">Analytics</string>
+    <string name="dashboard_weekly">Weekly</string>
+    <string name="dashboard_monthly">Monthly</string>
+    <string name="dashboard_all_time">all time</string>
+    <string name="dashboard_daily">Daily</string>
+    <string name="dashboard_user_profile">User profile</string>
+    <string name="dashboard_notifications">Notifications</string>
+    <string name="dashboard_arrow">Arrow</string>
+    <string name="dashboard_chart">Statistical Graph</string>
+    <string name="dashboard_penalty_fee">Fines</string>
+    <string name="dashboard_absences">Absences</string>
+    <string name="dashboard_active_dealers">Active dealers</string>
     <string name="dashboard_tax_collections">Collections</string>
 
     <!--Login Module Strings-->
@@ -55,5 +55,13 @@
     <string name="dealer_show_qr">Mostrar código QR</string>
     <string name="description_record_icon">Icono del Evento</string>
 
+    <!--BottomNavigationView menu Strings-->
+    <string name="bn_menu_market_opc1">Market</string>
+    <string name="bn_menu_concessionaire_opc2">Concess</string>
+    <string name="bn_menu_tax_collection_opc3">Tax</string>
+    <string name="bn_menu_control_panel_opc4">Cont. Panel</string>
+    <string name="bn_menu_incidents_opc5">Incidents</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
