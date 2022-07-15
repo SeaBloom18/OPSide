@@ -68,4 +68,9 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
 
+    <!--MarketModule Strings-->
+    <string name="registration_hint_market_name">Nombre del tianguis</string>
+    <string name="registration_hint_market_address">Direccion</string>
+
+
 </resources>

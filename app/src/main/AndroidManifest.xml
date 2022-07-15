@@ -16,7 +16,7 @@
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
         <activity
-            android:name=".TaxCollectionActivity"
+            android:name=".flows.sign_on.marketModule.view.MarketRegisterActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_on.mainModule.MainActivity"
