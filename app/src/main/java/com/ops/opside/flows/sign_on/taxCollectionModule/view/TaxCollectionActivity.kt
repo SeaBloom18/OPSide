@@ -1,15 +1,20 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
 import com.ops.opside.common.adapterCallback.SwipeToDeleteCallback
+import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
@@ -31,7 +36,52 @@ class TaxCollectionActivity : AppCompatActivity() {
             bottomSheet()
         }
 
+        mBinding.btnFinalize.setOnClickListener {
+            val dialog = BaseDialog(
+                this,
+                getString(R.string.common_atention),
+                getString(R.string.tax_collection_finalize_collection),
+                getString(R.string.common_accept),
+                "",
+                { Toast.makeText(this, "Información Enviada :D", Toast.LENGTH_SHORT).show() },
+                { Toast.makeText(this, "onCancel()", Toast.LENGTH_SHORT).show() },
+            )
+
+            dialog.show()
+        }
+
         setUpPieChart()
+        setUpBottomSheetPickTianguis()
+    }
+
+    private fun setUpBottomSheetPickTianguis() {
+
+        val items = mutableListOf(
+            "Tianguis 1",
+            "Tianguis 2",
+            "Tianguis 3",
+            "Tianguis 4",
+            "Tianguis 5",
+            "Tianguis 6",
+            "Tianguis 7",
+            "Tianguis 8",
+            "Tianguis 9"
+        )
+        val h: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items)
+
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_pick_tianguis, null)
+
+        var spinner: MaterialAutoCompleteTextView = view.findViewById(R.id.spPickTianguis)
+        spinner.setAdapter(h)
+
+        view.findViewById<MaterialButton>(R.id.btnPickTianguis).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setContentView(view)
+        dialog.show()
     }
 
     private fun setUpPieChart() {
@@ -56,7 +106,8 @@ class TaxCollectionActivity : AppCompatActivity() {
             // or with gradient
             backgroundProgressBarColorStart = Color.WHITE
             backgroundProgressBarColorEnd = getColor(R.color.primaryLightColor)
-            backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+            backgroundProgressBarColorDirection =
+                CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
 
             // Set Width
             progressBarWidth = 28f // in DP
@@ -111,8 +162,6 @@ class TaxCollectionActivity : AppCompatActivity() {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
-
-
 
 
 }

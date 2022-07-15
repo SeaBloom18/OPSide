@@ -1,167 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".flows.sign_on.dealerModule.view.DealerActivity">
+    android:gravity="center_horizontal"
+    tools:context=".flows.sign_on.dealerModule.view.DealerActivity"
+    android:weightSum="1"
+    android:orientation="vertical">
 
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
         android:background="@color/primaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/splash_ops_logo" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_weight=".05"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/dashboard_user_profile"
         android:textColor="@color/primaryTextColor"
-        android:textSize="24sp"
-      app:layout_constraintTop_toBottomOf="@id/lottieAnimationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="24sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUserName"
-        style="@style/TextInputLayoutStyle"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/registration_hint_username"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        app:endIconMode="clear_text"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/teUserName"
+        android:layout_height="0dp"
+        android:layout_weight=".6">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Mario Armando"
-            android:inputType="textPersonName"
-            android:textColor="@color/primaryTextColor" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUserName"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/registration_hint_username"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Mario Armando"
+                    android:enabled="false"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/primaryTextColor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/registration_hint_lastname"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="@+id/tilUserName"
-        app:layout_constraintStart_toStartOf="@+id/tilUserName"
-        app:layout_constraintTop_toBottomOf="@+id/tilUserName"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        style="@style/TextInputLayoutStyle">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/teLastName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Razo Valenzuela"
-            android:inputType="textPersonName"
-            android:textColor="@color/primaryTextColor"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/registration_hint_lastname"
+                app:endIconMode="clear_text"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                style="@style/TextInputLayoutStyle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Razo Valenzuela"
+                    android:enabled="false"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/primaryTextColor"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/registration_hint_address"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="@+id/tilLastName"
-        app:layout_constraintStart_toStartOf="@+id/tilLastName"
-        app:layout_constraintTop_toBottomOf="@+id/tilLastName"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        style="@style/TextInputLayoutStyle">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/teAddress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPersonName"
-            android:text="Tepeyac #17, Barrio Nuevo, Tonalá"
-            android:textColor="@color/primaryTextColor"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/registration_hint_address"
+                app:endIconMode="clear_text"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                style="@style/TextInputLayoutStyle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:enabled="false"
+                    android:text="Tepeyac #17, Barrio Nuevo, Tonalá"
+                    android:textColor="@color/primaryTextColor"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/registration_hint_phone"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="@+id/tilAddress"
-        app:layout_constraintStart_toStartOf="@+id/tilAddress"
-        app:layout_constraintTop_toBottomOf="@+id/tilAddress"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        style="@style/TextInputLayoutStyle">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tePhone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="phone"
-            android:text="33 2183 7561"
-            android:textColor="@color/primaryTextColor"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/registration_hint_phone"
+                app:endIconMode="clear_text"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                style="@style/TextInputLayoutStyle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tePhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone"
+                    android:enabled="false"
+                    android:text="33 2183 7561"
+                    android:textColor="@color/primaryTextColor"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/registration_hint_email"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="@+id/tilPhone"
-        app:layout_constraintStart_toStartOf="@+id/tilPhone"
-        app:layout_constraintTop_toBottomOf="@+id/tilPhone"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        style="@style/TextInputLayoutStyle">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/teEmail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="mario.v.r404@gmail.com"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/primaryTextColor"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:hint="@string/registration_hint_email"
+                app:endIconMode="clear_text"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                style="@style/TextInputLayoutStyle">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="mario.v.r404@gmail.com"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/primaryTextColor"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnShowQr"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
+        android:layout_weight=".05"
         android:text="@string/dealer_show_qr"
         app:icon="@drawable/ic_qr_code"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         style="@style/ButtonStyle"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

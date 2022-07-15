@@ -16,14 +16,24 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="?attr/selectableItemBackground"/>
 
-    <ImageView
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginBottom="@dimen/common_padding_default"
-        android:src="@drawable/ic_qr_code"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgBtnClose" />
+        app:layout_constraintTop_toBottomOf="@id/imgBtnClose"
+        app:cardCornerRadius="20dp"
+        android:elevation="10dp"
+        android:layout_marginBottom="@dimen/common_padding_large">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/common_padding_default"
+
+            android:src="@drawable/ic_qr_code" />
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

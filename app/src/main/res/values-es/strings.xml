@@ -4,6 +4,10 @@
     <!--General Strings-->
     <string name="app_name">OPSide</string>
 
+    <!-- Common -->
+    <string name="common_accept">Aceptar</string>
+
+
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
@@ -61,5 +65,7 @@
     <string name="bn_menu_tax_collection_opc3">Cobranza</string>
     <string name="bn_menu_control_panel_opc4">Panel Cont</string>
     <string name="bn_menu_incidents_opc5">Incidencias</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_atention">Atención</string>
 
 </resources>
