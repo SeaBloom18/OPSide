@@ -15,7 +15,7 @@
         <entry key="app/src/main/res/drawable/test.xml" value="0.2665" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.3703125" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2356687898089172" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_market_register.xml" value="0.3703125" />
@@ -32,7 +32,7 @@
         <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_market.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_tax_collection.xml" value="0.3703125" />
-        <entry key="app/src/main/res/layout/item_market_list.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/item_market_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/test.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19270833333333334" />

@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ops.opside.R
 import com.ops.opside.common.Entities.Market
 import com.ops.opside.databinding.ItemMarketListBinding
 
-class MarketAdapter(private val markets: List<Market>):
+class MarketAdapter(private var markets: MutableList<Market>, private var listener: OnClickListener):
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -28,8 +30,28 @@ class MarketAdapter(private val markets: List<Market>):
         with(holder){
             binding.tvMarketName.text = market.name
             binding.group.visibility = View.GONE
+
+            binding.ivDelete.setOnClickListener { listener.onDeleteMarket(market)}
+            binding.ivEdit.setOnClickListener { listener.onEditMarket(market) }
         }
 
+        setUpItem(holder)
+    }
+
+    override fun getItemCount(): Int = markets.size
+
+    //Inner class
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val binding = ItemMarketListBinding.bind(view)
+    }
+
+    //Functions
+    fun setStores(markets: List<Market>){
+        this.markets = markets as MutableList<Market>
+        notifyDataSetChanged()
+    }
+
+    private fun setUpItem(holder: ViewHolder){
         holder.binding.ibArrow.setOnClickListener {
             if (holder.binding.group.visibility == View.GONE){ //Si la vista esta oculta
                 TransitionManager.beginDelayedTransition(holder.binding.marketCardView)
@@ -40,13 +62,6 @@ class MarketAdapter(private val markets: List<Market>):
                 holder.binding.group.visibility = View.GONE
                 holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
             }
-            //Toast.makeText(context, "clic", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun getItemCount(): Int = markets.size
-
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val binding = ItemMarketListBinding.bind(view)
     }
 }
