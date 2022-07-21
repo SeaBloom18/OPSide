@@ -6,7 +6,7 @@
     android:background="@color/primaryLightColor">
 
     <ImageButton
-        android:id="@+id/imgBtnClose"
+        android:id="@+id/ibSignInClose"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgBtnClose"
+        app:layout_constraintTop_toBottomOf="@id/ibSignInClose"
         app:cardCornerRadius="20dp"
         android:elevation="10dp"
         android:layout_marginBottom="@dimen/common_padding_large">

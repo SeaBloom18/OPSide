@@ -50,6 +50,9 @@
         <item name="android:textColorHint">@color/secondaryColor</item>
     </style>
 
-
+    <style name="BottomNavigationViewTextStyle">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
 </resources>

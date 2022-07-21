@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="25dp"
+    android:background="@color/primaryLightColor">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Name"
+        app:hintTextColor="@color/primaryTextColor"
+        android:textColorHint="@color/primaryTextColor"
+        app:endIconTint="@color/primaryTextColor"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/btnDeleteConcess"
+        app:layout_constraintEnd_toEndOf="@+id/btnDeleteConcess"
+        app:layout_constraintStart_toStartOf="@+id/btnDeleteConcess"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/acUserName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName"
+            android:textColor="@color/primaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvBSTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Concesionarios del tianguis X"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/subtitle"
+        app:layout_constraintBottom_toTopOf="@+id/tilUserName"
+        app:layout_constraintEnd_toEndOf="@+id/tilUserName"
+        app:layout_constraintStart_toStartOf="@+id/tilUserName" />
+
+    <TextView
+        android:id="@+id/tvViewAllConcess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Ver lista completa"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeleteConcess"
+        style="@style/ButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Eliminar Concesionario"
+        android:enabled="false"
+        app:backgroundTint="@color/secondaryColor"
+        app:cornerRadius="@dimen/common_padding_corners_btn"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoConcess"
+        app:layout_constraintEnd_toEndOf="@+id/btnGoConcess"
+        app:layout_constraintStart_toStartOf="@+id/btnGoConcess" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGoConcess"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"
+        android:text="Ver Concesionario"
+        app:backgroundTint="@color/secondaryColor"
+        app:cornerRadius="@dimen/common_padding_corners_btn"
+        app:layout_constraintBottom_toTopOf="@+id/tvViewAllConcess"
+        app:layout_constraintEnd_toEndOf="@+id/tvViewAllConcess"
+        app:layout_constraintStart_toStartOf="@+id/tvViewAllConcess" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

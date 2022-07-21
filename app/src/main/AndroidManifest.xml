@@ -4,6 +4,8 @@
     package="com.ops.opside">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+        <activity
+            android:name=".flows.sign_on.marketModule.view.MarketLocationActivity"
+            android:exported="false" />
         <activity
             android:name=".flows.sign_on.marketModule.view.MarketRegisterActivity"
             android:exported="false" />
@@ -42,9 +52,6 @@
         <activity
             android:name=".flows.sign_off.loginModule.view.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".flows.sign_on.dashboardModule.view.DashBoardActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
