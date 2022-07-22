@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_search"
+            app:startIconDrawable="@drawable/ic_market_search"
             app:startIconTint="@color/primaryTextColor">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teSearch"

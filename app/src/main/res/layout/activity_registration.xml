@@ -26,17 +26,12 @@
 
         <TextView
             android:id="@+id/tvRegTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/registration_tv_title"
-            android:textSize="24dp"
-            android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="@+id/imgOPSLogo"
             app:layout_constraintStart_toStartOf="@+id/imgOPSLogo"
             app:layout_constraintTop_toBottomOf="@+id/imgOPSLogo"
-            android:fontFamily="@font/montserrat_medium"
-            />
+            style="@style/textViewTitleStyle" />
 
         <View
             android:id="@+id/view"

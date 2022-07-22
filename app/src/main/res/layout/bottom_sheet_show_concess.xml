@@ -13,9 +13,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Name"
-        app:hintTextColor="@color/primaryTextColor"
+        android:hint="@string/bottom_sheet_conce_hint_til"
         android:textColorHint="@color/primaryTextColor"
+        app:startIconDrawable="@drawable/ic_profile"
+        app:startIconTint="@color/primaryTextColor"
+        app:hintTextColor="@color/primaryTextColor"
         app:endIconTint="@color/primaryTextColor"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/btnDeleteConcess"
@@ -36,38 +38,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Concesionarios del tianguis X"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/subtitle"
+        android:text="@string/bottom_sheet_conce_tv_title"
         app:layout_constraintBottom_toTopOf="@+id/tilUserName"
         app:layout_constraintEnd_toEndOf="@+id/tilUserName"
-        app:layout_constraintStart_toStartOf="@+id/tilUserName" />
-
-    <TextView
-        android:id="@+id/tvViewAllConcess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="Ver lista completa"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/tilUserName"
+        style="@style/textViewTitleStyle"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDeleteConcess"
         style="@style/ButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Eliminar Concesionario"
-        android:enabled="false"
-        app:backgroundTint="@color/secondaryColor"
-        app:cornerRadius="@dimen/common_padding_corners_btn"
+        android:text="@string/bottom_sheet_conce_btn_delete"
+        app:iconTint="@color/primaryTextColor"
+        app:icon="@drawable/ic_absence"
         app:layout_constraintBottom_toTopOf="@+id/btnGoConcess"
         app:layout_constraintEnd_toEndOf="@+id/btnGoConcess"
         app:layout_constraintStart_toStartOf="@+id/btnGoConcess" />
@@ -76,16 +60,71 @@
         android:id="@+id/btnGoConcess"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:enabled="false"
-        android:text="Ver Concesionario"
-        app:backgroundTint="@color/secondaryColor"
-        app:cornerRadius="@dimen/common_padding_corners_btn"
+        app:iconTint="@color/primaryTextColor"
+        app:icon="@drawable/ic_profile"
+        android:text="@string/bottom_sheet_conce_btn_see"
         app:layout_constraintBottom_toTopOf="@+id/tvViewAllConcess"
         app:layout_constraintEnd_toEndOf="@+id/tvViewAllConcess"
         app:layout_constraintStart_toStartOf="@+id/tvViewAllConcess" />
 
+    <TextView
+        android:id="@+id/tvViewAllConcess"
+        style="@style/textViewBodyStyle"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/bottom_sheet_conce_tv_all"
+        app:drawableEndCompat="@drawable/ic_item_arrow_down"
+        app:layout_constraintBottom_toTopOf="@+id/conce2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Conce1"
+        style="@style/textViewBodyStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Mario"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/conce2"
+        style="@style/textViewBodyStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="David"
+        app:layout_constraintBottom_toTopOf="@+id/conce3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/conce3"
+        style="@style/textViewBodyStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Alejandro"
+        app:layout_constraintBottom_toTopOf="@+id/Conce1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupConce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="Conce1, conce2, conce3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

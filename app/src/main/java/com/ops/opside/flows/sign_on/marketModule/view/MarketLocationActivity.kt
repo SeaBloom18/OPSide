@@ -23,6 +23,8 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        mBinding.ibLocationClose.setOnClickListener { finish() }
+
 
     }
 

@@ -74,5 +74,21 @@
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Market Name</string>
     <string name="registration_hint_market_address">Address</string>
+    <string name="registration_market_tv_title">Edit / Create Market</string>
+    <string name="registration_btn_select_location">Select Location</string>
+    <string name="registration_btn_view_concessionaires">See Concessionaires</string>
+    <string name="registration_market_btn_save">Save</string>
+    <string name="registration_market_tv_location">Unselected location</string>
+    <string name="registration_market_tv_concessionaires">Concessionaires counter: 90</string>
+
+    <string name="select_location_btn_save_address">Save location</string>
+
+    <string name="bottom_sheet_conce_tv_title">Market Concessionaires X</string>
+    <string name="bottom_sheet_conce_tv_all">Watch complete list</string>
+    <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
+    <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
+    <string name="bottom_sheet_conce_hint_til">Concessionaire Name</string>
+
+
 
 </resources>
