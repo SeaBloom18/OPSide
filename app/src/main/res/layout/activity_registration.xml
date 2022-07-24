@@ -26,17 +26,12 @@
 
         <TextView
             android:id="@+id/tvRegTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/registration_tv_title"
-            android:textSize="24dp"
-            android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="@+id/imgOPSLogo"
             app:layout_constraintStart_toStartOf="@+id/imgOPSLogo"
             app:layout_constraintTop_toBottomOf="@+id/imgOPSLogo"
-            android:fontFamily="@font/montserrat_medium"
-            />
+            style="@style/textViewTitleStyle" />
 
         <View
             android:id="@+id/view"
@@ -65,10 +60,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teUserName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -89,10 +82,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teLastName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -112,10 +103,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teAddress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -135,10 +124,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tePhone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="phone"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -158,10 +145,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teEmail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -181,10 +166,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tePassword"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -204,10 +187,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tePasswordConfirm"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -219,6 +200,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
             android:text="@string/registration_btn_register"
+            app:icon="@drawable/ic_save_register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -226,7 +208,7 @@
             style="@style/ButtonStyle"/>
 
         <ImageButton
-            android:id="@+id/imgBtnClose"
+            android:id="@+id/ibSignInClose"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="16dp"

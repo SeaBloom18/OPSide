@@ -4,10 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/alert_dialog_success_registration.xml" value="0.136" />
+        <entry key="app/src/main/res/drawable/ic_absence.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/ic_bn_market.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/ic_close_regist_screen.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/ic_dollar.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/ic_email.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/ic_item_arrow_down.xml" value="0.215" />
+        <entry key="app/src/main/res/drawable/ic_item_arrow_up.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/ic_item_conce_list.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/ic_item_conse_list.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/ic_item_delete.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/ic_item_edit.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.3325" />
         <entry key="app/src/main/res/drawable/rounded_bottom_nav_menu.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/states_color_text_fields.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/states_colors_text_field.xml" value="0.2435" />
@@ -15,25 +24,27 @@
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_market_location.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_market_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.3703125" />
-        <entry key="app/src/main/res/layout/alert_ask.xml" value="0.21" />
         <entry key="app/src/main/res/layout/alert_dialog_success_registration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottom_sheet_close_app.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/bottom_sheet_pick_tianguis.xml" value="0.33034188034188033" />
-        <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/bottom_sheet_global_common.xml" value="0.3703125" />
+        <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.3703125" />
+        <entry key="app/src/main/res/layout/bottom_sheet_show_concess.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottom_sheet_success_registration.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_concessionaire.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_control_panel.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.4324817518248175" />
         <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.17864583333333334" />
-        <entry key="app/src/main/res/layout/fragment_market.xml" value="0.16666666666666666" />
+        <entry key="app/src/main/res/layout/fragment_market.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_tax_collection.xml" value="0.3703125" />
-        <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.2708333333333333" />
-        <entry key="app/src/main/res/layout/list_item.xml" value="0.23931623931623933" />
+        <entry key="app/src/main/res/layout/item_market_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/test.xml" value="0.3692708333333333" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.199" />

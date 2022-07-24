@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/navigation_market"
-        android:name="com.ops.opside.flows.sign_on.marketModule.MarketFragment"
+        android:name="com.ops.opside.flows.sign_on.marketModule.view.MarketFragment"
         android:label="fragment_market"
         tools:layout="@layout/fragment_market" />
 

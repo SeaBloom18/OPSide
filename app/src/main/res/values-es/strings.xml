@@ -68,4 +68,26 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
 
+    <!--MarketModule Strings-->
+    <string name="registration_hint_market_name">Nombre del tianguis</string>
+    <string name="registration_hint_market_address">Direccion</string>
+    <string name="registration_market_tv_title">Editar / Crear Tianguis</string>
+    <string name="registration_btn_select_location">Seleccionar Ubicación</string>
+    <string name="registration_btn_view_concessionaires">Ver Concesionarios</string>
+    <string name="registration_market_btn_save">Guardar</string>
+    <string name="registration_market_tv_location">Ubicación sin seleccionar</string>
+    <string name="registration_market_tv_concessionaires">Número de concesionarios: 90</string>
+
+    <string name="select_location_btn_save_address">Aceptar ubicación</string>
+
+    <string name="bottom_sheet_conce_tv_title">Concesionarios del tianguis X</string>
+    <string name="bottom_sheet_conce_tv_all">Ver lista completa</string>
+    <string name="bottom_sheet_conce_btn_delete">Eliminar concesionario</string>
+    <string name="bottom_sheet_conce_btn_see">Ver Concesionario</string>
+    <string name="bottom_sheet_conce_hint_til">Nombre del concesionario</string>
+
+
+
+
+
 </resources>

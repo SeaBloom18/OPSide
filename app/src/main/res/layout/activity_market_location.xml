@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    tools:context=".flows.sign_on.marketModule.view.MarketLocationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="115dp"
+        android:background="@color/primaryLightColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibLocationClose"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_close_regist_screen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/textViewBodyStyle"
+            android:layout_marginBottom="16dp"
+            android:text="@string/registration_market_tv_location"
+            app:layout_constraintBottom_toTopOf="@+id/materialButton"
+            app:layout_constraintEnd_toEndOf="@+id/materialButton"
+            app:layout_constraintStart_toStartOf="@+id/materialButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/select_location_btn_save_address"
+            app:icon="@drawable/ic_market_location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
