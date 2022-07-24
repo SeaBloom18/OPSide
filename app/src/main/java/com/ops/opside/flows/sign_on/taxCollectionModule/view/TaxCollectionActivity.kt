@@ -2,6 +2,7 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,9 +21,10 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.PENALTY_FEE
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.RecordTaxCollectionAdapter
-import com.ops.opside.flows.sign_on.taxCollectionModule.pojos.ItemRecord
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
+import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 
-class TaxCollectionActivity : AppCompatActivity() {
+class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
     private lateinit var mBinding: ActivityTaxCollectionBinding
     private lateinit var mAdapter: RecordTaxCollectionAdapter
@@ -43,7 +45,7 @@ class TaxCollectionActivity : AppCompatActivity() {
                 getString(R.string.tax_collection_finalize_collection),
                 getString(R.string.common_accept),
                 "",
-                { Toast.makeText(this, "Información Enviada :D", Toast.LENGTH_SHORT).show() },
+                { launchFinalizeFragment() },
                 { Toast.makeText(this, "onCancel()", Toast.LENGTH_SHORT).show() },
             )
 
@@ -52,6 +54,17 @@ class TaxCollectionActivity : AppCompatActivity() {
 
         setUpPieChart()
         setUpBottomSheetPickTianguis()
+    }
+
+    private fun launchFinalizeFragment() {
+        val fragment = FinalizeTaxCollectionFragment()
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.add(R.id.containerTaxCollection, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     private fun setUpBottomSheetPickTianguis() {
@@ -163,5 +176,20 @@ class TaxCollectionActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
+    override fun hideButtons() {
+        mBinding.btnFinalize.visibility = View.GONE
+        mBinding.btnScan.visibility = View.GONE
+        mBinding.fabRecord.visibility = View.GONE
+    }
+
+    override fun showButtons() {
+        mBinding.btnFinalize.visibility = View.VISIBLE
+        mBinding.btnScan.visibility = View.VISIBLE
+        mBinding.fabRecord.visibility = View.VISIBLE
+    }
+
+    /*
+    * TaxCollectionAux
+    * */
 
 }

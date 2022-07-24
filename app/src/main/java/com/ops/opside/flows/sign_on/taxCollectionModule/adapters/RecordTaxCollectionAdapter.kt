@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.databinding.ItemRecordTaxCollectionBinding
-import com.ops.opside.flows.sign_on.taxCollectionModule.pojos.ItemRecord
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 
 class RecordTaxCollectionAdapter(
     var events: MutableList<ItemRecord>,

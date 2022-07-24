@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primaryColor">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbAbsence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:text=""
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgAbsence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_absence"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginVertical="@dimen/common_padding_min"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat_regular"
+        android:maxLength="@integer/max_characteres"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textColor="@color/primaryTextColor"
+        tools:text="Nombre Completo"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        app:layout_constraintEnd_toStartOf="@id/cbAbsence"
+        app:layout_constraintStart_toEndOf="@id/imgAbsence"
+        app:layout_constraintTop_toTopOf="@id/imgAbsence"
+        app:layout_constraintBottom_toBottomOf="@id/imgAbsence"/>
+
+    <View
+        android:layout_width="0dp"
+        style="@style/Divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txtName"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
