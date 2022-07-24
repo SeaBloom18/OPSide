@@ -22,6 +22,14 @@
         <item name="helperTextTextColor">@color/primaryTextColor</item>
     </style>
 
+    <!--TextInputEditText Style-->
+    <style name="TextInputEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
     <style name="TextInputLayoutStyleAuto" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:textColorHint">@color/primaryTextColor</item>
         <item name="endIconTint">@color/primaryTextColor</item>

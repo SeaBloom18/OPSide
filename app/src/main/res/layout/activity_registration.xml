@@ -60,10 +60,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teUserName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -84,10 +82,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teLastName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -107,10 +103,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teAddress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -130,10 +124,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tePhone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="phone"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -153,10 +145,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teEmail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -176,10 +166,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tePassword"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -199,10 +187,8 @@
             style="@style/TextInputLayoutStyle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tePasswordConfirm"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:textColor="@color/primaryTextColor"/>
+                style="@style/TextInputEditTextStyle"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -214,6 +200,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
             android:text="@string/registration_btn_register"
+            app:icon="@drawable/ic_save_register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -18,7 +18,7 @@ class RegistrationActivity : AppCompatActivity() {
         mBinding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.ibSignInClose.setOnClickListener { bottomSheet() }
+        mBinding.ibSignInClose.setOnClickListener { finish() }
 
         mBinding.btnRegister.setOnClickListener {
             val dialog = BottomSheetDialog(this)
