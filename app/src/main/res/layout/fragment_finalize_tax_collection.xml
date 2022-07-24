@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColor"
+    tools:context=".flows.sign_on.taxCollectionModule.view.FinalizeTaxCollectionFragment">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="@dimen/title"
+        android:text="@string/tax_collection_finalize_collection_title"
+        android:textColor="@color/primaryTextColor"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/btnCloseFinalize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:src="@drawable/ic_close_regist_screen"
+        android:backgroundTint="@color/fui_transparent"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="@id/txtTitle"
+        app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTianguisName"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginTop="@dimen/common_padding_large"
+        android:hint="@string/tax_collection_tianguis"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTianguisName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="textPersonName"
+            android:text="Sabinos 1"
+            android:textColor="@color/primaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTotalAmount"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:hint="@string/tax_collection_total_amount"
+        app:layout_constraintTop_toBottomOf="@id/tilTianguisName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTotalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="textPersonName"
+            android:text="$1,250"
+            android:textColor="@color/primaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSent"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:hint="@string/tax_collection_sent"
+        app:layout_constraintTop_toBottomOf="@id/tilTotalAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="textPersonName"
+            android:text="Mario Armando Razo Valenzuela"
+            android:textColor="@color/primaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtAbsence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="@dimen/subtitle"
+        android:text="@string/tax_collection_absence"
+        android:textColor="@color/primaryTextColor"
+        android:layout_marginTop="@dimen/common_padding_large"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        app:layout_constraintTop_toBottomOf="@id/tilSent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAbsence"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_absence_tax_collection"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_large"
+        app:layout_constraintTop_toBottomOf="@id/txtAbsence"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtStatment"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbAgreeDeclaration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_padding_default"
+        app:layout_constraintTop_toTopOf="@id/txtStatment"
+        app:layout_constraintBottom_toBottomOf="@id/txtStatment"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtStatment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Declaro que la información enviada es absolutamente verídica"
+        android:textColor="@color/warning"
+        android:textSize="@dimen/leyend"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSend"
+        app:layout_constraintStart_toEndOf="@+id/cbAgreeDeclaration" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSend"
+        style="@style/ButtonStyle"
+        android:layout_width="130dp"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:text="@string/tax_collection_send"
+        android:enabled="false"
+        app:icon="@drawable/ic_tax_colletion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

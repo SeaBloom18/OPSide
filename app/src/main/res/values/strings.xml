@@ -70,5 +70,11 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
     <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
+    <string name="tax_collection_tianguis">Tianguis</string>
+    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
+    <string name="tax_collection_sent">Envía</string>
+    <string name="tax_collection_absence">Inasistencias</string>
+    <string name="tax_collection_send">Enviar</string>
+    <string name="tax_collection_crud_collections">Recaudaciones</string>
 
 </resources>

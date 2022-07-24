@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/alert_dialog_success_registration.xml" value="0.136" />
+        <entry key="app/src/main/res/drawable/ic_arrow_forward.xml" value="0.2415" />
         <entry key="app/src/main/res/drawable/ic_bn_market.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/ic_close_regist_screen.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/ic_dollar.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.2415" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/rounded_bottom_nav_menu.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/states_color_text_fields.xml" value="0.2435" />
@@ -28,10 +30,14 @@
         <entry key="app/src/main/res/layout/bottom_sheet_success_registration.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_concessionaire.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_control_panel.xml" value="0.3703125" />
-        <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.4324817518248175" />
+        <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_finalize_tax_collection.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_market.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/fragment_tax_collection.xml" value="0.3703125" />
+        <entry key="app/src/main/res/layout/fragment_tax_collection_crud.xml" value="0.18974358974358974" />
+        <entry key="app/src/main/res/layout/item_absence_tax_collection.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_crud_tax_collection.xml" value="0.23931623931623933" />
         <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.23931623931623933" />
         <entry key="app/src/main/res/layout/test.xml" value="0.3692708333333333" />

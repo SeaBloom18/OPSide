@@ -6,36 +6,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ops.opside.R
 import com.ops.opside.databinding.FragmentDashBoardBinding
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudFragment
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.FinalizeTaxCollectionFragment
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class DashBoardFragment : Fragment() {
 
-    private var mBinding: FragmentDashBoardBinding? = null
-    private val binding get() = mBinding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    lateinit var mBinding: FragmentDashBoardBinding;
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
-        // Inflate the layout for this fragment
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
+    ): View? {
         mBinding = FragmentDashBoardBinding.inflate(inflater, container, false)
 
-        mBinding!!.fabInitTaxCollection.setOnClickListener {
-            val intent = Intent (activity, TaxCollectionActivity::class.java)
+        mBinding.fabInitTaxCollection.setOnClickListener {
+            val intent = Intent(activity, TaxCollectionActivity::class.java)
             activity!!.startActivity(intent)
         }
 
-        setUpPieChart()
-        return binding.root
+        mBinding.fabTaxCollectionCrud.setOnClickListener {
+            val fragment = TaxCollectionCrudFragment()
+
+            val fragmentManager = activity?.supportFragmentManager
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+
+            fragmentTransaction?.add(R.id.container, fragment)
+            fragmentTransaction?.addToBackStack(null)
+            fragmentTransaction?.commit()
+        }
+
+        return mBinding.root
     }
 
-    private fun setUpPieChart(){}
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mBinding = null
-    }
+
 }
