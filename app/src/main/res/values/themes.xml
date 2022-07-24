@@ -22,11 +22,20 @@
         <item name="helperTextTextColor">@color/primaryTextColor</item>
     </style>
 
+    <!--TextInputEditText Style-->
+    <style name="TextInputEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
     <style name="TextInputLayoutStyleAuto" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:textColorHint">@color/primaryTextColor</item>
         <item name="endIconTint">@color/primaryTextColor</item>
         <item name="hintTextColor">@color/primaryTextColor</item>
         <item name="helperTextTextColor">@color/primaryTextColor</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
     </style>
 
     <!--Button Style-->
@@ -37,5 +46,21 @@
         <item name="android:layout_height">@dimen/common_height_default</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="textViewTitleStyle">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textViewBodyStyle">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/body</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

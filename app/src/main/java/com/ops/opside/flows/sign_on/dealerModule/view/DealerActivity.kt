@@ -23,7 +23,7 @@ class DealerActivity : AppCompatActivity() {
             mDialog.setContentView(view)
             mDialog.show()
 
-            view.findViewById<ImageButton>(R.id.imgBtnClose).setOnClickListener {
+            view.findViewById<ImageButton>(R.id.ibSignInClose).setOnClickListener {
                 mDialog.dismiss()
             }
         }

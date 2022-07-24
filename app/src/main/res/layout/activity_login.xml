@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,52 +15,58 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:src="@drawable/ic_profile"
+        app:layout_constraintBottom_toTopOf="@+id/tilUserName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilUserName"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_padding_middle"
         android:layout_marginTop="@dimen/common_padding_middle"
         android:layout_marginEnd="@dimen/common_padding_middle"
         android:hint="@string/login_hint_email"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
         app:helperText="@string/login_til_required"
+        app:layout_constraintBottom_toTopOf="@+id/tilPassword"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        style="@style/TextInputLayoutStyle">
+        app:startIconDrawable="@drawable/ic_email"
+        app:startIconTint="@color/primaryTextColor">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teUserName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:inputType="textPersonName"
-            android:textColor="@color/primaryTextColor"/>
+            style="@style/TextInputEditTextStyle"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPassword"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_padding_middle"
         android:hint="@string/login_hint_password"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="password_toggle"
         app:helperText="@string/login_til_required"
+        app:layout_constraintBottom_toTopOf="@+id/swRememberUser"
         app:layout_constraintEnd_toEndOf="@+id/tilUserName"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/tilUserName"
         app:layout_constraintTop_toBottomOf="@+id/tilUserName"
-        app:boxStrokeColor="@drawable/states_colors_text_field"
-        style="@style/TextInputLayoutStyle">
+        app:startIconDrawable="@drawable/ic_password"
+        app:startIconTint="@color/primaryTextColor">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tePassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:inputType="textPassword"
-            android:textColor="@color/primaryTextColor"/>
+            style="@style/TextInputEditTextStyle"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Switch
@@ -69,30 +74,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_padding_min"
+        android:fontFamily="@font/montserrat_regular"
         android:text="@string/login_sw_remember_account"
         android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="@+id/tilPassword"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
+        style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/common_padding_middle"
         android:layout_marginEnd="@dimen/common_padding_middle"
         android:text="@string/login_btn"
+        app:icon="@drawable/ic_login"
+        app:layout_constraintBottom_toTopOf="@+id/tvSignUp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/swRememberUser"
-        app:layout_constraintTop_toBottomOf="@+id/swRememberUser"
-        style="@style/ButtonStyle"/>
+        app:layout_constraintTop_toBottomOf="@+id/swRememberUser" />
 
     <TextView
         android:id="@+id/tvSignUp"
+        style="@style/textViewBodyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/login_txt_create_account"
         android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
