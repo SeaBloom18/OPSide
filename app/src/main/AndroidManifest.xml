@@ -38,6 +38,9 @@
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"
             android:exported="false" />
         <activity
+            android:name=".flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity"
+            android:exported="false" />
+        <activity
             android:name=".flows.sign_off.registrationModule.View.RegistrationActivity"
             android:exported="false" />
         <activity

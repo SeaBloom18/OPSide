@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ops.opside.R
 import com.ops.opside.databinding.FragmentDashBoardBinding
-import com.ops.opside.flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudFragment
-import com.ops.opside.flows.sign_on.taxCollectionModule.view.FinalizeTaxCollectionFragment
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class DashBoardFragment : Fragment() {
@@ -27,14 +26,8 @@ class DashBoardFragment : Fragment() {
         }
 
         mBinding.fabTaxCollectionCrud.setOnClickListener {
-            val fragment = TaxCollectionCrudFragment()
-
-            val fragmentManager = activity?.supportFragmentManager
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-
-            fragmentTransaction?.add(R.id.container, fragment)
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.commit()
+            val intent = Intent(activity, TaxCollectionCrudActivity::class.java)
+            activity!!.startActivity(intent)
         }
 
         return mBinding.root

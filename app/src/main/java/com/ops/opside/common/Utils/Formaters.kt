@@ -24,6 +24,13 @@ class Formaters {
             return formatter.format(simpleFormat)
         }
 
+        fun formatDateMillis(millis: Long): String {
+            val simpleDateFormat = SimpleDateFormat("dd MMMM, yyyy")
+            val dateString = simpleDateFormat.format(millis)
+
+            return dateString
+        }
+
         fun formatMoney(totalAmount: Double): String {
             return try {
                 val numberFormat = NumberFormat.getCurrencyInstance(Locale.getDefault())

@@ -94,7 +94,13 @@
     <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
     <string name="bottom_sheet_conce_hint_til">Concessionaire Name</string>
-
+    <string name="filter_tax_collection_tianguis">Tianguis</string>
+    <string name="filter_tax_collection_collector">Recaudador</string>
+    <string name="common_date">Fecha</string>
+    <string name="filter_tax_collection_start_date">Fecha Inicio</string>
+    <string name="filter_tax_collection_end_date">Fecha Fin</string>
+    <string name="common_apply">Aplicar</string>
+    <string name="concessionaire">Consecionario</string>
 
 
 </resources>
