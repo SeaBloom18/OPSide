@@ -9,16 +9,20 @@
         <entry key="app/src/main/res/drawable/ic_close_regist_screen.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/ic_dollar.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.2415" />
+        <entry key="app/src/main/res/drawable/ic_price_tag.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/ic_setting.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/rounded_bottom_nav_menu.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/states_color_text_fields.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/states_colors_text_field.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.2665" />
+        <entry key="app/src/main/res/layout/activity_control_panel.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_market_register.xml" value="0.18009118541033434" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.3703125" />
@@ -30,14 +34,16 @@
         <entry key="app/src/main/res/layout/bottom_sheet_success_registration.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_concessionaire.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_control_panel.xml" value="0.3703125" />
-        <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_finalize_tax_collection.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_market.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/fragment_tax_collection.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/fragment_tax_collection_crud.xml" value="0.18974358974358974" />
         <entry key="app/src/main/res/layout/item_absence_tax_collection.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_control_panel_concessionaire_permission.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_crud_tax_collection.xml" value="0.23931623931623933" />
+        <entry key="app/src/main/res/layout/item_market_list.xml" value="0.18009118541033434" />
         <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.23931623931623933" />
         <entry key="app/src/main/res/layout/test.xml" value="0.3692708333333333" />

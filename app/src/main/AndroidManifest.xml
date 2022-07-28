@@ -4,7 +4,7 @@
     package="com.ops.opside">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
+        <activity
+            android:name=".flows.sign_on.dashboardModule.view.ControlPanelActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

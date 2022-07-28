@@ -8,25 +8,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ops.opside.R
 import com.ops.opside.databinding.FragmentDashBoardBinding
+import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudFragment
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.FinalizeTaxCollectionFragment
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class DashBoardFragment : Fragment() {
 
-    lateinit var mBinding: FragmentDashBoardBinding;
+    private var mBinding: FragmentDashBoardBinding? = null
+    private val binding get() = mBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         mBinding = FragmentDashBoardBinding.inflate(inflater, container, false)
 
-        mBinding.fabInitTaxCollection.setOnClickListener {
+        binding.fabInitTaxCollection.setOnClickListener {
             val intent = Intent(activity, TaxCollectionActivity::class.java)
             activity!!.startActivity(intent)
         }
 
-        mBinding.fabTaxCollectionCrud.setOnClickListener {
+        binding.fabTaxCollectionCrud.setOnClickListener {
             val fragment = TaxCollectionCrudFragment()
 
             val fragmentManager = activity?.supportFragmentManager
@@ -37,9 +39,13 @@ class DashBoardFragment : Fragment() {
             fragmentTransaction?.commit()
         }
 
-        return mBinding.root
+        binding.imgSettings.setOnClickListener { startActivity(Intent(activity, ControlPanelActivity::class.java)) }
+
+        return binding.root
     }
 
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        mBinding = null
+    }
 }

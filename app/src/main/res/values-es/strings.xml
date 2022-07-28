@@ -92,8 +92,11 @@
     <string name="bottom_sheet_conce_btn_see">Ver Concesionario</string>
     <string name="bottom_sheet_conce_hint_til">Nombre del concesionario</string>
 
-
-
-
+    <!--Control Panel Strings-->
+    <string name="cp_hint_linear_price">Precio lineal</string>
+    <string name="cp_btn_save">Guardar cambios</string>
+    <string name="cp_alertdialog_title">Aceptar cambios</string>
+    <string name="cp_alertdialog_message">¿Estás seguro de actualizar los cambios?</string>
+    <string name="cp_toast_success">Cambio realizado con éxito</string>
 
 </resources>

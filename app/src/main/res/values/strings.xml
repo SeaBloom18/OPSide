@@ -5,7 +5,7 @@
     <string name="app_name">OPSide</string>
 
     <!-- Common -->
-    <string name="common_accept">Aceptar</string>
+    <string name="common_accept">Accept</string>
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan">Escanear</string>
@@ -95,6 +95,12 @@
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
     <string name="bottom_sheet_conce_hint_til">Concessionaire Name</string>
 
+    <!--Control Panel Strings-->
+    <string name="cp_hint_linear_price">Linear price</string>
+    <string name="cp_btn_save">Save changes</string>
+    <string name="cp_alertdialog_title">Accept Changes</string>
+    <string name="cp_alertdialog_message">Are you sure to update the changes?</string>
+    <string name="cp_toast_success">Change made successfully</string>
 
 
 </resources>

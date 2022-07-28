@@ -10,9 +10,7 @@ import com.ops.opside.R
 import com.ops.opside.databinding.ItemRecordTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 
-class RecordTaxCollectionAdapter(
-    var events: MutableList<ItemRecord>,
-) :
+class RecordTaxCollectionAdapter(var events: MutableList<ItemRecord>, ) :
     RecyclerView.Adapter<RecordTaxCollectionAdapter.ViewHolder>() {
 
     private lateinit var mContext: Context
@@ -58,12 +56,9 @@ class RecordTaxCollectionAdapter(
                         tvAmount.isVisible = false
                     }
                 }
-
             }
         }
-
     }
-
 }
 
 const val FLOOR_COLLECTION = "Cobro de Piso"
