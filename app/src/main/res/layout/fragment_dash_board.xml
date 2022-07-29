@@ -309,7 +309,7 @@
                 app:cardElevation="10dp">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -343,26 +343,39 @@
             android:id="@+id/fabTaxCollectionCrud"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/common_padding_default"
-            android:layout_marginBottom="@dimen/common_padding_default"
+            android:layout_marginBottom="5dp"
             android:contentDescription="@string/tax_collection_record"
             android:src="@drawable/ic_filter"
-            app:layout_constraintBottom_toTopOf="@id/fabInitTaxCollection"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@android:color/white" />
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/fabMenu"
+            app:layout_constraintEnd_toEndOf="@+id/fabMenu"
+            app:tint="@color/primaryTextColor" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabInitTaxCollection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/common_padding_default"
-            android:layout_marginBottom="@dimen/common_padding_default"
             android:contentDescription="@string/tax_collection_record"
             android:src="@drawable/ic_money_withdrawal"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/fabTaxCollectionCrud"
+            app:layout_constraintEnd_toEndOf="@+id/fabTaxCollectionCrud"
+            app:tint="@color/primaryTextColor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@android:color/white" />
-
+            app:srcCompat="@drawable/ic_item_arrow_up"
+            tools:ignore="VectorDrawableCompat" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
