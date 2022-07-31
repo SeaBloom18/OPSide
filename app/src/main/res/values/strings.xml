@@ -6,6 +6,7 @@
 
     <!-- Common -->
     <string name="common_accept">Accept</string>
+    <string name="common_delete">Delete</string>
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan">Escanear</string>
@@ -94,6 +95,11 @@
     <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
     <string name="bottom_sheet_conce_hint_til">Concessionaire Name</string>
+
+    <string name="alert_dialog_delete_title">Delete Market</string>
+    <string name="alert_dialog_delete_message">Are you sure to delete market?</string>
+    <string name="toast_delete_message_success">Tianguis eliminado</string>
+
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>
