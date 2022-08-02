@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.Utils.Formaters
 import com.ops.opside.databinding.ItemCrudTaxCollectionBinding
-import com.ops.opside.databinding.ItemRecordTaxCollectionBinding
-import com.ops.opside.flows.sign_on.taxCollectionCrudModule.dataClasses.TaxCollectionModel
+import com.ops.opside.common.Entities.TaxCollectionModel
 
 class TaxCollectionsCrudAdapter (
     var events: MutableList<TaxCollectionModel>,

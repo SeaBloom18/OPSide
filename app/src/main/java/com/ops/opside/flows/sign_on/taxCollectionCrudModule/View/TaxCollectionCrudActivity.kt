@@ -2,7 +2,6 @@ package com.ops.opside.flows.sign_on.taxCollectionCrudModule.View
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
@@ -20,7 +19,7 @@ import com.ops.opside.R
 import com.ops.opside.common.Utils.Formaters
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollectionsCrudAdapter
-import com.ops.opside.flows.sign_on.taxCollectionCrudModule.dataClasses.TaxCollectionModel
+import com.ops.opside.common.Entities.TaxCollectionModel
 import java.util.*
 
 
