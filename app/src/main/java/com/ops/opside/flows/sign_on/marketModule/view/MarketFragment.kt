@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ops.opside.R
 import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
@@ -73,17 +74,20 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     private fun confirmMarketDelete(market: Market){
-        MaterialAlertDialogBuilder(requireActivity())
-            .setTitle("Eliminar tianguis")
-            .setPositiveButton("Eliminar")  { _, _ ->
-                //mMarketViewModel.deleteMarket(market)
-                Toast.makeText(context, "Item eliminado", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Cancelar", null).show()
+        val dialog = BaseDialog(
+            requireActivity(),
+            getString(R.string.alert_dialog_delete_title),
+            getString(R.string.alert_dialog_delete_message),
+            getString(R.string.common_delete),
+            "",
+            { Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show() },
+            { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
+        )
+        dialog.show()
     }
 
     private fun editMarket(){
-        startActivity(Intent(context, MarketRegisterActivity::class.java))
+        //startActivity(Intent(context, MarketRegisterActivity::class.java))
         Toast.makeText(context, "Editar item", Toast.LENGTH_SHORT).show()
     }
 

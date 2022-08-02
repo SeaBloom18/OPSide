@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,6 @@
     tools:context=".flows.sign_on.dashboardModule.view.DashBoardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryColor"
@@ -29,11 +29,23 @@
             android:id="@+id/imgProfile"
             android:layout_width="@dimen/common_icon_size"
             android:layout_height="@dimen/common_icon_size"
-            android:layout_marginTop="@dimen/common_padding_middle"
-            android:layout_marginEnd="@dimen/common_padding_middle"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/fui_transparent"
             android:contentDescription="@string/dashboard_user_profile"
             android:src="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/imgNotifications"
+            app:layout_constraintEnd_toStartOf="@+id/imgNotifications"
+            app:layout_constraintTop_toTopOf="@+id/imgNotifications" />
+
+        <ImageButton
+            android:id="@+id/imgSettings"
+            android:layout_width="@dimen/common_icon_size"
+            android:layout_height="@dimen/common_icon_size"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/fui_transparent"
+            android:contentDescription="@string/dashboard_user_profile"
+            android:src="@drawable/ic_setting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,13 +53,13 @@
             android:id="@+id/imgNotifications"
             android:layout_width="@dimen/common_icon_size"
             android:layout_height="@dimen/common_icon_size"
-            android:layout_marginTop="@dimen/common_padding_middle"
-            android:layout_marginEnd="@dimen/common_padding_default"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/fui_transparent"
             android:contentDescription="@string/dashboard_notifications"
             android:src="@drawable/ic_bell"
-            app:layout_constraintEnd_toStartOf="@+id/imgProfile"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
+            app:layout_constraintEnd_toStartOf="@+id/imgSettings"
+            app:layout_constraintTop_toTopOf="@+id/imgSettings" />
 
         <View
             android:id="@+id/divider"
@@ -86,8 +98,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="bottom|center_horizontal"
-                android:textColor="@color/primaryTextColor"
                 android:text="@string/dashboard_weekly"
+                android:textColor="@color/primaryTextColor"
                 app:backgroundTint="@null" />
 
             <Button
@@ -97,8 +109,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="bottom|center_horizontal"
-                android:textColor="@color/primaryTextColor"
                 android:text="@string/dashboard_monthly"
+                android:textColor="@color/primaryTextColor"
                 app:backgroundTint="@null" />
 
         </LinearLayout>
@@ -127,8 +139,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/dashboard_arrow"
-                android:visibility="invisible"
-                android:src="@drawable/ic_double_arrow_up" />
+                android:src="@drawable/ic_double_arrow_up"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/imgArrowMonthly"
@@ -136,28 +148,28 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/dashboard_arrow"
-                android:visibility="invisible"
-                android:src="@drawable/ic_double_arrow_up" />
+                android:src="@drawable/ic_double_arrow_up"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/chartTaxMoney"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="@dimen/common_padding_default"
             android:layout_marginHorizontal="@dimen/common_padding_min"
-            android:src="@drawable/ic_query_stats"
+            android:layout_marginTop="@dimen/common_padding_default"
             android:contentDescription="@string/dashboard_chart"
-            app:layout_constraintTop_toBottomOf="@id/linearArrows"
+            android:src="@drawable/ic_query_stats"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/linearArrows" />
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/common_padding_min"
-            android:rowCount="2"
             android:columnCount="2"
+            android:rowCount="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,12 +180,12 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:layout_margin="@dimen/common_padding_min"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
+                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -185,8 +197,8 @@
                         android:layout_height="@dimen/common_icon_size"
                         android:layout_marginStart="@dimen/common_padding_default"
                         android:layout_marginTop="@dimen/common_padding_default"
-                        android:contentDescription="@string/dashboard_penalty_fee"
                         android:backgroundTint="@color/fui_transparent"
+                        android:contentDescription="@string/dashboard_penalty_fee"
                         android:src="@drawable/ic_absence" />
 
                     <TextView
@@ -208,12 +220,12 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:layout_margin="@dimen/common_padding_min"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
+                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -225,8 +237,8 @@
                         android:layout_height="@dimen/common_icon_size"
                         android:layout_marginStart="@dimen/common_padding_default"
                         android:layout_marginTop="@dimen/common_padding_default"
-                        android:contentDescription="@string/dashboard_absences"
                         android:backgroundTint="@color/fui_transparent"
+                        android:contentDescription="@string/dashboard_absences"
                         android:src="@drawable/ic_penalty_fee" />
 
                     <TextView
@@ -249,12 +261,12 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:layout_margin="@dimen/common_padding_min"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
+                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -266,8 +278,8 @@
                         android:layout_height="@dimen/common_icon_size"
                         android:layout_marginStart="@dimen/common_padding_default"
                         android:layout_marginTop="@dimen/common_padding_default"
-                        android:contentDescription="@string/dashboard_active_dealers"
                         android:backgroundTint="@color/fui_transparent"
+                        android:contentDescription="@string/dashboard_active_dealers"
                         android:src="@drawable/ic_shop" />
 
                     <TextView
@@ -289,15 +301,15 @@
                 android:layout_height="0dp"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="1"
-                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:layout_margin="@dimen/common_padding_min"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
+                android:backgroundTint="@color/primaryTransparentLightColor"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent">
 
                     <ImageView
@@ -306,8 +318,8 @@
                         android:layout_height="@dimen/common_icon_size"
                         android:layout_marginStart="@dimen/common_padding_default"
                         android:layout_marginTop="@dimen/common_padding_default"
-                        android:contentDescription="@string/dashboard_tax_collections"
                         android:backgroundTint="@color/fui_transparent"
+                        android:contentDescription="@string/dashboard_tax_collections"
                         android:src="@drawable/ic_tax_colletion" />
 
                     <TextView
@@ -331,26 +343,39 @@
             android:id="@+id/fabTaxCollectionCrud"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_padding_default"
-            android:layout_marginEnd="@dimen/common_padding_default"
+            android:layout_marginBottom="5dp"
             android:contentDescription="@string/tax_collection_record"
-            app:layout_constraintBottom_toTopOf="@id/fabInitTaxCollection"
-            app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_filter"
-            app:tint="@android:color/white"/>
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/fabMenu"
+            app:layout_constraintEnd_toEndOf="@+id/fabMenu"
+            app:tint="@color/primaryTextColor" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabInitTaxCollection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_padding_default"
-            android:layout_marginEnd="@dimen/common_padding_default"
             android:contentDescription="@string/tax_collection_record"
+            android:src="@drawable/ic_money_withdrawal"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/fabTaxCollectionCrud"
+            app:layout_constraintEnd_toEndOf="@+id/fabTaxCollectionCrud"
+            app:tint="@color/primaryTextColor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_money_withdrawal"
-            app:tint="@android:color/white"/>
-
+            app:srcCompat="@drawable/ic_item_arrow_up"
+            tools:ignore="VectorDrawableCompat" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

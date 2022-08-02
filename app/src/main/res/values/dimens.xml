@@ -13,4 +13,6 @@
     <dimen name="subtitle">18sp</dimen>
     <dimen name="body">14sp</dimen>
     <dimen name="leyend">12sp</dimen>
+
+    <dimen name="common_text_size">16sp</dimen>
 </resources>

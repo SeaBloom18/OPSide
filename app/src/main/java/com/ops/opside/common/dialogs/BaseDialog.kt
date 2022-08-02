@@ -39,7 +39,6 @@ class BaseDialog(
                 noAction.invoke()
                 dismiss()
             }
-
         }
     }
 

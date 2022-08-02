@@ -55,4 +55,9 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+    </style>
+
 </resources>

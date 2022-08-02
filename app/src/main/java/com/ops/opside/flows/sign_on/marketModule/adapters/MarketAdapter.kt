@@ -6,6 +6,8 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -54,11 +56,11 @@ class MarketAdapter(private var markets: MutableList<Market>, private var listen
     private fun setUpItem(holder: ViewHolder){
         holder.binding.ibArrow.setOnClickListener {
             if (holder.binding.group.visibility == View.GONE){ //Si la vista esta oculta
-                TransitionManager.beginDelayedTransition(holder.binding.marketCardView)
+                TransitionManager.beginDelayedTransition(holder.binding.container)
                 holder.binding.group.visibility = View.VISIBLE
                 holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_up)
             } else{ //Si la vista esta expuesta
-                TransitionManager.endTransitions(holder.binding.marketCardView)
+                TransitionManager.endTransitions(holder.binding.container)
                 holder.binding.group.visibility = View.GONE
                 holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
             }
