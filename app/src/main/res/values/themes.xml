@@ -16,7 +16,7 @@
 
     <!--TextInputLayout Style-->
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/secondaryColor</item>
+        <item name="android:textColorHint">@color/primaryTextColor</item>
         <item name="endIconTint">@color/primaryTextColor</item>
         <item name="hintTextColor">@color/primaryTextColor</item>
         <item name="helperTextTextColor">@color/primaryTextColor</item>

@@ -18,12 +18,6 @@
         android:title="@string/bn_menu_tax_collection_opc3"/>
 
     <item
-        android:id="@+id/navigation_control_panel"
-        android:enabled="true"
-        android:icon="@drawable/ic_bn_equaliser"
-        android:title="@string/bn_menu_control_panel_opc4"/>
-
-    <item
         android:id="@+id/navigation_incidents"
         android:enabled="true"
         android:icon="@drawable/ic_bn_exclamation_mark"
