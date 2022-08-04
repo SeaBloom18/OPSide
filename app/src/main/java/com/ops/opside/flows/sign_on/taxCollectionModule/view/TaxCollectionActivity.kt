@@ -14,6 +14,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
+import com.ops.opside.common.Utils.animateOnPress
+import com.ops.opside.common.Utils.tryOrPrintException
 import com.ops.opside.common.adapterCallback.SwipeToDeleteCallback
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
@@ -34,41 +36,50 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         mBinding = ActivityTaxCollectionBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.fabRecord.setOnClickListener {
-            bottomSheet()
+        mBinding.apply {
+
+            fabRecord.animateOnPress()
+            fabRecord.setOnClickListener {
+                bottomSheet()
+            }
+
+            btnFinalize.setOnClickListener {
+                val dialog = BaseDialog(
+                    this@TaxCollectionActivity,
+                    getString(R.string.common_atention),
+                    getString(R.string.tax_collection_finalize_collection),
+                    getString(R.string.common_accept),
+                    "",
+                    { launchFinalizeFragment() },
+                    {  },
+                )
+                dialog.show()
+            }
         }
 
-        mBinding.btnFinalize.setOnClickListener {
-            val dialog = BaseDialog(
-                this,
-                getString(R.string.common_atention),
-                getString(R.string.tax_collection_finalize_collection),
-                getString(R.string.common_accept),
-                "",
-                { launchFinalizeFragment() },
-                { Toast.makeText(this, "onCancel()", Toast.LENGTH_SHORT).show() },
-            )
-
-            dialog.show()
-        }
 
         setUpPieChart()
         setUpBottomSheetPickTianguis()
     }
 
     private fun launchFinalizeFragment() {
-        val fragment = FinalizeTaxCollectionFragment()
+        tryOrPrintException {
+            val fragment = FinalizeTaxCollectionFragment()
 
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
+            val mBundle = Bundle()
+            mBundle.putString("type", "create")
+            fragment.arguments = mBundle
 
-        fragmentTransaction.add(R.id.containerTaxCollection, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            fragmentTransaction.add(R.id.containerTaxCollection, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
     }
 
     private fun setUpBottomSheetPickTianguis() {
-
         val items = mutableListOf(
             "Tianguis 1",
             "Tianguis 2",
@@ -135,45 +146,8 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
 
     private fun bottomSheet() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_record_tax_collection, null)
-
-        val events = mutableListOf<ItemRecord>()
-
-        events.add(ItemRecord(FLOOR_COLLECTION, "Mario Armando Razo", "04:25 PM", 25.0))
-        events.add(ItemRecord(FLOOR_COLLECTION, "Citlaly García Razo", "04:27 PM", 54.5))
-        events.add(ItemRecord(FLOOR_COLLECTION, "David Quezada", "04:29 PM", 34.0))
-        events.add(ItemRecord(ADDED, "Julio Zepeda", "04:30 PM"))
-        events.add(ItemRecord(FLOOR_COLLECTION, "Julio Zepeda", "04:31 PM", 34.0))
-        events.add(ItemRecord(FLOOR_COLLECTION, "Mario Armando Razo", "04:32 PM", 25.0))
-        events.add(ItemRecord(PENALTY_FEE, "Citlaly García Razo", "04:33 PM"))
-        events.add(ItemRecord(FLOOR_COLLECTION, "David Quezada", "04:35 PM", 34.0))
-
-        mAdapter = RecordTaxCollectionAdapter(events)
-
-        var recyclerView = view.findViewById<RecyclerView>(R.id.rvRecord)
-
-        var linearLayoutManager: RecyclerView.LayoutManager
-        linearLayoutManager = LinearLayoutManager(this)
-
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = linearLayoutManager
-            adapter = mAdapter
-        }
-
-        dialog.setContentView(view)
-        dialog.show()
-
-        val swipeHandler = object : SwipeToDeleteCallback(this@TaxCollectionActivity) {
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                mAdapter.events.removeAt(viewHolder.adapterPosition)
-                mAdapter.notifyItemRemoved(viewHolder.adapterPosition)
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+        val dialog = BottomSheetRecordTaxCollection()
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 
     override fun hideButtons() {
@@ -187,9 +161,5 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         mBinding.btnScan.visibility = View.VISIBLE
         mBinding.fabRecord.visibility = View.VISIBLE
     }
-
-    /*
-    * TaxCollectionAux
-    * */
 
 }
