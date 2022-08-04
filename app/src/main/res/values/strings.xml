@@ -100,7 +100,6 @@
     <string name="alert_dialog_delete_message">Are you sure to delete market?</string>
     <string name="toast_delete_message_success">Tianguis eliminado</string>
 
-
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>
     <string name="cp_btn_save">Save changes</string>
@@ -117,5 +116,10 @@
     <string name="tax_collection_update_title">Actualizar Recaudación</string>
     <string name="concessionaire_address">Dirección</string>
 
-
+    <!--Incidents String-->
+    <string name="bottom_sheet_tv_title">Create new Incident</string>
+    <string name="bottom_sheet_see_list_tv_title">Incidents List</string>
+    <string name="bottom_sheet_btn_create_inc">Create Incident</string>
+    <string name="bottom_sheet_til_hint_inc_name">Name Incident</string>
+    <string name="bottom_sheet_til_hint_inc_price">Price Incident</string>
 </resources>

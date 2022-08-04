@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.Market
 import com.ops.opside.common.Utils.animateOnPress
 import com.ops.opside.databinding.ItemTianguisBinding
 

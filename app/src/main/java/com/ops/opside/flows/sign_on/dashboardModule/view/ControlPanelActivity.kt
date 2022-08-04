@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Concessionaire
+import com.ops.opside.common.entities.Concessionaire
 import com.ops.opside.common.Utils.getTime
 import com.ops.opside.common.Utils.hoursBetween
 import com.ops.opside.common.Utils.setTime

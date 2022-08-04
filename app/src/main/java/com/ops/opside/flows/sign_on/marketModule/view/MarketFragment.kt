@@ -10,14 +10,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.Market
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
-import com.ops.opside.flows.sign_on.marketModule.marketModel.MarketInteractor
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
 
 class MarketFragment : Fragment(), OnClickListener {
@@ -91,7 +89,7 @@ class MarketFragment : Fragment(), OnClickListener {
         Toast.makeText(context, "Editar item", Toast.LENGTH_SHORT).show()
     }
 
-    fun getMarkets(): MutableList<Market> {
+    private fun getMarkets(): MutableList<Market> {
         val markets = mutableListOf<Market>()
 
         val tianguis1 = Market(1, "Tianguis de muestra 1", "Direccion de muestra 1")

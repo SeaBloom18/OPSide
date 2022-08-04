@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_incidents"
-        android:name="com.ops.opside.flows.sign_on.incidentsModule.IncidentsFragment"
+        android:name="com.ops.opside.flows.sign_on.incidentsModule.view.IncidentsFragment"
         android:label="fragment_incidents"
         tools:layout="@layout/fragment_incidents" />
     <fragment

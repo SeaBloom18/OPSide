@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/create_incident"
+        android:title="CreateIncident"
+        android:icon="@drawable/ic_bn_exclamation_mark"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/see_incident"
+        android:title="SeeIncident"
+        android:icon="@drawable/ic_item_conce_list"
+        app:showAsAction="always" />
+</menu>

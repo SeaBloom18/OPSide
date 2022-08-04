@@ -1,4 +1,4 @@
-package com.ops.opside.common.Entities
+package com.ops.opside.common.entities
 
 data class Concessionaire(
     val id: String,

@@ -1,6 +1,6 @@
 package com.ops.opside.flows.sign_on.marketModule.marketModel
 
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.Market
 
 class MarketInteractor {
 

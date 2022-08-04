@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Concessionaire
+import com.ops.opside.common.entities.Concessionaire
 import com.ops.opside.databinding.ItemCrudConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity

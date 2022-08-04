@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ops.opside.common.Entities.Concessionaire
+import com.ops.opside.common.entities.Concessionaire
 import com.ops.opside.common.Utils.tryOrPrintException
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.databinding.FragmentConcessionaireBinding

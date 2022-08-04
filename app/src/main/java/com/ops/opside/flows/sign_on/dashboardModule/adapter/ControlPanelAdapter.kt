@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Concessionaire
+import com.ops.opside.common.entities.Concessionaire
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
-import com.ops.opside.databinding.ItemMarketListBinding
 
 class ControlPanelAdapter(var concessionaire: MutableList<Concessionaire>):
 RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
