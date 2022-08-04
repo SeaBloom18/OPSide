@@ -135,12 +135,10 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_default"
         android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginTop="@dimen/common_padding_default"
         android:layout_marginEnd="@dimen/common_padding_min"
-        android:layout_marginBottom="@dimen/common_padding_large"
         android:hint="@string/filter_tax_collection_start_date"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirmFilter"
         app:layout_constraintEnd_toStartOf="@+id/tilEndDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtDate">
@@ -163,12 +161,10 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_default"
         android:layout_marginStart="@dimen/common_padding_min"
+        android:layout_marginTop="@dimen/common_padding_default"
         android:layout_marginEnd="@dimen/common_padding_default"
-        android:layout_marginBottom="@dimen/common_padding_large"
         android:hint="@string/filter_tax_collection_end_date"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirmFilter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tilStartDate"
         app:layout_constraintTop_toBottomOf="@id/txtDate">
@@ -190,11 +186,13 @@
         android:id="@+id/btnConfirmFilter"
         style="@style/ButtonStyle"
         android:layout_width="0dp"
-        android:text="@string/common_apply"
-        android:layout_marginVertical="@dimen/common_padding_large"
         android:layout_marginHorizontal="100dp"
+        android:layout_marginVertical="@dimen/common_padding_large"
+        android:layout_marginTop="32dp"
+        android:text="@string/common_apply"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tilStartDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

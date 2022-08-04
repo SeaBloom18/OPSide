@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.Entities.Concessionaire
 import com.ops.opside.databinding.ItemCrudConcessionaireBinding
+import com.ops.opside.flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class ConcessionaireAdapter (
     var concessionaires: MutableList<Concessionaire>,
@@ -38,7 +41,9 @@ class ConcessionaireAdapter (
             binding.txtConcessionaire.text = item.name
 
             binding.imgShowMore.setOnClickListener {
-                // TODO: Launch FinalizeTaxCollectionFragment
+                val intent = Intent(mContext,
+                    ConcessionaireCrudActivity::class.java)
+                mContext.startActivity(intent)
             }
         }
 
