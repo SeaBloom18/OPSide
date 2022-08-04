@@ -1,6 +1,8 @@
-package com.ops.opside.flows.sign_on.taxCollectionCrudModule.dataClasses
+package com.ops.opside.common.Entities
 
-data class TaxCollectionModel(
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.dataClasses.DealerAssist
+
+data class TaxCollectionEntity(
     val idCollection: String,
     var idTianguis: String,
     var tianguisName: String,

@@ -103,5 +103,14 @@
     <string name="cp_alertdialog_title">Aceptar cambios</string>
     <string name="cp_alertdialog_message">¿Estás seguro de actualizar los cambios?</string>
     <string name="cp_toast_success">Cambio realizado con éxito</string>
+    <string name="filter_tax_collection_tianguis">Tianguis</string>
+    <string name="filter_tax_collection_collector">Recuadador</string>
+    <string name="common_date">Fecha</string>
+    <string name="filter_tax_collection_start_date">Fecha Inicio</string>
+    <string name="filter_tax_collection_end_date">Fecha Fin</string>
+    <string name="common_apply">Aplicar</string>
+    <string name="concessionaire">Consecionario</string>
+    <string name="tax_collection_update_title">Actualizar Recaudación</string>
+    <string name="concessionaire_address">Dirección</string>
 
 </resources>

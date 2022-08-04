@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/navigation_concessionaire"
-        android:name="com.ops.opside.flows.sign_on.concessionaireModule.ConcessionaireFragment"
+        android:name="com.ops.opside.flows.sign_on.concessionaireModule.view.ConcessionaireFragment"
         android:label="fragment_concessionaire"
         tools:layout="@layout/fragment_concessionaire" />
 
