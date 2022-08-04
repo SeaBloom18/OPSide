@@ -104,4 +104,11 @@
     <string name="cp_alertdialog_message">¿Estás seguro de actualizar los cambios?</string>
     <string name="cp_toast_success">Cambio realizado con éxito</string>
 
+    <!--Incidents String-->
+    <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>
+    <string name="bottom_sheet_see_list_tv_title">Lista de Incidencias</string>
+    <string name="bottom_sheet_btn_create_inc">Crear Incidencia</string>
+    <string name="bottom_sheet_til_hint_inc_name">Nombre de incidencia</string>
+    <string name="bottom_sheet_til_hint_inc_price">Precio de incidencia</string>
+
 </resources>

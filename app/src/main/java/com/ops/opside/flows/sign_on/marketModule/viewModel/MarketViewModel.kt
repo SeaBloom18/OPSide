@@ -3,7 +3,7 @@ package com.ops.opside.flows.sign_on.marketModule.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.Market
 import com.ops.opside.flows.sign_on.marketModule.marketModel.MarketInteractor
 
 class MarketViewModel: ViewModel() {

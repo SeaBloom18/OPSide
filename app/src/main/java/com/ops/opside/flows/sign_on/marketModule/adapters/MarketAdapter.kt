@@ -1,19 +1,13 @@
 package com.ops.opside.flows.sign_on.marketModule.adapters
 
 import android.content.Context
-import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.Market
 import com.ops.opside.databinding.ItemMarketListBinding
 
 class MarketAdapter(private var markets: MutableList<Market>, private var listener: OnClickListener):

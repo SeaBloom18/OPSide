@@ -9,7 +9,6 @@
         android:id="@+id/common_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@color/primaryTextColor"
         android:background="@color/primaryColor"/>
 
     <View style="@style/Divider" />

@@ -5,14 +5,12 @@
     <item
         android:id="@+id/create_incident"
         android:title="CreateIncident"
-        android:icon="@drawable/ic_price_tag"
-        android:iconTint="@color/primaryTextColor"
+        android:icon="@drawable/ic_bn_exclamation_mark"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/see_incident"
         android:title="SeeIncident"
-        android:icon="@drawable/ic_bn_exclamation_mark"
-        android:iconTint="@color/primaryTextColor"
+        android:icon="@drawable/ic_item_conce_list"
         app:showAsAction="always" />
 </menu>

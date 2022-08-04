@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/common_padding_default"
+    android:background="@color/primaryLightColor">
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/textViewTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/bottom_sheet_tv_title"
+        app:layout_constraintBottom_toTopOf="@+id/tilIncidentName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIncidentName"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/bottom_sheet_til_hint_inc_name"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@+id/tilIncidentPrice"
+        app:layout_constraintEnd_toEndOf="@+id/tilIncidentPrice"
+        app:layout_constraintStart_toStartOf="@+id/tilIncidentPrice"
+        app:startIconDrawable="@drawable/ic_bn_exclamation_mark"
+        app:startIconTint="@color/primaryTextColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teIncidentName"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIncidentPrice"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/bottom_sheet_til_hint_inc_price"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconMode="clear_text"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateIncident"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreateIncident"
+        app:layout_constraintStart_toStartOf="@+id/btnCreateIncident"
+        app:startIconDrawable="@drawable/ic_bn_dollar"
+        app:startIconTint="@color/primaryTextColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teIncidentPrice"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateIncident"
+        style="@style/ButtonStyle"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/bottom_sheet_btn_create_inc"
+        app:icon="@drawable/ic_save_register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
