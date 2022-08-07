@@ -47,7 +47,7 @@
             android:name=".flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_off.registrationModule.View.RegistrationActivity"
+            android:name=".flows.sign_off.registrationModule.view.RegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_off.SplashModule.SplashActivity"

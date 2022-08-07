@@ -8,7 +8,7 @@
     <string name="common_accept">Accept</string>
     <string name="common_delete">Delete</string>
 
-    <!-- Tax Collection Module Strins -->
+    <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
     <string name="tax_collection_linear_meters">Metros Lineales</string>
@@ -37,10 +37,15 @@
     <string name="login_hint_password">Password</string>
     <string name="login_til_required">Required</string>
     <string name="login_btn">Login</string>
-    <string name="login_txt_create_account">Don\'t have an account? Sign up</string>
+    <string name="login_txt_create_account">Don\'t have an account?</string>
+    <string name="login_txt_create_account_sign_in">Sign up</string>
     <string name="login_sw_remember_account">Remember me</string>
     <string name="login_tv_title_bottom_sheet">Are you sure you want to get out of OPS?</string>
     <string name="login_btn_close_bottom_sheet">Close app</string>
+    <string name="login_tv_about_app">About App</string>
+    <string name="login_tv_policies">Policies</string>
+    <string name="login_toast_empy_text">Fields cannot be empty</string>
+    <string name="login_toast_credentials_error">Credentials Error</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>
@@ -61,7 +66,7 @@
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>
-    <string name="bn_menu_concessionaire_opc2">Concess</string>
+    <string name="bn_menu_concessionaire_opc2">Concessionaire</string>
     <string name="bn_menu_tax_collection_opc3">Tax</string>
     <string name="bn_menu_control_panel_opc4">Cont. Panel</string>
     <string name="bn_menu_incidents_opc5">Incidents</string>

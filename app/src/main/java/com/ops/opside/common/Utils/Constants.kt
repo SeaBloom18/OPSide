@@ -8,4 +8,5 @@ object Constants {
 
     const val BOTTOM_SHEET_BTN_CLOSE_REGIS = R.string.registration_btn_bs_close
     const val BOTTOM_SHEET_TV_CLOSE_REGIS = R.string.registration_tv_bs_close
+
 }
