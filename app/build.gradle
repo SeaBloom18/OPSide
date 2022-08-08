@@ -38,7 +38,7 @@ android {
 }
 
 //Versions
-def roomVersion = "2.4.2"
+def roomVersion = "2.4.3"
 def zxingVersion = "3.4.0"
 def glideVersion = "4.13.2"
 def lifecycleVersion = "2.4.1"
