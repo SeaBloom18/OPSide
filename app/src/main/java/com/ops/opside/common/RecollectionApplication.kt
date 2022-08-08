@@ -24,4 +24,4 @@ class RecollectionApplication: Application() {
             "TaxCollectionEntity").addMigrations(MIGRATION_1).build()
 
     }*/
-//}
+}
