@@ -13,7 +13,6 @@ import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollecti
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
-
 class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
     lateinit var mBinding: ActivityTaxCollectionCrudBinding
@@ -58,11 +57,11 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
         for (i in 1..15) {
             collections.add(
                 TaxCollectionEntity(
-                    "$i", "",
+                    i.toLong(), "",
                     "Tianguis Minicipal",
                     1250.0,
                     "2022-07-12",
-                    "", "", "", mutableListOf()
+                    "", "", ""/*, mutableListOf()*/
                 )
             )
         }
