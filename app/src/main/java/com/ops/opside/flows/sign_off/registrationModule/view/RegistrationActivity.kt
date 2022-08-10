@@ -3,29 +3,91 @@ package com.ops.opside.flows.sign_off.registrationModule.view
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.R
 import com.ops.opside.common.Utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
 
 class RegistrationActivity : AppCompatActivity() {
 
+    /*Cambios antes de correr la app
+    * cambios en los bottomSheet de backPressed
+    * cambios en el insert de firestore
+    * validacion para cuando se elige una opcion de registro
+    * creacion MVVM classes
+    * validar string de registros*/
+
     private lateinit var mBinding: ActivityRegistrationBinding
+    private var dataBaseInstance = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_registration)
         mBinding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         setToolbar()
+        alertDialogRegisterOptions()
+        formSetUp()
+        concessionaireRegister()
 
-        mBinding.btnRegister.setOnClickListener { showBottomSheetSuccess() }
+        mBinding.btnRegister.setOnClickListener {
+            //if()
+            showBottomSheetSuccess()
+        }
 
+    }
+
+    //Override Methods
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        bottomSheet()
+    }
+
+    //Methods
+    private fun concessionaireRegister() {
+        //Validate textInputLayout
+        val concessionaire: MutableMap<String, Any> = HashMap()
+        /*concessionaire["name"] = mBinding.teUserName.text.toString().trim()
+        concessionaire["lastName"] = mBinding.teLastName.text.toString().trim()
+        concessionaire["address"] = mBinding.teAddress.text.toString().trim()
+        concessionaire["phone"] = mBinding.tePhone.text.toString().trim()
+        concessionaire["email"] = mBinding.teEmail.text.toString().trim()
+        concessionaire["password"] = mBinding.tePassword.text.toString().trim()*/
+
+        concessionaire["name"] = "Mario"
+        concessionaire["lastName"] = "Gonzalez"
+        concessionaire["address"] = "Jardines de babilonia #31"
+        concessionaire["phone"] = "3328411633"
+        concessionaire["email"] = "dagq117@gmail.com"
+        concessionaire["password"] = "12345"
+
+        dataBaseInstance.collection("concessionaires")
+            .add(concessionaire)
+            .addOnSuccessListener { documentReference ->
+                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
+            }
+            .addOnFailureListener {
+                    e -> Log.w("Firebase", "Error adding document", e)
+            }
+    }
+
+    private fun formSetUp(){
         mBinding.teUserName.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 mBinding.tilLastName.visibility = View.VISIBLE
@@ -127,22 +189,32 @@ class RegistrationActivity : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {}
         })
-
     }
 
-    //Override Methods
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
+    private fun alertDialogRegisterOptions() {
+        val singleItems = arrayOf("Concesionario", "Concesionario foraneo", "Recaudador")
+        val checkedItem = -1
+
+        MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_App_MaterialAlertDialog)
+            .setTitle(getString(R.string.registration_alert_dialog_title))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.common_accept)) { dialogInterface, _ ->
+                if (checkedItem >= 1) {
+                    dialogInterface.dismiss()
+                } else {
+                    Toast.makeText(this, getString(R.string.registration_toast_option_validation),
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton(getString(R.string.registration_alert_dialog_negative_button)) { _, _ ->
+                finish()
+            }
+            .setSingleChoiceItems(singleItems, checkedItem) { _, which ->
+                Toast.makeText(this, "Elegiste ${singleItems[which]}", Toast.LENGTH_SHORT).show()
+            }
+            .show()
     }
 
-    override fun onBackPressed() {
-        bottomSheet()
-    }
-
-    //Methods
     private fun setToolbar(){
         with(mBinding.toolbarRegister.commonToolbar) {
             this.title = getString(R.string.login_txt_create_account_sign_in)
@@ -177,4 +249,10 @@ class RegistrationActivity : AppCompatActivity() {
         dialog.setContentView(view)
         dialog.show()
     }
+
+    data class conceTest(
+        var conceId: String? = null,
+        var conceName: String? = null,
+        var conceLastName: String? = null,
+    )
 }

@@ -8,7 +8,6 @@
     <string name="common_accept">Aceptar</string>
     <string name="common_delete">Delete</string>
 
-
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
@@ -64,6 +63,9 @@
     <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
     <string name="dealer_show_qr">Mostrar código QR</string>
     <string name="description_record_icon">Icono del Evento</string>
+    <string name="registration_alert_dialog_title">¿Como te quieres registrar?</string>
+    <string name="registration_alert_dialog_negative_button">Regresar al inicio</string>
+    <string name="registration_toast_option_validation">Debes de elegir una opcion!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
         <activity
+            android:name=".flows.sign_off.registrationModule.view.TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity"
             android:exported="false" />
         <activity

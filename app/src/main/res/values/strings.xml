@@ -61,8 +61,12 @@
     <string name="registration_btn_register">Register!</string>
     <string name="registration_btn_bs_close">Exit</string>
     <string name="registration_tv_bs_close">Are you sure you want to exit this screen?</string>
-    <string name="dealer_show_qr">Mostrar código QR</string>
-    <string name="description_record_icon">Icono del Evento</string>
+    <string name="dealer_show_qr">Show QR Code</string>
+    <string name="description_record_icon">Event Icon</string>
+    <string name="registration_alert_dialog_title">Chose a register?</string>
+    <string name="registration_alert_dialog_negative_button">Return to Login</string>
+    <string name="registration_toast_option_validation">Chose an option!</string>
+
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>

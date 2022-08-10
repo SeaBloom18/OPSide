@@ -1,13 +1,13 @@
 package com.ops.opside.common
 
-/*import android.app.Application
+import android.app.Application
 import com.ops.opside.common.dataBase.TaxCollectionDataBase
 
 class RecollectionApplication: Application() {
 
     companion object{
         lateinit var dataBase: TaxCollectionDataBase
-    }*/
+    }
 
 /*override fun onCreate() {
 
@@ -24,4 +24,4 @@ class RecollectionApplication: Application() {
             "TaxCollectionEntity").addMigrations(MIGRATION_1).build()
 
     }*/
-//}
+}

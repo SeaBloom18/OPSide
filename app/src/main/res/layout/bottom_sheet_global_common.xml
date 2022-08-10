@@ -6,29 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="25dp"
-    android:background="@color/primaryLightColor">
+    android:background="@color/primaryColor">
 
     <TextView
+        style="@style/textViewBodyStyle"
         android:id="@+id/tvBSTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/subtitle"
+        tools:text="@tools:sample/lorem"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />
 
     <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/btnClose"
-        style="@style/ButtonStyle"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="@dimen/common_padding_default"
-        app:backgroundTint="@color/secondaryColor"
+        app:strokeColor="@color/secondaryColor"
+        android:textColor="@color/secondaryColor"
+        tools:text="Close App"
         app:icon="@drawable/ic_logout"
+        app:iconTint="@color/secondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -18,16 +18,18 @@
         <entry key="app/src/main/res/drawable/states_colors_text_field.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.2665" />
         <entry key="app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.3188034188034188" />
+        <entry key="app/src/main/res/layout/activity_control_panel.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_market_location.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_tax_collection_crud.xml" value="0.18717948717948718" />
+        <entry key="app/src/main/res/layout/activity_test.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/alert_ask.xml" value="0.21" />
         <entry key="app/src/main/res/layout/alert_dialog_success_registration.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottom_sheet_close_app.xml" value="0.33" />
@@ -36,7 +38,8 @@
         <entry key="app/src/main/res/layout/bottom_sheet_global_common.xml" value="0.18717948717948718" />
         <entry key="app/src/main/res/layout/bottom_sheet_pick_tianguis.xml" value="0.33034188034188033" />
         <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/bottom_sheet_show_global_info.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/bottom_sheet_see_incidents.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/bottom_sheet_show_global_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_sheet_show_qr.xml" value="0.18717948717948718" />
         <entry key="app/src/main/res/layout/bottom_sheet_success_registration.xml" value="0.22" />
         <entry key="app/src/main/res/layout/dialog_base.xml" value="0.3188034188034188" />
