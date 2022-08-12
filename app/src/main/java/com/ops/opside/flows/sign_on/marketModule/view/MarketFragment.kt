@@ -2,22 +2,20 @@ package com.ops.opside.flows.sign_on.marketModule.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
-import com.ops.opside.flows.sign_on.marketModule.marketModel.MarketInteractor
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
 
 class MarketFragment : Fragment(), OnClickListener {
@@ -44,6 +42,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
 
         //setUpViewModel() // aun din funcionar pero ya listo para cuando este la db
+        setToolbar()
         setUpRecyclerView()
 
         return binding.root
@@ -55,6 +54,28 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     //Functions
+    private fun setToolbar(){
+        with(binding.toolbarMarket.commonToolbar) {
+            this.title = getString(R.string.bn_menu_market_opc1)
+
+            this.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.menu_market_toolbar, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.search -> {
+                            //Action
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        }
+    }
+
     private fun setUpViewModel(){
         mMarketViewModel = ViewModelProvider(requireActivity()).get(MarketViewModel::class.java)
         mMarketViewModel.getMarkets().observe(requireActivity()){
@@ -73,7 +94,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun confirmMarketDelete(market: Market){
+    private fun confirmMarketDelete(tianguis: TianguisSE){
         val dialog = BaseDialog(
             requireActivity(),
             getString(R.string.alert_dialog_delete_title),
@@ -91,30 +112,20 @@ class MarketFragment : Fragment(), OnClickListener {
         Toast.makeText(context, "Editar item", Toast.LENGTH_SHORT).show()
     }
 
-    fun getMarkets(): MutableList<Market> {
-        val markets = mutableListOf<Market>()
+    private fun getMarkets(): MutableList<TianguisSE> {
+        val tianguis = mutableListOf<TianguisSE>()
+        for (i in 1..5) tianguis.add(TianguisSE(i.toLong(), "Tianguis de muestra $i", "Direccion de muestra $i",
+                                                "",0.0,0.0,0))
 
-        val tianguis1 = Market(1, "Tianguis de muestra 1", "Direccion de muestra 1")
-        val tianguis2 = Market(2, "Tianguis de muestra 2", "Direccion de muestra 2")
-        val tianguis3 = Market(3, "Tianguis de muestra 3", "Direccion de muestra 3")
-        val tianguis4 = Market(4, "Tianguis de muestra 4", "Direccion de muestra 4")
-        val tianguis5 = Market(5, "Tianguis de muestra 5", "Direccion de muestra 5")
-
-        markets.add(tianguis1)
-        markets.add(tianguis2)
-        markets.add(tianguis3)
-        markets.add(tianguis4)
-        markets.add(tianguis5)
-
-        return markets
+        return tianguis
     }
 
     //Interface
-    override fun onDeleteMarket(market: Market) {
-        confirmMarketDelete(market)
+    override fun onDeleteMarket(tianguis: TianguisSE) {
+        confirmMarketDelete(tianguis)
     }
 
-    override fun onEditMarket(market: Market) {
+    override fun onEditMarket(tianguis: TianguisSE) {
         editMarket()
     }
 

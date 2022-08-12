@@ -1,22 +1,16 @@
 package com.ops.opside.flows.sign_on.marketModule.adapters
 
 import android.content.Context
-import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.ops.opside.R
-import com.ops.opside.common.Entities.Market
+import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.databinding.ItemMarketListBinding
 
-class MarketAdapter(private var markets: MutableList<Market>, private var listener: OnClickListener):
+class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var listener: OnClickListener):
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -28,7 +22,7 @@ class MarketAdapter(private var markets: MutableList<Market>, private var listen
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val market = markets.get(position)
+        val market = tianguis.get(position)
         with(holder){
             binding.tvMarketName.text = market.name
             binding.group.visibility = View.GONE
@@ -40,7 +34,7 @@ class MarketAdapter(private var markets: MutableList<Market>, private var listen
         setUpItem(holder)
     }
 
-    override fun getItemCount(): Int = markets.size
+    override fun getItemCount(): Int = tianguis.size
 
     //Inner class
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -48,8 +42,8 @@ class MarketAdapter(private var markets: MutableList<Market>, private var listen
     }
 
     //Functions
-    fun setStores(markets: List<Market>){
-        this.markets = markets as MutableList<Market>
+    fun setStores(tianguis: List<TianguisSE>){
+        this.tianguis = tianguis as MutableList<TianguisSE>
         notifyDataSetChanged()
     }
 

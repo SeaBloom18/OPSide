@@ -14,13 +14,13 @@
 
     <fragment
         android:id="@+id/navigation_concessionaire"
-        android:name="com.ops.opside.flows.sign_on.concessionaireModule.ConcessionaireFragment"
+        android:name="com.ops.opside.flows.sign_on.concessionaireModule.view.ConcessionaireFragment"
         android:label="fragment_concessionaire"
         tools:layout="@layout/fragment_concessionaire" />
 
     <fragment
         android:id="@+id/navigation_incidents"
-        android:name="com.ops.opside.flows.sign_on.incidentsModule.IncidentsFragment"
+        android:name="com.ops.opside.flows.sign_on.incidentsModule.view.IncidentsFragment"
         android:label="fragment_incidents"
         tools:layout="@layout/fragment_incidents" />
     <fragment

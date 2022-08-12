@@ -9,28 +9,31 @@
     android:background="@color/primaryLightColor">
 
     <TextView
+        style="@style/textViewBodyStyle"
         android:id="@+id/tvBSTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/subtitle"
+        tools:text="@tools:sample/lorem"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnClose"
-        style="@style/ButtonStyle"
-        android:layout_width="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_padding_default"
-        app:backgroundTint="@color/secondaryColor"
+        android:textColor="@color/secondaryColor"
         app:icon="@drawable/ic_logout"
+        app:iconTint="@color/secondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/secondaryColor"
+        tools:text="Close App" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

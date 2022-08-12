@@ -5,38 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@color/primaryLightColor"
     tools:context=".flows.sign_on.dashboardModule.view.ControlPanelActivity">
 
-    <ImageButton
-        android:id="@+id/ibCPClose"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_close_regist_screen"
+    <include
+        android:id="@+id/toolbarControlP"
+        layout="@layout/toolbar_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tilMarketName"
-        style="@style/textViewTitleStyle"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Control Panel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view2"
-        style="@style/Divider"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/ibCPClose"
-        app:layout_constraintStart_toStartOf="@+id/tilMarketName"
-        app:layout_constraintTop_toBottomOf="@+id/tilMarketName" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilLinealPrice"
@@ -47,12 +24,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/cp_hint_linear_price"
+        app:boxCornerRadiusTopEnd="@dimen/button_corner_radius"
+        app:boxCornerRadiusTopStart="@dimen/button_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/button_corner_radius"
+        app:boxCornerRadiusBottomEnd="@dimen/button_corner_radius"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarControlP"
         app:startIconDrawable="@drawable/ic_price_tag"
         app:startIconTint="@color/primaryTextColor">
 
@@ -66,8 +47,7 @@
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="8dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnSaveChanges"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,17 +55,22 @@
         tools:listitem="@layout/item_control_panel_concessionaire_permission" />
 
     <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/btnSaveChanges"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="@string/cp_btn_save"
+        android:textColor="@color/secondaryColor"
         app:icon="@drawable/ic_save_register"
+        app:iconTint="@color/secondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="@color/secondaryColor"
+        app:strokeColor="@color/secondaryColor" />
 
     <TextView
         android:id="@+id/textView9"
