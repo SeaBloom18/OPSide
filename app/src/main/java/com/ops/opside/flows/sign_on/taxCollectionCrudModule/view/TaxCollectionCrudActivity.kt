@@ -1,13 +1,14 @@
-package com.ops.opside.flows.sign_on.taxCollectionCrudModule.View
+package com.ops.opside.flows.sign_on.taxCollectionCrudModule.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ops.opside.common.Entities.TaxCollectionEntity
-import com.ops.opside.common.Utils.animateOnPress
+import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.bsd.BottomSheetFilter
+import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollectionsCrudAdapter
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
@@ -36,9 +37,7 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
             fabInitTaxCollection.animateOnPress()
             fabInitTaxCollection.setOnClickListener {
-                val intent = Intent(this@TaxCollectionCrudActivity,
-                    TaxCollectionActivity::class.java)
-                startActivity(intent)
+                launchActivity(TaxCollectionActivity(), this@TaxCollectionCrudActivity)
             }
         }
 
@@ -52,21 +51,21 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
 
     fun initRecyclerView() {
-        val collections = mutableListOf<TaxCollectionEntity>()
+        val collections = mutableListOf<TaxCollectionSE>()
 
         for (i in 1..15) {
             collections.add(
-                TaxCollectionEntity(
+                TaxCollectionSE(
                     i.toLong(), "",
                     "Tianguis Minicipal",
-                    1250.0,
+                    "",1250.0,
                     "2022-07-12",
-                    "", "", ""/*, mutableListOf()*/
+                    "", "", ""
                 )
             )
         }
 
-        mAdapter = TaxCollectionsCrudAdapter(collections, this)
+        mAdapter = TaxCollectionsCrudAdapter(collections, this, this)
 
         var linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)

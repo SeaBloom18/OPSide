@@ -1,4 +1,4 @@
-package com.ops.opside.common.Utils
+package com.ops.opside.common.utils
 
 import com.ops.opside.R
 

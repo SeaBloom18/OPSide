@@ -131,4 +131,5 @@
     <string name="bottom_sheet_btn_create_inc">Create Incident</string>
     <string name="bottom_sheet_til_hint_inc_name">Name Incident</string>
     <string name="bottom_sheet_til_hint_inc_price">Price Incident</string>
+    <string name="tax_collection_choose_tianguis">Elige un Tianguis</string>
 </resources>

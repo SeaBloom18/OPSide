@@ -23,9 +23,11 @@
         <activity
             android:name=".flows.sign_on.dashboardModule.view.ControlPanelActivity"
             android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".flows.sign_on.marketModule.view.MarketLocationActivity"
             android:exported="false" />
@@ -33,9 +35,8 @@
             android:name=".flows.sign_on.marketModule.view.MarketRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_on.mainModule.MainActivity"
+            android:name=".flows.sign_on.mainModule.view.MainActivity"
             android:exported="false" >
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -44,7 +45,6 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".flows.sign_on.dealerModule.view.DealerActivity"
             android:exported="false" />
@@ -52,13 +52,13 @@
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity"
+            android:name=".flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_off.registrationModule.view.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_off.SplashModule.SplashActivity"
+            android:name=".flows.sign_off.splashModule.view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

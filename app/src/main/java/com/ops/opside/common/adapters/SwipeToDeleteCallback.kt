@@ -1,34 +1,14 @@
-package com.ops.opside.common.adapterCallback
+package com.ops.opside.common.adapters
 
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 
 
 abstract class SwipeToDeleteCallback
-
-
-
-    /*: ItemTouchHelper.Callback() {
-
-    override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        val swipeFlag = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        return makeMovementFlags(0, swipeFlag)
-    }
-
-    override fun onMove(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        target: RecyclerView.ViewHolder
-    ): Boolean {
-        return false
-    }
-
-}*/
 
 (context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 

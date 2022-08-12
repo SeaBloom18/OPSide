@@ -13,12 +13,12 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.ops.opside.R
-import com.ops.opside.common.Utils.Constants
+import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
-import com.ops.opside.flows.sign_on.mainModule.MainActivity
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 
 
 class LoginActivity : AppCompatActivity() {

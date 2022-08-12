@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.Market
-import com.ops.opside.common.Utils.animateOnPress
+import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.databinding.ItemTianguisBinding
 
 class TianguisParticipatingAdapter (
-    var tianguis: MutableList<Market>,
+    var tianguis: MutableList<TianguisSE>,
 ) :
     RecyclerView.Adapter<TianguisParticipatingAdapter.ViewHolder>() {
 
@@ -36,7 +36,7 @@ class TianguisParticipatingAdapter (
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemTianguisBinding.bind(view)
 
-        fun bind(item : Market){
+        fun bind(item : TianguisSE){
 
             binding.apply {
                 imgShowMore.animateOnPress()

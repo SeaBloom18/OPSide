@@ -1,16 +1,19 @@
-package com.ops.opside.flows.sign_off.SplashModule
+package com.ops.opside.flows.sign_off.splashModule.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ops.opside.databinding.ActivitySplashBinding
 import com.ops.opside.flows.sign_off.loginModule.view.LoginActivity
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
 
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivitySplashBinding
-    private var i = 0
     private val scope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {

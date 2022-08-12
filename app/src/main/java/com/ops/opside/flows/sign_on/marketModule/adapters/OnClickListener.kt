@@ -1,8 +1,8 @@
 package com.ops.opside.flows.sign_on.marketModule.adapters
 
-import com.ops.opside.common.entities.Market
+import com.ops.opside.common.entities.share.TianguisSE
 
 interface OnClickListener {
-    fun onDeleteMarket(market: Market)
-    fun onEditMarket(market: Market)
+    fun onDeleteMarket(tianguis: TianguisSE)
+    fun onEditMarket(tianguis: TianguisSE)
 }

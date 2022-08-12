@@ -1,4 +1,4 @@
-package com.ops.opside.flows.sign_on.mainModule
+package com.ops.opside.flows.sign_on.mainModule.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,9 +29,3 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 }
-
-    /*Opción 1 = Tianguis
-   Opción 2 = Concesionarios
-   Opción 3 = Recaudación
-   Opción 4 = Panel de control
-   Opción 5 = Incidencias*/

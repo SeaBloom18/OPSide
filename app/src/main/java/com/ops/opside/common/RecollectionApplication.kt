@@ -1,7 +1,7 @@
 package com.ops.opside.common
 
 import android.app.Application
-import com.ops.opside.common.dataBase.TaxCollectionDataBase
+import com.ops.opside.common.room.TaxCollectionDataBase
 
 class RecollectionApplication: Application() {
 

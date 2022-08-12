@@ -1,4 +1,4 @@
-package com.ops.opside.common.Utils
+package com.ops.opside.common.utils
 
 import android.app.Dialog
 import android.app.TimePickerDialog
@@ -46,7 +46,7 @@ class TimePickerDialog : DialogFragment() {
 
         fun newInstance(
             hour: Int, minute: Int, observer: TimePickerDialog.OnTimeSetListener
-        ): com.ops.opside.common.Utils.TimePickerDialog {
+        ): com.ops.opside.common.utils.TimePickerDialog {
 
             val args = Bundle().apply {
                 putInt(HOUR_ARG, hour)

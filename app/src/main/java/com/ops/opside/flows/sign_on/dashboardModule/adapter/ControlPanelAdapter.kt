@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.Concessionaire
+import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
 
-class ControlPanelAdapter(var concessionaire: MutableList<Concessionaire>):
+class ControlPanelAdapter(var concessionaireRE: MutableList<ConcessionaireSE>):
 RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
 
     private lateinit var context: Context
@@ -22,15 +22,15 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val concessionaire = concessionaire.get(position)
+        val concessionaire = concessionaireRE.get(position)
         holder.binding.tvConcessionaireName.text = concessionaire.name
 
     }
 
-    override fun getItemCount(): Int = concessionaire.size
+    override fun getItemCount(): Int = concessionaireRE.size
 
-    fun setConcessionaires(concessionaire: List<Concessionaire>){
-        this.concessionaire = concessionaire as MutableList<Concessionaire>
+    fun setConcessionaires(concessionaireRE: List<ConcessionaireSE>){
+        this.concessionaireRE = concessionaireRE as MutableList<ConcessionaireSE>
         notifyDataSetChanged()
     }
 

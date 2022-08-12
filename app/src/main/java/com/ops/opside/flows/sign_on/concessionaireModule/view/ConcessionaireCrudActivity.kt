@@ -5,13 +5,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ops.opside.common.entities.Market
-import com.ops.opside.common.Utils.animateOnPress
-import com.ops.opside.common.adapterCallback.SwipeToDeleteCallback
+import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.databinding.ActivityConcessionaireCrudBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.TianguisParticipatingAdapter
-import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.AbsenceTaxCollectionAdapter
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 
 class ConcessionaireCrudActivity : AppCompatActivity() {
 
@@ -32,10 +30,11 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val tianguis = mutableListOf<Market>()
+        val tianguis = mutableListOf<TianguisSE>()
 
         for (i in 1..7){
-            tianguis.add(Market(i.toLong(), "Tianguis $i", ""))
+            tianguis.add(TianguisSE(i.toLong(), "Tianguis $i", "",
+                "",0.0,0.0,0))
         }
 
         mAdapter = TianguisParticipatingAdapter(tianguis)

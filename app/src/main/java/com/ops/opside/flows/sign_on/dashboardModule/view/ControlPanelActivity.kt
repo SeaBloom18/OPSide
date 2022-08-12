@@ -10,15 +10,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.adapterCallback.SwipeToDeleteCallback
+import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.Concessionaire
+import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
+import java.lang.reflect.Array.newInstance
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
+import javax.xml.datatype.DatatypeFactory.newInstance
 
 class ControlPanelActivity : AppCompatActivity() {
 
@@ -95,7 +98,7 @@ class ControlPanelActivity : AppCompatActivity() {
     }
 
     private fun showDialog(initialHour: Int, initialMinute: Int, observer: TimePickerDialog.OnTimeSetListener) {
-        com.ops.opside.common.Utils.TimePickerDialog.newInstance(initialHour, initialMinute, observer)
+        newInstance(initialHour, initialMinute, observer)
             .show(supportFragmentManager, "time-picker")
     }
 
@@ -145,7 +148,7 @@ class ControlPanelActivity : AppCompatActivity() {
         val swipeHandler = object : SwipeToDeleteCallback(this) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                controlPanelAdapter.concessionaire.removeAt(viewHolder.adapterPosition)
+                controlPanelAdapter.concessionaireRE.removeAt(viewHolder.adapterPosition)
                 controlPanelAdapter.notifyItemRemoved(viewHolder.adapterPosition)
             }
         }
@@ -153,16 +156,14 @@ class ControlPanelActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(recycler)
     }
 
-    private fun getConcessionaires(): MutableList<Concessionaire> {
-        val concessionaires = mutableListOf<Concessionaire>()
+    private fun getConcessionaires(): MutableList<ConcessionaireSE> {
+        val concessionaires = mutableListOf<ConcessionaireSE>()
 
-        val concessionaire1 = Concessionaire(id = "1", name = "David Gonzalez")
-        val concessionaire2 = Concessionaire(id = "1", name = "Mario Razo")
+        val concessionaireRE1 = ConcessionaireSE(id = (1).toLong(), idFirebase = "", name = "David Gonzalez")
+        val concessionaireRE2 = ConcessionaireSE(id = (1).toLong(), idFirebase = "", name = "Mario Razo")
 
-        concessionaires.add(concessionaire1)
-        concessionaires.add(concessionaire2)
-        concessionaires.add(concessionaire1)
-        concessionaires.add(concessionaire2)
+        concessionaires.add(concessionaireRE1)
+        concessionaires.add(concessionaireRE2)
 
         return concessionaires
     }

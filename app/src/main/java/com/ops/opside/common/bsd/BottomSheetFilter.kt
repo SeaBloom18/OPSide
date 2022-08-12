@@ -12,9 +12,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.ops.opside.R
-import com.ops.opside.common.Utils.Formaters
-import com.ops.opside.common.Utils.animateOnPress
-import com.ops.opside.common.Utils.tryOrPrintException
+import com.ops.opside.common.utils.Formaters
+import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.databinding.BottomSheetFilterBinding
 import java.util.Calendar
 
