@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/taxProfile"
+        android:title="@string/dashboard_user_profile"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/taxNotification"
+        android:title="@string/dashboard_user_profile"
+        android:icon="@drawable/ic_bell"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/taxSettings"
+        android:title="@string/dashboard_user_profile"
+        android:icon="@drawable/ic_setting"
+        app:showAsAction="ifRoom"/>
+</menu>

@@ -2,11 +2,11 @@ package com.ops.opside.flows.sign_on.marketModule.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +42,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
 
         //setUpViewModel() // aun din funcionar pero ya listo para cuando este la db
+        setToolbar()
         setUpRecyclerView()
 
         return binding.root
@@ -53,6 +54,28 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     //Functions
+    private fun setToolbar(){
+        with(binding.toolbarMarket.commonToolbar) {
+            this.title = getString(R.string.bn_menu_market_opc1)
+
+            this.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.menu_market_toolbar, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.search -> {
+                            //Action
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        }
+    }
+
     private fun setUpViewModel(){
         mMarketViewModel = ViewModelProvider(requireActivity()).get(MarketViewModel::class.java)
         mMarketViewModel.getMarkets().observe(requireActivity()){
