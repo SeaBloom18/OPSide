@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.Concessionaire
+import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.databinding.ItemCrudConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity
-import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class ConcessionaireAdapter (
-    var concessionaires: MutableList<Concessionaire>,
+    var concessionaireRES: MutableList<ConcessionaireSE>,
 ) :
     RecyclerView.Adapter<ConcessionaireAdapter.ViewHolder>() {
 
@@ -27,17 +26,17 @@ class ConcessionaireAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = concessionaires[position]
+        val item = concessionaireRES[position]
         holder.bind(item)
     }
 
-    override fun getItemCount(): Int = concessionaires.size
+    override fun getItemCount(): Int = concessionaireRES.size
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemCrudConcessionaireBinding.bind(view)
 
-        fun bind(item : Concessionaire){
+        fun bind(item : ConcessionaireSE){
             binding.txtConcessionaire.text = item.name
 
             binding.imgShowMore.setOnClickListener {

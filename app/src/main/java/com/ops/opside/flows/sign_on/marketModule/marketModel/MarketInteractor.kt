@@ -1,20 +1,20 @@
 package com.ops.opside.flows.sign_on.marketModule.marketModel
 
-import com.ops.opside.common.entities.Market
+import com.ops.opside.common.entities.share.TianguisSE
 
 class MarketInteractor {
 
-    fun getMarkets(): MutableList<Market> {
-        val markets = mutableListOf<Market>()
+    fun getMarkets(): MutableList<TianguisSE> {
+        val tianguis = mutableListOf<TianguisSE>()
 
-        val tianguis1 = Market(1, "Tianguis de muestra 1", "Direccion de muestra 1")
-        val tianguis2 = Market(2, "Tianguis de muestra 2", "Direccion de muestra 2")
-        val tianguis3 = Market(3, "Tianguis de muestra 3", "Direccion de muestra 3")
+        val tianguis1 = TianguisSE(1, "Tianguis de muestra 1", "Direccion de muestra 1","",0.0,0.0,0)
+        val tianguis2 = TianguisSE(2, "Tianguis de muestra 2", "Direccion de muestra 2","",0.0,0.0,0)
+        val tianguis3 = TianguisSE(3, "Tianguis de muestra 3", "Direccion de muestra 3","",0.0,0.0,0)
 
-        markets.add(tianguis1)
-        markets.add(tianguis2)
-        markets.add(tianguis3)
+        tianguis.add(tianguis1)
+        tianguis.add(tianguis2)
+        tianguis.add(tianguis3)
 
-        return markets
+        return tianguis
     }
 }

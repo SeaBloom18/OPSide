@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
-import com.ops.opside.common.entities.IncidentEntity
-import com.ops.opside.common.entities.IncidentPersonEntity
+import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.databinding.FragmentIncidentsBinding
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.IncidentAdapter
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.ListIncidentsAdapter
@@ -41,11 +41,11 @@ class IncidentsFragment : Fragment() {
         return binding.root
     }
 
-    private fun getIncidentList(): MutableList<IncidentEntity> {
-        val incident = mutableListOf<IncidentEntity>()
+    private fun getIncidentList(): MutableList<IncidentSE> {
+        val incident = mutableListOf<IncidentSE>()
 
-        val incident1 = IncidentEntity(1, "Inasistencia 1", 54, 1)
-        val incident2 = IncidentEntity(1, "Inasistencia 2", 31, 2)
+        val incident1 = IncidentSE(1, "Inasistencia 1", "", 15.0)
+        val incident2 = IncidentSE(1, "Inasistencia 2", "", 15.0)
 
         incident.add(incident1)
         incident.add(incident2)
@@ -64,11 +64,11 @@ class IncidentsFragment : Fragment() {
         }
     }
 
-    private fun getIncidents(): MutableList<IncidentPersonEntity> {
-        val incident = mutableListOf<IncidentPersonEntity>()
+    private fun getIncidents(): MutableList<IncidentPersonFE> {
+        val incident = mutableListOf<IncidentPersonFE>()
 
-        val incident1 = IncidentPersonEntity(1, "David Gonzalez", "Mario Razo", "03/08/2022", 7, 76)
-        val incident2 = IncidentPersonEntity(2, "Alejandro Quezada", "Mario Razo", "08/03/2022", 87, 54)
+        val incident1 = IncidentPersonFE("", "David Gonzalez", "Mario Razo", "03/08/2022", 7, 76.0)
+        val incident2 = IncidentPersonFE("", "Alejandro Quezada", "Mario Razo", "08/03/2022", 87, 54.0)
 
         incident.add(incident1)
         incident.add(incident2)

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.IncidentPersonEntity
+import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.databinding.ItemRecollectionIncidentsBinding
 
-class IncidentAdapter(private var incidentPersonEntity: MutableList<IncidentPersonEntity>):
+class IncidentAdapter(private var incidentPersonEntity: MutableList<IncidentPersonFE>):
     RecyclerView.Adapter<IncidentAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -25,7 +25,7 @@ class IncidentAdapter(private var incidentPersonEntity: MutableList<IncidentPers
         with(holder){
             binding.tvReportName.text = incident.reportName
             binding.tvCompoundTextAssign.text = "Incidencia asignada a ${incident.assignName} con la fecha ${incident.date}, $${incident.price}"
-            binding.tvIncidentCode.text = incident.code.toString()
+            binding.tvIncidentCode.text = incident.idIncident.toString()
         }
     }
 

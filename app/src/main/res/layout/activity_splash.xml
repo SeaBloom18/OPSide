@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
-    tools:context=".flows.sign_off.SplashModule.SplashActivity">
+    android:background="@color/primaryColor"
+    tools:context=".flows.sign_off.splashModule.view.SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/primaryLightColor"
+        android:background="@color/primaryColor"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.Market
+import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
@@ -71,7 +71,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun confirmMarketDelete(market: Market){
+    private fun confirmMarketDelete(tianguis: TianguisSE){
         val dialog = BaseDialog(
             requireActivity(),
             getString(R.string.alert_dialog_delete_title),
@@ -89,30 +89,20 @@ class MarketFragment : Fragment(), OnClickListener {
         Toast.makeText(context, "Editar item", Toast.LENGTH_SHORT).show()
     }
 
-    private fun getMarkets(): MutableList<Market> {
-        val markets = mutableListOf<Market>()
+    private fun getMarkets(): MutableList<TianguisSE> {
+        val tianguis = mutableListOf<TianguisSE>()
+        for (i in 1..5) tianguis.add(TianguisSE(i.toLong(), "Tianguis de muestra $i", "Direccion de muestra $i",
+                                                "",0.0,0.0,0))
 
-        val tianguis1 = Market(1, "Tianguis de muestra 1", "Direccion de muestra 1")
-        val tianguis2 = Market(2, "Tianguis de muestra 2", "Direccion de muestra 2")
-        val tianguis3 = Market(3, "Tianguis de muestra 3", "Direccion de muestra 3")
-        val tianguis4 = Market(4, "Tianguis de muestra 4", "Direccion de muestra 4")
-        val tianguis5 = Market(5, "Tianguis de muestra 5", "Direccion de muestra 5")
-
-        markets.add(tianguis1)
-        markets.add(tianguis2)
-        markets.add(tianguis3)
-        markets.add(tianguis4)
-        markets.add(tianguis5)
-
-        return markets
+        return tianguis
     }
 
     //Interface
-    override fun onDeleteMarket(market: Market) {
-        confirmMarketDelete(market)
+    override fun onDeleteMarket(tianguis: TianguisSE) {
+        confirmMarketDelete(tianguis)
     }
 
-    override fun onEditMarket(market: Market) {
+    override fun onEditMarket(tianguis: TianguisSE) {
         editMarket()
     }
 

@@ -2,34 +2,22 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
-import com.ops.opside.common.Utils.animateOnPress
-import com.ops.opside.common.Utils.tryOrPrintException
-import com.ops.opside.common.adapterCallback.SwipeToDeleteCallback
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.utils.launchFragment
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
-import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
-import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
-import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.PENALTY_FEE
-import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.RecordTaxCollectionAdapter
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
     private lateinit var mBinding: ActivityTaxCollectionBinding
-    private lateinit var mAdapter: RecordTaxCollectionAdapter
+    private lateinit var mSelectedTianguis: TianguisSE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,79 +28,56 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
             fabRecord.animateOnPress()
             fabRecord.setOnClickListener {
-                bottomSheet()
+                bsdRecordTaxCollection()
             }
 
             btnFinalize.setOnClickListener {
-                val dialog = BaseDialog(
-                    this@TaxCollectionActivity,
-                    getString(R.string.common_atention),
-                    getString(R.string.tax_collection_finalize_collection),
-                    getString(R.string.common_accept),
-                    "",
-                    { launchFinalizeFragment() },
-                    {  },
-                )
-                dialog.show()
+                showAlertFinalize()
             }
         }
 
 
         setUpPieChart()
-        setUpBottomSheetPickTianguis()
+        bsdPickTianguis()
+    }
+
+    private fun showAlertFinalize() {
+        val dialog = BaseDialog(
+            this@TaxCollectionActivity,
+            getString(R.string.common_atention),
+            getString(R.string.tax_collection_finalize_collection),
+            getString(R.string.common_accept),
+            "",
+            { launchFinalizeFragment() }
+        )
+        dialog.show()
     }
 
     private fun launchFinalizeFragment() {
-        tryOrPrintException {
-            val fragment = FinalizeTaxCollectionFragment()
+        val bundle = Bundle()
+        bundle.putString("type", "create")
 
-            val mBundle = Bundle()
-            mBundle.putString("type", "create")
-            fragment.arguments = mBundle
-
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-
-            fragmentTransaction.add(R.id.containerTaxCollection, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
+        launchFragment(
+            FinalizeTaxCollectionFragment(),
+            supportFragmentManager,
+            R.id.containerTaxCollection,
+            bundle
+        )
     }
 
-    private fun setUpBottomSheetPickTianguis() {
-        val items = mutableListOf(
-            "Tianguis 1",
-            "Tianguis 2",
-            "Tianguis 3",
-            "Tianguis 4",
-            "Tianguis 5",
-            "Tianguis 6",
-            "Tianguis 7",
-            "Tianguis 8",
-            "Tianguis 9"
-        )
-        val h: ArrayAdapter<String> =
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items)
-
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_pick_tianguis, null)
-
-        var spinner: MaterialAutoCompleteTextView = view.findViewById(R.id.spPickTianguis)
-        spinner.setAdapter(h)
-
-        view.findViewById<MaterialButton>(R.id.btnPickTianguis).setOnClickListener {
-            dialog.dismiss()
+    private fun bsdPickTianguis() {
+        val dialog = BottomSheetPickTianguis {
+            mSelectedTianguis = it
+            Log.d("Demo", mSelectedTianguis.toString())
         }
 
-        dialog.setContentView(view)
-        dialog.show()
+        dialog.isCancelable = false
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 
     private fun setUpPieChart() {
         mBinding.chartTaxMoney.apply {
-            // Set Progress
             progress = 65f
-            // or with animation
             setProgressWithAnimation(65f, 4000) // =1s
 
             // Set Progress Max
@@ -145,7 +110,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     }
 
 
-    private fun bottomSheet() {
+    private fun bsdRecordTaxCollection() {
         val dialog = BottomSheetRecordTaxCollection()
         dialog.show(supportFragmentManager, dialog.tag)
     }
