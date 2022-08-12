@@ -18,19 +18,14 @@
         android:theme="@style/Theme.OPSide"
         tools:targetApi="31">
         <activity
-            android:name=".flows.sign_off.registrationModule.view.TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_on.dashboardModule.view.ControlPanelActivity"
             android:exported="false" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
-
         <activity
             android:name=".flows.sign_on.marketModule.view.MarketLocationActivity"
             android:exported="false" />
@@ -39,7 +34,17 @@
             android:exported="false" />
         <activity
             android:name=".flows.sign_on.mainModule.MainActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".flows.sign_on.dealerModule.view.DealerActivity"
             android:exported="false" />

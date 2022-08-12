@@ -2,45 +2,58 @@ package com.ops.opside.flows.sign_on.dashboardModule.view
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.Concessionaire
-import com.ops.opside.common.Utils.getTime
-import com.ops.opside.common.Utils.hoursBetween
-import com.ops.opside.common.Utils.setTime
-import com.ops.opside.common.Utils.toTimeText
 import com.ops.opside.common.adapterCallback.SwipeToDeleteCallback
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.Concessionaire
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
+import java.time.Duration
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ControlPanelActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
+    private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityControlPanelBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.ibCPClose.setOnClickListener { finish() }
         mBinding.btnSaveChanges.setOnClickListener { confirmChanges() }
 
+        setToolbar()
         setUpRecyclerView()
-
         setUpStartTime()
-
         setUpEndTime()
-
         updateDuration()
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setToolbar(){
+        with(mBinding.toolbarControlP.commonToolbar) {
+            this.title = getString(R.string.bn_menu_control_panel_opc4)
+            setSupportActionBar(this)
+            (context as ControlPanelActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun updateDuration() {
@@ -152,5 +165,21 @@ class ControlPanelActivity : AppCompatActivity() {
         concessionaires.add(concessionaire2)
 
         return concessionaires
+    }
+
+    fun TextView.getTime(): LocalTime {
+        return LocalTime.parse(text, formatter)
+    }
+
+    fun TextView.setTime(time: LocalTime) {
+        text = time.toTimeText()
+    }
+
+    fun LocalTime.toTimeText(): String {
+        return format(formatter)
+    }
+
+    infix fun LocalTime.hoursBetween(end: LocalTime): Double {
+        return Duration.between(this, end).toMinutes() / 60.0
     }
 }

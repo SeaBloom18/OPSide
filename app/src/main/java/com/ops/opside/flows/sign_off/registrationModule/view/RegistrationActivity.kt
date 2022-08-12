@@ -19,13 +19,6 @@ import com.ops.opside.databinding.ActivityRegistrationBinding
 
 class RegistrationActivity : AppCompatActivity() {
 
-    /*Cambios antes de correr la app
-    * cambios en los bottomSheet de backPressed
-    * cambios en el insert de firestore
-    * validacion para cuando se elige una opcion de registro
-    * creacion MVVM classes
-    * validar string de registros*/
-
     private lateinit var mBinding: ActivityRegistrationBinding
     private var dataBaseInstance = FirebaseFirestore.getInstance()
 
@@ -44,7 +37,6 @@ class RegistrationActivity : AppCompatActivity() {
             //if()
             showBottomSheetSuccess()
         }
-
     }
 
     //Override Methods
@@ -220,8 +212,6 @@ class RegistrationActivity : AppCompatActivity() {
             this.title = getString(R.string.login_txt_create_account_sign_in)
             setSupportActionBar(this)
             (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
         }
     }
 

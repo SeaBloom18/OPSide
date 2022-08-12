@@ -1,31 +1,38 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.Market
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.Market
 import com.ops.opside.databinding.FragmentMarketBinding
+import com.ops.opside.flows.sign_on.mainModule.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
+
 
 class MarketFragment : Fragment(), OnClickListener {
 
     private var mBinding: FragmentMarketBinding? = null
     private val binding get() = mBinding!!
+    private lateinit var mActivity: MainActivity
 
     private lateinit var marketAdapter: MarketAdapter
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
-
     private lateinit var mMarketViewModel: MarketViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,28 +40,56 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
+    ): View? {
         // Inflate the layout for this fragment
         mBinding = FragmentMarketBinding.inflate(inflater, container, false)
+
+        mActivity = activity as MainActivity
 
         binding.fabAddMarket.setOnClickListener {
             startActivity(Intent(activity, MarketRegisterActivity::class.java))
         }
 
-        //setUpViewModel() // aun din funcionar pero ya listo para cuando este la db
+        //setUpViewModel() // aun sin funcionar pero ya listo para cuando este la db
         setUpRecyclerView()
+        setToolbar()
 
         return binding.root
     }
 
+    //Override Methods
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
     }
 
-    //Functions
+
+    //Methods
+    private fun setToolbar(){
+        with(binding.toolbarMarket.commonToolbar) {
+            this.title = getString(R.string.bn_menu_market_opc1)
+
+            this.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.menu_market_toolbar, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.search -> {
+                            //Action
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        }
+    }
+
     private fun setUpViewModel(){
-        mMarketViewModel = ViewModelProvider(requireActivity()).get(MarketViewModel::class.java)
+        mMarketViewModel = ViewModelProvider(requireActivity())[MarketViewModel::class.java]
         mMarketViewModel.getMarkets().observe(requireActivity()){
             marketAdapter.setStores(it)
         }

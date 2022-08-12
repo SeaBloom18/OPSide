@@ -5,69 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@color/primaryLightColor"
     tools:context=".flows.sign_on.dashboardModule.view.DashBoardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryColor"
+        android:background="@color/primaryLightColor"
         tools:context=".flows.sign_on.dashboardModule.view.DashBoardActivity">
 
-        <TextView
-            android:id="@+id/tvAnalitycs"
-            style="@style/WhiteTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_padding_default"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:text="@string/dashboard_analytics"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imgProfile"
-            android:layout_width="@dimen/common_icon_size"
-            android:layout_height="@dimen/common_icon_size"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/fui_transparent"
-            android:contentDescription="@string/dashboard_user_profile"
-            android:src="@drawable/ic_profile"
-            app:layout_constraintBottom_toBottomOf="@+id/imgNotifications"
-            app:layout_constraintEnd_toStartOf="@+id/imgNotifications"
-            app:layout_constraintTop_toTopOf="@+id/imgNotifications" />
-
-        <ImageButton
-            android:id="@+id/imgSettings"
-            android:layout_width="@dimen/common_icon_size"
-            android:layout_height="@dimen/common_icon_size"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/fui_transparent"
-            android:contentDescription="@string/dashboard_user_profile"
-            android:src="@drawable/ic_setting"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imgNotifications"
-            android:layout_width="@dimen/common_icon_size"
-            android:layout_height="@dimen/common_icon_size"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/fui_transparent"
-            android:contentDescription="@string/dashboard_notifications"
-            android:src="@drawable/ic_bell"
-            app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
-            app:layout_constraintEnd_toStartOf="@+id/imgSettings"
-            app:layout_constraintTop_toTopOf="@+id/imgSettings" />
-
-        <View
-            android:id="@+id/divider"
-            style="@style/Divider"
-            android:layout_marginTop="@dimen/common_padding_default"
+        <include
+            layout="@layout/toolbar_layout"
+            android:id="@+id/toolbarTaxDashboard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvAnalitycs" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <LinearLayout
             android:id="@+id/linearOptionsAnalitycs"
@@ -78,7 +30,7 @@
             android:weightSum="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider">
+            app:layout_constraintTop_toBottomOf="@id/toolbarTaxDashboard">
 
             <Button
                 android:id="@+id/btnDaily"
