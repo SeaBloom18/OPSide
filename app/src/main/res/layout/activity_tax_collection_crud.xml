@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity">
+    tools:context=".flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity">
 
     <TextView
         android:id="@+id/tvTitle"

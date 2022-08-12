@@ -1,0 +1,17 @@
+package com.ops.opside.common.entities.share
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "Resources")
+data class ResourcesSE(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
+    @ColumnInfo(name = "idFirebase")
+    val idFirebase: String,
+    @ColumnInfo(name = "name")
+    val name: String,
+    @ColumnInfo(name = "description")
+    val description: String
+)

@@ -126,5 +126,6 @@
     <string name="bottom_sheet_btn_create_inc">Crear Incidencia</string>
     <string name="bottom_sheet_til_hint_inc_name">Nombre de incidencia</string>
     <string name="bottom_sheet_til_hint_inc_price">Precio de incidencia</string>
+    <string name="tax_collection_choose_tianguis">Elige un Tianguis</string>
 
 </resources>

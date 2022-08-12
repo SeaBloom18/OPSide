@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.ops.opside.R
 import com.ops.opside.databinding.FragmentDashBoardBinding
-import com.ops.opside.flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class DashBoardFragment : Fragment() {

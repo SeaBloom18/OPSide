@@ -5,48 +5,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.Entities.TaxCollectionEntity
-import com.ops.opside.common.Utils.Formaters
-import com.ops.opside.common.Utils.Formaters.formatCurrency
-import com.ops.opside.common.Utils.tryOrPrintException
+import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.Formaters
+import com.ops.opside.common.utils.Formaters.formatCurrency
+import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.utils.launchFragment
 import com.ops.opside.databinding.ItemCrudTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.FinalizeTaxCollectionFragment
 
 
-class TaxCollectionsCrudAdapter (
-    var events: MutableList<TaxCollectionEntity>,
-    val listener: TaxCollectionCrudAux) :
+class TaxCollectionsCrudAdapter(
+    private var mEvents: MutableList<TaxCollectionSE>,
+    private val mListener: TaxCollectionCrudAux,
+    private val mActivity: TaxCollectionCrudActivity
+) :
     RecyclerView.Adapter<TaxCollectionsCrudAdapter.ViewHolder>() {
 
     private lateinit var mContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         mContext = parent.context
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_crud_tax_collection, parent, false)
+        val view =
+            LayoutInflater.from(mContext).inflate(R.layout.item_crud_tax_collection, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = events[position]
+        val item = mEvents[position]
         holder.bind(item)
     }
 
-    override fun getItemCount(): Int = events.size
+    override fun getItemCount(): Int = mEvents.size
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemCrudTaxCollectionBinding.bind(view)
 
-        fun bind(item : TaxCollectionEntity){
+        fun bind(item: TaxCollectionSE) {
             binding.apply {
                 txtTianguisName.text = item.tianguisName
                 txtDate.text = Formaters.formatDate(item.date)
                 txtTotalAmount.text = item.totalAmount.formatCurrency()
 
+                imgShowMore.animateOnPress()
                 imgShowMore.setOnClickListener {
                     launchFinalizeFragment()
                 }
@@ -56,22 +61,16 @@ class TaxCollectionsCrudAdapter (
     }
 
     private fun launchFinalizeFragment() {
-        tryOrPrintException {
-            val fragment = FinalizeTaxCollectionFragment()
+        val bundle = Bundle()
+        bundle.putString("type", "update")
 
-            val mBundle = Bundle()
-            mBundle.putString("type", "update")
-            fragment.arguments = mBundle
-
-            val fragmentManager = (mContext as FragmentActivity).supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-
-            fragmentTransaction.add(R.id.container, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-
-            listener.hideButtons()
-        }
+        mActivity.launchFragment(
+            FinalizeTaxCollectionFragment(),
+            mActivity.supportFragmentManager,
+            R.id.container,
+            bundle
+        )
+        mListener.hideButtons()
     }
 
 }

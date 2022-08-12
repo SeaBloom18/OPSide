@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ops.opside.common.entities.Concessionaire
-import com.ops.opside.common.Utils.tryOrPrintException
+import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.databinding.FragmentConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.ConcessionaireAdapter
-import com.ops.opside.flows.sign_on.mainModule.MainActivity
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 
 class ConcessionaireFragment : Fragment() {
 
@@ -46,16 +46,16 @@ class ConcessionaireFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val collections = mutableListOf<Concessionaire>()
+        val collections = mutableListOf<ConcessionaireSE>()
 
         for (i in 1..30) {
             collections.add(
-                Concessionaire(
-                    "$i", "Concesionario $i",
+                ConcessionaireSE(
+                    i.toLong(), "Concesionario $i",
                     "",
                     "",
                     "",
-                    0.0, "", 0, mutableListOf()
+                    "", 3.0, ""
                 )
             )
         }

@@ -1,20 +1,17 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
-import com.ops.opside.common.Utils.Constants
+import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 
 class MarketRegisterActivity : AppCompatActivity() {

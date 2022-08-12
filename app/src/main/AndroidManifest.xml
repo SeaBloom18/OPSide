@@ -38,7 +38,7 @@
             android:name=".flows.sign_on.marketModule.view.MarketRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_on.mainModule.MainActivity"
+            android:name=".flows.sign_on.mainModule.view.MainActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_on.dealerModule.view.DealerActivity"
@@ -47,13 +47,13 @@
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity"
+            android:name=".flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_off.registrationModule.view.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".flows.sign_off.SplashModule.SplashActivity"
+            android:name=".flows.sign_off.splashModule.view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

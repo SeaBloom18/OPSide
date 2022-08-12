@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.Utils.tryOrPrintException
+import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.databinding.FragmentFinalizeTaxCollectionBinding
-import com.ops.opside.flows.sign_on.mainModule.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionCrudModule.View.TaxCollectionCrudActivity
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.AbsenceTaxCollectionAdapter
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 
@@ -20,7 +20,7 @@ class FinalizeTaxCollectionFragment : Fragment() {
 
     lateinit var mBinding: FragmentFinalizeTaxCollectionBinding
     lateinit var mAdapter: AbsenceTaxCollectionAdapter
-    lateinit var mTypeTransaction: String
+    private lateinit var mTypeTransaction: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
