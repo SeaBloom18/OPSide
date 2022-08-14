@@ -184,7 +184,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirmFilter"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
         android:layout_marginHorizontal="100dp"
         android:layout_marginVertical="@dimen/common_padding_large"

@@ -160,7 +160,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSend"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="130dp"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_default"

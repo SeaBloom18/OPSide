@@ -14,6 +14,7 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
@@ -22,6 +23,7 @@ class MarketFragment : Fragment(), OnClickListener {
 
     private var mBinding: FragmentMarketBinding? = null
     private val binding get() = mBinding!!
+    private lateinit var mActivity: MainActivity
 
     private lateinit var marketAdapter: MarketAdapter
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
@@ -34,14 +36,9 @@ class MarketFragment : Fragment(), OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View? {
-        // Inflate the layout for this fragment
         mBinding = FragmentMarketBinding.inflate(inflater, container, false)
+        mActivity = activity as MainActivity
 
-        binding.fabAddMarket.setOnClickListener {
-            startActivity(Intent(activity, MarketRegisterActivity::class.java))
-        }
-
-        //setUpViewModel() // aun din funcionar pero ya listo para cuando este la db
         setToolbar()
         setUpRecyclerView()
 
@@ -65,8 +62,12 @@ class MarketFragment : Fragment(), OnClickListener {
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
-                        R.id.search -> {
+                        R.id.menu_market_search -> {
                             //Action
+                            true
+                        }
+                        R.id.menu_market_create -> {
+                            startActivity(Intent(activity, MarketRegisterActivity::class.java))
                             true
                         }
                         else -> false

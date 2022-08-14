@@ -33,15 +33,15 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:text="Complete all steps to complete your register!"
+                android:text="@string/registration_tv_steps_title"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
           <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilUserName"
               style="@style/TextInputLayoutStyle"
+              android:id="@+id/tilUserName"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginStart="24dp"
@@ -221,23 +221,16 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/CommonButtonStyle"
             android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Complete Sign In"
-            android:textColor="@color/secondaryColor"
-            app:cornerRadius="@dimen/button_corner_radius"
+            android:text="@string/registration_btn_complete_register"
             app:icon="@drawable/ic_login"
-            app:iconTint="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/secondaryColor"
-            app:strokeColor="@color/secondaryColor" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -163,6 +163,6 @@
         android:layout_weight=".05"
         android:text="@string/dealer_show_qr"
         app:icon="@drawable/ic_qr_code"
-        style="@style/ButtonStyle"/>
+        style="@style/CommonButtonStyle"/>
 
 </LinearLayout>

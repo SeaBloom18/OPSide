@@ -1,13 +1,12 @@
 package com.ops.opside.flows.sign_on.taxCollectionCrudModule.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollectionsCrudAdapter

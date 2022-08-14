@@ -34,7 +34,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNo"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:backgroundTint="@color/error"
@@ -50,7 +50,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnYes"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="@dimen/common_padding_large"

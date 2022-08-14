@@ -1,4 +1,4 @@
-package com.ops.opside.flows.sign_on.marketModule.marketModel
+package com.ops.opside.flows.sign_on.marketModule.model
 
 import com.ops.opside.common.entities.share.TianguisSE
 

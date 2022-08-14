@@ -54,9 +54,8 @@ class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
         mViewModel.getEventsList.observe(this, Observer(this::getEventsList))
     }
 
-
     private fun initRecyclerView() {
-        var linearLayoutManager: RecyclerView.LayoutManager
+        val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(mActivity)
 
         mAdapter = RecordTaxCollectionAdapter(mEventsList)

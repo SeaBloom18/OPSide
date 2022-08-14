@@ -7,6 +7,7 @@
     <!-- Common -->
     <string name="common_accept">Aceptar</string>
     <string name="common_delete">Delete</string>
+    <string name="common_content_description">Common Content Image Description</string>
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
@@ -66,6 +67,8 @@
     <string name="registration_alert_dialog_title">¿Como te quieres registrar?</string>
     <string name="registration_alert_dialog_negative_button">Regresar al inicio</string>
     <string name="registration_toast_option_validation">Debes de elegir una opcion!</string>
+    <string name="registration_btn_complete_register">Completar registro!</string>
+    <string name="registration_tv_steps_title">Completa todos los pasos para completar tu registro!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
