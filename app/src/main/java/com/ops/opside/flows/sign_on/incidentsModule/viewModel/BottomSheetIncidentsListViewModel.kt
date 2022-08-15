@@ -10,7 +10,6 @@ import com.ops.opside.flows.sign_on.incidentsModule.model.ListIncidentsInteracto
 class BottomSheetIncidentsListViewModel: CommonViewModel() {
 
     private val mBottomSheetIncidentsInteractor = ListIncidentsInteractor()
-
     val getIncidentsList = MutableLiveData<MutableList<IncidentSE>>()
 
     fun getIncidentsList(){

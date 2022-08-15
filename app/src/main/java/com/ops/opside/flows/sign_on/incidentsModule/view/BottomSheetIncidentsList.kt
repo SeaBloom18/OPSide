@@ -14,7 +14,6 @@ import com.ops.opside.databinding.BottomSheetSeeIncidentsBinding
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.ListIncidentsAdapter
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetIncidentsListViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 
 class BottomSheetIncidentsList: BottomSheetDialogFragment() {
 
