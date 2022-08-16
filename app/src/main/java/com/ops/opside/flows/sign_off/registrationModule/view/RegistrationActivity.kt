@@ -24,19 +24,17 @@ class RegistrationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration)
         mBinding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        mBinding.apply {
+            btnRegister.setOnClickListener { showBottomSheetSuccess() }
+        }
 
         setToolbar()
         alertDialogRegisterOptions()
         formSetUp()
         concessionaireRegister()
-
-        mBinding.btnRegister.setOnClickListener {
-            //if()
-            showBottomSheetSuccess()
-        }
     }
 
     //Override Methods
@@ -239,10 +237,4 @@ class RegistrationActivity : AppCompatActivity() {
         dialog.setContentView(view)
         dialog.show()
     }
-
-    data class conceTest(
-        var conceId: String? = null,
-        var conceName: String? = null,
-        var conceLastName: String? = null,
-    )
 }

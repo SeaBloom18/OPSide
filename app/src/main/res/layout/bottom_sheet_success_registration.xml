@@ -36,7 +36,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnClose"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"

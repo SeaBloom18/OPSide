@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
@@ -22,11 +24,12 @@ class MarketFragment : Fragment(), OnClickListener {
 
     private var mBinding: FragmentMarketBinding? = null
     private val binding get() = mBinding!!
+    private lateinit var mActivity: MainActivity
 
-    private lateinit var marketAdapter: MarketAdapter
-    private lateinit var linearLayoutManager: RecyclerView.LayoutManager
+    private lateinit var mMarketAdapter: MarketAdapter
 
     private lateinit var mMarketViewModel: MarketViewModel
+    private lateinit var mMarketList: MutableList<TianguisSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +37,12 @@ class MarketFragment : Fragment(), OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View? {
-        // Inflate the layout for this fragment
         mBinding = FragmentMarketBinding.inflate(inflater, container, false)
+        mActivity = activity as MainActivity
 
-        binding.fabAddMarket.setOnClickListener {
-            startActivity(Intent(activity, MarketRegisterActivity::class.java))
-        }
-
-        //setUpViewModel() // aun din funcionar pero ya listo para cuando este la db
         setToolbar()
-        setUpRecyclerView()
+        bindViewModel()
+        loadMarketsList()
 
         return binding.root
     }
@@ -51,6 +50,20 @@ class MarketFragment : Fragment(), OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+    }
+
+    private fun loadMarketsList() {
+        mMarketViewModel.getMarketList()
+    }
+
+    private fun bindViewModel() {
+        mMarketViewModel = ViewModelProvider(requireActivity())[MarketViewModel::class.java]
+        mMarketViewModel.getMarketList.observe(mActivity, Observer(this::getMarketList))
+    }
+
+    private fun getMarketList(marketList: MutableList<TianguisSE>){
+        mMarketList = marketList
+        setUpRecyclerView()
     }
 
     //Functions
@@ -65,8 +78,12 @@ class MarketFragment : Fragment(), OnClickListener {
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
-                        R.id.search -> {
+                        R.id.menu_market_search -> {
                             //Action
+                            true
+                        }
+                        R.id.menu_market_create -> {
+                            startActivity(Intent(activity, MarketRegisterActivity::class.java))
                             true
                         }
                         else -> false
@@ -76,21 +93,15 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun setUpViewModel(){
-        mMarketViewModel = ViewModelProvider(requireActivity()).get(MarketViewModel::class.java)
-        mMarketViewModel.getMarkets().observe(requireActivity()){
-            marketAdapter.setStores(it)
-        }
-    }
-
     private fun setUpRecyclerView(){
-        marketAdapter = MarketAdapter(getMarkets(), this)
-        linearLayoutManager = LinearLayoutManager(context)
+        val linearLayoutManager: RecyclerView.LayoutManager
+        linearLayoutManager = LinearLayoutManager(mActivity)
+        mMarketAdapter = MarketAdapter(mMarketList, this)
 
         binding.recycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
-            adapter = marketAdapter
+            adapter = mMarketAdapter
         }
     }
 
@@ -108,16 +119,8 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     private fun editMarket(){
-        //startActivity(Intent(context, MarketRegisterActivity::class.java))
-        Toast.makeText(context, "Editar item", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun getMarkets(): MutableList<TianguisSE> {
-        val tianguis = mutableListOf<TianguisSE>()
-        for (i in 1..5) tianguis.add(TianguisSE(i.toLong(), "Tianguis de muestra $i", "Direccion de muestra $i",
-                                                "",0.0,0.0,0))
-
-        return tianguis
+        startActivity(Intent(mActivity, MarketRegisterActivity::class.java))
+        Toast.makeText(mActivity, "Editar item", Toast.LENGTH_SHORT).show()
     }
 
     //Interface

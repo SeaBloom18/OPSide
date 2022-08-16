@@ -1,4 +1,5 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
+
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.PENALTY_FEE
