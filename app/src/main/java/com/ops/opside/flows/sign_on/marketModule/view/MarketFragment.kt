@@ -47,6 +47,11 @@ class MarketFragment : Fragment(), OnClickListener {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mBinding = null
+    }
+
     private fun loadMarketsList() {
         mMarketViewModel.getMarketList()
     }
@@ -59,11 +64,6 @@ class MarketFragment : Fragment(), OnClickListener {
     private fun getMarketList(marketList: MutableList<TianguisSE>){
         mMarketList = marketList
         setUpRecyclerView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mBinding = null
     }
 
     //Functions
