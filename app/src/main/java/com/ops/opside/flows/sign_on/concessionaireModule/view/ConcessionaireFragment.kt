@@ -1,7 +1,12 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.view
 
 import android.os.Bundle
-import android.view.*
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -20,64 +25,36 @@ import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 
 class ConcessionaireFragment : Fragment() {
 
-    private var mBinding: FragmentConcessionaireBinding? = null
-    private val binding get() = mBinding!!
-    private lateinit var mAdapter: ConcessionaireAdapter
-    private lateinit var mActivity: MainActivity
-    private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
-    private lateinit var mConcessionaireViewModel: ConcessionaireViewModel
+    lateinit var mBinding: FragmentConcessionaireBinding
+    lateinit var mAdapter: ConcessionaireAdapter
+    lateinit var mActivity: MainActivity
+    lateinit var mViewModel: ConcessionaireViewModel
+    lateinit var mConcessionaresList: MutableList<ConcessionaireSE>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         mBinding = FragmentConcessionaireBinding.inflate(inflater, container, false)
 
         setUpActivity()
-        setToolbar()
         bindViewModel()
-        loadConcessionaireList()
-
-        return binding.root
+        setToolbar()
+        loadConcessionaresList()
+        return mBinding.root
     }
 
     private fun bindViewModel() {
-        mConcessionaireViewModel = ViewModelProvider(requireActivity())[ConcessionaireViewModel::class.java]
-        mConcessionaireViewModel.getConcessionaireList.observe(mActivity, Observer(this::getConcessionaireList))
-    }
+        mViewModel = ViewModelProvider(this)[ConcessionaireViewModel::class.java]
 
-    private fun loadConcessionaireList() {
-        mConcessionaireViewModel.getConcessionaireList()
-    }
-
-    private fun getConcessionaireList(concessionaireList: MutableList<ConcessionaireSE>){
-        mConcessionaireList = concessionaireList
-        initRecyclerView()
+        mViewModel.getConcessionairesList.observe(requireActivity(), Observer(this::getAbsencesList))
     }
 
     private fun setUpActivity() {
         mActivity = activity as MainActivity
     }
 
-    private fun initBsd() {
-        tryOrPrintException {
-            val bottomSheetFilter = BottomSheetFilter()
-            bottomSheetFilter.show(mActivity.supportFragmentManager, bottomSheetFilter.tag)
-        }
-    }
-
-    private fun initRecyclerView() {
-        val linearLayoutManager: RecyclerView.LayoutManager
-        linearLayoutManager = LinearLayoutManager(mActivity)
-        mAdapter = ConcessionaireAdapter(mConcessionaireList)
-
-        binding.rvConcessionaires.apply {
-            setHasFixedSize(true)
-            layoutManager = linearLayoutManager
-            adapter = mAdapter
-        }
-    }
-
     private fun setToolbar(){
-        with(binding.toolbar.commonToolbar){
+        with(mBinding.toolbar.commonToolbar){
             this.title = getString(R.string.bn_menu_concessionaire_opc2)
 
             this.addMenuProvider(object : MenuProvider {
@@ -100,5 +77,36 @@ class ConcessionaireFragment : Fragment() {
             }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         }
     }
+
+    private fun initBsd() {
+        tryOrPrintException {
+            val bottomSheetFilter = BottomSheetFilter()
+            bottomSheetFilter.show(mActivity.supportFragmentManager, bottomSheetFilter.tag)
+        }
+    }
+
+    private fun initRecyclerView() {
+        mAdapter = ConcessionaireAdapter(mConcessionaresList)
+
+        val linearLayoutManager: RecyclerView.LayoutManager
+        linearLayoutManager = LinearLayoutManager(context)
+
+        mBinding.rvConcessionaires.apply {
+            setHasFixedSize(true)
+            layoutManager = linearLayoutManager
+            adapter = mAdapter
+        }
+    }
+
+    private fun getAbsencesList(concessionaresList: MutableList<ConcessionaireSE>){
+        mConcessionaresList = concessionaresList
+
+        initRecyclerView()
+    }
+
+    private fun loadConcessionaresList(){
+        mViewModel.getConcessionairesList()
+    }
+
 
 }

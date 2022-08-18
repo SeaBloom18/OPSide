@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.entities.share.IncidentSE
-import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): BottomSheetDialogFragment() {
 

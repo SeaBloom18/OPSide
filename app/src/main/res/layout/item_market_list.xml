@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toStartOf="@+id/ibArrow"
             app:layout_constraintStart_toEndOf="@+id/ivMarketItem"
             app:layout_constraintTop_toTopOf="@+id/ivMarketItem"
-            tools:text="Tianguis ixtlahuacan de los membrillos"
+            tools:text="Market ixtlahuacan de los membrillos"
             style="@style/textViewBodyStyle"/>
 
         <ImageButton

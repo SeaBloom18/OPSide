@@ -10,25 +10,23 @@ import com.ops.opside.databinding.ActivityDealerBinding
 class DealerActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityDealerBinding
-    private lateinit var mDialog: BottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityDealerBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.btnShowQr.setOnClickListener {
-            mDialog = BottomSheetDialog(this)
-            val view = layoutInflater.inflate(R.layout.bottom_sheet_show_qr, null)
-            mDialog.setContentView(view)
-            mDialog.show()
-
-            view.findViewById<ImageButton>(R.id.ibSignInClose).setOnClickListener {
-                mDialog.dismiss()
+        mBinding.apply {
+            btnShowQr.setOnClickListener {
+                showQr()
             }
         }
 
+    }
 
+    private fun showQr() {
+        val dialog = BottomSheetShowQr()
+        dialog.show(supportFragmentManager,dialog.tag)
     }
 
 }

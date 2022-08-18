@@ -1,17 +1,17 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import io.reactivex.Observable
 
 
-class PickTianguisInteractor {
-    fun getTianguisList(): Observable<MutableList<TianguisSE>> {
+class PickMarketInteractor {
+    fun getMarketsList(): Observable<MutableList<MarketSE>> {
         return Observable.unsafeCreate{ subscriber ->
             try {
-                val elements: MutableList<TianguisSE> = mutableListOf()
+                val markets: MutableList<MarketSE> = mutableListOf()
                 for (i in 1..10){
-                    elements.add(
-                        TianguisSE(
+                    markets.add(
+                        MarketSE(
                         (i).toLong(),
                             "",
                             "Tianguis $i",
@@ -23,7 +23,7 @@ class PickTianguisInteractor {
                     )
                 }
 
-                subscriber.onNext(elements)
+                subscriber.onNext(markets)
             } catch (exception: Exception){
                 subscriber.onError(exception)
             }

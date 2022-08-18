@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.applySchedulers
@@ -8,16 +9,17 @@ import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.concessionaireModule.model.ConcessionaireInteractor
 
 class ConcessionaireViewModel: CommonViewModel() {
+    private var mConcessionaireInteractor = ConcessionaireInteractor()
+    private val _getConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
 
-    private val mConcessionaireInteractor = ConcessionaireInteractor()
-    val getConcessionaireList = MutableLiveData<MutableList<ConcessionaireSE>>()
+    val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = _getConcessionairesList
 
-    fun getConcessionaireList() {
+    fun getConcessionairesList(){
         disposable.add(
-            mConcessionaireInteractor.getConcessionaires().applySchedulers()
+            mConcessionaireInteractor.getConcessionairesList().applySchedulers()
                 .subscribe(
                     {
-                        getConcessionaireList.value = it
+                        _getConcessionairesList.value = it
                     },
                     {
                         Log.e("Error", it.toString())

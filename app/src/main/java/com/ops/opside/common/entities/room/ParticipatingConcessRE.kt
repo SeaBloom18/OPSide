@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 data class ParticipatingConcessRE(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @ColumnInfo(name = "idTianguis")
-    val idTianguis: String,
+    @ColumnInfo(name = "idMarket")
+    val idMarket: String,
     @ColumnInfo(name = "idConcessionaire")
     val idConcessionaire: String
 )

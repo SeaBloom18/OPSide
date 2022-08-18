@@ -193,12 +193,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvParticipatingTianguis"
+            android:id="@+id/rvParticipatingMarket"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/common_padding_default"
             android:layout_marginHorizontal="@dimen/common_padding_default"
-            tools:listitem="@layout/item_tianguis"
+            tools:listitem="@layout/item_market"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilLineOfBusiness" />

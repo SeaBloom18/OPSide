@@ -2,6 +2,8 @@ package com.ops.opside.flows.sign_on.taxCollectionCrudModule.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.common.bsd.BottomSheetFilter
@@ -11,12 +13,15 @@ import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollectionsCrudAdapter
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
+import com.ops.opside.flows.sign_on.taxCollectionCrudModule.viewModel.TaxCollectionCrudViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
 class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
     lateinit var mBinding: ActivityTaxCollectionCrudBinding
     lateinit var mAdapter: TaxCollectionsCrudAdapter
+    lateinit var mViewModel: TaxCollectionCrudViewModel
+    lateinit var mCollectionList: MutableList<TaxCollectionSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,14 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
             }
         }
 
-        initRecyclerView()
+        bindViewModel()
+        loadCollectionsList()
+    }
+
+    private fun bindViewModel() {
+        mViewModel = ViewModelProvider(this)[TaxCollectionCrudViewModel::class.java]
+
+        mViewModel.getCollectionsList.observe(this, Observer(this::getCollectionsList))
     }
 
     private fun initBsd() {
@@ -49,24 +61,10 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
     }
 
 
-    fun initRecyclerView() {
-        val collections = mutableListOf<TaxCollectionSE>()
+    private fun initRecyclerView() {
+        mAdapter = TaxCollectionsCrudAdapter(mCollectionList, this, this)
 
-        for (i in 1..15) {
-            collections.add(
-                TaxCollectionSE(
-                    i.toLong(), "",
-                    "Tianguis Minicipal",
-                    "",1250.0,
-                    "2022-07-12",
-                    "", "", ""
-                )
-            )
-        }
-
-        mAdapter = TaxCollectionsCrudAdapter(collections, this, this)
-
-        var linearLayoutManager: RecyclerView.LayoutManager
+        val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
 
         mBinding.rvTaxCollections.apply {
@@ -75,6 +73,15 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
             adapter = mAdapter
         }
 
+    }
+
+    private fun loadCollectionsList(){
+        mViewModel.getCollectionsList()
+    }
+
+    private fun getCollectionsList(collectionList: MutableList<TaxCollectionSE>) {
+        mCollectionList = collectionList
+        initRecyclerView()
     }
 
     override fun hideButtons() {

@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Tianguis")
-data class TianguisSE(
+@Entity(tableName = "Market")
+data class MarketSE(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "idFirebase")

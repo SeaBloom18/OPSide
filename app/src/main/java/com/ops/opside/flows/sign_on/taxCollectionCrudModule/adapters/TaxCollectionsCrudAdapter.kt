@@ -47,7 +47,7 @@ class TaxCollectionsCrudAdapter(
 
         fun bind(item: TaxCollectionSE) {
             binding.apply {
-                txtTianguisName.text = item.tianguisName
+                txtMarketName.text = item.marketName
                 txtDate.text = Formaters.formatDate(item.date)
                 txtTotalAmount.text = item.totalAmount.formatCurrency()
 
