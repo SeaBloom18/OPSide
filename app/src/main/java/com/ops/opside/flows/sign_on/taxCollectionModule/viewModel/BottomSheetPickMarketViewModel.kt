@@ -6,20 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.common.viewModel.CommonViewModel
-import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickTianguisInteractor
+import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickMarketInteractor
 
-class BottomSheetPickTianguisViewModel: CommonViewModel() {
-    private var mPickTianguisInteractor = PickTianguisInteractor()
-    private val _getTianguisList = MutableLiveData<MutableList<TianguisSE>>()
+class BottomSheetPickMarketViewModel: CommonViewModel() {
+    private var mPickMarketsInteractor = PickMarketInteractor()
+    private val _getMarketsList = MutableLiveData<MutableList<TianguisSE>>()
 
-    val getTianguisList: LiveData<MutableList<TianguisSE>> = _getTianguisList
+    val getMarketsList: LiveData<MutableList<TianguisSE>> = _getMarketsList
 
-    fun getTianguisList(){
+    fun getMarketsList(){
         disposable.add(
-            mPickTianguisInteractor.getTianguisList().applySchedulers()
+            mPickMarketsInteractor.getMarketsList().applySchedulers()
                 .subscribe(
                     {
-                        _getTianguisList.value = it
+                        _getMarketsList.value = it
                     },
                     {
                         Log.e("Error", it.toString())

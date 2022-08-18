@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
         dialog.show()    }
 
     private fun loginValidate(){
-        val email = mBinding.teUserName.text.toString().trim()
+        /*val email = mBinding.teUserName.text.toString().trim()
         val password = mBinding.tePassword.text.toString().trim()
         if (email.isNotEmpty() && password.isNotEmpty()){
             if (email == "admin@gmail.com" && password == ("12345")){
@@ -91,7 +91,8 @@ class LoginActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
-        }
+        }*/
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun setUpViewModel() {

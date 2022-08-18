@@ -1,20 +1,25 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.entities.share.TianguisSE
 import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.databinding.ActivityConcessionaireCrudBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.TianguisParticipatingAdapter
+import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireCrudViewModel
 
 class ConcessionaireCrudActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityConcessionaireCrudBinding
     private lateinit var mAdapter: TianguisParticipatingAdapter
+    private lateinit var mViewModel: ConcessionaireCrudViewModel
+    private lateinit var mMarketsList: MutableList<TianguisSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,20 +31,20 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
             btnClose.setOnClickListener { onBackPressed() }
         }
 
-        initRecyclerView()
+        bindViewModel()
+        loadMarketsList()
+    }
+
+    private fun bindViewModel() {
+        mViewModel = ViewModelProvider(this)[ConcessionaireCrudViewModel::class.java]
+
+        mViewModel.getMarketsList.observe(this, Observer(this::getMarketsList))
     }
 
     private fun initRecyclerView() {
-        val tianguis = mutableListOf<TianguisSE>()
+        mAdapter = TianguisParticipatingAdapter(mMarketsList)
 
-        for (i in 1..7){
-            tianguis.add(TianguisSE(i.toLong(), "Tianguis $i", "",
-                "",0.0,0.0,0))
-        }
-
-        mAdapter = TianguisParticipatingAdapter(tianguis)
-
-        var linearLayoutManager: RecyclerView.LayoutManager
+        val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
 
         mBinding.rvParticipatingTianguis.apply {
@@ -57,5 +62,15 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(mBinding.rvParticipatingTianguis)
+    }
+
+    private fun getMarketsList(marketsList: MutableList<TianguisSE>){
+        mMarketsList = marketsList
+
+        initRecyclerView()
+    }
+
+    private fun loadMarketsList(){
+        mViewModel.getMarketsList()
     }
 }

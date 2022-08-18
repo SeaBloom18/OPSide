@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.databinding.ItemCrudConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity
 
 class ConcessionaireAdapter (
-    var concessionaireRES: MutableList<ConcessionaireSE>,
+    var concessionaireRES: MutableList<ConcessionaireSE>
 ) :
     RecyclerView.Adapter<ConcessionaireAdapter.ViewHolder>() {
 
@@ -37,12 +38,16 @@ class ConcessionaireAdapter (
         val binding = ItemCrudConcessionaireBinding.bind(view)
 
         fun bind(item : ConcessionaireSE){
-            binding.txtConcessionaire.text = item.name
 
-            binding.imgShowMore.setOnClickListener {
-                val intent = Intent(mContext,
-                    ConcessionaireCrudActivity::class.java)
-                mContext.startActivity(intent)
+            binding.apply {
+                txtConcessionaire.text = item.name
+
+                imgShowMore.animateOnPress()
+                imgShowMore.setOnClickListener {
+                    val intent = Intent(mContext,
+                        ConcessionaireCrudActivity::class.java)
+                    mContext.startActivity(intent)
+                }
             }
         }
 

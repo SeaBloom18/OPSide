@@ -11,18 +11,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.databinding.BottomSheetPickTianguisBinding
-import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetPickTianguisViewModel
+import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetPickMarketViewModel
 
-class BottomSheetPickTianguis(
+class BottomSheetPickMarket(
     private val selection: (TianguisSE) -> Unit = {}
 ) : BottomSheetDialogFragment() {
 
     private lateinit var mBinding: BottomSheetPickTianguisBinding
-    private lateinit var mViewModel: BottomSheetPickTianguisViewModel
+    private lateinit var mViewModel: BottomSheetPickMarketViewModel
     private lateinit var mActivity: TaxCollectionActivity
-    private lateinit var mTianguisList: MutableList<TianguisSE>
-    private var mSelectedTianguis: TianguisSE? = null
+    private lateinit var mMarketsList: MutableList<TianguisSE>
+    private var mSelectedMarket: TianguisSE? = null
 
 
     override fun onCreateView(
@@ -38,21 +39,24 @@ class BottomSheetPickTianguis(
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.apply {
-            btnPickTianguis.setOnClickListener {
-                returnSelectedTianguis()
+            btnPickMarket.setOnClickListener {
+                returnSelectedMarket()
             }
+
+            ibSignInClose.animateOnPress()
+            ibSignInClose.setOnClickListener { mActivity.onBackPressed() }
         }
 
         setUpActivity()
         bindViewModel()
-        loadTianguisList()
+        loadMarketsList()
     }
 
-    private fun returnSelectedTianguis() {
-        mSelectedTianguis = searchSelectedTianguis()
+    private fun returnSelectedMarket() {
+        mSelectedMarket = searchSelectedMarket()
 
-        if (mSelectedTianguis != null){
-            selection.invoke(mSelectedTianguis!!)
+        if (mSelectedMarket != null){
+            selection.invoke(mSelectedMarket!!)
             dismiss()
         } else{
             Toast.makeText(mActivity, getString(R.string.tax_collection_choose_tianguis),
@@ -64,9 +68,9 @@ class BottomSheetPickTianguis(
         mActivity = activity as TaxCollectionActivity
     }
 
-    private fun searchSelectedTianguis(): TianguisSE? {
-        for (item in mTianguisList){
-            if (mBinding.spPickTianguis.text.toString() == item.name){
+    private fun searchSelectedMarket(): TianguisSE? {
+        for (item in mMarketsList){
+            if (mBinding.spPickMarket.text.toString() == item.name){
                 return item
             }
         }
@@ -75,28 +79,28 @@ class BottomSheetPickTianguis(
     }
 
     private fun bindViewModel(){
-        mViewModel = ViewModelProvider(requireActivity())[BottomSheetPickTianguisViewModel::class.java]
+        mViewModel = ViewModelProvider(requireActivity())[BottomSheetPickMarketViewModel::class.java]
 
-        mViewModel.getTianguisList.observe(this, Observer(this::getTianguisList))
+        mViewModel.getMarketsList.observe(this, Observer(this::getMarketsList))
     }
 
-    private fun loadTianguisList(){
-        mViewModel.getTianguisList()
+    private fun loadMarketsList(){
+        mViewModel.getMarketsList()
     }
 
     private fun setUpSpinner() {
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, getTianguisListNames())
-       mBinding.spPickTianguis.setAdapter(adapter)
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, getMarketsListNames())
+       mBinding.spPickMarket.setAdapter(adapter)
     }
 
-    private fun getTianguisListNames(): MutableList<String> {
-        return mTianguisList.map { it.name }.toMutableList()
+    private fun getMarketsListNames(): MutableList<String> {
+        return mMarketsList.map { it.name }.toMutableList()
     }
 
 
-    private fun getTianguisList(tianguisList: MutableList<TianguisSE>) {
-        mTianguisList = tianguisList
+    private fun getMarketsList(marketsList: MutableList<TianguisSE>) {
+        mMarketsList = marketsList
         setUpSpinner()
     }
 

@@ -17,7 +17,7 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollection
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
     private lateinit var mBinding: ActivityTaxCollectionBinding
-    private lateinit var mSelectedTianguis: TianguisSE
+    private lateinit var mSelectedMarket: TianguisSE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
 
         setUpPieChart()
-        bsdPickTianguis()
+        bsdPickMarket()
     }
 
     private fun showAlertFinalize() {
@@ -65,10 +65,10 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         )
     }
 
-    private fun bsdPickTianguis() {
-        val dialog = BottomSheetPickTianguis {
-            mSelectedTianguis = it
-            Log.d("Demo", mSelectedTianguis.toString())
+    private fun bsdPickMarket() {
+        val dialog = BottomSheetPickMarket {
+            mSelectedMarket = it
+            Log.d("Demo", mSelectedMarket.toString())
         }
 
         dialog.isCancelable = false

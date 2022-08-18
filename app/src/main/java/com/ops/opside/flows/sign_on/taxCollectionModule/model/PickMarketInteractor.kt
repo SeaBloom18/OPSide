@@ -4,13 +4,13 @@ import com.ops.opside.common.entities.share.TianguisSE
 import io.reactivex.Observable
 
 
-class PickTianguisInteractor {
-    fun getTianguisList(): Observable<MutableList<TianguisSE>> {
+class PickMarketInteractor {
+    fun getMarketsList(): Observable<MutableList<TianguisSE>> {
         return Observable.unsafeCreate{ subscriber ->
             try {
-                val elements: MutableList<TianguisSE> = mutableListOf()
+                val markets: MutableList<TianguisSE> = mutableListOf()
                 for (i in 1..10){
-                    elements.add(
+                    markets.add(
                         TianguisSE(
                         (i).toLong(),
                             "",
@@ -23,7 +23,7 @@ class PickTianguisInteractor {
                     )
                 }
 
-                subscriber.onNext(elements)
+                subscriber.onNext(markets)
             } catch (exception: Exception){
                 subscriber.onError(exception)
             }
