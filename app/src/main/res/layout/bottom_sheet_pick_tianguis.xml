@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryLightColor">
-
-    <ImageButton
-        android:id="@+id/ibSignInClose"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_close_regist_screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="?attr/selectableItemBackground"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPickTianguis"
@@ -26,10 +16,10 @@
         app:helperText="@string/tax_collection_pick_tianguis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibSignInClose">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/spPickMarket"
+            android:id="@+id/spPickTianguis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular" />
@@ -37,8 +27,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPickMarket"
-        style="@style/ButtonStyle"
+        android:id="@+id/btnPickTianguis"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
         android:layout_margin="@dimen/common_padding_default"
         android:text="@string/common_accept"

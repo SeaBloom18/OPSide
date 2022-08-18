@@ -9,6 +9,7 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.RecordTaxCollectionInteractor
 
 class BottomSheetRecordTaxCollectionViewModel: CommonViewModel() {
+
     private val mRecordTaxCollectionInteractor = RecordTaxCollectionInteractor()
 
     private val _getEventsList = MutableLiveData<MutableList<ItemRecord>>()
@@ -27,5 +28,4 @@ class BottomSheetRecordTaxCollectionViewModel: CommonViewModel() {
                 )
         )
     }
-
 }

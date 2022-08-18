@@ -7,6 +7,7 @@
     <!-- Common -->
     <string name="common_accept">Accept</string>
     <string name="common_delete">Delete</string>
+    <string name="common_content_description">Common Content Image Description</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
@@ -66,7 +67,8 @@
     <string name="registration_alert_dialog_title">Chose a register?</string>
     <string name="registration_alert_dialog_negative_button">Return to Login</string>
     <string name="registration_toast_option_validation">Chose an option!</string>
-
+    <string name="registration_btn_complete_register">Complete Sign In</string>
+    <string name="registration_tv_steps_title">Complete all steps to complete your register!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>

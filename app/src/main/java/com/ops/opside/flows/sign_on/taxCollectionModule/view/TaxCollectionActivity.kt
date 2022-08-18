@@ -36,7 +36,6 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             }
         }
 
-
         setUpPieChart()
         bsdPickMarket()
     }

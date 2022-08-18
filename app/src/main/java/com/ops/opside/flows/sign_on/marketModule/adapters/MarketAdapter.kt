@@ -25,6 +25,8 @@ class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var l
         val market = tianguis.get(position)
         with(holder){
             binding.tvMarketName.text = market.name
+            binding.tvItemAddress.text = market.address
+            binding.tvItemConcessionaires.text = "Concessionaires count: ${market.numberConcessionaires}"
             binding.group.visibility = View.GONE
 
             binding.ivDelete.setOnClickListener { listener.onDeleteMarket(market)}
@@ -39,12 +41,6 @@ class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var l
     //Inner class
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemMarketListBinding.bind(view)
-    }
-
-    //Functions
-    fun setStores(tianguis: List<TianguisSE>){
-        this.tianguis = tianguis as MutableList<TianguisSE>
-        notifyDataSetChanged()
     }
 
     private fun setUpItem(holder: ViewHolder){

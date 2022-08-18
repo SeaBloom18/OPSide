@@ -39,7 +39,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"
-            style="@style/ButtonStyle"
+            style="@style/CommonButtonStyle"
             android:layout_width="match_parent"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"

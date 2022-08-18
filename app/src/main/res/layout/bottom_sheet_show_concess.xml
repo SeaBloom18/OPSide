@@ -46,7 +46,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDeleteConcess"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
         android:layout_marginBottom="16dp"
         android:text="@string/bottom_sheet_conce_btn_delete"
@@ -58,7 +58,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGoConcess"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
