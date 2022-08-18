@@ -3,16 +3,16 @@ package com.ops.opside.flows.sign_on.concessionaireModule.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.concessionaireModule.model.ConcessionaireCrudInteractor
 
 class ConcessionaireCrudViewModel : CommonViewModel() {
     private var mConcessionaireCrudInteractor = ConcessionaireCrudInteractor()
-    private val _getMarketsList = MutableLiveData<MutableList<TianguisSE>>()
+    private val _getMarketsList = MutableLiveData<MutableList<MarketSE>>()
 
-    val getMarketsList: LiveData<MutableList<TianguisSE>> = _getMarketsList
+    val getMarketsList: LiveData<MutableList<MarketSE>> = _getMarketsList
 
     fun getMarketsList(){
         disposable.add(

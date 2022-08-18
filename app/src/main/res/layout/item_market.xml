@@ -21,19 +21,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgTianguis"
+        android:id="@+id/imgMarket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/common_padding_default"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:src="@drawable/ic_shop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtTianguisName"
+        app:layout_constraintEnd_toStartOf="@+id/txtMarketName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtTianguisName"
+        android:id="@+id/txtMarketName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -41,11 +41,11 @@
         android:maxLength="@integer/max_characteres"
         android:textAppearance="?attr/textAppearanceSubtitle2"
         android:textColor="@color/primaryTextColor"
-        tools:text="Nombre del Tianguis"
-        app:layout_constraintBottom_toBottomOf="@id/imgTianguis"
+        tools:text="Nombre del Market"
+        app:layout_constraintBottom_toBottomOf="@id/imgMarket"
         app:layout_constraintEnd_toStartOf="@id/imgShowMore"
-        app:layout_constraintStart_toEndOf="@id/imgTianguis"
-        app:layout_constraintTop_toTopOf="@id/imgTianguis"/>
+        app:layout_constraintStart_toEndOf="@id/imgMarket"
+        app:layout_constraintTop_toTopOf="@id/imgMarket"/>
 
 
     <View
@@ -53,6 +53,6 @@
         android:layout_width="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/imgTianguis" />
+        app:layout_constraintStart_toStartOf="@id/imgMarket" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

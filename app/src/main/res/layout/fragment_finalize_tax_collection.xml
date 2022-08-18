@@ -36,19 +36,19 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTianguisName"
+        android:id="@+id/tilMarketName"
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/common_padding_default"
         android:layout_marginTop="@dimen/common_padding_large"
-        android:hint="@string/tax_collection_tianguis"
+        android:hint="@string/tax_collection_market"
         app:layout_constraintTop_toBottomOf="@id/txtTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTianguisName"
+            android:id="@+id/etMarketName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryLightColor"
@@ -67,7 +67,7 @@
         android:layout_marginHorizontal="@dimen/common_padding_default"
         android:layout_marginTop="@dimen/common_padding_default"
         android:hint="@string/tax_collection_total_amount"
-        app:layout_constraintTop_toBottomOf="@id/tilTianguisName"
+        app:layout_constraintTop_toBottomOf="@id/tilMarketName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

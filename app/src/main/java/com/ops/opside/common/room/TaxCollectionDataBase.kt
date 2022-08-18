@@ -13,7 +13,7 @@ import com.ops.opside.common.entities.share.*
         ConcessionaireSE::class,
         IncidentSE::class,
         ResourcesSE::class,
-        TianguisSE::class,
+        MarketSE::class,
         EmailSentRE::class,
         ParticipatingConcessRE::class], version = 1
 )

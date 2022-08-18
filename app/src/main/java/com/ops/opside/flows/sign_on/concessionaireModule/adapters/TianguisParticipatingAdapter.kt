@@ -7,36 +7,36 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.databinding.ItemTianguisBinding
+import com.ops.opside.databinding.ItemMarketBinding
 
-class TianguisParticipatingAdapter (
-    var tianguis: MutableList<TianguisSE>,
+class MarketParticipatingAdapter (
+    var markets: MutableList<MarketSE>,
 ) :
-    RecyclerView.Adapter<TianguisParticipatingAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MarketParticipatingAdapter.ViewHolder>() {
 
     private lateinit var mContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         mContext = parent.context
 
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_tianguis, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.item_market, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = tianguis[position]
+        val item = markets[position]
         holder.bind(item)
     }
 
-    override fun getItemCount(): Int = tianguis.size
+    override fun getItemCount(): Int = markets.size
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = ItemTianguisBinding.bind(view)
+        val binding = ItemMarketBinding.bind(view)
 
-        fun bind(item : TianguisSE){
+        fun bind(item : MarketSE){
 
             binding.apply {
                 imgShowMore.animateOnPress()
@@ -44,7 +44,7 @@ class TianguisParticipatingAdapter (
                     Toast.makeText(mContext, "Mostrar Tianguis", Toast.LENGTH_SHORT).show()
                 }
 
-                txtTianguisName.text = item.name
+                txtMarketName.text = item.name
             }
 
         }

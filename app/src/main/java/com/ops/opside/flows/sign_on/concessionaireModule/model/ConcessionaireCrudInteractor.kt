@@ -1,16 +1,16 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.model
 
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import io.reactivex.Observable
 
 class ConcessionaireCrudInteractor {
-    fun getMarketsList(): Observable<MutableList<TianguisSE>> {
+    fun getMarketsList(): Observable<MutableList<MarketSE>> {
         return Observable.unsafeCreate{ subscriber ->
             try {
-                val markets = mutableListOf<TianguisSE>()
+                val markets = mutableListOf<MarketSE>()
 
                 for (i in 1..7){
-                    markets.add(TianguisSE(i.toLong(), "Tianguis $i", "",
+                    markets.add(MarketSE(i.toLong(), "Tianguis $i", "",
                         "",0.0,0.0,0))
                 }
 

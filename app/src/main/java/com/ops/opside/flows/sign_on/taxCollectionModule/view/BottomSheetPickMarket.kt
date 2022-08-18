@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.databinding.BottomSheetPickTianguisBinding
+import com.ops.opside.databinding.BottomSheetPickMarketBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetPickMarketViewModel
 
 class BottomSheetPickMarket(
-    private val selection: (TianguisSE) -> Unit = {}
+    private val selection: (MarketSE) -> Unit = {}
 ) : BottomSheetDialogFragment() {
 
-    private lateinit var mBinding: BottomSheetPickTianguisBinding
+    private lateinit var mBinding: BottomSheetPickMarketBinding
     private lateinit var mViewModel: BottomSheetPickMarketViewModel
     private lateinit var mActivity: TaxCollectionActivity
-    private lateinit var mMarketsList: MutableList<TianguisSE>
-    private var mSelectedMarket: TianguisSE? = null
+    private lateinit var mMarketsList: MutableList<MarketSE>
+    private var mSelectedMarket: MarketSE? = null
 
 
     override fun onCreateView(
@@ -31,7 +31,7 @@ class BottomSheetPickMarket(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = BottomSheetPickTianguisBinding.inflate(inflater)
+        mBinding = BottomSheetPickMarketBinding.inflate(inflater)
         return mBinding.root
     }
 
@@ -43,8 +43,8 @@ class BottomSheetPickMarket(
                 returnSelectedMarket()
             }
 
-            ibSignInClose.animateOnPress()
-            ibSignInClose.setOnClickListener { mActivity.onBackPressed() }
+            ibClose.animateOnPress()
+            ibClose.setOnClickListener { mActivity.onBackPressed() }
         }
 
         setUpActivity()
@@ -59,7 +59,7 @@ class BottomSheetPickMarket(
             selection.invoke(mSelectedMarket!!)
             dismiss()
         } else{
-            Toast.makeText(mActivity, getString(R.string.tax_collection_choose_tianguis),
+            Toast.makeText(mActivity, getString(R.string.tax_collection_choose_market),
                 Toast.LENGTH_SHORT).show()
         }
     }
@@ -68,7 +68,7 @@ class BottomSheetPickMarket(
         mActivity = activity as TaxCollectionActivity
     }
 
-    private fun searchSelectedMarket(): TianguisSE? {
+    private fun searchSelectedMarket(): MarketSE? {
         for (item in mMarketsList){
             if (mBinding.spPickMarket.text.toString() == item.name){
                 return item
@@ -99,7 +99,7 @@ class BottomSheetPickMarket(
     }
 
 
-    private fun getMarketsList(marketsList: MutableList<TianguisSE>) {
+    private fun getMarketsList(marketsList: MutableList<MarketSE>) {
         mMarketsList = marketsList
         setUpSpinner()
     }

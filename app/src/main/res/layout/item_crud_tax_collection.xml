@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@id/imgAbsence">
 
         <TextView
-            android:id="@+id/txtTianguisName"
+            android:id="@+id/txtMarketName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

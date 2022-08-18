@@ -10,10 +10,10 @@ data class TaxCollectionSE(
     val id: Long,
     @ColumnInfo(name = "idFirebase")
     val idFirebase: String,
-    @ColumnInfo(name = "idTianguis")
-    var idTianguis: String,
-    @ColumnInfo(name = "tianguisName")
-    var tianguisName: String,
+    @ColumnInfo(name = "idMarket")
+    var idMarket: String,
+    @ColumnInfo(name = "marketName")
+    var marketName: String,
     @ColumnInfo(name = "totalAmount")
     var totalAmount: Double,
     @ColumnInfo(name = "date")
@@ -33,14 +33,14 @@ data class TaxCollectionSE(
         other as TaxCollectionSE
 
         if (id != other.id) return false
-        if (idTianguis != other.idTianguis) return false
+        if (idMarket != other.idMarket) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + idTianguis.hashCode()
+        result = 31 * result + idMarket.hashCode()
         return result
     }
 }

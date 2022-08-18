@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.utils.launchFragment
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
@@ -17,7 +17,7 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollection
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
     private lateinit var mBinding: ActivityTaxCollectionBinding
-    private lateinit var mSelectedMarket: TianguisSE
+    private lateinit var mSelectedMarket: MarketSE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

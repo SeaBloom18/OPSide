@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="@+id/chartTaxMoney" />
 
     <TextView
-        android:id="@+id/tvTianguis"
+        android:id="@+id/tvMarket"
         style="@style/WhiteTextBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

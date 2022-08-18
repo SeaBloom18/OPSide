@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.ItemMarketListBinding
 
-class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var listener: OnClickListener):
+class MarketAdapter(private var markets: MutableList<MarketSE>, private var listener: OnClickListener):
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -22,7 +22,7 @@ class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var l
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val market = tianguis.get(position)
+        val market = markets.get(position)
         with(holder){
             binding.tvMarketName.text = market.name
             binding.tvItemAddress.text = market.address
@@ -36,7 +36,7 @@ class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var l
         setUpItem(holder)
     }
 
-    override fun getItemCount(): Int = tianguis.size
+    override fun getItemCount(): Int = markets.size
 
     //Inner class
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){

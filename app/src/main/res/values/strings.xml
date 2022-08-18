@@ -78,11 +78,11 @@
     <string name="bn_menu_incidents_opc5">Incidents</string>
 
 
-    <string name="tax_collection_pick_tianguis">Elige el tianguis a recaudar</string>
+    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
     <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
-    <string name="tax_collection_tianguis">Tianguis</string>
+    <string name="tax_collection_market">Tianguis</string>
     <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
     <string name="tax_collection_sent">Envía</string>
     <string name="tax_collection_absence">Inasistencias</string>
@@ -117,7 +117,7 @@
     <string name="cp_alertdialog_title">Accept Changes</string>
     <string name="cp_alertdialog_message">Are you sure to update the changes?</string>
     <string name="cp_toast_success">Change made successfully</string>
-    <string name="filter_tax_collection_tianguis">Tianguis</string>
+    <string name="filter_tax_collection_market">Tianguis</string>
     <string name="filter_tax_collection_collector">Recuadador</string>
     <string name="common_date">Fecha</string>
     <string name="filter_tax_collection_start_date">Fecha Inicio</string>
@@ -133,5 +133,5 @@
     <string name="bottom_sheet_btn_create_inc">Create Incident</string>
     <string name="bottom_sheet_til_hint_inc_name">Name Incident</string>
     <string name="bottom_sheet_til_hint_inc_price">Price Incident</string>
-    <string name="tax_collection_choose_tianguis">Elige un Tianguis</string>
+    <string name="tax_collection_choose_market">Elige un Tianguis</string>
 </resources>

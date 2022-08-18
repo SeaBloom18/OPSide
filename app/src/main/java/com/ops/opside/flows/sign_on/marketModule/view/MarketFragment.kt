@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
@@ -29,7 +29,7 @@ class MarketFragment : Fragment(), OnClickListener {
     private lateinit var mMarketAdapter: MarketAdapter
 
     private lateinit var mMarketViewModel: MarketViewModel
-    private lateinit var mMarketList: MutableList<TianguisSE>
+    private lateinit var mMarketList: MutableList<MarketSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +61,7 @@ class MarketFragment : Fragment(), OnClickListener {
         mMarketViewModel.getMarketList.observe(mActivity, Observer(this::getMarketList))
     }
 
-    private fun getMarketList(marketList: MutableList<TianguisSE>){
+    private fun getMarketList(marketList: MutableList<MarketSE>){
         mMarketList = marketList
         setUpRecyclerView()
     }
@@ -105,7 +105,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun confirmMarketDelete(tianguis: TianguisSE){
+    private fun confirmMarketDelete(market: MarketSE){
         val dialog = BaseDialog(
             requireActivity(),
             getString(R.string.alert_dialog_delete_title),
@@ -124,11 +124,11 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     //Interface
-    override fun onDeleteMarket(tianguis: TianguisSE) {
-        confirmMarketDelete(tianguis)
+    override fun onDeleteMarket(market: MarketSE) {
+        confirmMarketDelete(market)
     }
 
-    override fun onEditMarket(tianguis: TianguisSE) {
+    override fun onEditMarket(market: MarketSE) {
         editMarket()
     }
 

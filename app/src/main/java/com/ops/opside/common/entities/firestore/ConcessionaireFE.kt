@@ -10,7 +10,7 @@ data class ConcessionaireFE(
     var lineBusiness: String = "",
     val absence: Int = 0,
     val isForeigner: Boolean = false,
-    var participatingTianguis: MutableList<String> = mutableListOf()
+    var participatingMarket: MutableList<String> = mutableListOf()
 ){
     fun getHashMap(): MutableMap<String,Any>{
         val map: MutableMap<String,Any> = mutableMapOf()
@@ -23,7 +23,7 @@ data class ConcessionaireFE(
         map["lineBusiness"] = lineBusiness
         map["absence"] = absence
         map["isForeigner"] = isForeigner
-        map["participatingTianguis"] = participatingTianguis
+        map["participatingMarket"] = participatingMarket
 
         return map
     }

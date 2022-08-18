@@ -1,10 +1,8 @@
 package com.ops.opside.flows.sign_on.marketModule.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.marketModule.model.MarketInteractor
@@ -12,7 +10,7 @@ import com.ops.opside.flows.sign_on.marketModule.model.MarketInteractor
 class MarketViewModel: CommonViewModel() {
 
     private val mMarketInteractor = MarketInteractor()
-    val getMarketList = MutableLiveData<MutableList<TianguisSE>>()
+    val getMarketList = MutableLiveData<MutableList<MarketSE>>()
 
     fun getMarketList(){
         disposable.add(

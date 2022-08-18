@@ -6,5 +6,5 @@ data class ForeignerAssistenceFE(
     val name: String,
     val linearMetersUsed: Double,
     val dateAssistence: String,
-    val idTianguis: String
+    val idMarket: String
 )
