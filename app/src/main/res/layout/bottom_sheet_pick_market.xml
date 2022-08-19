@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/primaryLightColor">
 
     <ImageButton
@@ -36,6 +36,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rbOnLine"
+        style="@style/radioButtonStyle"
+        android:text="@string/tax_collection_on_line"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginStart="@dimen/common_padding_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilPickMarket"/>
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rbOffLine"
+        style="@style/radioButtonStyle"
+        android:text="@string/tax_collection_off_line"
+        android:layout_marginStart="@dimen/common_padding_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rbOnLine"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPickMarket"
         style="@style/CommonButtonStyle"
@@ -46,6 +63,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilPickMarket" />
+        app:layout_constraintTop_toBottomOf="@+id/rbOffLine"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

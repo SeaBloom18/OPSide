@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Market")
 data class MarketSE(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long? = null,
     @ColumnInfo(name = "idFirebase")
     val idFirebase: String,
     @ColumnInfo(name = "name")

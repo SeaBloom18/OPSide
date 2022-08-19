@@ -10,6 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
 import com.ops.opside.common.utils.Constants
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.Preferences.SP_IS_INITIALIZED
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
@@ -77,11 +79,24 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
         }*/
+
+        if (Preferences.getBoolean(this, SP_IS_INITIALIZED).not()) {
+            Preferences.initPreferences(
+                this,
+                15.5f,
+                "Mario Armando Razo Valenzuela",
+                "l8oik7bgrvfde",
+                3,
+                true,
+                true
+            )
+        }
+
         startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun setUpViewModel() {
-        mLoginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        mLoginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         /*mLoginViewModel.getUser()!!.observe(this){
             it.setEmail(mBinding.teUserName.text.toString().trim())

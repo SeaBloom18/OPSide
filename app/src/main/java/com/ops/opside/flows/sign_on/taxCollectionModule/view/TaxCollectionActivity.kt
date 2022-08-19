@@ -2,22 +2,23 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.utils.launchFragment
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
+import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.TaxCollectionViewModel
 
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
     private lateinit var mBinding: ActivityTaxCollectionBinding
-    private lateinit var mSelectedMarket: MarketSE
+    private lateinit var mViewModel: TaxCollectionViewModel
+    private lateinit var mSelectedMarket: MarketFE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +37,8 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             }
         }
 
-        setUpPieChart()
         bsdPickMarket()
+        setUpPieChart()
     }
 
     private fun showAlertFinalize() {
@@ -67,7 +68,8 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     private fun bsdPickMarket() {
         val dialog = BottomSheetPickMarket {
             mSelectedMarket = it
-            Log.d("Demo", mSelectedMarket.toString())
+
+            mBinding.tvMarket.text = mSelectedMarket.name
         }
 
         dialog.isCancelable = false
@@ -77,10 +79,10 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     private fun setUpPieChart() {
         mBinding.chartTaxMoney.apply {
             progress = 65f
-            setProgressWithAnimation(65f, 4000) // =1s
+            setProgressWithAnimation(0f, 4000) // =1s
 
             // Set Progress Max
-            progressMax = 200f
+            progressMax = 100f
 
             // Set ProgressBar Color
             progressBarColor = Color.BLACK
