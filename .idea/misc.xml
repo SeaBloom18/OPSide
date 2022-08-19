@@ -8,9 +8,11 @@
         <entry key="app/src/main/res/drawable/ic_bell.xml" value="0.2525" />
         <entry key="app/src/main/res/drawable/ic_bn_exclamation_mark.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/ic_bn_market.xml" value="0.211" />
+        <entry key="app/src/main/res/drawable/ic_call_48px.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_close_regist_screen.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/ic_dollar.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/ic_edit_calendar.xml" value="0.2345" />
+        <entry key="app/src/main/res/drawable/ic_email.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_filter.xml" value="0.2415" />
         <entry key="app/src/main/res/drawable/ic_item_arrow_down.xml" value="0.2445" />
         <entry key="app/src/main/res/drawable/ic_item_arrow_up.xml" value="0.2445" />
@@ -18,6 +20,14 @@
         <entry key="app/src/main/res/drawable/ic_item_delete.xml" value="0.326" />
         <entry key="app/src/main/res/drawable/ic_item_edit.xml" value="0.224" />
         <entry key="app/src/main/res/drawable/ic_item_gps.xml" value="0.326" />
+        <entry key="app/src/main/res/drawable/ic_login.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_email_login.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_home.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_login.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_mail.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_pass_login.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_password.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_user.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.211" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.2955" />
         <entry key="app/src/main/res/drawable/ic_setting.xml" value="0.2525" />
