@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="$ 2680.00"
+        android:text="$ 0.00"
         app:layout_constraintBottom_toBottomOf="@+id/chartTaxMoney"
         app:layout_constraintEnd_toEndOf="@+id/chartTaxMoney"
         app:layout_constraintStart_toStartOf="@+id/chartTaxMoney"
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Sabinos 1"
+        tools:text="Sabinos 1"
         app:layout_constraintEnd_toEndOf="@+id/tvTotalAmount"
         app:layout_constraintStart_toStartOf="@+id/tvTotalAmount"
         app:layout_constraintTop_toBottomOf="@+id/tvTotalAmount" />
@@ -83,7 +83,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
-            android:text="Mario Armando Razo Valenzuela"
+            tools:text="Mario Armando Razo Valenzuela"
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +109,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
-            android:text="5 Metros"
+            tools:text="5 Metros"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -135,7 +135,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
-            android:text="Verdulería"
+            tools:text="Verdulería"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -160,7 +160,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_semibold"
             android:inputType="textPersonName"
-            android:text="$42"
+            tools:text="$42"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/title" />

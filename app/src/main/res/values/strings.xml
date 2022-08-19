@@ -134,4 +134,6 @@
     <string name="bottom_sheet_til_hint_inc_name">Name Incident</string>
     <string name="bottom_sheet_til_hint_inc_price">Price Incident</string>
     <string name="tax_collection_choose_market">Elige un Tianguis</string>
+    <string name="tax_collection_on_line">On Line</string>
+    <string name="tax_collection_off_line">Off Line</string>
 </resources>

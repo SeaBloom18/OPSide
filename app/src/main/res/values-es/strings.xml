@@ -130,5 +130,6 @@
     <string name="bottom_sheet_til_hint_inc_name">Nombre de incidencia</string>
     <string name="bottom_sheet_til_hint_inc_price">Precio de incidencia</string>
     <string name="tax_collection_choose_market">Elige un Tianguis</string>
+    <string name="tax_collection_on_line">On Line</string>
 
 </resources>

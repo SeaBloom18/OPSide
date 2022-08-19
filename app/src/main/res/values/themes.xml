@@ -89,6 +89,13 @@
         <item name="android:letterSpacing">0</item>
     </style>
 
+    <style name="radioButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="buttonTint">@color/secondaryColor</item>
+    </style>
+
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/secondaryColor</item>
     </style>
