@@ -60,8 +60,8 @@ class RegistrationActivity : AppCompatActivity() {
         concessionaire["email"] = mBinding.teEmail.text.toString().trim()
         concessionaire["password"] = mBinding.tePassword.text.toString().trim()*/
 
-        concessionaire["name"] = "Mario"
-        concessionaire["lastName"] = "Gonzalez"
+        concessionaire["name"] = "Tengo sueño"
+        concessionaire["lastName"] = "apa"
         concessionaire["address"] = "Jardines de babilonia #31"
         concessionaire["phone"] = "3328411633"
         concessionaire["email"] = "dagq117@gmail.com"
@@ -99,6 +99,7 @@ class RegistrationActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 mBinding.tilAddress.visibility = View.VISIBLE
                 mBinding.teAddress.visibility = View.VISIBLE
+                mBinding.ivAddressForm.visibility = View.VISIBLE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -106,6 +107,7 @@ class RegistrationActivity : AppCompatActivity() {
                 if (lastName.length <= 10){
                     mBinding.teAddress.visibility = View.INVISIBLE
                     mBinding.tilAddress.visibility = View.INVISIBLE
+                    mBinding.ivAddressForm.visibility = View.INVISIBLE
                 }
             }
 
@@ -116,6 +118,7 @@ class RegistrationActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 mBinding.tilPhone.visibility = View.VISIBLE
                 mBinding.tePhone.visibility = View.VISIBLE
+                mBinding.ivPhoneForm.visibility = View.VISIBLE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -123,6 +126,7 @@ class RegistrationActivity : AppCompatActivity() {
                 if (address.length <= 10){
                     mBinding.tePhone.visibility = View.INVISIBLE
                     mBinding.tilPhone.visibility = View.INVISIBLE
+                    mBinding.ivPhoneForm.visibility = View.INVISIBLE
                 }
             }
 
@@ -133,6 +137,7 @@ class RegistrationActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 mBinding.tilEmail.visibility = View.VISIBLE
                 mBinding.teEmail.visibility = View.VISIBLE
+                mBinding.ivEmailForm.visibility = View.VISIBLE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -140,6 +145,7 @@ class RegistrationActivity : AppCompatActivity() {
                 if (phone.length <= 9){
                     mBinding.teEmail.visibility = View.INVISIBLE
                     mBinding.tilEmail.visibility = View.INVISIBLE
+                    mBinding.ivEmailForm.visibility = View.INVISIBLE
                 }
             }
 
@@ -150,6 +156,7 @@ class RegistrationActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 mBinding.tilPassword.visibility = View.VISIBLE
                 mBinding.tePassword.visibility = View.VISIBLE
+                mBinding.ivPasswordForm.visibility = View.VISIBLE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -157,6 +164,7 @@ class RegistrationActivity : AppCompatActivity() {
                 if (email.length <= 10){
                     mBinding.tePassword.visibility = View.INVISIBLE
                     mBinding.tilPassword.visibility = View.INVISIBLE
+                    mBinding.ivPasswordForm.visibility = View.INVISIBLE
                 }
             }
 
@@ -171,7 +179,7 @@ class RegistrationActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val email = mBinding.tePassword.text.toString().trim()
-                if (email.length <= 10){
+                if (email.length <= 8){
                     mBinding.tePasswordConfirm.visibility = View.INVISIBLE
                     mBinding.tilPasswordConfirm.visibility = View.INVISIBLE
                 }
