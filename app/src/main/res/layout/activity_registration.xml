@@ -68,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/registration_hint_lastname"
-                android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -80,8 +79,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teLastName"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName"
-                    android:visibility="gone" />
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -91,7 +89,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/registration_hint_address"
-                android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -103,8 +100,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teAddress"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName"
-                    android:visibility="gone" />
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -114,7 +110,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_phone"
-                android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:counterEnabled="true"
                 app:counterMaxLength="11"
@@ -126,8 +121,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePhone"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="phone"
-                    android:visibility="gone" />
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -137,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/registration_hint_email"
-                android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -149,8 +142,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teEmail"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textEmailAddress"
-                    android:visibility="gone" />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -160,7 +152,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/login_hint_password"
-                android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:counterEnabled="true"
                 app:counterMaxLength="9"
@@ -171,8 +162,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePassword"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPassword"
-                    android:visibility="gone" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -183,7 +173,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/registration_hint_pass_confirm"
-                android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="password_toggle"
                 app:helperText="@string/login_til_required"
@@ -194,8 +183,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePasswordConfirm"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPassword"
-                    android:visibility="gone" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.Guideline
@@ -224,7 +212,6 @@
                 android:id="@+id/ivPhoneForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tilPhone"
                 app:layout_constraintEnd_toStartOf="@+id/tilPhone"
                 app:layout_constraintStart_toStartOf="parent"
@@ -235,7 +222,6 @@
                 android:id="@+id/ivEmailForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tilEmail"
                 app:layout_constraintEnd_toStartOf="@+id/tilEmail"
                 app:layout_constraintStart_toStartOf="parent"
@@ -246,7 +232,6 @@
                 android:id="@+id/ivAddressForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tilAddress"
                 app:layout_constraintEnd_toStartOf="@+id/tilAddress"
                 app:layout_constraintStart_toStartOf="parent"
@@ -257,7 +242,6 @@
                 android:id="@+id/ivPasswordForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tilPassword"
                 app:layout_constraintEnd_toStartOf="@+id/tilPassword"
                 app:layout_constraintStart_toStartOf="parent"

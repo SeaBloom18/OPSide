@@ -25,5 +25,7 @@ data class ConcessionaireSE(
     @ColumnInfo(name = "absence")
     val absence: Int = 0,
     @ColumnInfo(name = "isForeigner")
-    val isForeigner: Boolean = false
+    val isForeigner: Boolean = false,
+    @ColumnInfo(name = "password")
+    val password: String = ""
 )

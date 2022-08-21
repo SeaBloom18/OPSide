@@ -1,26 +1,28 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.R
+import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
+import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityRegistrationBinding
     private var dataBaseInstance = FirebaseFirestore.getInstance()
+
+    private lateinit var mViewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +30,13 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnRegister.setOnClickListener { showBottomSheetSuccess() }
+            btnRegister.setOnClickListener { bindViewModel() }
         }
+
+        mViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
         setToolbar()
         alertDialogRegisterOptions()
-        formSetUp()
-        concessionaireRegister()
     }
 
     //Override Methods
@@ -49,144 +51,10 @@ class RegistrationActivity : AppCompatActivity() {
         bottomSheet()
     }
 
-    //Methods
-    private fun concessionaireRegister() {
-        //Validate textInputLayout
-        val concessionaire: MutableMap<String, Any> = HashMap()
-        /*concessionaire["name"] = mBinding.teUserName.text.toString().trim()
-        concessionaire["lastName"] = mBinding.teLastName.text.toString().trim()
-        concessionaire["address"] = mBinding.teAddress.text.toString().trim()
-        concessionaire["phone"] = mBinding.tePhone.text.toString().trim()
-        concessionaire["email"] = mBinding.teEmail.text.toString().trim()
-        concessionaire["password"] = mBinding.tePassword.text.toString().trim()*/
-
-        concessionaire["name"] = "Tengo sueño"
-        concessionaire["lastName"] = "apa"
-        concessionaire["address"] = "Jardines de babilonia #31"
-        concessionaire["phone"] = "3328411633"
-        concessionaire["email"] = "dagq117@gmail.com"
-        concessionaire["password"] = "12345"
-
-        dataBaseInstance.collection("concessionaires")
-            .add(concessionaire)
-            .addOnSuccessListener { documentReference ->
-                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
-            }
-            .addOnFailureListener {
-                    e -> Log.w("Firebase", "Error adding document", e)
-            }
-    }
-
-    private fun formSetUp(){
-        mBinding.teUserName.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilLastName.visibility = View.VISIBLE
-                mBinding.teLastName.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val userName = mBinding.teUserName.text.toString().trim()
-                if (userName.length <= 10){
-                    mBinding.teLastName.visibility = View.INVISIBLE
-                    mBinding.tilLastName.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.teLastName.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilAddress.visibility = View.VISIBLE
-                mBinding.teAddress.visibility = View.VISIBLE
-                mBinding.ivAddressForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val lastName = mBinding.teLastName.text.toString().trim()
-                if (lastName.length <= 10){
-                    mBinding.teAddress.visibility = View.INVISIBLE
-                    mBinding.tilAddress.visibility = View.INVISIBLE
-                    mBinding.ivAddressForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.teAddress.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilPhone.visibility = View.VISIBLE
-                mBinding.tePhone.visibility = View.VISIBLE
-                mBinding.ivPhoneForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val address = mBinding.teAddress.text.toString().trim()
-                if (address.length <= 10){
-                    mBinding.tePhone.visibility = View.INVISIBLE
-                    mBinding.tilPhone.visibility = View.INVISIBLE
-                    mBinding.ivPhoneForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.tePhone.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilEmail.visibility = View.VISIBLE
-                mBinding.teEmail.visibility = View.VISIBLE
-                mBinding.ivEmailForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val phone = mBinding.tePhone.text.toString().trim()
-                if (phone.length <= 9){
-                    mBinding.teEmail.visibility = View.INVISIBLE
-                    mBinding.tilEmail.visibility = View.INVISIBLE
-                    mBinding.ivEmailForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.teEmail.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilPassword.visibility = View.VISIBLE
-                mBinding.tePassword.visibility = View.VISIBLE
-                mBinding.ivPasswordForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val email = mBinding.tePhone.text.toString().trim()
-                if (email.length <= 10){
-                    mBinding.tePassword.visibility = View.INVISIBLE
-                    mBinding.tilPassword.visibility = View.INVISIBLE
-                    mBinding.ivPasswordForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.tePassword.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilPasswordConfirm.visibility = View.VISIBLE
-                mBinding.tePasswordConfirm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val email = mBinding.tePassword.text.toString().trim()
-                if (email.length <= 8){
-                    mBinding.tePasswordConfirm.visibility = View.INVISIBLE
-                    mBinding.tilPasswordConfirm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+    private fun bindViewModel() {
+        mViewModel.insertConcessionaire(ConcessionaireSE(1, "David",
+             "name", "address", "phone", "email", 0.0,
+            "lineBusiness", 0, false, "password"))
     }
 
     private fun alertDialogRegisterOptions() {
@@ -221,15 +89,22 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun showBottomSheetSuccess(){
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setOnClickListener { finish() }
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
-        dialog.show()
+    private fun concessionaireReregister(){
+        /*if(){
+            val dialog = BottomSheetDialog(this)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
+            val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
+            btnFinish.setOnClickListener { finish() }
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
+        } else {
+
+        }*/
+
     }
+
+
 
     private fun bottomSheet(){
         val dialog = BottomSheetDialog(this)
