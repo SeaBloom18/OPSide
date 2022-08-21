@@ -6,10 +6,13 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.ConcessionaireSE
@@ -20,9 +23,8 @@ import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewMo
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityRegistrationBinding
-    private var dataBaseInstance = FirebaseFirestore.getInstance()
-
     private lateinit var mViewModel: RegisterViewModel
+    private lateinit var mConcessionaireSE: ConcessionaireSE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +36,11 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         mViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
+        mConcessionaireSE = ConcessionaireSE()
 
         setToolbar()
         alertDialogRegisterOptions()
+        setupTextFields()
     }
 
     //Override Methods
@@ -52,9 +56,41 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun bindViewModel() {
-        mViewModel.insertConcessionaire(ConcessionaireSE(1, "David",
-             "name", "address", "phone", "email", 0.0,
-            "lineBusiness", 0, false, "password"))
+        if(validateFields(mBinding.tilUserName)){
+            with(mConcessionaireSE){
+                name = mBinding.teUserName.text.toString().trim()
+
+                mViewModel.insertConcessionaire(ConcessionaireSE(1, "idFirebase",
+                    name, "address 2", "phone 2", "email 2", 0.0,
+                    "lineBusiness 2", 0, false, "password 2"))
+            }
+
+        } else {
+            Toast.makeText(this, "Llena todos los campos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun validateFields(vararg textFields: TextInputLayout): Boolean{
+        var isValid = true
+        for (textField in textFields){
+            if (textField.editText?.text.toString().trim().isEmpty()){
+                textField.error = "Required"
+                isValid = false
+            } else { textField.error = null }
+        }
+        if(!isValid) Snackbar.make(mBinding.root, "Llena todo puto", Snackbar.LENGTH_SHORT).show()
+        return isValid
+    }
+
+    private fun setupTextFields() {
+        with(mBinding){
+            teUserName.addTextChangedListener { validateFields(tilUserName) }
+            teAddress.addTextChangedListener { validateFields(tilAddress) }
+            teAddress.addTextChangedListener { validateFields(tilAddress) }
+            tePhone.addTextChangedListener { validateFields(tilPhone) }
+            teEmail.addTextChangedListener { validateFields(tilEmail) }
+            tePassword.addTextChangedListener { validateFields(tilPassword) }
+        }
     }
 
     private fun alertDialogRegisterOptions() {
