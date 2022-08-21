@@ -27,5 +27,9 @@ data class ConcessionaireSE(
     @ColumnInfo(name = "isForeigner")
     val isForeigner: Boolean = false,
     @ColumnInfo(name = "password")
-    val password: String = ""
+    var password: String = "",
+    @ColumnInfo(name = "origin")
+    var origin: String = ""/*,
+    @ColumnInfo(name = "participatingMarkets")
+    var participatingMarkets: MutableList<String> = mutableListOf()*/
 )

@@ -31,12 +31,13 @@
                 style="@style/textViewBodyStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/registration_tv_steps_title"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -50,9 +51,9 @@
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/textView8">
-
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:startIconDrawable="@drawable/ic_ops_user">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teUserName"
                     style="@style/TextInputEditTextStyle"
@@ -64,11 +65,9 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_lastname"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
-                app:counterEnabled="true"
-                app:counterMaxLength="20"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@+id/tilUserName"
                 app:layout_constraintStart_toStartOf="@+id/tilUserName"
@@ -85,14 +84,13 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_address"
+                app:startIconDrawable="@drawable/ic_ops_home"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
-                app:counterEnabled="true"
-                app:counterMaxLength="20"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@+id/tilLastName"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/tilLastName"
                 app:layout_constraintTop_toBottomOf="@+id/tilLastName">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -106,14 +104,13 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_phone"
+                app:startIconDrawable="@drawable/ic_ops_phone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
-                app:counterEnabled="true"
-                app:counterMaxLength="11"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@+id/tilAddress"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/tilAddress"
                 app:layout_constraintTop_toBottomOf="@+id/tilAddress">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -127,11 +124,10 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_email"
+                app:startIconDrawable="@drawable/ic_ops_mail"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
-                app:counterEnabled="true"
-                app:counterMaxLength="20"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@+id/tilLastName"
                 app:layout_constraintStart_toStartOf="@+id/tilLastName"
@@ -148,15 +144,15 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/login_hint_password"
+                app:startIconDrawable="@drawable/ic_ops_password"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
-                app:counterEnabled="true"
-                app:counterMaxLength="9"
                 app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="@+id/tilEmail"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/tilEmail"
                 app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePassword"
                     style="@style/TextInputEditTextStyle"
@@ -168,83 +164,21 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/registration_hint_pass_confirm"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="password_toggle"
-                app:helperText="@string/login_til_required"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tilPassword"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/tilPassword"
                 app:layout_constraintTop_toBottomOf="@+id/tilPassword">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePasswordConfirm"
                     style="@style/TextInputEditTextStyle"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="158dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintGuide_begin="52dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/ivNameForm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/tilUserName"
-                app:layout_constraintEnd_toStartOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tilUserName"
-                app:srcCompat="@drawable/ic_ops_user" />
-
-            <ImageView
-                android:id="@+id/ivPhoneForm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/tilPhone"
-                app:layout_constraintEnd_toStartOf="@+id/tilPhone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tilPhone"
-                app:srcCompat="@drawable/ic_ops_phone" />
-
-            <ImageView
-                android:id="@+id/ivEmailForm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/tilEmail"
-                app:layout_constraintEnd_toStartOf="@+id/tilEmail"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tilEmail"
-                app:srcCompat="@drawable/ic_ops_mail" />
-
-            <ImageView
-                android:id="@+id/ivAddressForm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/tilAddress"
-                app:layout_constraintEnd_toStartOf="@+id/tilAddress"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tilAddress"
-                app:srcCompat="@drawable/ic_ops_home" />
-
-            <ImageView
-                android:id="@+id/ivPasswordForm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/tilPassword"
-                app:layout_constraintEnd_toStartOf="@+id/tilPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tilPassword"
-                app:srcCompat="@drawable/ic_ops_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

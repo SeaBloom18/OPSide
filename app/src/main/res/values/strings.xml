@@ -69,6 +69,10 @@
     <string name="registration_toast_option_validation">Chose an option!</string>
     <string name="registration_btn_complete_register">Complete Sign In</string>
     <string name="registration_tv_steps_title">Complete all steps to complete your register!</string>
+    <string name="registration_array_foreign_conce">Foreign dealer</string>
+    <string name="registration_array_conce">Concessionaire</string>
+    <string name="registration_array_collector">Collector</string>
+
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>
