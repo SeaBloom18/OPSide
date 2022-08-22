@@ -6,9 +6,7 @@ import io.reactivex.Observable
 class RegisterInteractor {
 
     fun registerConcessionaire(concessionaireSE: ConcessionaireSE): Observable<MutableMap<String, Any>>{
-
         return Observable.unsafeCreate{ subscriber ->
-
             try {
                 val concessionaire: MutableMap<String, Any> = HashMap()
 
@@ -24,6 +22,35 @@ class RegisterInteractor {
                 subscriber.onError(exception)
             }
         }
+    }
 
+    fun registerForeignConcessionaire(concessionaireSE: ConcessionaireSE): Observable<MutableMap<String, Any>>{
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val foreignConcessionaire: MutableMap<String, Any> = HashMap()
+
+                foreignConcessionaire["name"] = concessionaireSE.name
+                foreignConcessionaire["email"] = concessionaireSE.email
+                foreignConcessionaire["password"] = concessionaireSE.password
+
+                subscriber.onNext(foreignConcessionaire)
+
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
+    }
+
+    fun registerCollector(): Observable<MutableMap<String, Any>>{
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val registerCollector: MutableMap<String, Any> = HashMap()
+
+                subscriber.onNext(registerCollector)
+
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
     }
 }

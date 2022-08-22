@@ -35,5 +35,49 @@ class RegisterViewModel: CommonViewModel() {
                 )
         )
     }
+
+    fun insertForeignConcessionaire(concessionaireSE: ConcessionaireSE){
+        disposable.add(
+            mRegisterInteractor.registerForeignConcessionaire(concessionaireSE).applySchedulers()
+                .subscribe(
+                    {
+                        dataBaseInstance.collection("concessionaires")
+                            .add(concessionaireSE)
+                            .addOnSuccessListener { documentReference ->
+                                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
+                            }
+                            .addOnFailureListener {
+                                    e -> Log.w("Firebase", "Error adding document", e)
+                            }
+                        registerConcessionaire.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun insertCollector(concessionaireSE: ConcessionaireSE){
+        disposable.add(
+            mRegisterInteractor.registerForeignConcessionaire(concessionaireSE).applySchedulers()
+                .subscribe(
+                    {
+                        dataBaseInstance.collection("concessionaires")
+                            .add(concessionaireSE)
+                            .addOnSuccessListener { documentReference ->
+                                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
+                            }
+                            .addOnFailureListener {
+                                    e -> Log.w("Firebase", "Error adding document", e)
+                            }
+                        registerConcessionaire.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
     
 }

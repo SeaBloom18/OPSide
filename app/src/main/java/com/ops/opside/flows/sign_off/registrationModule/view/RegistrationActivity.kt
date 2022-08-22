@@ -2,9 +2,9 @@ package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +31,7 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnRegister.setOnClickListener { bindViewModel() }
+            btnRegister.setOnClickListener { insertUser() }
         }
 
         mViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
@@ -54,7 +54,21 @@ class RegistrationActivity : AppCompatActivity() {
         bottomSheet()
     }
 
-    private fun bindViewModel() {
+    private fun insertUser(){
+        when(checkedItem){
+            0 -> {
+                concessionaireViewModel()
+            }
+            1 -> {
+                foreignConcessionaireViewModel()
+            }
+            2 -> {
+
+            }
+        }
+    }
+
+    private fun concessionaireViewModel() {
         if(validateFields(
                 mBinding.tilUserName,
                 mBinding.tilLastName,
@@ -72,14 +86,33 @@ class RegistrationActivity : AppCompatActivity() {
                 mViewModel.insertConcessionaire(mConcessionaireSE)
                 bsRegisterSuccess()
             }
-        } else Toast.makeText(this, "llena todos los campos", Toast.LENGTH_SHORT).show()
+        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
+            Toast.LENGTH_SHORT).show()
+    }
+
+    private fun foreignConcessionaireViewModel() {
+        if(validateFields(
+                mBinding.tilUserName,
+                mBinding.tilLastName,
+                mBinding.tilEmail,
+                mBinding.tilPassword)){
+            with(mConcessionaireSE){
+                name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                email = mBinding.teEmail.text.toString().trim()
+                password = mBinding.tePassword.text.toString().trim()
+
+                mViewModel.insertForeignConcessionaire(mConcessionaireSE)
+                bsRegisterSuccess()
+            }
+        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun validateFields(vararg textFields: TextInputLayout): Boolean{
         var isValid = true
         for (textField in textFields){
             if (textField.editText?.text.toString().trim().isEmpty()){
-                textField.error = "Required"
+                textField.error = getString(R.string.login_til_required)
                 isValid = false
             } else { textField.error = null }
         }
@@ -106,13 +139,15 @@ class RegistrationActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_App_MaterialAlertDialog)
             .setTitle(getString(R.string.registration_alert_dialog_title))
             .setCancelable(false)
-            .setPositiveButton(getString(R.string.common_accept)) { dialogInterface, i ->
+            .setPositiveButton(getString(R.string.common_accept)) { _, _ ->
                 when(checkedItem){
                     0 -> {
                         Toast.makeText(this, "Conce ", Toast.LENGTH_SHORT).show()
+                        setUpConcessionaire()
                     }
                     1 -> {
                         Toast.makeText(this, "conce fore", Toast.LENGTH_SHORT).show()
+                        setUpForeignConcessionaire()
                     }
                     2 -> {
                         Toast.makeText(this, " collector", Toast.LENGTH_SHORT).show()
@@ -124,9 +159,59 @@ class RegistrationActivity : AppCompatActivity() {
             }
             .setSingleChoiceItems(singleItems, checkedItem) { _, which ->
                 checkedItem = which
-                //Toast.makeText(this, "Elegiste ${singleItems[which]}", Toast.LENGTH_SHORT).show()
             }
             .show()
+    }
+
+    private fun setUpForeignConcessionaire() {
+        mBinding.tvFormTitle.visibility = View.VISIBLE
+
+        mBinding.teUserName.visibility = View.VISIBLE
+        mBinding.tilUserName.visibility = View.VISIBLE
+
+        mBinding.teLastName.visibility = View.VISIBLE
+        mBinding.tilLastName.visibility = View.VISIBLE
+
+        mBinding.teAddress.visibility = View.GONE
+        mBinding.tilAddress.visibility = View.GONE
+
+        mBinding.tePhone.visibility = View.GONE
+        mBinding.tilPhone.visibility = View.GONE
+
+        mBinding.teEmail.visibility = View.VISIBLE
+        mBinding.tilEmail.visibility = View.VISIBLE
+
+        mBinding.tePassword.visibility = View.VISIBLE
+        mBinding.tilPassword.visibility = View.VISIBLE
+
+        mBinding.tePasswordConfirm.visibility = View.VISIBLE
+        mBinding.tilPasswordConfirm.visibility = View.VISIBLE
+    }
+
+    private fun setUpConcessionaire(){
+        mBinding.tvFormTitle.visibility = View.VISIBLE
+
+        mBinding.teUserName.visibility = View.VISIBLE
+        mBinding.tilUserName.visibility = View.VISIBLE
+
+        mBinding.teLastName.visibility = View.VISIBLE
+        mBinding.tilLastName.visibility = View.VISIBLE
+
+        mBinding.teAddress.visibility = View.VISIBLE
+        mBinding.tilAddress.visibility = View.VISIBLE
+
+        mBinding.tePhone.visibility = View.VISIBLE
+        mBinding.tilPhone.visibility = View.VISIBLE
+
+        mBinding.teEmail.visibility = View.VISIBLE
+        mBinding.tilEmail.visibility = View.VISIBLE
+
+        mBinding.tePassword.visibility = View.VISIBLE
+        mBinding.tilPassword.visibility = View.VISIBLE
+
+        mBinding.tePasswordConfirm.visibility = View.VISIBLE
+        mBinding.tilPasswordConfirm.visibility = View.VISIBLE
+
     }
 
     private fun setToolbar(){
@@ -146,8 +231,6 @@ class RegistrationActivity : AppCompatActivity() {
         dialog.setContentView(view)
         dialog.show()
     }
-
-
 
     private fun bottomSheet(){
         val dialog = BottomSheetDialog(this)

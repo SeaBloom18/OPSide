@@ -27,7 +27,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvFormTitle"
                 style="@style/textViewBodyStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -36,6 +36,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/registration_tv_steps_title"
                 android:textSize="18sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -48,25 +49,28 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="@string/registration_hint_username"
+                android:visibility="invisible"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/tvFormTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvFormTitle"
                 app:startIconDrawable="@drawable/ic_ops_user">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/teUserName"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName" />
+                    android:id="@+id/teUserName"
+                    android:inputType="textPersonName"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilLastName"
                 style="@style/TextInputLayoutStyle"
+                android:id="@+id/tilLastName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_lastname"
+                android:visibility="invisible"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@+id/tilUserName"
@@ -74,18 +78,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/tilUserName">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/teLastName"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName" />
+                    android:id="@+id/teLastName"
+                    android:inputType="textPersonName"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilAddress"
                 style="@style/TextInputLayoutStyle"
+                android:id="@+id/tilAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_address"
+                android:visibility="invisible"
                 app:startIconDrawable="@drawable/ic_ops_home"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
@@ -94,9 +100,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/tilLastName">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/teAddress"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName" />
+                    android:id="@+id/teAddress"
+                    android:inputType="textPersonName"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -106,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_phone"
+                android:visibility="invisible"
                 app:startIconDrawable="@drawable/ic_ops_phone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
@@ -116,7 +124,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePhone"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -126,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/registration_hint_email"
+                android:visibility="invisible"
                 app:startIconDrawable="@drawable/ic_ops_mail"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
@@ -136,7 +146,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teEmail"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -146,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/login_hint_password"
+                android:visibility="invisible"
                 app:startIconDrawable="@drawable/ic_ops_password"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="password_toggle"
@@ -156,7 +168,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePassword"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -167,6 +180,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/registration_hint_pass_confirm"
+                android:visibility="invisible"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="password_toggle"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +191,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tePasswordConfirm"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:visibility="invisible" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
