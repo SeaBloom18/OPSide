@@ -72,6 +72,8 @@
     <string name="registration_array_conce">Concessionaire</string>
     <string name="registration_array_collector">Collector</string>
     <string name="registration_toast_fields_validation">You must fill in all the fields!</string>
+    <string name="registration_toast_password_validation">Passwords do not match, verify that they are the same!</string>
+
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>

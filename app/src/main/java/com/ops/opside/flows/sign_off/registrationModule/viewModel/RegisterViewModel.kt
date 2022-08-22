@@ -3,6 +3,8 @@ package com.ops.opside.flows.sign_off.registrationModule.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.firestore.CollectorFE
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
@@ -14,13 +16,13 @@ class RegisterViewModel: CommonViewModel() {
     val registerConcessionaire = MutableLiveData<MutableMap<String, Any>>()
     private var dataBaseInstance = FirebaseFirestore.getInstance()
 
-    fun insertConcessionaire(concessionaireSE: ConcessionaireSE){
+    fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
-            mRegisterInteractor.registerConcessionaire(concessionaireSE).applySchedulers()
+            mRegisterInteractor.registerConcessionaire(concessionaireFE).applySchedulers()
                 .subscribe(
                     {
                         dataBaseInstance.collection("concessionaires")
-                            .add(concessionaireSE)
+                            .add(concessionaireFE)
                             .addOnSuccessListener { documentReference ->
                                 Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                             }
@@ -36,13 +38,13 @@ class RegisterViewModel: CommonViewModel() {
         )
     }
 
-    fun insertForeignConcessionaire(concessionaireSE: ConcessionaireSE){
+    fun insertForeignConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
-            mRegisterInteractor.registerForeignConcessionaire(concessionaireSE).applySchedulers()
+            mRegisterInteractor.registerForeignConcessionaire(concessionaireFE).applySchedulers()
                 .subscribe(
                     {
                         dataBaseInstance.collection("concessionaires")
-                            .add(concessionaireSE)
+                            .add(concessionaireFE)
                             .addOnSuccessListener { documentReference ->
                                 Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                             }
@@ -58,13 +60,13 @@ class RegisterViewModel: CommonViewModel() {
         )
     }
 
-    fun insertCollector(concessionaireSE: ConcessionaireSE){
+    fun insertCollector(collectorFE: CollectorFE){
         disposable.add(
-            mRegisterInteractor.registerForeignConcessionaire(concessionaireSE).applySchedulers()
+            mRegisterInteractor.registerCollector(collectorFE).applySchedulers()
                 .subscribe(
                     {
                         dataBaseInstance.collection("concessionaires")
-                            .add(concessionaireSE)
+                            .add(collectorFE)
                             .addOnSuccessListener { documentReference ->
                                 Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                             }

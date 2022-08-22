@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
@@ -22,7 +23,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityRegistrationBinding
     private lateinit var mViewModel: RegisterViewModel
-    private lateinit var mConcessionaireSE: ConcessionaireSE
+    private lateinit var mConcessionaireFE: ConcessionaireFE
     private var checkedItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         mViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
-        mConcessionaireSE = ConcessionaireSE()
+        mConcessionaireFE = ConcessionaireFE()
 
         setToolbar()
         alertDialogRegisterOptions()
@@ -69,43 +70,55 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun concessionaireViewModel() {
-        if(validateFields(
-                mBinding.tilUserName,
-                mBinding.tilLastName,
-                mBinding.tilAddress,
-                mBinding.tilPhone,
-                mBinding.tilEmail,
-                mBinding.tilPassword)){
-            with(mConcessionaireSE){
-                name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                address = mBinding.teAddress.text.toString().trim()
-                phone = mBinding.tePhone.text.toString().trim()
-                email = mBinding.teEmail.text.toString().trim()
-                password = mBinding.tePassword.text.toString().trim()
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPassword)){
+            if (validatePassword()){
+                Toast.makeText(this, getString(R.string.registration_toast_password_validation),
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                with(mConcessionaireFE){
+                    name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    address = mBinding.teAddress.text.toString().trim()
+                    phone = mBinding.tePhone.text.toString().trim()
+                    email = mBinding.teEmail.text.toString().trim()
+                    password = mBinding.tePassword.text.toString().trim()
+                    participatingMarkets = mutableListOf()
 
-                mViewModel.insertConcessionaire(mConcessionaireSE)
-                bsRegisterSuccess()
+                    mViewModel.insertConcessionaire(mConcessionaireFE)
+                    bsRegisterSuccess()
+                }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
             Toast.LENGTH_SHORT).show()
     }
 
     private fun foreignConcessionaireViewModel() {
-        if(validateFields(
-                mBinding.tilUserName,
-                mBinding.tilLastName,
-                mBinding.tilEmail,
-                mBinding.tilPassword)){
-            with(mConcessionaireSE){
-                name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                email = mBinding.teEmail.text.toString().trim()
-                password = mBinding.tePassword.text.toString().trim()
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
+                mBinding.tilPassword, mBinding.tilPasswordConfirm)){
+            if (validatePassword()){
+                Toast.makeText(this, getString(R.string.registration_toast_password_validation),
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                with(mConcessionaireFE){
+                    name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    email = mBinding.teEmail.text.toString().trim()
+                    password = mBinding.tePassword.text.toString().trim()
+                    isForeigner = true
 
-                mViewModel.insertForeignConcessionaire(mConcessionaireSE)
-                bsRegisterSuccess()
+                    mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                    bsRegisterSuccess()
+                }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun validatePassword(): Boolean{
+        var isValid = false
+        if ((mBinding.tePassword.text.toString().trim()) != mBinding.tePasswordConfirm.text.toString().trim()){
+            isValid = true
+        }
+        return isValid
     }
 
     private fun validateFields(vararg textFields: TextInputLayout): Boolean{

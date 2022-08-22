@@ -72,6 +72,7 @@
     <string name="registration_array_conce">Concesionario</string>
     <string name="registration_array_collector">Collector</string>
     <string name="registration_toast_fields_validation">Debes de llenar todos los campos!</string>
+    <string name="registration_toast_password_validation">Las contraseñas no coinciden, verifica que sean iguales!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
