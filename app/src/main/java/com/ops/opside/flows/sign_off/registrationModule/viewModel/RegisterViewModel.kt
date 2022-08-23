@@ -1,12 +1,9 @@
 package com.ops.opside.flows.sign_off.registrationModule.viewModel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor

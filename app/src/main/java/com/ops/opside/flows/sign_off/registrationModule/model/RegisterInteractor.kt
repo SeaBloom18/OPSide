@@ -4,7 +4,6 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.entities.share.ConcessionaireSE
 import io.reactivex.Observable
 
 class RegisterInteractor {

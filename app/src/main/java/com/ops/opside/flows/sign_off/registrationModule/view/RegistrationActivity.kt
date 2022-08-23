@@ -14,7 +14,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
