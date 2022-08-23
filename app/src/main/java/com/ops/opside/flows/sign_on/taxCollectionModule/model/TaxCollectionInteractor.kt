@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -13,7 +14,7 @@ class TaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             val concessionaires: MutableList<ConcessionaireFE> = mutableListOf()
 
-            firestore.collection("concessionaires")
+            firestore.collection(DB_TABLE_CONCESSIONAIRE)
                 .whereArrayContains("participatingMarkets", marketId)
                 .get()
                 .addOnSuccessListener {

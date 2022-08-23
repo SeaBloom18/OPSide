@@ -3,8 +3,9 @@ package com.ops.opside.common.entities.share
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ops.opside.common.entities.DB_TABLE_MARKET
 
-@Entity(tableName = "Market")
+@Entity(tableName = DB_TABLE_MARKET)
 data class MarketSE(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,

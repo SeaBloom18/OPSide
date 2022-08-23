@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.DB_TABLE_MARKET
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_IS_ON_LINE_MODE
@@ -18,7 +19,7 @@ class PickMarketInteractor @Inject constructor(
             try {
                 val markets: MutableList<MarketFE> = mutableListOf()
 
-                firestore.collection("markets")
+                firestore.collection(DB_TABLE_MARKET)
                     .get()
                     .addOnSuccessListener {
 

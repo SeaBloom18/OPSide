@@ -3,8 +3,9 @@ package com.ops.opside.common.entities.share
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 
-@Entity(tableName = "Concessionaire")
+@Entity(tableName = DB_TABLE_CONCESSIONAIRE)
 data class ConcessionaireSE(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
