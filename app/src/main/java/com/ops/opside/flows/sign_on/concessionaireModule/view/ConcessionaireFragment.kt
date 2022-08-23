@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
@@ -22,21 +22,27 @@ import com.ops.opside.databinding.FragmentConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.ConcessionaireAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ConcessionaireFragment : Fragment() {
 
-    lateinit var mBinding: FragmentConcessionaireBinding
-    lateinit var mAdapter: ConcessionaireAdapter
-    lateinit var mActivity: MainActivity
-    lateinit var mViewModel: ConcessionaireViewModel
-    lateinit var mConcessionaresList: MutableList<ConcessionaireSE>
+    private lateinit var mBinding: FragmentConcessionaireBinding
+    private lateinit var mAdapter: ConcessionaireAdapter
+
+    private val mActivity: MainActivity by lazy {
+        activity as MainActivity
+    }
+
+    private val mViewModel: ConcessionaireViewModel by viewModels()
+
+    private lateinit var mConcessionaresList: MutableList<ConcessionaireSE>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentConcessionaireBinding.inflate(inflater, container, false)
 
-        setUpActivity()
         bindViewModel()
         setToolbar()
         loadConcessionaresList()
@@ -44,13 +50,7 @@ class ConcessionaireFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        mViewModel = ViewModelProvider(this)[ConcessionaireViewModel::class.java]
-
         mViewModel.getConcessionairesList.observe(requireActivity(), Observer(this::getAbsencesList))
-    }
-
-    private fun setUpActivity() {
-        mActivity = activity as MainActivity
     }
 
     private fun setToolbar(){

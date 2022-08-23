@@ -7,9 +7,13 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.concessionaireModule.model.ConcessionaireInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ConcessionaireViewModel: CommonViewModel() {
-    private var mConcessionaireInteractor = ConcessionaireInteractor()
+@HiltViewModel
+class ConcessionaireViewModel @Inject constructor(
+    private val mConcessionaireInteractor: ConcessionaireInteractor
+): CommonViewModel() {
     private val _getConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
 
     val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = _getConcessionairesList

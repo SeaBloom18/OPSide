@@ -1,4 +1,4 @@
-package com.ops.opside.common
+package com.ops.opside.common.room
 
 import android.app.Application
 import com.ops.opside.common.room.TaxCollectionDataBase

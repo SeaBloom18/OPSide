@@ -3,7 +3,7 @@ package com.ops.opside.flows.sign_off.loginModule.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -11,17 +11,20 @@ import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.Preferences.SP_IS_INITIALIZED
+import com.ops.opside.common.utils.SP_IS_INITIALIZED
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
-    private lateinit var mLoginViewModel: LoginViewModel
+    private val mViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,24 +83,14 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
         }*/
 
-        if (Preferences.getBoolean(this, SP_IS_INITIALIZED).not()) {
-            Preferences.initPreferences(
-                this,
-                15.5f,
-                "Mario Armando Razo Valenzuela",
-                "l8oik7bgrvfde",
-                3,
-                true,
-                true
-            )
+        if (mViewModel.isSPInitialized()) {
+            mViewModel.initSP()
         }
 
         startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun setUpViewModel() {
-        mLoginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-
         /*mLoginViewModel.getUser()!!.observe(this){
             it.setEmail(mBinding.teUserName.text.toString().trim())
             it.setPassword(mBinding.tePassword.text.toString().trim())

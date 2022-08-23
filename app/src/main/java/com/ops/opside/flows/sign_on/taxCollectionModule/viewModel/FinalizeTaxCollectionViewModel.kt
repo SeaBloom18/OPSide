@@ -7,9 +7,13 @@ import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.FinalizeTaxCollectionInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FinalizeTaxCollectionViewModel: CommonViewModel() {
-    private val mFinalizeTaxCollectionInteractor = FinalizeTaxCollectionInteractor()
+@HiltViewModel
+class FinalizeTaxCollectionViewModel @Inject constructor(
+    private val mFinalizeTaxCollectionInteractor: FinalizeTaxCollectionInteractor
+): CommonViewModel() {
 
     private val _getAbsencesList = MutableLiveData<MutableList<ItemAbsence>>()
     val getAbsencesList: LiveData<MutableList<ItemAbsence>> = _getAbsencesList
@@ -27,4 +31,5 @@ class FinalizeTaxCollectionViewModel: CommonViewModel() {
                 )
         )
     }
+
 }

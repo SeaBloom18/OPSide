@@ -1,17 +1,21 @@
 package com.ops.opside.flows.sign_off.loginModule.viewModel
 
-import androidx.lifecycle.ViewModel
+import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.loginModule.model.LoginInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel: ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val loginInteractor: LoginInteractor
+): CommonViewModel() {
 
-    val loginInteractor: LoginInteractor
-
-    init {
-        loginInteractor = LoginInteractor("","")
+    fun isSPInitialized(): Boolean{
+        return loginInteractor.isSPInitialized()
     }
 
-    fun getUser(){
-
+    fun initSP(){
+        loginInteractor.initSP()
     }
+
 }

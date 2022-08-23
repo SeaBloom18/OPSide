@@ -2,8 +2,11 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class FinalizeTaxCollectionInteractor {
+class FinalizeTaxCollectionInteractor @Inject constructor(
+
+){
     fun getAbsenceList(): Observable<MutableList<ItemAbsence>> {
         return Observable.unsafeCreate{ subscriber ->
             try {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,12 +19,16 @@ import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCr
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.AbsenceTaxCollectionAdapter
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.FinalizeTaxCollectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FinalizeTaxCollectionFragment : Fragment() {
 
     private lateinit var mBinding: FragmentFinalizeTaxCollectionBinding
     private lateinit var mAdapter: AbsenceTaxCollectionAdapter
-    private lateinit var mViewModel: FinalizeTaxCollectionViewModel
+
+    private val mViewModel: FinalizeTaxCollectionViewModel by viewModels()
+
     private lateinit var mAbsencesList: MutableList<ItemAbsence>
     private lateinit var mTypeTransaction: String
 
@@ -62,8 +67,6 @@ class FinalizeTaxCollectionFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        mViewModel = ViewModelProvider(this)[FinalizeTaxCollectionViewModel::class.java]
-
         mViewModel.getAbsencesList.observe(requireActivity(), Observer(this::getAbsencesList))
     }
 

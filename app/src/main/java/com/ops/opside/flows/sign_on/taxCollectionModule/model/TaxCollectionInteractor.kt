@@ -3,9 +3,11 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class TaxCollectionInteractor {
-    private val firestore = FirebaseFirestore.getInstance()
+class TaxCollectionInteractor @Inject constructor(
+    private val firestore: FirebaseFirestore
+){
 
     fun getConcessionairesFEList(marketId: String): Observable<MutableList<ConcessionaireFE>> {
         return Observable.unsafeCreate { subscriber ->

@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.view
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
@@ -13,16 +14,21 @@ import com.ops.opside.common.utils.launchFragment
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.TaxCollectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
-    private lateinit var mBinding: ActivityTaxCollectionBinding
-    private lateinit var mViewModel: TaxCollectionViewModel
+    private val mBinding: ActivityTaxCollectionBinding by lazy{
+        ActivityTaxCollectionBinding.inflate(layoutInflater)
+    }
+
+    private val mViewModel: TaxCollectionViewModel by viewModels()
+
     private lateinit var mSelectedMarket: MarketFE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityTaxCollectionBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {

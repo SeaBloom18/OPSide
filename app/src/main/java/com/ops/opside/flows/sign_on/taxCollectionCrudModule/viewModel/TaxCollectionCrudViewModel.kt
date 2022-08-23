@@ -7,10 +7,14 @@ import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.model.TaxCollectionCrudInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class TaxCollectionCrudViewModel: CommonViewModel() {
+@HiltViewModel
+class TaxCollectionCrudViewModel @Inject constructor(
+    private var mTaxCollectionCrudInteractor: TaxCollectionCrudInteractor
+): CommonViewModel() {
 
-    private var mTaxCollectionCrudInteractor = TaxCollectionCrudInteractor()
     private val _getCollectionsList = MutableLiveData<MutableList<TaxCollectionSE>>()
 
     val getCollectionsList: LiveData<MutableList<TaxCollectionSE>> = _getCollectionsList
