@@ -16,12 +16,10 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
-import java.lang.reflect.Array.newInstance
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import javax.xml.datatype.DatatypeFactory.newInstance
 
 class ControlPanelActivity : AppCompatActivity() {
 

@@ -1,26 +1,29 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
+import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityRegistrationBinding
-    private var dataBaseInstance = FirebaseFirestore.getInstance()
+    private lateinit var mViewModel: RegisterViewModel
+    private lateinit var mConcessionaireFE: ConcessionaireFE
+    private var checkedItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +31,15 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnRegister.setOnClickListener { showBottomSheetSuccess() }
+            btnRegister.setOnClickListener { insertUser() }
         }
+
+        mViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
+        mConcessionaireFE = ConcessionaireFE()
 
         setToolbar()
         alertDialogRegisterOptions()
-        formSetUp()
-        concessionaireRegister()
+        setupTextFields()
     }
 
     //Override Methods
@@ -49,168 +54,176 @@ class RegistrationActivity : AppCompatActivity() {
         bottomSheet()
     }
 
-    //Methods
-    private fun concessionaireRegister() {
-        //Validate textInputLayout
-        val concessionaire: MutableMap<String, Any> = HashMap()
-        /*concessionaire["name"] = mBinding.teUserName.text.toString().trim()
-        concessionaire["lastName"] = mBinding.teLastName.text.toString().trim()
-        concessionaire["address"] = mBinding.teAddress.text.toString().trim()
-        concessionaire["phone"] = mBinding.tePhone.text.toString().trim()
-        concessionaire["email"] = mBinding.teEmail.text.toString().trim()
-        concessionaire["password"] = mBinding.tePassword.text.toString().trim()*/
-
-        concessionaire["name"] = "Tengo sueño"
-        concessionaire["lastName"] = "apa"
-        concessionaire["address"] = "Jardines de babilonia #31"
-        concessionaire["phone"] = "3328411633"
-        concessionaire["email"] = "dagq117@gmail.com"
-        concessionaire["password"] = "12345"
-
-        dataBaseInstance.collection("concessionaires")
-            .add(concessionaire)
-            .addOnSuccessListener { documentReference ->
-                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
+    private fun insertUser(){
+        when(checkedItem){
+            0 -> {
+                concessionaireViewModel()
             }
-            .addOnFailureListener {
-                    e -> Log.w("Firebase", "Error adding document", e)
+            1 -> {
+                foreignConcessionaireViewModel()
             }
+            2 -> {
+
+            }
+        }
     }
 
-    private fun formSetUp(){
-        mBinding.teUserName.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilLastName.visibility = View.VISIBLE
-                mBinding.teLastName.visibility = View.VISIBLE
-            }
+    private fun concessionaireViewModel() {
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPassword, mBinding.tilPasswordConfirm)){
+            if (validatePassword()){
+                Toast.makeText(this, getString(R.string.registration_toast_password_validation),
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                with(mConcessionaireFE){
+                    name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    address = mBinding.teAddress.text.toString().trim()
+                    phone = mBinding.tePhone.text.toString().trim()
+                    email = mBinding.teEmail.text.toString().trim()
+                    password = mBinding.tePassword.text.toString().trim()
+                    participatingMarkets = mutableListOf()
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val userName = mBinding.teUserName.text.toString().trim()
-                if (userName.length <= 10){
-                    mBinding.teLastName.visibility = View.INVISIBLE
-                    mBinding.tilLastName.visibility = View.INVISIBLE
+                    mViewModel.insertConcessionaire(mConcessionaireFE)
+                    bsRegisterSuccess()
                 }
             }
+        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
+            Toast.LENGTH_SHORT).show()
+    }
 
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+    private fun foreignConcessionaireViewModel() {
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
+                mBinding.tilPassword, mBinding.tilPasswordConfirm)){
+            if (validatePassword()){
+                Toast.makeText(this, getString(R.string.registration_toast_password_validation),
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                with(mConcessionaireFE){
+                    name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    email = mBinding.teEmail.text.toString().trim()
+                    password = mBinding.tePassword.text.toString().trim()
+                    isForeigner = true
 
-        mBinding.teLastName.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilAddress.visibility = View.VISIBLE
-                mBinding.teAddress.visibility = View.VISIBLE
-                mBinding.ivAddressForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val lastName = mBinding.teLastName.text.toString().trim()
-                if (lastName.length <= 10){
-                    mBinding.teAddress.visibility = View.INVISIBLE
-                    mBinding.tilAddress.visibility = View.INVISIBLE
-                    mBinding.ivAddressForm.visibility = View.INVISIBLE
+                    mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                    bsRegisterSuccess()
                 }
             }
+        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
+            Toast.LENGTH_SHORT).show()
+    }
 
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+    private fun validatePassword(): Boolean{
+        var isValid = false
+        if ((mBinding.tePassword.text.toString().trim()) != mBinding.tePasswordConfirm.text.toString().trim()){
+            isValid = true
+        }
+        return isValid
+    }
 
-        mBinding.teAddress.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilPhone.visibility = View.VISIBLE
-                mBinding.tePhone.visibility = View.VISIBLE
-                mBinding.ivPhoneForm.visibility = View.VISIBLE
-            }
+    private fun validateFields(vararg textFields: TextInputLayout): Boolean{
+        var isValid = true
+        for (textField in textFields){
+            if (textField.editText?.text.toString().trim().isEmpty()){
+                textField.error = getString(R.string.login_til_required)
+                isValid = false
+            } else { textField.error = null }
+        }
+        return isValid
+    }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val address = mBinding.teAddress.text.toString().trim()
-                if (address.length <= 10){
-                    mBinding.tePhone.visibility = View.INVISIBLE
-                    mBinding.tilPhone.visibility = View.INVISIBLE
-                    mBinding.ivPhoneForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.tePhone.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilEmail.visibility = View.VISIBLE
-                mBinding.teEmail.visibility = View.VISIBLE
-                mBinding.ivEmailForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val phone = mBinding.tePhone.text.toString().trim()
-                if (phone.length <= 9){
-                    mBinding.teEmail.visibility = View.INVISIBLE
-                    mBinding.tilEmail.visibility = View.INVISIBLE
-                    mBinding.ivEmailForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.teEmail.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilPassword.visibility = View.VISIBLE
-                mBinding.tePassword.visibility = View.VISIBLE
-                mBinding.ivPasswordForm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val email = mBinding.tePhone.text.toString().trim()
-                if (email.length <= 10){
-                    mBinding.tePassword.visibility = View.INVISIBLE
-                    mBinding.tilPassword.visibility = View.INVISIBLE
-                    mBinding.ivPasswordForm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-
-        mBinding.tePassword.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                mBinding.tilPasswordConfirm.visibility = View.VISIBLE
-                mBinding.tePasswordConfirm.visibility = View.VISIBLE
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val email = mBinding.tePassword.text.toString().trim()
-                if (email.length <= 8){
-                    mBinding.tePasswordConfirm.visibility = View.INVISIBLE
-                    mBinding.tilPasswordConfirm.visibility = View.INVISIBLE
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+    private fun setupTextFields() {
+        with(mBinding){
+            teUserName.addTextChangedListener { validateFields(tilUserName) }
+            teLastName.addTextChangedListener { validateFields(tilLastName) }
+            teAddress.addTextChangedListener { validateFields(tilAddress) }
+            tePhone.addTextChangedListener { validateFields(tilPhone) }
+            teEmail.addTextChangedListener { validateFields(tilEmail) }
+            tePassword.addTextChangedListener { validateFields(tilPassword) }
+        }
     }
 
     private fun alertDialogRegisterOptions() {
-        val singleItems = arrayOf("Concesionario", "Concesionario foraneo", "Recaudador")
-        val checkedItem = -1
+        val singleItems = arrayOf(
+            getString(R.string.registration_array_conce),
+            getString(R.string.registration_array_foreign_conce),
+            getString(R.string.registration_array_collector))
 
         MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_App_MaterialAlertDialog)
             .setTitle(getString(R.string.registration_alert_dialog_title))
             .setCancelable(false)
-            .setPositiveButton(getString(R.string.common_accept)) { dialogInterface, _ ->
-                if (checkedItem >= 1) {
-                    dialogInterface.dismiss()
-                } else {
-                    Toast.makeText(this, getString(R.string.registration_toast_option_validation),
-                        Toast.LENGTH_SHORT).show()
+            .setPositiveButton(getString(R.string.common_accept)) { _, _ ->
+                when(checkedItem){
+                    0 -> {
+                        Toast.makeText(this, "Conce ", Toast.LENGTH_SHORT).show()
+                        setUpConcessionaire()
+                    }
+                    1 -> {
+                        Toast.makeText(this, "conce fore", Toast.LENGTH_SHORT).show()
+                        setUpForeignConcessionaire()
+                    }
+                    2 -> {
+                        Toast.makeText(this, " collector", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             .setNegativeButton(getString(R.string.registration_alert_dialog_negative_button)) { _, _ ->
                 finish()
             }
             .setSingleChoiceItems(singleItems, checkedItem) { _, which ->
-                Toast.makeText(this, "Elegiste ${singleItems[which]}", Toast.LENGTH_SHORT).show()
+                checkedItem = which
             }
             .show()
+    }
+
+    private fun setUpForeignConcessionaire() {
+        mBinding.tvFormTitle.visibility = View.VISIBLE
+
+        mBinding.teUserName.visibility = View.VISIBLE
+        mBinding.tilUserName.visibility = View.VISIBLE
+
+        mBinding.teLastName.visibility = View.VISIBLE
+        mBinding.tilLastName.visibility = View.VISIBLE
+
+        mBinding.teAddress.visibility = View.GONE
+        mBinding.tilAddress.visibility = View.GONE
+
+        mBinding.tePhone.visibility = View.GONE
+        mBinding.tilPhone.visibility = View.GONE
+
+        mBinding.teEmail.visibility = View.VISIBLE
+        mBinding.tilEmail.visibility = View.VISIBLE
+
+        mBinding.tePassword.visibility = View.VISIBLE
+        mBinding.tilPassword.visibility = View.VISIBLE
+
+        mBinding.tePasswordConfirm.visibility = View.VISIBLE
+        mBinding.tilPasswordConfirm.visibility = View.VISIBLE
+    }
+
+    private fun setUpConcessionaire(){
+        mBinding.tvFormTitle.visibility = View.VISIBLE
+
+        mBinding.teUserName.visibility = View.VISIBLE
+        mBinding.tilUserName.visibility = View.VISIBLE
+
+        mBinding.teLastName.visibility = View.VISIBLE
+        mBinding.tilLastName.visibility = View.VISIBLE
+
+        mBinding.teAddress.visibility = View.VISIBLE
+        mBinding.tilAddress.visibility = View.VISIBLE
+
+        mBinding.tePhone.visibility = View.VISIBLE
+        mBinding.tilPhone.visibility = View.VISIBLE
+
+        mBinding.teEmail.visibility = View.VISIBLE
+        mBinding.tilEmail.visibility = View.VISIBLE
+
+        mBinding.tePassword.visibility = View.VISIBLE
+        mBinding.tilPassword.visibility = View.VISIBLE
+
+        mBinding.tePasswordConfirm.visibility = View.VISIBLE
+        mBinding.tilPasswordConfirm.visibility = View.VISIBLE
+
     }
 
     private fun setToolbar(){
@@ -221,7 +234,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun showBottomSheetSuccess(){
+    private fun bsRegisterSuccess(){
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
@@ -240,7 +253,7 @@ class RegistrationActivity : AppCompatActivity() {
         btnFinish.setOnClickListener { finish() }
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.setText(Constants.BOTTOM_SHEET_TV_CLOSE_REGIS)
+        tvTitle.text = getString(R.string.registration_btn_exit)
 
         dialog.setContentView(view)
         dialog.show()

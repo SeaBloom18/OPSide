@@ -1,8 +1,8 @@
 package com.ops.opside.common.entities.firestore
 
 data class ConcessionaireFE(
-    val idFirebase: String,
-    var name: String,
+    val idFirebase: String = "",
+    var name: String = "",
     var address: String = "",
     var origin: String = "",
     var phone: String = "",
@@ -10,7 +10,8 @@ data class ConcessionaireFE(
     var linearMeters: Double = 0.0,
     var lineBusiness: String = "",
     val absence: Int = 0,
-    val isForeigner: Boolean = false,
+    var isForeigner: Boolean = false,
+    var password: String = "",
     var participatingMarkets: MutableList<String> = mutableListOf()
 ){
     fun getHashMap(): MutableMap<String,Any>{
@@ -25,6 +26,7 @@ data class ConcessionaireFE(
         map["lineBusiness"] = lineBusiness
         map["absence"] = absence
         map["isForeigner"] = isForeigner
+        map["password"] = password
         map["participatingMarkets"] = participatingMarkets
 
         return map

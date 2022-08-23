@@ -31,6 +31,7 @@ class TaxCollectionInteractor @Inject constructor(
                                 document.get("lineBusiness").toString(),
                                 0,
                                 document.get("isForeigner").toString().toBoolean(),
+                                document.get("password").toString(),
                                 document.get("participatingMarkets") as MutableList<String>
                             )
                         )
