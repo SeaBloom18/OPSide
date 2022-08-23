@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Concessionaire")
 data class ConcessionaireSE(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long? = null,
     @ColumnInfo(name = "idFirebase")
-    val idFirebase: String,
+    val idFirebase: String = "",
     @ColumnInfo(name = "name")
-    var name: String,
+    var name: String = "",
     @ColumnInfo(name = "address")
     var address: String = "",
     @ColumnInfo(name = "phone")
@@ -25,5 +25,11 @@ data class ConcessionaireSE(
     @ColumnInfo(name = "absence")
     val absence: Int = 0,
     @ColumnInfo(name = "isForeigner")
-    val isForeigner: Boolean = false
+    val isForeigner: Boolean = false,
+    @ColumnInfo(name = "password")
+    var password: String = "",
+    @ColumnInfo(name = "origin")
+    var origin: String = ""/*,
+    @ColumnInfo(name = "participatingMarkets")
+    var participatingMarkets: MutableList<String> = mutableListOf()*/
 )
