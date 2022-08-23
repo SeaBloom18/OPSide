@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_off.registrationModule.viewModel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.firestore.CollectorFE
@@ -13,22 +14,13 @@ import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor
 class RegisterViewModel: CommonViewModel() {
 
     private val mRegisterInteractor = RegisterInteractor()
-    val registerConcessionaire = MutableLiveData<MutableMap<String, Any>>()
-    private var dataBaseInstance = FirebaseFirestore.getInstance()
+    val registerConcessionaire = MutableLiveData<Boolean>()
 
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
             mRegisterInteractor.registerConcessionaire(concessionaireFE).applySchedulers()
                 .subscribe(
                     {
-                        dataBaseInstance.collection("concessionaires")
-                            .add(concessionaireFE)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
-                            }
-                            .addOnFailureListener {
-                                    e -> Log.w("Firebase", "Error adding document", e)
-                            }
                         registerConcessionaire.value = it
                     },
                     {
@@ -43,14 +35,6 @@ class RegisterViewModel: CommonViewModel() {
             mRegisterInteractor.registerForeignConcessionaire(concessionaireFE).applySchedulers()
                 .subscribe(
                     {
-                        dataBaseInstance.collection("concessionaires")
-                            .add(concessionaireFE)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
-                            }
-                            .addOnFailureListener {
-                                    e -> Log.w("Firebase", "Error adding document", e)
-                            }
                         registerConcessionaire.value = it
                     },
                     {
@@ -65,14 +49,6 @@ class RegisterViewModel: CommonViewModel() {
             mRegisterInteractor.registerCollector(collectorFE).applySchedulers()
                 .subscribe(
                     {
-                        dataBaseInstance.collection("concessionaires")
-                            .add(collectorFE)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
-                            }
-                            .addOnFailureListener {
-                                    e -> Log.w("Firebase", "Error adding document", e)
-                            }
                         registerConcessionaire.value = it
                     },
                     {

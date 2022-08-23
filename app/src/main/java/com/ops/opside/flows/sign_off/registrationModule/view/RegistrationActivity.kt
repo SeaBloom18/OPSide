@@ -71,7 +71,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun concessionaireViewModel() {
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
-                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPassword)){
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPassword, mBinding.tilPasswordConfirm)){
             if (validatePassword()){
                 Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                     Toast.LENGTH_SHORT).show()
