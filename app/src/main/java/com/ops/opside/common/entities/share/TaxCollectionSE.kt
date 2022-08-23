@@ -3,8 +3,9 @@ package com.ops.opside.common.entities.share
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ops.opside.common.entities.DB_TABLE_TAX_COLLECTION
 
-@Entity(tableName = "TaxCollection")
+@Entity(tableName = DB_TABLE_TAX_COLLECTION)
 data class TaxCollectionSE(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
