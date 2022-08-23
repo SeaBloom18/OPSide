@@ -5,8 +5,11 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTIO
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.PENALTY_FEE
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class RecordTaxCollectionInteractor {
+class RecordTaxCollectionInteractor @Inject constructor(
+
+){
 
     fun getEventsList(): Observable<MutableList<ItemRecord>> {
         return Observable.unsafeCreate{ subscriber ->

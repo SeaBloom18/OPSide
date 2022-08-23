@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,14 +16,22 @@ import com.ops.opside.databinding.BottomSheetRecordTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.RecordTaxCollectionAdapter
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetRecordTaxCollectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
 
-    private lateinit var mBinding: BottomSheetRecordTaxCollectionBinding
-    private lateinit var mViewModel: BottomSheetRecordTaxCollectionViewModel
-    private lateinit var mActivity: TaxCollectionActivity
-    private lateinit var mEventsList: MutableList<ItemRecord>
     private lateinit var mAdapter: RecordTaxCollectionAdapter
+    private lateinit var mBinding: BottomSheetRecordTaxCollectionBinding
+
+    private val mActivity: TaxCollectionActivity by lazy {
+        activity as TaxCollectionActivity
+    }
+
+    private val mViewModel: BottomSheetRecordTaxCollectionViewModel by viewModels()
+
+    private lateinit var mEventsList: MutableList<ItemRecord>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +45,8 @@ class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpActivity()
         bindViewModel()
         loadEventsList()
-    }
-
-    private fun setUpActivity() {
-        mActivity = activity as TaxCollectionActivity
     }
 
     private fun loadEventsList(){
@@ -50,7 +54,6 @@ class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
     }
 
     private fun bindViewModel() {
-        mViewModel = ViewModelProvider(requireActivity())[BottomSheetRecordTaxCollectionViewModel::class.java]
         mViewModel.getEventsList.observe(this, Observer(this::getEventsList))
     }
 

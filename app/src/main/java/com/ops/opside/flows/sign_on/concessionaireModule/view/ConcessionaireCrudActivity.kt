@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.view
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,17 +14,23 @@ import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.databinding.ActivityConcessionaireCrudBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.MarketParticipatingAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireCrudViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ConcessionaireCrudActivity : AppCompatActivity() {
 
-    private lateinit var mBinding: ActivityConcessionaireCrudBinding
     private lateinit var mAdapter: MarketParticipatingAdapter
-    private lateinit var mViewModel: ConcessionaireCrudViewModel
+
+    private val mBinding: ActivityConcessionaireCrudBinding by lazy {
+        ActivityConcessionaireCrudBinding.inflate(layoutInflater)
+    }
+
+    private val mViewModel: ConcessionaireCrudViewModel by viewModels()
+
     private lateinit var mMarketsList: MutableList<MarketSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityConcessionaireCrudBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {
@@ -36,8 +43,6 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
     }
 
     private fun bindViewModel() {
-        mViewModel = ViewModelProvider(this)[ConcessionaireCrudViewModel::class.java]
-
         mViewModel.getMarketsList.observe(this, Observer(this::getMarketsList))
     }
 

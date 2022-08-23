@@ -2,8 +2,11 @@ package com.ops.opside.flows.sign_on.taxCollectionCrudModule.model
 
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class TaxCollectionCrudInteractor {
+class TaxCollectionCrudInteractor @Inject constructor(
+
+){
     fun getCollectionList(): Observable<MutableList<TaxCollectionSE>> {
         return Observable.unsafeCreate{ subscriber ->
             try {

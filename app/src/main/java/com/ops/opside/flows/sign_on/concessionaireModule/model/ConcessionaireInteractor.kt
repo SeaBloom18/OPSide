@@ -2,8 +2,11 @@ package com.ops.opside.flows.sign_on.concessionaireModule.model
 
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class ConcessionaireInteractor {
+class ConcessionaireInteractor @Inject constructor(
+
+){
     fun getConcessionairesList(): Observable<MutableList<ConcessionaireSE>> {
         return Observable.unsafeCreate{ subscriber ->
             try {

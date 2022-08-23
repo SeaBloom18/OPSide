@@ -7,9 +7,14 @@ import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickMarketInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BottomSheetPickMarketViewModel: CommonViewModel() {
-    private val mPickMarketsInteractor = PickMarketInteractor()
+@HiltViewModel
+class BottomSheetPickMarketViewModel @Inject constructor(
+    private val mPickMarketsInteractor: PickMarketInteractor
+) : CommonViewModel() {
+
     private val _getMarketsList = MutableLiveData<MutableList<MarketFE>>()
 
     val getMarketsList: LiveData<MutableList<MarketFE>> = _getMarketsList
@@ -27,4 +32,13 @@ class BottomSheetPickMarketViewModel: CommonViewModel() {
                 )
         )
     }
+
+    fun putIsOnLineMode(isOnLineMode: Boolean){
+        mPickMarketsInteractor.putIsOnLineMode(isOnLineMode)
+    }
+
+    fun isOnLineMode(): Boolean{
+        return mPickMarketsInteractor.isOnLineMode()
+    }
+
 }

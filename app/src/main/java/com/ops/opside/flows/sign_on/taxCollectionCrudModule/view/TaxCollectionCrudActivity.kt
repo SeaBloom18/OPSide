@@ -1,9 +1,9 @@
 package com.ops.opside.flows.sign_on.taxCollectionCrudModule.view
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.common.bsd.BottomSheetFilter
@@ -15,17 +15,23 @@ import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollecti
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.viewModel.TaxCollectionCrudViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
-    lateinit var mBinding: ActivityTaxCollectionCrudBinding
-    lateinit var mAdapter: TaxCollectionsCrudAdapter
-    lateinit var mViewModel: TaxCollectionCrudViewModel
-    lateinit var mCollectionList: MutableList<TaxCollectionSE>
+    private lateinit var mAdapter: TaxCollectionsCrudAdapter
+
+    private val mBinding: ActivityTaxCollectionCrudBinding by lazy {
+        ActivityTaxCollectionCrudBinding.inflate(layoutInflater)
+    }
+
+    private val mViewModel: TaxCollectionCrudViewModel by viewModels()
+
+    private lateinit var mCollectionList: MutableList<TaxCollectionSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityTaxCollectionCrudBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {
@@ -50,8 +56,6 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
     }
 
     private fun bindViewModel() {
-        mViewModel = ViewModelProvider(this)[TaxCollectionCrudViewModel::class.java]
-
         mViewModel.getCollectionsList.observe(this, Observer(this::getCollectionsList))
     }
 

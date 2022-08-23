@@ -6,25 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.MarketFE
-import com.ops.opside.common.entities.share.MarketSE
-import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.Preferences.SP_IS_ON_LINE_MODE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.databinding.BottomSheetPickMarketBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetPickMarketViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BottomSheetPickMarket(
     private val selection: (MarketFE) -> Unit = {}
 ) : BottomSheetDialogFragment() {
 
-    private lateinit var mBinding: BottomSheetPickMarketBinding
-    private lateinit var mViewModel: BottomSheetPickMarketViewModel
-    private lateinit var mActivity: TaxCollectionActivity
+    private val mBinding: BottomSheetPickMarketBinding by lazy {
+        BottomSheetPickMarketBinding.inflate(layoutInflater)
+    }
+
+    private val mActivity: TaxCollectionActivity by lazy {
+        activity as TaxCollectionActivity
+    }
+
+    private val mViewModel: BottomSheetPickMarketViewModel by viewModels()
+
     private lateinit var mMarketsList: MutableList<MarketFE>
     private var mSelectedMarket: MarketFE? = null
 
@@ -34,7 +40,6 @@ class BottomSheetPickMarket(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = BottomSheetPickMarketBinding.inflate(inflater)
         return mBinding.root
     }
 
@@ -43,7 +48,7 @@ class BottomSheetPickMarket(
 
         mBinding.apply {
 
-            if (Preferences.getBoolean(mActivity, SP_IS_ON_LINE_MODE))
+            if (mViewModel.isOnLineMode())
                 rbOnLine.isChecked = true
             else
                 rbOffLine.isChecked = true
@@ -57,13 +62,11 @@ class BottomSheetPickMarket(
             ibClose.setOnClickListener { mActivity.onBackPressed() }
         }
 
-        setUpActivity()
         bindViewModel()
         loadMarketsList()
     }
 
-    private fun changeLineMode(isOnLineMode: Boolean) =
-    Preferences.putValue(mActivity, SP_IS_ON_LINE_MODE, isOnLineMode)
+    private fun changeLineMode(isOnLineMode: Boolean) = mViewModel.putIsOnLineMode(isOnLineMode)
 
     private fun returnSelectedMarket() {
         mSelectedMarket = searchSelectedMarket()
@@ -77,10 +80,6 @@ class BottomSheetPickMarket(
         }
     }
 
-    private fun setUpActivity() {
-        mActivity = activity as TaxCollectionActivity
-    }
-
     private fun searchSelectedMarket(): MarketFE? {
         for (item in mMarketsList){
             if (mBinding.spPickMarket.text.toString() == item.name){
@@ -92,8 +91,6 @@ class BottomSheetPickMarket(
     }
 
     private fun bindViewModel(){
-        mViewModel = ViewModelProvider(requireActivity())[BottomSheetPickMarketViewModel::class.java]
-
         mViewModel.getMarketsList.observe(this, Observer(this::getMarketsList))
     }
 

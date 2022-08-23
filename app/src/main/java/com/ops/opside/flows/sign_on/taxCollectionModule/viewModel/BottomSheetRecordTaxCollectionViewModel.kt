@@ -7,10 +7,13 @@ import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.RecordTaxCollectionInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BottomSheetRecordTaxCollectionViewModel: CommonViewModel() {
-
-    private val mRecordTaxCollectionInteractor = RecordTaxCollectionInteractor()
+@HiltViewModel
+class BottomSheetRecordTaxCollectionViewModel @Inject constructor(
+    private val mRecordTaxCollectionInteractor: RecordTaxCollectionInteractor
+): CommonViewModel() {
 
     private val _getEventsList = MutableLiveData<MutableList<ItemRecord>>()
     val getEventsList: LiveData<MutableList<ItemRecord>> = _getEventsList

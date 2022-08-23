@@ -1,21 +1,26 @@
 package com.ops.opside.flows.sign_off.loginModule.model
 
-class LoginInteractor(private var email: String, private var password: String) {
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_IS_INITIALIZED
+import javax.inject.Inject
 
-    fun getEmail(): String{
-        return email
+class LoginInteractor @Inject constructor(
+    private val sp: Preferences
+) {
+
+    fun isSPInitialized(): Boolean{
+        return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
 
-    fun getPassword(): String{
-        return password
-    }
-
-    fun setEmail(email: String){
-        this.email = email
-    }
-
-    fun setPassword(password: String){
-        this.password = password
+    fun initSP(){
+        sp.initPreferences(
+            15.5f,
+            "Mario Armando Razo Valenzuela",
+            "l8oik7bgrvfde",
+            3,
+            true,
+            true
+        )
     }
 
 }
