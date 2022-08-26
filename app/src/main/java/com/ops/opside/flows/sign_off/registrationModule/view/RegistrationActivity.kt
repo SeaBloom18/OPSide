@@ -1,10 +1,13 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -16,25 +19,53 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
+import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
 
-class RegistrationActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class RegistrationActivity: AppCompatActivity() {
 
-    private lateinit var mBinding: ActivityRegistrationBinding
-    private lateinit var mViewModel: RegisterViewModel
+    private val mBinding: ActivityRegistrationBinding by lazy{
+        ActivityRegistrationBinding.inflate(layoutInflater)
+    }
+    private val mViewModel: RegisterViewModel by viewModels()
     private lateinit var mConcessionaireFE: ConcessionaireFE
     private var checkedItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnRegister.setOnClickListener { insertUser() }
+            btnRegister.setOnClickListener {
+                if (insertUser()) {
+                    mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                    bsRegisterSuccess()
+                }
+            }
         }
 
-        mViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
+        mBinding.tePassword.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                charSequence?.apply {
+                    if(!isValidPassword() && toString().length <= 8) mBinding.tilPassword.error =
+                        getString(R.string.registration_til_password_validation)
+                    else mBinding.tilPassword.error = null
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+        })
+
         mConcessionaireFE = ConcessionaireFE()
 
         setToolbar()
@@ -54,23 +85,25 @@ class RegistrationActivity : AppCompatActivity() {
         bottomSheet()
     }
 
-    private fun insertUser(){
+    private fun insertUser(): Boolean{
+        val isValid = false
         when(checkedItem){
             0 -> {
                 concessionaireViewModel()
             }
             1 -> {
-                foreignConcessionaireViewModel()
+                if (foreignConcessionaireViewModel()) return true
             }
             2 -> {
 
             }
         }
+        return isValid
     }
 
     private fun concessionaireViewModel() {
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
-                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPassword, mBinding.tilPasswordConfirm)){
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
             if (validatePassword()){
                 Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                     Toast.LENGTH_SHORT).show()
@@ -91,9 +124,10 @@ class RegistrationActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT).show()
     }
 
-    private fun foreignConcessionaireViewModel() {
+    private fun foreignConcessionaireViewModel(): Boolean {
+        val isValid = false
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
-                mBinding.tilPassword, mBinding.tilPasswordConfirm)){
+                mBinding.tilPasswordConfirm)){
             if (validatePassword()){
                 Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                     Toast.LENGTH_SHORT).show()
@@ -104,12 +138,12 @@ class RegistrationActivity : AppCompatActivity() {
                     password = mBinding.tePassword.text.toString().trim()
                     isForeigner = true
 
-                    mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                    bsRegisterSuccess()
+                    return true
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
             Toast.LENGTH_SHORT).show()
+        return isValid
     }
 
     private fun validatePassword(): Boolean{
@@ -131,6 +165,13 @@ class RegistrationActivity : AppCompatActivity() {
         return isValid
     }
 
+    fun CharSequence.isValidPassword(): Boolean {
+        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$"
+        val pattern = Pattern.compile(passwordPattern)
+        val matcher = pattern.matcher(this)
+        return matcher.matches()
+    }
+
     private fun setupTextFields() {
         with(mBinding){
             teUserName.addTextChangedListener { validateFields(tilUserName) }
@@ -138,7 +179,6 @@ class RegistrationActivity : AppCompatActivity() {
             teAddress.addTextChangedListener { validateFields(tilAddress) }
             tePhone.addTextChangedListener { validateFields(tilPhone) }
             teEmail.addTextChangedListener { validateFields(tilEmail) }
-            tePassword.addTextChangedListener { validateFields(tilPassword) }
         }
     }
 

@@ -5,16 +5,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class RegisterInteractor {
-
-    private var dataBaseInstance = FirebaseFirestore.getInstance()
+class RegisterInteractor @Inject constructor(
+    private val firestore: FirebaseFirestore){
 
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
 
-                dataBaseInstance.collection("concessionaires")
+                firestore.collection("concessionaire")
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
@@ -34,7 +34,7 @@ class RegisterInteractor {
     fun registerForeignConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             try {
-                dataBaseInstance.collection("concessionaires")
+                firestore.collection("concessionaire")
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
@@ -54,7 +54,7 @@ class RegisterInteractor {
     fun registerCollector(collectorFE: CollectorFE): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             try {
-                dataBaseInstance.collection("collectors")
+                firestore.collection("collectors")
                     .add(collectorFE)
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
