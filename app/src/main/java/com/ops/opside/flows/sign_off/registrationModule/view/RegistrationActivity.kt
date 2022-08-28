@@ -24,6 +24,7 @@ import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewMo
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
+import java.util.zip.CRC32
 
 @AndroidEntryPoint
 class RegistrationActivity: AppCompatActivity() {
@@ -34,6 +35,8 @@ class RegistrationActivity: AppCompatActivity() {
     private val mViewModel: RegisterViewModel by viewModels()
     private lateinit var mConcessionaireFE: ConcessionaireFE
     private var checkedItem = 0
+    private val crc32 = CRC32()
+    private var passHash = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +44,7 @@ class RegistrationActivity: AppCompatActivity() {
 
         mBinding.apply {
             btnRegister.setOnClickListener {
-                if (insertUser()) {
-                    mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                    bsRegisterSuccess()
-                }
+                insertUser()
             }
         }
 
@@ -89,10 +89,14 @@ class RegistrationActivity: AppCompatActivity() {
         val isValid = false
         when(checkedItem){
             0 -> {
-                concessionaireViewModel()
+                if (concessionaireViewModel()) return true
+                mViewModel.insertConcessionaire(mConcessionaireFE)
+                bsRegisterSuccess()
             }
             1 -> {
                 if (foreignConcessionaireViewModel()) return true
+                mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                bsRegisterSuccess()
             }
             2 -> {
 
@@ -101,7 +105,8 @@ class RegistrationActivity: AppCompatActivity() {
         return isValid
     }
 
-    private fun concessionaireViewModel() {
+    private fun concessionaireViewModel(): Boolean {
+        val isValid = false
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
             if (validatePassword()){
@@ -113,15 +118,13 @@ class RegistrationActivity: AppCompatActivity() {
                     address = mBinding.teAddress.text.toString().trim()
                     phone = mBinding.tePhone.text.toString().trim()
                     email = mBinding.teEmail.text.toString().trim()
-                    password = mBinding.tePassword.text.toString().trim()
+                    password = passwordHash(mBinding.tePassword.text.toString().trim())
                     participatingMarkets = mutableListOf()
-
-                    mViewModel.insertConcessionaire(mConcessionaireFE)
-                    bsRegisterSuccess()
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
             Toast.LENGTH_SHORT).show()
+        return isValid
     }
 
     private fun foreignConcessionaireViewModel(): Boolean {
@@ -135,15 +138,20 @@ class RegistrationActivity: AppCompatActivity() {
                 with(mConcessionaireFE){
                     name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                     email = mBinding.teEmail.text.toString().trim()
-                    password = mBinding.tePassword.text.toString().trim()
+                    password = passwordHash(mBinding.tePassword.text.toString().trim())
                     isForeigner = true
-
                     return true
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
             Toast.LENGTH_SHORT).show()
         return isValid
+    }
+
+    private fun passwordHash(password: String): String{
+        crc32.update(password.toByteArray())
+        passHash = String.format("%08X", crc32.value)
+        return passHash
     }
 
     private fun validatePassword(): Boolean{
