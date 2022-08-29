@@ -16,7 +16,6 @@ class BottomSheetPickMarketViewModel @Inject constructor(
 ) : CommonViewModel() {
 
     private val _getMarketsList = MutableLiveData<MutableList<MarketFE>>()
-
     val getMarketsList: LiveData<MutableList<MarketFE>> = _getMarketsList
 
     fun getMarketsList(){

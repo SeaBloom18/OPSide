@@ -281,6 +281,12 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_user_register, menu)
+        return true
+    }
+
+
     private fun setToolbar(){
         with(mBinding.toolbarRegister.commonToolbar) {
             this.title = getString(R.string.login_txt_create_account_sign_in)
@@ -288,9 +294,7 @@ class RegistrationActivity : AppCompatActivity() {
             (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
             this.addMenuProvider(object : MenuProvider{
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.menu_user_register, menu)
-                }
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {

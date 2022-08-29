@@ -4,7 +4,6 @@
     <item
         android:id="@+id/regUser"
         android:title="@string/login_til_required"
-        android:icon="@drawable/ic_ops_user"
-        android:iconTint="@color/secondaryColor"
+        android:icon="@drawable/ic_ops_add_user"
         app:showAsAction="always"/>
 </menu>
