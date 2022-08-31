@@ -15,8 +15,8 @@ class LoginViewModel @Inject constructor(
     private val mLoginInteractor: LoginInteractor
 ): CommonViewModel() {
 
-    private val _GetUserLogin = MutableLiveData<MutableList<String>>()
-    val getUserLogin: LiveData<MutableList<String>> = _GetUserLogin
+    private val _GetUserLogin = MutableLiveData<String>()
+    val getUserLogin: LiveData<String> = _GetUserLogin
 
     /*fun isSPInitialized(): Boolean{
         return mLoginInteractor.isSPInitialized()
@@ -30,9 +30,9 @@ class LoginViewModel @Inject constructor(
        return mLoginInteractor.getUserByEmail()
     }*/
 
-    fun getUserLogin() {
+    fun getUserLogin(email: String) {
         disposable.add(
-            mLoginInteractor.getUserByEmail().applySchedulers()
+            mLoginInteractor.getUserByEmail(email).applySchedulers()
                 .subscribe(
                     {
                         _GetUserLogin.value = it

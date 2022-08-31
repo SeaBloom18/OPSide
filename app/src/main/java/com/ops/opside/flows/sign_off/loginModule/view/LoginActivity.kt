@@ -1,6 +1,5 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -8,12 +7,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.google.android.gms.auth.api.identity.SignInPassword
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.R
-import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityLoginBinding
@@ -21,13 +18,13 @@ import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.zip.CRC32
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
-    private lateinit var mFirebaseUser: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,38 +34,15 @@ class LoginActivity : AppCompatActivity() {
         mBinding.apply {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
-            btnLogin.setOnClickListener { loginValidate() }
+            btnLogin.setOnClickListener {
+                mViewModel.getUserLogin(teUserName.text.toString().trim())
+
+                //loginValidate()
+            }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }
 
-       /* var password = ""
-        firestore.collection(Constants.FIRESTORE_CONCESSIONAIRES)
-            .whereEqualTo("email", "dagq117@gmail.com")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    password = document.data["password"].toString()
-                    Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
-                    Toast.makeText(this, password, Toast.LENGTH_SHORT).show()
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("loginFirestore", "Error getting documents: ", exception)
-            }*/
-
-        /*if (mViewModel.isSPInitialized()){
-        }*/
-        /*mViewModel.getUserLogin()
-        Toast.makeText(this, mViewModel.getUserLogin(), Toast.LENGTH_SHORT).show()
-        Log.d("LoginFirebase", mViewModel.getUserLogin())*/
-
-        /*Toast.makeText(this, "${bindViewModel()}", Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, "${getFirebaseUser()}", Toast.LENGTH_SHORT).show()*/
-
-        //Toast.makeText(this, "${mViewModel.getUserLogin()}", Toast.LENGTH_SHORT).show()
         bindViewModel()
-        getFirebaseUser()
     }
 
     //Methods
@@ -76,33 +50,10 @@ class LoginActivity : AppCompatActivity() {
         mViewModel.getUserLogin.observe(this, Observer(this::getFirebaseUser))
     }
 
-    private fun getFirebaseUser(fireBaseUser: MutableList<String>){
-        mFirebaseUser = fireBaseUser
-        Log.d("passwordView", mFirebaseUser.toString())
+    private fun getFirebaseUser(password: String){
+        loginValidate(password)
     }
 
-    private fun getFirebaseUser(){
-        mViewModel.getUserLogin()
-        Log.d("passwordView", mViewModel.getUserLogin().toString())
-    }
-
-    /*fun getUserByEmail(): String {
-        var password = ""
-        firestore.collection(Constants.FIRESTORE_CONCESSIONAIRES)
-            .whereEqualTo("email", "dagq117@gmail.com")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    password = document.data["password"].toString()
-                    Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
-                    Toast.makeText(this, password, Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("loginFirestore", "Error getting documents: ", exception)
-            }
-        return password
-    }*/
 
     private fun showPolicies() {
         val dialog = BottomSheetDialog(this)
@@ -130,24 +81,25 @@ class LoginActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun loginValidate(){
-        /*val email = mBinding.teUserName.text.toString().trim()
-        val password = mBinding.tePassword.text.toString().trim()
+    private fun loginValidate(passwordFs: String){
+        val email = mBinding.teUserName.text.toString().trim()
+        var password = mBinding.tePassword.text.toString().trim()
         if (email.isNotEmpty() && password.isNotEmpty()){
-            if (email == "admin@gmail.com" && password == ("12345")){
+            val crc32 = CRC32()
+            crc32.update(password.toByteArray())
+            password = String.format("%08X", crc32.value)
+            if (passwordFs == password){
                 launchActivity<MainActivity> {  }
             } else {
-                Toast.makeText(this, R.string.login_toast_credentials_error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
-        }*/
+        }
 
-       /* if (mViewModel.isSPInitialized()) {
+        /*if (mViewModel.isSPInitialized()) {
             mViewModel.initSP()
         }*/
-
-        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun setUpViewModel() {
