@@ -113,6 +113,4 @@ class BottomSheetPickMarket(
         mMarketsList = marketsList
         setUpSpinner()
     }
-
-
 }

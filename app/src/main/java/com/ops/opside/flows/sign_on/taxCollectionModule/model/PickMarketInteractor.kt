@@ -8,7 +8,6 @@ import com.ops.opside.common.utils.SP_IS_ON_LINE_MODE
 import io.reactivex.Observable
 import javax.inject.Inject
 
-
 class PickMarketInteractor @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val sp: Preferences

@@ -39,7 +39,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teUserName"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName" />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

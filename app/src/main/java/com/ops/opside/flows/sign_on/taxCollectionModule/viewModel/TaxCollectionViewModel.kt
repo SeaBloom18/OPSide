@@ -1,7 +1,5 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.viewModel
 
-import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
