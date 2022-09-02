@@ -15,11 +15,11 @@ class ConcessionaireInteractor @Inject constructor(
                 for (i in 1..30) {
                     concessionaires.add(
                         ConcessionaireSE(
-                            i.toLong(), "Concesionario $i",
+                            i.toString(), "Concesionario $i",
                             "",
                             "",
                             "",
-                            "", 3.0, ""
+                            "", 0, false
                         )
                     )
                 }

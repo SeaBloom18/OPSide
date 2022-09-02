@@ -25,7 +25,7 @@ class ListIncidentsAdapter(private var incidentEntity: MutableList<IncidentSE>):
         with(holder){
             binding.tvIncidentName.text = incident.incidentName
             binding.tvIncidentPrice.text = "Precio: ${incident.incidentPrice}"
-            binding.tvIncidentCode.text = incident.id.toString()
+            binding.tvIncidentCode.text = incident.idFirebase
         }
     }
 

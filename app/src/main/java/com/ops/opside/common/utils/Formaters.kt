@@ -1,6 +1,7 @@
 package com.ops.opside.common.utils
 
-import java.text.DecimalFormat
+import android.annotation.SuppressLint
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
@@ -20,8 +21,9 @@ object Formaters {
     fun Boolean?.orFalse(): Boolean = this ?: false
 
     fun Double?.formatCurrency(): String {
-        val formatter = DecimalFormat("MXN/ #,##0.00")
-        return formatter.format(this.orZero())
+        val cleanString = this.toString().replace("""[$,.]""".toRegex(), "")
+        val parsed = cleanString.toDouble()
+        return NumberFormat.getCurrencyInstance().format((parsed / 100)).toString()
     }
 
     fun formatDate(strDate: String?): String {
@@ -38,6 +40,7 @@ object Formaters {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun formatDateMillis(millis: Long?): String {
         return if (millis == null) {
             ""
@@ -47,5 +50,5 @@ object Formaters {
         }
     }
 
-    const val FORMAT_DATE = "dd MMMM, yyyy"
+    private const val FORMAT_DATE = "dd MMMM, yyyy"
 }

@@ -1,9 +1,7 @@
 package com.ops.opside.common.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.ops.opside.common.dialogs.ProgressDialog
 import com.ops.opside.common.utils.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
 

@@ -1,16 +1,25 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.google.zxing.integration.android.IntentIntegrator
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.utils.launchFragment
+import com.ops.opside.common.utils.showError
+import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.TaxCollectionViewModel
@@ -19,13 +28,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
-    private val mBinding: ActivityTaxCollectionBinding by lazy{
+    private val mBinding: ActivityTaxCollectionBinding by lazy {
         ActivityTaxCollectionBinding.inflate(layoutInflater)
     }
 
     private val mViewModel: TaxCollectionViewModel by viewModels()
 
     private lateinit var mSelectedMarket: MarketFE
+    private lateinit var mConcessionairesFEList: MutableList<ConcessionaireFE>
+    private lateinit var mConcessionairesMap: MutableMap<String, ConcessionaireSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +52,24 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             btnFinalize.setOnClickListener {
                 showAlertFinalize()
             }
+
+            btnScan.setOnClickListener {
+                initScanner()
+            }
         }
 
+        bindViewModel()
         bsdPickMarket()
         setUpPieChart()
+    }
+
+    private fun bindViewModel() {
+        mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
+        mViewModel.getConcessionairesFEList.observe(this, Observer(this::getConcessionairesFEList))
+        mViewModel.persistConcessionairesSEList.observe(this, Observer(this::persistConcessionairesSEList))
+        mViewModel.getConcessionairesSEList.observe(this, Observer(this::getConcessionairesSEList))
+        mViewModel.persistMarketSE.observe(this, Observer(this::isAddedMarket))
+        mViewModel.getConcessionairesSEList.observe(this, Observer(this::getAllConcessionaires))
     }
 
     private fun showAlertFinalize() {
@@ -74,12 +99,21 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     private fun bsdPickMarket() {
         val dialog = BottomSheetPickMarket {
             mSelectedMarket = it
-
             mBinding.tvMarket.text = mSelectedMarket.name
+
+            mViewModel.addMarket(mSelectedMarket)
         }
 
         dialog.isCancelable = false
         dialog.show(supportFragmentManager, dialog.tag)
+    }
+
+    private fun isAddedMarket(isAdded: Boolean){
+        if (isAdded){
+            mViewModel.getConcessionairesFEList(mSelectedMarket.idFirebase)
+        } else{
+            showError("Hubo un error al guardar la información del Tianguis seleccionado")
+        }
     }
 
     private fun setUpPieChart() {
@@ -116,6 +150,29 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         }
     }
 
+    private fun getConcessionairesFEList(concessionairesList: MutableList<ConcessionaireFE>) {
+        mConcessionairesFEList = concessionairesList
+        mViewModel.persistConcessionairesSEList(mSelectedMarket.idFirebase, mConcessionairesFEList)
+    }
+
+    private fun getConcessionairesSEList(concessionairesList: MutableList<ConcessionaireSE>) {
+        Log.d("Demo", concessionairesList.toString())
+    }
+
+    private fun getAllConcessionaires(concessionairesList: MutableList<ConcessionaireSE>){
+        mConcessionairesMap = mutableMapOf()
+        concessionairesList.map {
+            mConcessionairesMap.put(it.idFirebase, it)
+        }
+    }
+
+    private fun persistConcessionairesSEList(wasAdded: Boolean) {
+        if (wasAdded) {
+            mViewModel.getAllConcessionaires()
+        } else{
+            showError("Hubo un error al guardar el listado de concesionarios")
+        }
+    }
 
     private fun bsdRecordTaxCollection() {
         val dialog = BottomSheetRecordTaxCollection()
@@ -132,6 +189,37 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         mBinding.btnFinalize.visibility = View.VISIBLE
         mBinding.btnScan.visibility = View.VISIBLE
         mBinding.fabRecord.visibility = View.VISIBLE
+    }
+
+    private fun initScanner() {
+        val integrator = IntentIntegrator(this)
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        integrator.setBeepEnabled(false)
+        integrator.setPrompt("")
+        integrator.initiateScan()
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
+            } else {
+                setConcessionaireData(result.contents)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun setConcessionaireData(id: String){
+        val concessionaire = mConcessionairesMap[id]
+        concessionaire?.let {
+            with(mBinding){
+                etDealerName.setText(it.name)
+            }
+        }
     }
 
 }

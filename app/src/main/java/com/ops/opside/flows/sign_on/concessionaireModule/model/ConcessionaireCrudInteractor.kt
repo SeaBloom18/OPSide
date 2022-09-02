@@ -13,8 +13,8 @@ class ConcessionaireCrudInteractor @Inject constructor(
                 val markets = mutableListOf<MarketSE>()
 
                 for (i in 1..7){
-                    markets.add(MarketSE(i.toLong(), "Tianguis $i", "",
-                        "",0.0,0.0,0))
+                    markets.add(MarketSE(i.toString(), "Tianguis $i", "",
+                        0.0,0.0,0))
                 }
 
                 subscriber.onNext(markets)

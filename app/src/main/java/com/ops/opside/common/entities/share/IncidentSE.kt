@@ -7,9 +7,7 @@ import com.ops.opside.common.entities.DB_TABLE_INCIDENT
 
 @Entity(tableName = DB_TABLE_INCIDENT)
 data class IncidentSE(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    @ColumnInfo(name = "idFirebase")
+    @PrimaryKey(autoGenerate = false)
     val idFirebase: String,
     @ColumnInfo(name = "incidentName")
     val incidentName: String,

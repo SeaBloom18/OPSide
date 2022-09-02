@@ -40,7 +40,7 @@ android {
 
 //Versions
 def roomVersion = "2.4.3"
-def zxingVersion = "3.4.0"
+def zxingVersion = "4.1.0"
 def glideVersion = "4.13.2"
 def lifecycleVersion = "2.4.1"
 def coroutinesVersion = "1.5.2"
@@ -81,7 +81,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
 
     //zxing BARCODE
-    implementation "com.google.zxing:core:$zxingVersion"
+    implementation "com.journeyapps:zxing-android-embedded:$zxingVersion"
 
     //Glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"

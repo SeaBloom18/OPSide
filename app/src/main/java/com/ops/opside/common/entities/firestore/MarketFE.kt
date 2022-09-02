@@ -1,5 +1,8 @@
 package com.ops.opside.common.entities.firestore
 
+import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.utils.Formaters.orZero
+
 data class MarketFE(
     val idFirebase: String,
     var name: String,
@@ -18,5 +21,16 @@ data class MarketFE(
         map["concessionaires"] = concessionaires
 
         return map
+    }
+
+    fun parseToSE(): MarketSE{
+        return MarketSE(
+            idFirebase,
+            name,
+            address,
+            latitude.orZero(),
+            longitude.orZero(),
+            concessionaires.size.orZero()
+        )
     }
 }

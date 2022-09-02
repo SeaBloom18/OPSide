@@ -10,8 +10,8 @@ class ListIncidentsInteractor {
             try {
                 val incidents = mutableListOf<IncidentSE>()
 
-                val incident1 = IncidentSE(1, "Inasistencia 1", "", 15.0)
-                val incident2 = IncidentSE(1, "Inasistencia 2", "", 15.0)
+                val incident1 = IncidentSE("1", "Inasistencia 1",  15.0)
+                val incident2 = IncidentSE("1", "Inasistencia 2", 15.0)
 
                 incidents.add(incident1)
                 incidents.add(incident2)

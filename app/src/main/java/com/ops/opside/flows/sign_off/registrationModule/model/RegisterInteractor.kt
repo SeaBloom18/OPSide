@@ -2,6 +2,7 @@ package com.ops.opside.flows.sign_off.registrationModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import io.reactivex.Observable
@@ -14,7 +15,7 @@ class RegisterInteractor {
         return Observable.unsafeCreate{ subscriber ->
             try {
 
-                dataBaseInstance.collection("concessionaires")
+                dataBaseInstance.collection(DB_TABLE_CONCESSIONAIRE)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)

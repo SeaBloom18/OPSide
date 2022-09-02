@@ -3,12 +3,17 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.room.TaxCollectionDataBase
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class TaxCollectionInteractor @Inject constructor(
-    private val firestore: FirebaseFirestore
-){
+    private val firestore: FirebaseFirestore,
+    private val room: TaxCollectionDataBase
+) {
 
     fun getConcessionairesFEList(marketId: String): Observable<MutableList<ConcessionaireFE>> {
         return Observable.unsafeCreate { subscriber ->
@@ -17,13 +22,14 @@ class TaxCollectionInteractor @Inject constructor(
             firestore.collection(DB_TABLE_CONCESSIONAIRE)
                 .whereArrayContains("participatingMarkets", marketId)
                 .get()
-                .addOnSuccessListener {
+                .addOnSuccessListener { it ->
 
                     for (document in it.documents) {
+
                         concessionaires.add(
                             ConcessionaireFE(
                                 document.id,
-                                "${document.get("name").toString()} ${document.get("lastName").toString()}",
+                                document.get("name").toString(),
                                 document.get("address").toString(),
                                 document.get("origin").toString(),
                                 document.get("phone").toString(),
@@ -36,6 +42,7 @@ class TaxCollectionInteractor @Inject constructor(
                                 document.get("participatingMarkets") as MutableList<String>
                             )
                         )
+
                     }
 
                     subscriber.onNext(concessionaires)
@@ -44,4 +51,67 @@ class TaxCollectionInteractor @Inject constructor(
                 }
         }
     }
+
+    fun persistConcessionairesSEList(
+        idMarket: String,
+        concessionaires: MutableList<ConcessionaireFE>
+    )
+            : Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+
+                // Extraemos los ids de los concesionarios pertenecientes al tianguis
+                // antes de borrar la relación
+                val idsConcessionaires = room.concessionaireDao().getAllConcessionairesByMarket(idMarket).concessionairetIdList
+
+                //Eliminamos la relación que existe entre el concesionario y el tianguis
+                room.concessionaireDao().deleteConcessPartipating(idMarket)
+
+                // Eliminar a los concesionarios para volverlos a insertar
+                // y así actualizar cualquier posible cambio
+                room.concessionaireDao().deleteConcessInMarket(idsConcessionaires)
+
+                // Volvemos a añadir a los concesionarios con la nueva información
+                room.concessionaireDao()
+                    .addConcessionairesList(concessionaires.map { it.parseToSE() }.toMutableList())
+
+                // Volvemos a crear las relaciones
+                room.concessionaireDao().addConcessPartipating(concessionaires.map {
+                    ParticipatingConcessRE(idMarket, it.idFirebase)
+                }.toMutableList())
+
+                subscriber.onNext(true)
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        }
+
+    }
+
+    fun getAllConcessionaires(): Observable<MutableList<ConcessionaireSE>> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val concessionaires = room.concessionaireDao().getAllConcessionaires()
+                subscriber.onNext(concessionaires)
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        }
+    }
+
+
+    fun persistMarket(market: MarketFE): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                if (room.marketDao().existMarket(market.idFirebase) == null)
+                    room.marketDao().addMarket(market.parseToSE())
+
+                subscriber.onNext(true)
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        }
+    }
+
+
 }

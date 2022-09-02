@@ -1,5 +1,7 @@
 package com.ops.opside.common.entities.firestore
 
+import com.ops.opside.common.entities.share.ConcessionaireSE
+
 data class ConcessionaireFE(
     val idFirebase: String = "",
     var name: String = "",
@@ -13,9 +15,9 @@ data class ConcessionaireFE(
     var isForeigner: Boolean = false,
     var password: String = "",
     var participatingMarkets: MutableList<String> = mutableListOf()
-){
-    fun getHashMap(): MutableMap<String,Any>{
-        val map: MutableMap<String,Any> = mutableMapOf()
+) {
+    fun getHashMap(): MutableMap<String, Any> {
+        val map: MutableMap<String, Any> = mutableMapOf()
 
         map["name"] = name
         map["address"] = address
@@ -31,4 +33,19 @@ data class ConcessionaireFE(
 
         return map
     }
+
+    fun parseToSE(): ConcessionaireSE {
+        return ConcessionaireSE(
+            idFirebase,
+            name,
+            address,
+            phone,
+            email,
+            lineBusiness,
+            absence,
+            isForeigner,
+            origin
+        )
+    }
+
 }
