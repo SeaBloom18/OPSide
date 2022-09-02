@@ -39,7 +39,7 @@ class RegistrationActivity : AppCompatActivity() {
         ActivityRegistrationBinding.inflate(layoutInflater)
     }
     private val mViewModel: RegisterViewModel by viewModels()
-    private lateinit var mConcessionaireFE: ConcessionaireFE
+    private val mConcessionaireFE: ConcessionaireFE = ConcessionaireFE()
     private var checkedItem = 0
     private val crc32 = CRC32()
     private var passHash = ""
@@ -73,7 +73,6 @@ class RegistrationActivity : AppCompatActivity() {
             })
         }
 
-        mConcessionaireFE = ConcessionaireFE()
 
         bindViewModel()
         loadOriginList()
@@ -82,7 +81,7 @@ class RegistrationActivity : AppCompatActivity() {
         setupTextFields()
     }
 
-    //Override Methods
+    /** Toolbar MenuOptions and BackPressed**/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> finish()
@@ -94,7 +93,35 @@ class RegistrationActivity : AppCompatActivity() {
         bottomSheet()
     }
 
-    //Methods
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_user_register, menu)
+        return true
+    }
+
+    private fun setToolbar(){
+        with(mBinding.toolbarRegister.commonToolbar) {
+            this.title = getString(R.string.login_txt_create_account_sign_in)
+            setSupportActionBar(this)
+            (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            this.addMenuProvider(object : MenuProvider{
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.regUser -> {
+                            alertDialogRegisterOptions()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            })
+        }
+    }
+
+
+    /** ViewModel **/
     private fun bindViewModel(){
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
     }
@@ -108,9 +135,10 @@ class RegistrationActivity : AppCompatActivity() {
         setUpOriginList()
     }
 
+    /** OriginAutoCompleteText **/
     private fun setUpOriginList() {
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getOriginListNames())
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getOriginListNames())
         mBinding.teOrigin.setAdapter(adapter)
     }
 
@@ -118,6 +146,8 @@ class RegistrationActivity : AppCompatActivity() {
         return mOriginList.map { it.originName }.toMutableList()
     }
 
+
+    /** User FireStore Insert **/
     private fun insertUser(): Boolean{
         val isValid = false
         when(checkedItem){
@@ -143,7 +173,7 @@ class RegistrationActivity : AppCompatActivity() {
     private fun concessionaireViewModel(): Boolean {
         val isValid = false
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
-                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
                     Toast.LENGTH_SHORT).show()
@@ -157,8 +187,10 @@ class RegistrationActivity : AppCompatActivity() {
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
+                        origin = mBinding.teOrigin.text.toString()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
                         participatingMarkets = mutableListOf()
+                        isForeigner = false
                         return true
                     }
                 }
@@ -194,6 +226,7 @@ class RegistrationActivity : AppCompatActivity() {
         return isValid
     }
 
+    /** Form Validations **/
     private fun passwordHash(password: String): String{
         crc32.update(password.toByteArray())
         passHash = String.format("%08X", crc32.value)
@@ -240,6 +273,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    /** Form Option and SetUp's **/
     private fun alertDialogRegisterOptions() {
         val singleItems = arrayOf(
             getString(R.string.registration_array_conce),
@@ -312,7 +346,6 @@ class RegistrationActivity : AppCompatActivity() {
                     teOrigin.visibility = View.GONE
                     tilOrigin.visibility = View.GONE
                 }
-
             }
             2 -> {
 
@@ -320,34 +353,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_user_register, menu)
-        return true
-    }
-
-
-    private fun setToolbar(){
-        with(mBinding.toolbarRegister.commonToolbar) {
-            this.title = getString(R.string.login_txt_create_account_sign_in)
-            setSupportActionBar(this)
-            (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            this.addMenuProvider(object : MenuProvider{
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
-
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.regUser -> {
-                            alertDialogRegisterOptions()
-                            true
-                        }
-                        else -> false
-                    }
-                }
-            })
-        }
-    }
-
+    /** BottomSheet **/
     private fun bsRegisterSuccess(){
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
