@@ -7,9 +7,7 @@ import com.ops.opside.common.entities.DB_TABLE_RESOURCES
 
 @Entity(tableName = DB_TABLE_RESOURCES)
 data class ResourcesSE(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    @ColumnInfo(name = "idFirebase")
+    @PrimaryKey(autoGenerate = false)
     val idFirebase: String,
     @ColumnInfo(name = "name")
     val name: String,

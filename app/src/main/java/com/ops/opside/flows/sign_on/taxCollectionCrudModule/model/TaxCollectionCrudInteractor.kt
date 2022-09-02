@@ -15,9 +15,9 @@ class TaxCollectionCrudInteractor @Inject constructor(
                 for (i in 1..15) {
                     collections.add(
                         TaxCollectionSE(
-                            i.toLong(), "",
+                            i.toString(), "",
                             "Tianguis Minicipal",
-                            "",1250.0,
+                            1250.0,
                             "2022-07-12",
                             "", "", ""
                         )

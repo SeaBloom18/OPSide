@@ -10,7 +10,7 @@ data class EmailSentRE(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "idConcessionaire")
-    val idConcessionaire: Long,
+    val idConcessionaire: String,
     @ColumnInfo(name = "status")
     val status: Boolean,
     @ColumnInfo(name = "emailType")

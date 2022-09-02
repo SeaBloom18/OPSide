@@ -7,9 +7,7 @@ import com.ops.opside.common.entities.DB_TABLE_MARKET
 
 @Entity(tableName = DB_TABLE_MARKET)
 data class MarketSE(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
-    @ColumnInfo(name = "idFirebase")
+    @PrimaryKey(autoGenerate = false)
     val idFirebase: String,
     @ColumnInfo(name = "name")
     var name: String,

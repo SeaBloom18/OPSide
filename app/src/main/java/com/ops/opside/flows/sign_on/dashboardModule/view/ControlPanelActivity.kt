@@ -157,8 +157,8 @@ class ControlPanelActivity : AppCompatActivity() {
     private fun getConcessionaires(): MutableList<ConcessionaireSE> {
         val concessionaires = mutableListOf<ConcessionaireSE>()
 
-        val concessionaireRE1 = ConcessionaireSE(id = (1).toLong(), idFirebase = "", name = "David Gonzalez")
-        val concessionaireRE2 = ConcessionaireSE(id = (1).toLong(), idFirebase = "", name = "Mario Razo")
+        val concessionaireRE1 = ConcessionaireSE(idFirebase = "", name = "David Gonzalez")
+        val concessionaireRE2 = ConcessionaireSE(idFirebase = "", name = "Mario Razo")
 
         concessionaires.add(concessionaireRE1)
         concessionaires.add(concessionaireRE2)

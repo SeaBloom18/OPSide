@@ -7,9 +7,7 @@ import com.ops.opside.common.entities.DB_TABLE_TAX_COLLECTION
 
 @Entity(tableName = DB_TABLE_TAX_COLLECTION)
 data class TaxCollectionSE(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    @ColumnInfo(name = "idFirebase")
+    @PrimaryKey(autoGenerate = false)
     val idFirebase: String,
     @ColumnInfo(name = "idMarket")
     var idMarket: String,
@@ -33,14 +31,14 @@ data class TaxCollectionSE(
 
         other as TaxCollectionSE
 
-        if (id != other.id) return false
+        if (idFirebase != other.idFirebase) return false
         if (idMarket != other.idMarket) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = id.hashCode()
+        var result = idFirebase.hashCode()
         result = 31 * result + idMarket.hashCode()
         return result
     }
