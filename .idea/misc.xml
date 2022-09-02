@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.3703125" />
         <entry key="app/src/main/res/drawable/alert_dialog_success_registration.xml" value="0.136" />
         <entry key="app/src/main/res/drawable/ic_arrow_forward.xml" value="0.2415" />
         <entry key="app/src/main/res/drawable/ic_bell.xml" value="0.2525" />

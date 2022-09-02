@@ -9,12 +9,14 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
@@ -22,6 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
@@ -40,6 +43,7 @@ class RegistrationActivity : AppCompatActivity() {
     private var checkedItem = 0
     private val crc32 = CRC32()
     private var passHash = ""
+    private lateinit var mOriginList: MutableList<OriginFE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +61,7 @@ class RegistrationActivity : AppCompatActivity() {
 
                 override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     charSequence?.apply {
-                        if(!isValidPassword() && toString().length <= 8) mBinding.tilPassword.error =
+                        if(!isValidPassword()) mBinding.tilPassword.error =
                             getString(R.string.registration_til_password_validation)
                         else mBinding.tilPassword.error = null
                     }
@@ -71,6 +75,8 @@ class RegistrationActivity : AppCompatActivity() {
 
         mConcessionaireFE = ConcessionaireFE()
 
+        bindViewModel()
+        loadOriginList()
         setToolbar()
         alertDialogRegisterOptions()
         setupTextFields()
@@ -86,6 +92,30 @@ class RegistrationActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         bottomSheet()
+    }
+
+    //Methods
+    private fun bindViewModel(){
+        mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
+    }
+
+    private fun loadOriginList(){
+        mViewModel.getOriginList()
+    }
+
+    private fun getOriginList(originList: MutableList<OriginFE>){
+        mOriginList = originList
+        setUpOriginList()
+    }
+
+    private fun setUpOriginList() {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getOriginListNames())
+        mBinding.teOrigin.setAdapter(adapter)
+    }
+
+    private fun getOriginListNames(): MutableList<String> {
+        return mOriginList.map { it.originName }.toMutableList()
     }
 
     private fun insertUser(): Boolean{
@@ -194,7 +224,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     fun CharSequence.isValidPassword(): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$"
+        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(this)
         return matcher.matches()
@@ -246,21 +276,25 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun registerGeneralSetUp(){
-        mBinding.tvFormTitle.visibility = View.VISIBLE
-        mBinding.teUserName.visibility = View.VISIBLE
-        mBinding.tilUserName.visibility = View.VISIBLE
-        mBinding.teLastName.visibility = View.VISIBLE
-        mBinding.tilLastName.visibility = View.VISIBLE
-        mBinding.teAddress.visibility = View.VISIBLE
-        mBinding.tilAddress.visibility = View.VISIBLE
-        mBinding.tePhone.visibility = View.VISIBLE
-        mBinding.tilPhone.visibility = View.VISIBLE
-        mBinding.teEmail.visibility = View.VISIBLE
-        mBinding.tilEmail.visibility = View.VISIBLE
-        mBinding.tePassword.visibility = View.VISIBLE
-        mBinding.tilPassword.visibility = View.VISIBLE
-        mBinding.tePasswordConfirm.visibility = View.VISIBLE
-        mBinding.tilPasswordConfirm.visibility = View.VISIBLE
+        with(mBinding){
+            tvFormTitle.visibility = View.VISIBLE
+            teUserName.visibility = View.VISIBLE
+            tilUserName.visibility = View.VISIBLE
+            teLastName.visibility = View.VISIBLE
+            tilLastName.visibility = View.VISIBLE
+            teAddress.visibility = View.VISIBLE
+            tilAddress.visibility = View.VISIBLE
+            tePhone.visibility = View.VISIBLE
+            tilPhone.visibility = View.VISIBLE
+            teEmail.visibility = View.VISIBLE
+            tilEmail.visibility = View.VISIBLE
+            tePassword.visibility = View.VISIBLE
+            tilPassword.visibility = View.VISIBLE
+            tePasswordConfirm.visibility = View.VISIBLE
+            tilPasswordConfirm.visibility = View.VISIBLE
+            teOrigin.visibility = View.VISIBLE
+            tilOrigin.visibility = View.VISIBLE
+        }
     }
 
     private fun registerFormSetUP(formOption: Int){
@@ -270,10 +304,15 @@ class RegistrationActivity : AppCompatActivity() {
             }
             1 -> {
                 registerGeneralSetUp()
-                mBinding.teAddress.visibility = View.GONE
-                mBinding.tilAddress.visibility = View.GONE
-                mBinding.tePhone.visibility = View.GONE
-                mBinding.tilPhone.visibility = View.GONE
+                with(mBinding){
+                    teAddress.visibility = View.GONE
+                    tilAddress.visibility = View.GONE
+                    tePhone.visibility = View.GONE
+                    tilPhone.visibility = View.GONE
+                    teOrigin.visibility = View.GONE
+                    tilOrigin.visibility = View.GONE
+                }
+
             }
             2 -> {
 

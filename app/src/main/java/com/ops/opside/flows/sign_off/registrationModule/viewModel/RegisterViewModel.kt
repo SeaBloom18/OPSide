@@ -1,9 +1,11 @@
 package com.ops.opside.flows.sign_off.registrationModule.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor
@@ -14,6 +16,9 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     private val mRegisterInteractor: RegisterInteractor
 ): CommonViewModel() {
+
+    private val _getOriginList = MutableLiveData<MutableList<OriginFE>>()
+    val getOriginList: LiveData<MutableList<OriginFE>> = _getOriginList
 
     val registerConcessionaire = MutableLiveData<Boolean>()
 
@@ -51,6 +56,20 @@ class RegisterViewModel @Inject constructor(
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun getOriginList(){
+        disposable.add(
+            mRegisterInteractor.getOriginList().applySchedulers()
+                .subscribe(
+                    {
+                        _getOriginList.value = it
                     },
                     {
                         Log.e("Error", it.toString())
