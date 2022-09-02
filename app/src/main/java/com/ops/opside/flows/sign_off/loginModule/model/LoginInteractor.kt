@@ -1,12 +1,20 @@
 package com.ops.opside.flows.sign_off.loginModule.model
 
+import android.util.Log
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_IS_INITIALIZED
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class LoginInteractor @Inject constructor(
-    private val sp: Preferences
-) {
+    private val sp: Preferences,
+    private val firestore: FirebaseFirestore) {
+
+    lateinit var password: String
 
     fun isSPInitialized(): Boolean{
         return sp.getBoolean(SP_IS_INITIALIZED).not()
@@ -21,6 +29,32 @@ class LoginInteractor @Inject constructor(
             true,
             true
         )
+    }
+
+    fun getUserByEmail(email: String): Observable<String> {
+        password = ""
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                firestore.collection(Constants.FIRESTORE_CONCESSIONAIRES)
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            password = document.data["password"].toString()
+                            Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
+                            subscriber.onNext(password)
+                            Log.d("password", password)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("loginFirestore", "Error getting documents: ", exception)
+                        subscriber.onError(exception)
+                    }
+                Log.d("password", password.toString())
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
     }
 
 }

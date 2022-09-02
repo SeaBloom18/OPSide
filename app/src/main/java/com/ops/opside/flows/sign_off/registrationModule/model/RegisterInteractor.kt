@@ -2,20 +2,19 @@ package com.ops.opside.flows.sign_off.registrationModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.utils.Constants
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class RegisterInteractor {
-
-    private var dataBaseInstance = FirebaseFirestore.getInstance()
+class RegisterInteractor @Inject constructor(
+    private val firestore: FirebaseFirestore){
 
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
-
-                dataBaseInstance.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(Constants.FIRESTORE_CONCESSIONAIRES)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
@@ -35,7 +34,7 @@ class RegisterInteractor {
     fun registerForeignConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             try {
-                dataBaseInstance.collection("concessionaires")
+                firestore.collection(Constants.FIRESTORE_CONCESSIONAIRES)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
@@ -55,7 +54,7 @@ class RegisterInteractor {
     fun registerCollector(collectorFE: CollectorFE): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             try {
-                dataBaseInstance.collection("collectors")
+                    firestore.collection(Constants.FIRESTORE_COLLECTOR)
                     .add(collectorFE)
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)

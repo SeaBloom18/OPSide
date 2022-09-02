@@ -5,7 +5,6 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class FinalizeTaxCollectionInteractor @Inject constructor(
-
 ){
     fun getAbsenceList(): Observable<MutableList<ItemAbsence>> {
         return Observable.unsafeCreate{ subscriber ->

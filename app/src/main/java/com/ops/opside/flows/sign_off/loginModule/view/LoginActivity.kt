@@ -1,24 +1,24 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import com.google.android.gms.auth.api.identity.SignInPassword
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
 import com.ops.opside.common.utils.Constants
-import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.SP_IS_INITIALIZED
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import java.util.zip.CRC32
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -34,17 +34,27 @@ class LoginActivity : AppCompatActivity() {
         mBinding.apply {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
-            btnLogin.setOnClickListener { loginValidate() }
+            btnLogin.setOnClickListener {
+                mViewModel.getUserLogin(teUserName.text.toString().trim())
+
+                //loginValidate()
+            }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }
 
-        /*mBinding.btnLogin.setOnLongClickListener {
-            startActivity(Intent(this, DealerActivity::class.java))
-            return@setOnLongClickListener true
-        }*/
+        bindViewModel()
     }
 
     //Methods
+    private fun bindViewModel(){
+        mViewModel.getUserLogin.observe(this, Observer(this::getFirebaseUser))
+    }
+
+    private fun getFirebaseUser(password: String){
+        loginValidate(password)
+    }
+
+
     private fun showPolicies() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
@@ -68,26 +78,28 @@ class LoginActivity : AppCompatActivity() {
         tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
 
         dialog.setContentView(view)
-        dialog.show()    }
+        dialog.show()
+    }
 
-    private fun loginValidate(){
-        /*val email = mBinding.teUserName.text.toString().trim()
-        val password = mBinding.tePassword.text.toString().trim()
+    private fun loginValidate(passwordFs: String){
+        val email = mBinding.teUserName.text.toString().trim()
+        var password = mBinding.tePassword.text.toString().trim()
         if (email.isNotEmpty() && password.isNotEmpty()){
-            if (email == "admin@gmail.com" && password == ("12345")){
+            val crc32 = CRC32()
+            crc32.update(password.toByteArray())
+            password = String.format("%08X", crc32.value)
+            if (passwordFs == password){
                 launchActivity<MainActivity> {  }
             } else {
-                Toast.makeText(this, R.string.login_toast_credentials_error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
-        }*/
-
-        if (mViewModel.isSPInitialized()) {
-            mViewModel.initSP()
         }
 
-        startActivity(Intent(this, MainActivity::class.java))
+        /*if (mViewModel.isSPInitialized()) {
+            mViewModel.initSP()
+        }*/
     }
 
     private fun setUpViewModel() {

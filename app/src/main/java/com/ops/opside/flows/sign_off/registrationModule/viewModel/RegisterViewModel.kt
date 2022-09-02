@@ -7,10 +7,14 @@ import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RegisterViewModel: CommonViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val mRegisterInteractor: RegisterInteractor
+): CommonViewModel() {
 
-    private val mRegisterInteractor = RegisterInteractor()
     val registerConcessionaire = MutableLiveData<Boolean>()
 
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
