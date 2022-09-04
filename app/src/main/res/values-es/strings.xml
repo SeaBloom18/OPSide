@@ -47,6 +47,7 @@
     <string name="login_tv_policies">Políticas</string>
     <string name="login_toast_empy_text">Los campos no pueden estar vacíos</string>
     <string name="login_toast_credentials_error">Error en credenciales</string>
+    <string name="login_tv_forget_password">He olvidado mi contraseña</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>

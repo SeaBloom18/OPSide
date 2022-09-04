@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Preferences
@@ -14,7 +15,7 @@ class LoginInteractor @Inject constructor(
     private val sp: Preferences,
     private val firestore: FirebaseFirestore) {
 
-    lateinit var password: String
+    private lateinit var password: String
 
     fun isSPInitialized(): Boolean{
         return sp.getBoolean(SP_IS_INITIALIZED).not()
@@ -35,7 +36,7 @@ class LoginInteractor @Inject constructor(
         password = ""
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(Constants.FIRESTORE_CONCESSIONAIRES)
+                firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { documents ->

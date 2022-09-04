@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.launchActivity
+import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
@@ -34,11 +35,7 @@ class LoginActivity : AppCompatActivity() {
         mBinding.apply {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
-            btnLogin.setOnClickListener {
-                mViewModel.getUserLogin(teUserName.text.toString().trim())
-
-                //loginValidate()
-            }
+            btnLogin.setOnClickListener { mViewModel.getUserLogin(teUserName.text.toString().trim()) }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }
 
@@ -48,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
     //Methods
     private fun bindViewModel(){
         mViewModel.getUserLogin.observe(this, Observer(this::getFirebaseUser))
+        mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
     }
 
     private fun getFirebaseUser(password: String){
@@ -97,9 +95,9 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
         }
 
-        /*if (mViewModel.isSPInitialized()) {
+        if (mViewModel.isSPInitialized()) {
             mViewModel.initSP()
-        }*/
+        }
     }
 
     private fun setUpViewModel() {

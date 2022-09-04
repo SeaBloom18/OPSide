@@ -16,6 +16,8 @@ import javax.inject.Inject
 class RegisterInteractor @Inject constructor(
     private val firestore: FirebaseFirestore){
 
+    private lateinit var _email: String
+
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
@@ -60,7 +62,7 @@ class RegisterInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                     firestore.collection(DB_TABLE_COLLECTOR)
-                    .add(collectorFE)
+                    .add(collectorFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                         subscriber.onNext(true)
@@ -98,6 +100,32 @@ class RegisterInteractor @Inject constructor(
                     }.addOnFailureListener {
                         subscriber.onError(it)
                     }
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
+    }
+
+    fun getConsultEmailExist(email: String): Observable<String>{
+        _email = ""
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            _email = document.data["email"].toString()
+                            Log.d("loginFirestore", "${document.id} => ${document.data["email"]}")
+                            subscriber.onNext(_email)
+                            Log.d("email", _email)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("loginFirestore", "Error getting documents: ", exception)
+                        subscriber.onError(exception)
+                    }
+                Log.d("password", _email.toString())
             } catch (exception: Exception){
                 subscriber.onError(exception)
             }

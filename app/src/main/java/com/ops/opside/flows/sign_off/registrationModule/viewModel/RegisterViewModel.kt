@@ -20,17 +20,23 @@ class RegisterViewModel @Inject constructor(
     private val _getOriginList = MutableLiveData<MutableList<OriginFE>>()
     val getOriginList: LiveData<MutableList<OriginFE>> = _getOriginList
 
+    private val _getEmailExists = MutableLiveData<String>()
+    val getEmailExists: LiveData<String> = _getEmailExists
+
     val registerConcessionaire = MutableLiveData<Boolean>()
 
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
             mRegisterInteractor.registerConcessionaire(concessionaireFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress.value = false
                     }
                 )
         )
@@ -39,12 +45,15 @@ class RegisterViewModel @Inject constructor(
     fun insertForeignConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
             mRegisterInteractor.registerForeignConcessionaire(concessionaireFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress.value = false
                     }
                 )
         )
@@ -53,12 +62,15 @@ class RegisterViewModel @Inject constructor(
     fun insertCollector(collectorFE: CollectorFE){
         disposable.add(
             mRegisterInteractor.registerCollector(collectorFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress.value = false
                     }
                 )
         )
@@ -77,5 +89,18 @@ class RegisterViewModel @Inject constructor(
                 )
         )
     }
-    
+
+    fun getConsultEmailExist(email: String){
+        disposable.add(
+            mRegisterInteractor.getConsultEmailExist(email).applySchedulers()
+                .subscribe(
+                    {
+                        _getEmailExists.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
 }
