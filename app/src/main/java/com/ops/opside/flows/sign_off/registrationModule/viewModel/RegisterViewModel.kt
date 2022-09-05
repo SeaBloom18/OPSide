@@ -23,7 +23,7 @@ class RegisterViewModel @Inject constructor(
     private val _getEmailExists = MutableLiveData<String>()
     val getEmailExists: LiveData<String> = _getEmailExists
 
-    val registerConcessionaire = MutableLiveData<Boolean>()
+    private val registerConcessionaire = MutableLiveData<Boolean>()
 
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
