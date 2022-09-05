@@ -22,6 +22,7 @@
         <entry key="app/src/main/res/drawable/ic_item_edit.xml" value="0.224" />
         <entry key="app/src/main/res/drawable/ic_item_gps.xml" value="0.326" />
         <entry key="app/src/main/res/drawable/ic_login.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_create_market.xml" value="0.285" />
         <entry key="app/src/main/res/drawable/ic_ops_email_login.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_ops_home.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_ops_login.xml" value="0.2845" />
@@ -46,7 +47,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_market_location.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_market_register.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_market_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.25" />
