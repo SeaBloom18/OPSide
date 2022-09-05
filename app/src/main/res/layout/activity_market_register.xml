@@ -66,7 +66,7 @@
             android:layout_marginEnd="16dp"
             android:text="@string/registration_btn_select_location"
             app:icon="@drawable/ic_ops_select_location"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
+            app:layout_constraintBottom_toTopOf="@+id/tvAddressSelection"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/mapView"
@@ -90,13 +90,13 @@
             android:text="@string/registration_btn_view_concessionaires"
             app:icon="@drawable/ic_ops_see_concessionaires"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
-            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            app:layout_constraintEnd_toEndOf="@+id/tvAddressSelection"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintStart_toStartOf="@+id/tvAddressSelection"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddressSelection" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tvAddressSelection"
             style="@style/textViewBodyStyle"
             android:layout_marginTop="8dp"
             android:text="@string/registration_market_tv_location"

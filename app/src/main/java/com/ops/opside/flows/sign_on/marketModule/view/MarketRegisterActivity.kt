@@ -1,12 +1,16 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
@@ -31,6 +35,15 @@ class MarketRegisterActivity : AppCompatActivity() {
     private val mViewModel: MarketRegisterViewModel by viewModels()
     private val mMarketFE: MarketFE = MarketFE()
 
+    private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK) {
+            Toast.makeText(this, "Direccion: ${it.data.toString()}", Toast.LENGTH_SHORT).show()
+            mBinding.tvAddressSelection.text = it.data.toString()
+        } else {
+            Toast.makeText(this, "Error al retornar", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMarketRegisterBinding.inflate(layoutInflater)
@@ -38,7 +51,10 @@ class MarketRegisterActivity : AppCompatActivity() {
 
         mBinding.apply {
             btnViewConce.setOnClickListener { viewConcessionaire() }
-            btnSelectLocation.setOnClickListener { launchActivity<MarketLocationActivity> {  } }
+            btnSelectLocation.setOnClickListener {
+                val intent = Intent(this@MarketRegisterActivity, MarketLocationActivity::class.java)
+                mapResult.launch(intent)
+            }
             btnSaveMarket.setOnClickListener { saveMarket() }
         }
 
