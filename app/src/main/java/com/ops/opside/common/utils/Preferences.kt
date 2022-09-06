@@ -1,10 +1,6 @@
 package com.ops.opside.common.utils
 
-import android.content.Context
 import android.content.SharedPreferences
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 class Preferences @Inject constructor(
