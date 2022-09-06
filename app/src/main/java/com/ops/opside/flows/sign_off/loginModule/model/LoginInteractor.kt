@@ -1,11 +1,8 @@
 package com.ops.opside.flows.sign_off.loginModule.model
 
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
-import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_IS_INITIALIZED
 import io.reactivex.Observable
@@ -26,8 +23,8 @@ class LoginInteractor @Inject constructor(
             15.5f,
             "Mario Armando Razo Valenzuela",
             "l8oik7bgrvfde",
-            3,
-            true,
+            "",
+            5,
             true
         )
     }

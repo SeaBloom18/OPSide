@@ -66,7 +66,12 @@ class BottomSheetPickMarket(
         loadMarketsList()
     }
 
-    private fun changeLineMode(isOnLineMode: Boolean) = mViewModel.putIsOnLineMode(isOnLineMode)
+    private fun changeLineMode(isOnLineMode: Boolean) {
+        mBinding.rbOnLine.isChecked = isOnLineMode
+        mBinding.rbOffLine.isChecked = isOnLineMode.not()
+
+        mViewModel.putIsOnLineMode(isOnLineMode)
+    }
 
     private fun returnSelectedMarket() {
         mSelectedMarket = searchSelectedMarket()

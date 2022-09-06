@@ -86,20 +86,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginValidate(passwordFs: String){
-        /*val email = mBinding.teUserName.text.toString().trim()
-        var password = mBinding.tePassword.text.toString().trim()
-        if (email.isNotEmpty() && password.isNotEmpty()){
-            val crc32 = CRC32()
-            crc32.update(password.toByteArray())
-            password = String.format("%08X", crc32.value)
-            if (passwordFs == password){
-                launchActivity<MainActivity> {  }
-            } else {
-                Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
-        }*/
         var password = mBinding.tePassword.text.toString().trim()
         val crc32 = CRC32()
         crc32.update(password.toByteArray())
@@ -113,13 +99,6 @@ class LoginActivity : AppCompatActivity() {
         if (mViewModel.isSPInitialized()) {
             mViewModel.initSP()
         }
-    }
-
-    private fun setUpViewModel() {
-        /*mLoginViewModel.getUser()!!.observe(this){
-            it.setEmail(mBinding.teUserName.text.toString().trim())
-            it.setPassword(mBinding.tePassword.text.toString().trim())
-        }*/
     }
 
     override fun onBackPressed() {

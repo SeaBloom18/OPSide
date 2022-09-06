@@ -10,5 +10,11 @@ data class ParticipatingConcessRE(
     @ColumnInfo(name = "idMarket")
     val idMarket: String,
     @ColumnInfo(name = "idConcessionaire")
-    val idConcessionaire: String
+    val idConcessionaire: String,
+    @ColumnInfo(name = "idFirebase")
+    val idFirebase: String,
+    @ColumnInfo(name = "linearMeters")
+    var linearMeters: Double,
+    @ColumnInfo(name = "lineBusiness")
+    var lineBusiness: String
 )

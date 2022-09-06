@@ -12,7 +12,7 @@ interface ConcessionaireDao {
     @Query("DELETE FROM concessionaire")
     fun deleteAllConcesionaires()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addConcessionairesList(concessionaire: MutableList<ConcessionaireSE>): MutableList<Long>
 
     @Insert
@@ -33,5 +33,8 @@ interface ConcessionaireDao {
 
     @Query("SELECT * FROM participatingConcess")
     fun getAllParticipatingConcess(): MutableList<ParticipatingConcessRE>
+
+    @Query("SELECT * FROM participatingConcess WHERE idMarket = :idMarket")
+    fun getAllParticipatingConcessById(idMarket: String): MutableList<ParticipatingConcessRE>
 
 }
