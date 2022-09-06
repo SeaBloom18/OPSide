@@ -47,6 +47,7 @@
     <string name="login_tv_policies">Policies</string>
     <string name="login_toast_empy_text">Fields cannot be empty</string>
     <string name="login_toast_credentials_error">Credentials Error</string>
+    <string name="login_tv_forget_password">I forgot my password</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>
@@ -101,7 +102,7 @@
     <string name="registration_market_tv_title">Edit / Create Market</string>
     <string name="registration_btn_select_location">Select Location</string>
     <string name="registration_btn_view_concessionaires">See Concessionaires</string>
-    <string name="registration_market_btn_save">Save</string>
+    <string name="registration_market_btn_save">Save Market</string>
     <string name="registration_market_tv_location">Unselected location</string>
     <string name="registration_market_tv_concessionaires">Concessionaires counter: 90</string>
 

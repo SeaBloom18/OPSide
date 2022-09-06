@@ -18,28 +18,26 @@ class LoginViewModel @Inject constructor(
     private val _GetUserLogin = MutableLiveData<String>()
     val getUserLogin: LiveData<String> = _GetUserLogin
 
-    /*fun isSPInitialized(): Boolean{
+    fun isSPInitialized(): Boolean{
         return mLoginInteractor.isSPInitialized()
     }
 
     fun initSP(){
         mLoginInteractor.initSP()
-    }*/
-
-    /*fun getUserLogin(): String {
-       return mLoginInteractor.getUserByEmail()
-    }*/
+    }
 
     fun getUserLogin(email: String) {
         disposable.add(
             mLoginInteractor.getUserByEmail(email).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         _GetUserLogin.value = it
-                        //mLoginInteractor.password
+                        showProgress. value = false
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress. value = false
                     }
                 )
         )

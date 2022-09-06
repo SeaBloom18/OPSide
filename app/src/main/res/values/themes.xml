@@ -29,6 +29,21 @@
         <item name="android:textCursorDrawable">@null</item>
     </style>
 
+    <!--TextInputLayout DropDown Style-->
+    <style name="TextInputDropDownLayoutStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="endIconTint">@color/primaryTextColor</item>
+        <item name="hintTextColor">@color/primaryTextColor</item>
+        <item name="helperTextTextColor">@color/primaryTextColor</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusTopStart">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/common_padding_min</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
     <!--TextInputEditText Style-->
     <style name="TextInputEditTextStyle">
         <item name="android:layout_width">match_parent</item>

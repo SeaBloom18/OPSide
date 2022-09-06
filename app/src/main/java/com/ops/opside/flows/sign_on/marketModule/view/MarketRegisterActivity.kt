@@ -1,24 +1,68 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
+import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MarketRegisterActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMarketRegisterBinding
     private val concessionaires = arrayOf("David", "Mario", "Juan", "Luis")
+
+    private val mViewModel: MarketRegisterViewModel by viewModels()
+    private val mMarketFE: MarketFE = MarketFE()
+
+    private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
+        .RequestMultiplePermissions()) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+            } else -> {
+            finish()
+        }
+        }
+    }
+
+    private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK) {
+            Toast.makeText(this, "Direccion: ${it.data.toString()}", Toast.LENGTH_SHORT).show()
+            it.data?.apply {
+                val latitude = getStringExtra("latitude")
+                val longitude = getStringExtra("longitude")
+                Toast.makeText(this@MarketRegisterActivity, "Lat: $latitude Long: $longitude", Toast.LENGTH_SHORT).show()
+            }
+            mBinding.tvAddressSelection.text = it.data.toString()
+        } else {
+            Toast.makeText(this, "Direccion no seleccionada!", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +71,26 @@ class MarketRegisterActivity : AppCompatActivity() {
 
         mBinding.apply {
             btnViewConce.setOnClickListener { viewConcessionaire() }
-            btnSelectLocation.setOnClickListener { launchActivity<MarketLocationActivity> {  } }
+            btnSelectLocation.setOnClickListener {
+                val intent = Intent(this@MarketRegisterActivity, MarketLocationActivity::class.java)
+                mapResult.launch(intent)
+            }
+            btnSaveMarket.setOnClickListener { saveMarket() }
         }
 
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+
+        bindViewModel()
         setToolbar()
     }
 
+    /** ViewModel **/
+    private fun bindViewModel(){
+
+    }
+
+    /** Toolbar Menu and backPressed **/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> finish()
@@ -55,12 +113,29 @@ class MarketRegisterActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    //Functions
     private fun setToolbar(){
         with(mBinding.toolbar.commonToolbar) {
             this.title = getString(R.string.registration_market_tv_title)
             setSupportActionBar(this)
             (context as MarketRegisterActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    /** Other Methods **/
+    private fun saveMarket() {
+        if (mBinding.teMarketName.text.toString().trim().isEmpty()){
+            Toast.makeText(this, "Debes de escribir un nombre para el tianguis",
+                Toast.LENGTH_SHORT).show()
+        } else {
+            with(mMarketFE){
+                name = mBinding.teMarketName.text.toString().trim()
+                address = "Direccion generica"
+                latitude = 0.0
+                longitude = 0.0
+                concessionaires = mutableListOf()
+            }
+
+            mViewModel.insertMarket(mMarketFE)
         }
     }
 
