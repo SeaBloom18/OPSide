@@ -1,18 +1,23 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
+import android.content.SharedPreferences
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
+import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.room.TaxCollectionDataBase
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class TaxCollectionInteractor @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val room: TaxCollectionDataBase
+    private val room: TaxCollectionDataBase,
+    private val preferences: Preferences
 ) {
 
     fun getConcessionairesFEList(marketId: String): Observable<MutableList<ConcessionaireFE>> {
@@ -52,9 +57,50 @@ class TaxCollectionInteractor @Inject constructor(
         }
     }
 
+    fun getParticipatingConcessList(idMarket: String): Observable<MutableList<ParticipatingConcessRE>> {
+        return Observable.unsafeCreate { subscriber ->
+            val participatingConcess: MutableList<ParticipatingConcessRE> = mutableListOf()
+
+            firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+                .whereEqualTo("idMarket", idMarket)
+                .get()
+                .addOnSuccessListener { it ->
+
+                    for (document in it.documents) {
+                        participatingConcess.add(
+                            ParticipatingConcessRE(
+                                idMarket,
+                                document.get("idConcessionaire").toString(),
+                                document.id,
+                                document.get("linearMeters").toString().toDouble(),
+                                document.get("lineBusiness").toString(),
+                            )
+                        )
+                    }
+
+                    subscriber.onNext(participatingConcess)
+                }.addOnFailureListener {
+                    subscriber.onError(it)
+                }
+        }
+    }
+
+    fun getPersistedParticipatingConcessList(idMarket: String): Observable<MutableList<ParticipatingConcessRE>> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val participatingConcessList =
+                    room.concessionaireDao().getAllParticipatingConcessById(idMarket)
+                subscriber.onNext(participatingConcessList)
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        }
+    }
+
     fun persistConcessionairesSEList(
         idMarket: String,
-        concessionaires: MutableList<ConcessionaireFE>
+        concessionaires: MutableList<ConcessionaireFE>,
+        participatingConcessRE: MutableList<ParticipatingConcessRE>
     )
             : Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
@@ -62,7 +108,8 @@ class TaxCollectionInteractor @Inject constructor(
 
                 // Extraemos los ids de los concesionarios pertenecientes al tianguis
                 // antes de borrar la relación
-                val idsConcessionaires = room.concessionaireDao().getAllConcessionairesByMarket(idMarket).concessionairetIdList
+                val idsConcessionaires = room.concessionaireDao()
+                    .getAllConcessionairesByMarket(idMarket).concessionairetIdList
 
                 //Eliminamos la relación que existe entre el concesionario y el tianguis
                 room.concessionaireDao().deleteConcessPartipating(idMarket)
@@ -76,9 +123,7 @@ class TaxCollectionInteractor @Inject constructor(
                     .addConcessionairesList(concessionaires.map { it.parseToSE() }.toMutableList())
 
                 // Volvemos a crear las relaciones
-                room.concessionaireDao().addConcessPartipating(concessionaires.map {
-                    ParticipatingConcessRE(idMarket, it.idFirebase)
-                }.toMutableList())
+                room.concessionaireDao().addConcessPartipating(participatingConcessRE)
 
                 subscriber.onNext(true)
             } catch (e: Exception) {
@@ -105,6 +150,22 @@ class TaxCollectionInteractor @Inject constructor(
             try {
                 if (room.marketDao().existMarket(market.idFirebase) == null)
                     room.marketDao().addMarket(market.parseToSE())
+
+                subscriber.onNext(true)
+            } catch (e: Exception) {
+                subscriber.onError(e)
+            }
+        }
+    }
+
+    fun getPriceLinearMeter(): Float {
+        return preferences.getFloat(SP_PRICE_LINEAR_METER)
+    }
+
+    fun addConcessionaireToMarket(participatingConcess: ParticipatingConcessRE): Observable<Boolean>{
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                room.participatingConcessDao().addConcessionaireToMarket(participatingConcess)
 
                 subscriber.onNext(true)
             } catch (e: Exception) {

@@ -64,13 +64,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                style="@style/CommonButtonStyle"
                 android:id="@+id/btnLogin"
+                style="@style/CommonButtonStyle"
                 android:layout_marginBottom="32dp"
                 android:text="@string/login_btn"
                 app:icon="@drawable/ic_ops_login"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/swRememberUser"
+                app:layout_constraintHorizontal_bias="0.485"
                 app:layout_constraintStart_toStartOf="@+id/swRememberUser" />
 
             <com.google.android.material.materialswitch.MaterialSwitch

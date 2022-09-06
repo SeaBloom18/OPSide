@@ -12,6 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
 import com.ops.opside.common.utils.Constants
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_IS_INITIALIZED
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
@@ -19,12 +21,16 @@ import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivit
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.zip.CRC32
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +41,18 @@ class LoginActivity : AppCompatActivity() {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
             btnLogin.setOnClickListener {
-                mViewModel.getUserLogin(teUserName.text.toString().trim())
+                //mViewModel.getUserLogin(teUserName.text.toString().trim())
+                if (preferences.getBoolean(SP_IS_INITIALIZED).not())
+                preferences.initPreferences(
+                    12.5f,
+                    "Mario Armando Razo Valenzuela",
+                    "mario.v.r404@gmail.com",
+                    4,
+                    true,
+                    true
+                )
+
+                launchActivity<MainActivity> {  }
 
                 //loginValidate()
             }

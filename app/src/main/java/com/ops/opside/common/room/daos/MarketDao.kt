@@ -15,4 +15,5 @@ interface MarketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMarket(idMarket: MarketSE)
 
+
 }
