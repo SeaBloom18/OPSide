@@ -1,38 +1,25 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationRequest
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ops.opside.R
 import com.ops.opside.databinding.ActivityMarketLocationBinding
+import kotlinx.coroutines.*
 
 class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
 
@@ -42,20 +29,6 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val permissionCode = 101
 
-    private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
-        .RequestMultiplePermissions()) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                // Precise location access granted.
-            }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                // Only approximate location access granted.
-            } else -> {
-                finish()
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMarketLocationBinding.inflate(layoutInflater)
@@ -63,18 +36,32 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
 
         with(mBinding){
             btnSaveLocation.setOnClickListener {
-                val data: Intent = Intent()
-                val text = "Jardines de babilonia"
-                data.data = Uri.parse(text)
-                setResult(RESULT_OK, data)
-                finish()
+                /*val data = Intent(this@MarketLocationActivity, MarketRegisterActivity::class.java)
+                val text = currentLocation
+                data.putExtra("latitude", currentLocation.latitude)
+                data.putExtra("longitude", currentLocation.longitude)
+                data.putExtra("currentLocation", currentLocation)
+                Toast.makeText(this@MarketLocationActivity, "${currentLocation.latitude} ${currentLocation.longitude}", Toast.LENGTH_SHORT).show()
+                data.data = Uri.parse(text.toString())
+                setResult(RESULT_OK, data)*/
+
+                GlobalScope.launch {
+                    withContext(Dispatchers.Main) {
+                        val data = Intent()
+                        val text = currentLocation
+                        data.putExtra("latitude", currentLocation.latitude)
+                        data.putExtra("longitude", currentLocation.longitude)
+                        data.putExtra("currentLocation", currentLocation)
+                        Toast.makeText(this@MarketLocationActivity, "${currentLocation.latitude} ${currentLocation.longitude}", Toast.LENGTH_SHORT).show()
+                        data.data = Uri.parse(text.toString())
+                        setResult(RESULT_OK, data)
+                    }
+                    delay(200L)
+                    finish()
+                }
             }
             ibLocationClose.setOnClickListener { finish() }
         }
-
-        locationPermissionRequest.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION))
 
         fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
         fetchLocation()
@@ -95,13 +82,15 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
         task.addOnSuccessListener {
             if (it != null) {
                 currentLocation = it
-                Toast.makeText(applicationContext, currentLocation.latitude.toString() + "" +
+                Toast.makeText(applicationContext, currentLocation.latitude.toString() + " " +
                         currentLocation.longitude, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "${currentLocation}", Toast.LENGTH_SHORT).show()
                 val supportMapFragment = (supportFragmentManager.findFragmentById(R.id.map) as
                         SupportMapFragment?)!!
                 supportMapFragment.getMapAsync(this)
             }
         }
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

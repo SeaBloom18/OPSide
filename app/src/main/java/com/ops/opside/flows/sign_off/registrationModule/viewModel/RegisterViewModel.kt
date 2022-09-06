@@ -90,7 +90,7 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
-    fun getConsultEmailExist(email: String){
+    /*fun getConsultEmailExist(email: String){
         disposable.add(
             mRegisterInteractor.getConsultEmailExist(email).applySchedulers()
                 .subscribe(
@@ -102,5 +102,5 @@ class RegisterViewModel @Inject constructor(
                     }
                 )
         )
-    }
+    }*/
 }

@@ -33,7 +33,15 @@ class LoginActivity : AppCompatActivity() {
         mBinding.apply {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
-            btnLogin.setOnClickListener { mViewModel.getUserLogin(teUserName.text.toString().trim()) }
+            btnLogin.setOnClickListener {
+                val email = mBinding.teUserName.text.toString().trim()
+                val password = mBinding.tePassword.text.toString().trim()
+                if (email.isNotEmpty() && password.isNotEmpty()){
+                    mViewModel.getUserLogin(teUserName.text.toString().trim())
+                } else {
+                    Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
+                }
+            }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }
 
@@ -78,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginValidate(passwordFs: String){
-        val email = mBinding.teUserName.text.toString().trim()
+        /*val email = mBinding.teUserName.text.toString().trim()
         var password = mBinding.tePassword.text.toString().trim()
         if (email.isNotEmpty() && password.isNotEmpty()){
             val crc32 = CRC32()
@@ -91,6 +99,15 @@ class LoginActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
+        }*/
+        var password = mBinding.tePassword.text.toString().trim()
+        val crc32 = CRC32()
+        crc32.update(password.toByteArray())
+        password = String.format("%08X", crc32.value)
+        if (passwordFs == password){
+            launchActivity<MainActivity> {  }
+        } else {
+            Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
         }
 
         if (mViewModel.isSPInitialized()) {

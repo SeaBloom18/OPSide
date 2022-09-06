@@ -106,20 +106,21 @@ class RegisterInteractor @Inject constructor(
         }
     }
 
-    fun getConsultEmailExist(email: String): Observable<String>{
+    fun getConsultEmailExist(email: String): Observable<Boolean>{
         _email = ""
         return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .whereEqualTo("email", email)
                     .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
+                    .addOnSuccessListener {
+                        subscriber.onNext(it.documents.size > 0)
+                        /*for (document in documents) {
                             _email = document.data["email"].toString()
                             Log.d("loginFirestore", "${document.id} => ${document.data["email"]}")
-                            subscriber.onNext(_email)
+                            subscriber.onNext(true)
                             Log.d("email", _email)
-                        }
+                        }*/
                     }
                     .addOnFailureListener { exception ->
                         Log.w("loginFirestore", "Error getting documents: ", exception)

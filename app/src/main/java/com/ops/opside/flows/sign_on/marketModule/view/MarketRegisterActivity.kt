@@ -1,5 +1,6 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -35,12 +36,31 @@ class MarketRegisterActivity : AppCompatActivity() {
     private val mViewModel: MarketRegisterViewModel by viewModels()
     private val mMarketFE: MarketFE = MarketFE()
 
+    private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
+        .RequestMultiplePermissions()) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+            } else -> {
+            finish()
+        }
+        }
+    }
+
     private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if (it.resultCode == Activity.RESULT_OK) {
             Toast.makeText(this, "Direccion: ${it.data.toString()}", Toast.LENGTH_SHORT).show()
+            it.data?.apply {
+                val latitude = getStringExtra("latitude")
+                val longitude = getStringExtra("longitude")
+                Toast.makeText(this@MarketRegisterActivity, "Lat: $latitude Long: $longitude", Toast.LENGTH_SHORT).show()
+            }
             mBinding.tvAddressSelection.text = it.data.toString()
         } else {
-            Toast.makeText(this, "Error al retornar", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Direccion no seleccionada!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -57,6 +77,9 @@ class MarketRegisterActivity : AppCompatActivity() {
             }
             btnSaveMarket.setOnClickListener { saveMarket() }
         }
+
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
 
         bindViewModel()
         setToolbar()
