@@ -1,0 +1,37 @@
+package com.ops.opside.flows.sign_on.marketModule.viewModel
+
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.utils.applySchedulers
+import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_on.marketModule.model.MarketRegisterInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+/**
+ * Created by David Alejandro González Quezada on 04/09/22.
+ */
+@HiltViewModel
+class MarketRegisterViewModel @Inject constructor(
+    private val mMarketRegisterInteractor: MarketRegisterInteractor): CommonViewModel() {
+
+    val registerMarket = MutableLiveData<Boolean>()
+
+    fun insertMarket(marketFE: MarketFE){
+        disposable.add(
+            mMarketRegisterInteractor.registerMarket(marketFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        registerMarket.value = it
+                        showProgress.value = false
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                        showProgress.value = false
+                    }
+                )
+        )
+    }
+}

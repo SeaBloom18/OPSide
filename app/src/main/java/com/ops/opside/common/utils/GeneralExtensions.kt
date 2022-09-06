@@ -8,9 +8,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.textfield.TextInputEditText
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.dialogs.ProgressDialog
 import com.ops.opside.common.utils.Formaters.orFalse
 
 inline fun tryOrPrintException(f: () -> Unit) {
@@ -101,5 +102,9 @@ fun Fragment.launchActivity(
         bundle?.let { intent.putExtras(bundle) }
         startActivity(intent)
     }
+}
+
+fun TextInputEditText.clear(){
+    text?.clear()
 }
 

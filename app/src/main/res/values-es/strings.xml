@@ -47,6 +47,7 @@
     <string name="login_tv_policies">Políticas</string>
     <string name="login_toast_empy_text">Los campos no pueden estar vacíos</string>
     <string name="login_toast_credentials_error">Error en credenciales</string>
+    <string name="login_tv_forget_password">He olvidado mi contraseña</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>
@@ -97,7 +98,7 @@
     <string name="registration_market_tv_title">Editar / Crear Tianguis</string>
     <string name="registration_btn_select_location">Seleccionar Ubicación</string>
     <string name="registration_btn_view_concessionaires">Ver Concesionarios</string>
-    <string name="registration_market_btn_save">Guardar</string>
+    <string name="registration_market_btn_save">Guardar Tianguis</string>
     <string name="registration_market_tv_location">Ubicación sin seleccionar</string>
     <string name="registration_market_tv_concessionaires">Número de concesionarios: 90</string>
 

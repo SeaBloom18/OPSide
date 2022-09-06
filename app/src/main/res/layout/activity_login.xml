@@ -66,13 +66,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 style="@style/CommonButtonStyle"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/login_btn"
                 app:icon="@drawable/ic_ops_login"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="@+id/swRememberUser"
-                app:layout_constraintHorizontal_bias="0.485"
-                app:layout_constraintStart_toStartOf="@+id/swRememberUser" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/swRememberUser"
+                app:layout_constraintTop_toBottomOf="@+id/swRememberUser" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/swRememberUser"
@@ -85,7 +86,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/btnLogin"
                 app:layout_constraintEnd_toEndOf="@+id/tilPassword"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tilPassword" />
+                app:layout_constraintStart_toStartOf="@+id/tilPassword"
+                app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -97,6 +99,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_store" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/textViewBodyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/login_tv_forget_password"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/btnLogin"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

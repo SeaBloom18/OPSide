@@ -1,9 +1,11 @@
 package com.ops.opside.flows.sign_off.registrationModule.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor
@@ -15,17 +17,26 @@ class RegisterViewModel @Inject constructor(
     private val mRegisterInteractor: RegisterInteractor
 ): CommonViewModel() {
 
-    val registerConcessionaire = MutableLiveData<Boolean>()
+    private val _getOriginList = MutableLiveData<MutableList<OriginFE>>()
+    val getOriginList: LiveData<MutableList<OriginFE>> = _getOriginList
+
+    private val _getEmailExists = MutableLiveData<String>()
+    val getEmailExists: LiveData<String> = _getEmailExists
+
+    private val registerConcessionaire = MutableLiveData<Boolean>()
 
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
             mRegisterInteractor.registerConcessionaire(concessionaireFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress.value = false
                     }
                 )
         )
@@ -34,12 +45,15 @@ class RegisterViewModel @Inject constructor(
     fun insertForeignConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
             mRegisterInteractor.registerForeignConcessionaire(concessionaireFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress.value = false
                     }
                 )
         )
@@ -48,9 +62,26 @@ class RegisterViewModel @Inject constructor(
     fun insertCollector(collectorFE: CollectorFE){
         disposable.add(
             mRegisterInteractor.registerCollector(collectorFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerConcessionaire.value = it
+                        showProgress.value = false
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                        showProgress.value = false
+                    }
+                )
+        )
+    }
+
+    fun getOriginList(){
+        disposable.add(
+            mRegisterInteractor.getOriginList().applySchedulers()
+                .subscribe(
+                    {
+                        _getOriginList.value = it
                     },
                     {
                         Log.e("Error", it.toString())
@@ -58,5 +89,18 @@ class RegisterViewModel @Inject constructor(
                 )
         )
     }
-    
+
+    /*fun getConsultEmailExist(email: String){
+        disposable.add(
+            mRegisterInteractor.getConsultEmailExist(email).applySchedulers()
+                .subscribe(
+                    {
+                        _getEmailExists.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }*/
 }

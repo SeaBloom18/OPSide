@@ -9,22 +9,29 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.Constants
+import com.ops.opside.common.utils.clear
+import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 import java.util.zip.CRC32
@@ -36,10 +43,12 @@ class RegistrationActivity : AppCompatActivity() {
         ActivityRegistrationBinding.inflate(layoutInflater)
     }
     private val mViewModel: RegisterViewModel by viewModels()
-    private lateinit var mConcessionaireFE: ConcessionaireFE
+    private val mConcessionaireFE: ConcessionaireFE = ConcessionaireFE()
+    private val mCollectorFE: CollectorFE = CollectorFE()
     private var checkedItem = 0
     private val crc32 = CRC32()
     private var passHash = ""
+    private lateinit var mOriginList: MutableList<OriginFE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +66,7 @@ class RegistrationActivity : AppCompatActivity() {
 
                 override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     charSequence?.apply {
-                        if(!isValidPassword() && toString().length <= 8) mBinding.tilPassword.error =
+                        if(!isValidPassword()) mBinding.tilPassword.error =
                             getString(R.string.registration_til_password_validation)
                         else mBinding.tilPassword.error = null
                     }
@@ -69,14 +78,14 @@ class RegistrationActivity : AppCompatActivity() {
             })
         }
 
-        mConcessionaireFE = ConcessionaireFE()
-
+        bindViewModel()
+        loadOriginList()
         setToolbar()
         alertDialogRegisterOptions()
         setupTextFields()
     }
 
-    //Override Methods
+    /** Toolbar MenuOptions and BackPressed**/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> finish()
@@ -88,6 +97,65 @@ class RegistrationActivity : AppCompatActivity() {
         bottomSheet()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_user_register, menu)
+        return true
+    }
+
+    private fun setToolbar(){
+        with(mBinding.toolbarRegister.commonToolbar) {
+            this.title = getString(R.string.login_txt_create_account_sign_in)
+            setSupportActionBar(this)
+            (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            this.addMenuProvider(object : MenuProvider{
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.regUser -> {
+                            alertDialogRegisterOptions()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            })
+        }
+    }
+
+    /** ViewModel **/
+    private fun bindViewModel(){
+        mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
+        mViewModel.getEmailExists.observe(this, Observer(this::getEmailExist))
+    }
+
+    private fun getEmailExist(email: String){
+        emailExistValidate(email)
+    }
+
+    private fun loadOriginList(){
+        mViewModel.getOriginList()
+    }
+
+    private fun getOriginList(originList: MutableList<OriginFE>){
+        mOriginList = originList
+        setUpOriginList()
+    }
+
+    /** OriginAutoCompleteText **/
+    private fun setUpOriginList() {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getOriginListNames())
+        mBinding.teOrigin.setAdapter(adapter)
+    }
+
+    private fun getOriginListNames(): MutableList<String> {
+        return mOriginList.map { it.originName }.toMutableList()
+    }
+
+
+    /** User FireStore Insert **/
     private fun insertUser(): Boolean{
         val isValid = false
         when(checkedItem){
@@ -95,25 +163,63 @@ class RegistrationActivity : AppCompatActivity() {
                 if (concessionaireViewModel()){
                     mViewModel.insertConcessionaire(mConcessionaireFE)
                     bsRegisterSuccess()
+                    cleanEditText()
                 }
             }
             1 -> {
                 if (foreignConcessionaireViewModel()){
                     mViewModel.insertForeignConcessionaire(mConcessionaireFE)
                     bsRegisterSuccess()
+                    cleanEditText()
                 }
             }
             2 -> {
-
+                if (collectorViewModel()){
+                    mViewModel.insertCollector(mCollectorFE)
+                    bsRegisterSuccess()
+                    cleanEditText()
+                }
             }
         }
         return isValid
     }
 
     private fun concessionaireViewModel(): Boolean {
-        val isValid = false
+        /*val isValid = false
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
-                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
+            if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
+                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
+                    Toast.LENGTH_SHORT).show()
+            }
+            mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())
+            if (!emailExistValidate(mBinding.teEmail.text.toString().trim())){
+                Toast.makeText(this, "El correo ya existe!",
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                if (validatePassword()){
+                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
+                        Toast.LENGTH_SHORT).show()
+                } else {
+                    with(mConcessionaireFE){
+                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        address = mBinding.teAddress.text.toString().trim()
+                        phone = mBinding.tePhone.text.toString().trim()
+                        email = mBinding.teEmail.text.toString().trim()
+                        origin = mBinding.teOrigin.text.toString()
+                        password = passwordHash(mBinding.tePassword.text.toString().trim())
+                        participatingMarkets = mutableListOf()
+                        isForeigner = false
+                        return true
+                    }
+                }
+            }
+        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
+            Toast.LENGTH_SHORT).show()
+        return isValid*/
+        var isValid = false
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
                     Toast.LENGTH_SHORT).show()
@@ -127,9 +233,11 @@ class RegistrationActivity : AppCompatActivity() {
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
+                        origin = mBinding.teOrigin.text.toString()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
                         participatingMarkets = mutableListOf()
-                        return true
+                        isForeigner = false
+                        isValid = true
                     }
                 }
             }
@@ -139,7 +247,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun foreignConcessionaireViewModel(): Boolean {
-        val isValid = false
+        var isValid = false
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
                 mBinding.tilPasswordConfirm)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
@@ -155,13 +263,49 @@ class RegistrationActivity : AppCompatActivity() {
                         email = mBinding.teEmail.text.toString().trim()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
                         isForeigner = true
-                        return true
+                        isValid = true
                     }
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
             Toast.LENGTH_SHORT).show()
         return isValid
+    }
+
+    private fun collectorViewModel(): Boolean{
+        var isValid = false
+        if (validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
+                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
+            if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
+                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                if (validatePassword()){
+                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
+                        Toast.LENGTH_SHORT).show()
+                } else {
+                    with(mCollectorFE){
+                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        address = mBinding.teAddress.text.toString().trim()
+                        phone = mBinding.tePhone.text.toString().trim()
+                        email = mBinding.teEmail.text.toString().trim()
+                        password = passwordHash(mBinding.tePassword.text.toString().trim())
+                        isValid = true
+                    }
+                }
+            }
+
+        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
+            Toast.LENGTH_SHORT).show()
+        return isValid
+    }
+
+    /** Form Validations **/
+    private fun emailExistValidate(emailFS: String): Boolean{
+        var isEmailExist = false
+        val email = mBinding.teUserName.text.toString().trim()
+        if (email == emailFS) isEmailExist = true
+        return isEmailExist
     }
 
     private fun passwordHash(password: String): String{
@@ -194,7 +338,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     fun CharSequence.isValidPassword(): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$"
+        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(this)
         return matcher.matches()
@@ -210,6 +354,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    /** Form Option and SetUp's **/
     private fun alertDialogRegisterOptions() {
         val singleItems = arrayOf(
             getString(R.string.registration_array_conce),
@@ -224,15 +369,14 @@ class RegistrationActivity : AppCompatActivity() {
                     0 -> {
                         Toast.makeText(this, "Conce ", Toast.LENGTH_SHORT).show()
                         registerFormSetUP(checkedItem)
-                        //setUpConcessionaire()
                     }
                     1 -> {
                         Toast.makeText(this, "conce fore", Toast.LENGTH_SHORT).show()
                         registerFormSetUP(checkedItem)
-                        //setUpForeignConcessionaire()
                     }
                     2 -> {
                         Toast.makeText(this, " collector", Toast.LENGTH_SHORT).show()
+                        registerFormSetUP(checkedItem)
                     }
                 }
             }
@@ -246,21 +390,25 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun registerGeneralSetUp(){
-        mBinding.tvFormTitle.visibility = View.VISIBLE
-        mBinding.teUserName.visibility = View.VISIBLE
-        mBinding.tilUserName.visibility = View.VISIBLE
-        mBinding.teLastName.visibility = View.VISIBLE
-        mBinding.tilLastName.visibility = View.VISIBLE
-        mBinding.teAddress.visibility = View.VISIBLE
-        mBinding.tilAddress.visibility = View.VISIBLE
-        mBinding.tePhone.visibility = View.VISIBLE
-        mBinding.tilPhone.visibility = View.VISIBLE
-        mBinding.teEmail.visibility = View.VISIBLE
-        mBinding.tilEmail.visibility = View.VISIBLE
-        mBinding.tePassword.visibility = View.VISIBLE
-        mBinding.tilPassword.visibility = View.VISIBLE
-        mBinding.tePasswordConfirm.visibility = View.VISIBLE
-        mBinding.tilPasswordConfirm.visibility = View.VISIBLE
+        with(mBinding){
+            tvFormTitle.visibility = View.VISIBLE
+            teUserName.visibility = View.VISIBLE
+            tilUserName.visibility = View.VISIBLE
+            teLastName.visibility = View.VISIBLE
+            tilLastName.visibility = View.VISIBLE
+            teAddress.visibility = View.VISIBLE
+            tilAddress.visibility = View.VISIBLE
+            tePhone.visibility = View.VISIBLE
+            tilPhone.visibility = View.VISIBLE
+            teEmail.visibility = View.VISIBLE
+            tilEmail.visibility = View.VISIBLE
+            tePassword.visibility = View.VISIBLE
+            tilPassword.visibility = View.VISIBLE
+            tePasswordConfirm.visibility = View.VISIBLE
+            tilPasswordConfirm.visibility = View.VISIBLE
+            teOrigin.visibility = View.VISIBLE
+            tilOrigin.visibility = View.VISIBLE
+        }
     }
 
     private fun registerFormSetUP(formOption: Int){
@@ -270,45 +418,38 @@ class RegistrationActivity : AppCompatActivity() {
             }
             1 -> {
                 registerGeneralSetUp()
-                mBinding.teAddress.visibility = View.GONE
-                mBinding.tilAddress.visibility = View.GONE
-                mBinding.tePhone.visibility = View.GONE
-                mBinding.tilPhone.visibility = View.GONE
+                with(mBinding){
+                    teAddress.visibility = View.GONE
+                    tilAddress.visibility = View.GONE
+                    tePhone.visibility = View.GONE
+                    tilPhone.visibility = View.GONE
+                    teOrigin.visibility = View.GONE
+                    tilOrigin.visibility = View.GONE
+                }
             }
             2 -> {
-
+                registerGeneralSetUp()
+                with(mBinding){
+                    teOrigin.visibility = View.GONE
+                    tilOrigin.visibility = View.GONE
+                }
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_user_register, menu)
-        return true
-    }
-
-
-    private fun setToolbar(){
-        with(mBinding.toolbarRegister.commonToolbar) {
-            this.title = getString(R.string.login_txt_create_account_sign_in)
-            setSupportActionBar(this)
-            (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            this.addMenuProvider(object : MenuProvider{
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
-
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.regUser -> {
-                            alertDialogRegisterOptions()
-                            true
-                        }
-                        else -> false
-                    }
-                }
-            })
+    private fun cleanEditText(){
+        with(mBinding){
+            teUserName.clear()
+            teLastName.clear()
+            teAddress.clear()
+            tePhone.clear()
+            teEmail.clear()
+            tePassword.clear()
+            tePasswordConfirm.clear()
         }
     }
 
+    /** BottomSheet **/
     private fun bsRegisterSuccess(){
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)

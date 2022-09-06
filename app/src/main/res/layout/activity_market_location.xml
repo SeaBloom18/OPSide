@@ -13,7 +13,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="115dp"
-        android:background="@color/primaryLightColor"
+        android:background="#C9000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -33,19 +33,19 @@
             style="@style/textViewBodyStyle"
             android:layout_marginBottom="16dp"
             android:text="@string/registration_market_tv_location"
-            app:layout_constraintBottom_toTopOf="@+id/materialButton"
-            app:layout_constraintEnd_toEndOf="@+id/materialButton"
-            app:layout_constraintStart_toStartOf="@+id/materialButton" />
+            android:textColor="@color/primaryLightColor"
+            app:layout_constraintBottom_toTopOf="@+id/btnSaveLocation"
+            app:layout_constraintEnd_toEndOf="@+id/btnSaveLocation"
+            app:layout_constraintStart_toStartOf="@+id/btnSaveLocation" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
             style="@style/CommonButtonStyle"
-            android:layout_width="match_parent"
+            android:id="@+id/btnSaveLocation"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:text="@string/select_location_btn_save_address"
-            app:icon="@drawable/ic_market_location"
+            app:icon="@drawable/ic_ops_select_location"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

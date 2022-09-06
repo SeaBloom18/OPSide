@@ -105,7 +105,7 @@ class BottomSheetPickMarket(
 
     private fun setUpSpinner() {
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(mActivity, android.R.layout.simple_spinner_item, getMarketsListNames())
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, getMarketsListNames())
        mBinding.spPickMarket.setAdapter(adapter)
     }
 
