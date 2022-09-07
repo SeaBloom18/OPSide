@@ -94,9 +94,8 @@ class LoginActivity : AppCompatActivity() {
         crc32.update(password.toByteArray())
         password = String.format("%08X", crc32.value)
         if (passwordFs == password){
-            if (mViewModel.isSPInitialized()) {
-                mViewModel.initSP(email)
-            }
+            mViewModel.initSP(email)
+            //if (mViewModel.isSPInitialized()) { }
             launchActivity<MainActivity> { }
         } else {
             Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()

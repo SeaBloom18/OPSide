@@ -16,8 +16,6 @@ import javax.inject.Inject
 class RegisterInteractor @Inject constructor(
     private val firestore: FirebaseFirestore){
 
-    private lateinit var _email: String
-
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
@@ -107,7 +105,6 @@ class RegisterInteractor @Inject constructor(
     }
 
     fun getConsultEmailExist(email: String): Observable<Boolean>{
-        _email = ""
         return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
@@ -126,7 +123,6 @@ class RegisterInteractor @Inject constructor(
                         Log.w("loginFirestore", "Error getting documents: ", exception)
                         subscriber.onError(exception)
                     }
-                Log.d("password", _email.toString())
             } catch (exception: Exception){
                 subscriber.onError(exception)
             }

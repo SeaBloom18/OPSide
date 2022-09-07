@@ -125,11 +125,6 @@ class RegistrationActivity : AppCompatActivity() {
     /** ViewModel **/
     private fun bindViewModel(){
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
-        mViewModel.getEmailExists.observe(this, Observer(this::getEmailExist))
-    }
-
-    private fun getEmailExist(email: String){
-        emailExistValidate(email)
     }
 
     private fun loadOriginList(){
@@ -190,8 +185,7 @@ class RegistrationActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
                     Toast.LENGTH_SHORT).show()
             }
-            mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())
-            if (!emailExistValidate(mBinding.teEmail.text.toString().trim())){
+            if (mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, "El correo ya existe!",
                     Toast.LENGTH_SHORT).show()
             } else {
@@ -302,13 +296,6 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     /** Form Validations **/
-    private fun emailExistValidate(emailFS: String): Boolean{
-        var isEmailExist = false
-        val email = mBinding.teUserName.text.toString().trim()
-        if (email == emailFS) isEmailExist = true
-        return isEmailExist
-    }
-
     private fun passwordHash(password: String): String{
         crc32.update(password.toByteArray())
         passHash = String.format("%08X", crc32.value)

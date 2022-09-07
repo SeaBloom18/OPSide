@@ -20,8 +20,8 @@ class RegisterViewModel @Inject constructor(
     private val _getOriginList = MutableLiveData<MutableList<OriginFE>>()
     val getOriginList: LiveData<MutableList<OriginFE>> = _getOriginList
 
-    private val _getEmailExists = MutableLiveData<String>()
-    val getEmailExists: LiveData<String> = _getEmailExists
+    private val _getEmailExists = MutableLiveData<Boolean>()
+    val getEmailExists: LiveData<Boolean> = _getEmailExists
 
     private val registerConcessionaire = MutableLiveData<Boolean>()
 
@@ -90,17 +90,21 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
-    /*fun getConsultEmailExist(email: String){
+    fun getConsultEmailExist(email: String): Boolean{
+        var isEmailExist = false
         disposable.add(
             mRegisterInteractor.getConsultEmailExist(email).applySchedulers()
                 .subscribe(
                     {
                         _getEmailExists.value = it
+                        isEmailExist = true
                     },
                     {
                         Log.e("Error", it.toString())
+                        isEmailExist = false
                     }
                 )
         )
-    }*/
+        return isEmailExist
+    }
 }

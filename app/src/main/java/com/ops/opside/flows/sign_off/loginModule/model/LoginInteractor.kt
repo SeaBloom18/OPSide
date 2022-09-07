@@ -43,6 +43,7 @@ class LoginInteractor @Inject constructor(
                             //val role = document.data["role"] as Int
                             //val hasAccess = document.data["hasAccess"] as Boolean
                             sp.initPreferences(15.5f, name, email, idFirestore, 1, true)
+                            Log.d("sp", sp.toString())
                         }
                     } else {
                         firestore.collection(DB_TABLE_COLLECTOR)
@@ -55,6 +56,7 @@ class LoginInteractor @Inject constructor(
                                     //val role = document.data["role"] as Int
                                     //val hasAccess = document.data["hasAccess"] as Boolean
                                     sp.initPreferences(15.5f, name, email, idFirestore, 1, true)
+                                    Log.d("sp", sp.toString())
                                 }
                             }
                             .addOnFailureListener {
