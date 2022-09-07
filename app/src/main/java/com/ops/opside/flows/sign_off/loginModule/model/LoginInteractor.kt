@@ -40,9 +40,9 @@ class LoginInteractor @Inject constructor(
                         for (document in it) {
                             val name = document.data["name"].toString()
                             val idFirestore = document.data["idFirebase"].toString()
-                            val role = document.data["role"] as Int
-                            val hasAccess = document.data["hasAccess"] as Boolean
-                            sp.initPreferences(15.5f, name, email, idFirestore, role, hasAccess)
+                            //val role = document.data["role"] as Int
+                            //val hasAccess = document.data["hasAccess"] as Boolean
+                            sp.initPreferences(15.5f, name, email, idFirestore, 1, true)
                         }
                     } else {
                         firestore.collection(DB_TABLE_COLLECTOR)
@@ -52,9 +52,9 @@ class LoginInteractor @Inject constructor(
                                 for (document in it) {
                                     val name = document.data["name"].toString()
                                     val idFirestore = document.data["idFirebase"].toString()
-                                    val role = document.data["role"] as Int
-                                    val hasAccess = document.data["hasAccess"] as Boolean
-                                    sp.initPreferences(15.5f, name, email, idFirestore, role, hasAccess)
+                                    //val role = document.data["role"] as Int
+                                    //val hasAccess = document.data["hasAccess"] as Boolean
+                                    sp.initPreferences(15.5f, name, email, idFirestore, 1, true)
                                 }
                             }
                             .addOnFailureListener {

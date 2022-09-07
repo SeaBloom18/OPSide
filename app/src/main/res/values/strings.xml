@@ -65,7 +65,7 @@
     <string name="registration_tv_bs_close">Are you sure you want to exit this screen?</string>
     <string name="dealer_show_qr">Show QR Code</string>
     <string name="description_record_icon">Event Icon</string>
-    <string name="registration_alert_dialog_title">Chose a register?</string>
+    <string name="registration_alert_dialog_title">How do you want to register?</string>
     <string name="registration_alert_dialog_negative_button">Return to Login</string>
     <string name="registration_btn_complete_register">Complete Sign In</string>
     <string name="registration_tv_steps_title">Complete all steps to complete your register!</string>
