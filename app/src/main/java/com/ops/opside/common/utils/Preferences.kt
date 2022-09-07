@@ -25,7 +25,8 @@ class Preferences @Inject constructor(
         email: String,
         id: String,
         roll: Int,
-        hasAccess: Boolean
+        hasAccess: Boolean,
+        rememberMe: Boolean
     ){
         sp.edit().putFloat  (SP_PRICE_LINEAR_METER, priceLinearMeter).apply()
         sp.edit().putString (SP_NAME              , name            ).apply()

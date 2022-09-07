@@ -2,9 +2,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
-import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
-import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.*
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_IS_INITIALIZED
 import com.ops.opside.common.utils.tryOrPrintException
@@ -16,6 +14,7 @@ class LoginInteractor @Inject constructor(
     private val firestore: FirebaseFirestore) {
 
     private lateinit var password: String
+
 
     fun isSPInitialized(): Boolean{
         return sp.getBoolean(SP_IS_INITIALIZED).not()
@@ -40,9 +39,13 @@ class LoginInteractor @Inject constructor(
                         for (document in it) {
                             val name = document.data["name"].toString()
                             val idFirestore = document.data["idFirebase"].toString()
-                            //val role = document.data["role"] as Int
-                            //val hasAccess = document.data["hasAccess"] as Boolean
-                            sp.initPreferences(15.5f, name, email, idFirestore, 1, true)
+                            if (document.data["isForeign"] == true){
+                                sp.initPreferences(15.5f, name, email, idFirestore,
+                                    SP_FOREIGN_CONCE_ROLE, true, true)
+                            } else {
+                                sp.initPreferences(15.5f, name, email, idFirestore,
+                                    SP_NORMAL_CONCE_ROLE, true, true)
+                            }
                             Log.d("sp", sp.toString())
                         }
                     } else {
@@ -53,9 +56,8 @@ class LoginInteractor @Inject constructor(
                                 for (document in it) {
                                     val name = document.data["name"].toString()
                                     val idFirestore = document.data["idFirebase"].toString()
-                                    //val role = document.data["role"] as Int
-                                    //val hasAccess = document.data["hasAccess"] as Boolean
-                                    sp.initPreferences(15.5f, name, email, idFirestore, 1, true)
+                                    sp.initPreferences(15.5f, name, email, idFirestore,
+                                        SP_COLLECTOR_ROLE, true, true)
                                     Log.d("sp", sp.toString())
                                 }
                             }
