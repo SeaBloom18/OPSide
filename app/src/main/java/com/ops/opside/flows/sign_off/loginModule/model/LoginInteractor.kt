@@ -39,14 +39,14 @@ class LoginInteractor @Inject constructor(
                         for (document in it) {
                             val name = document.data["name"].toString()
                             val idFirestore = document.data["idFirebase"].toString()
-                            if (document.data["isForeign"] == true){
+                            if (document.data["isForeigner"] == true){
                                 sp.initPreferences(15.5f, name, email, idFirestore,
                                     SP_FOREIGN_CONCE_ROLE, true, true)
                             } else {
                                 sp.initPreferences(15.5f, name, email, idFirestore,
                                     SP_NORMAL_CONCE_ROLE, true, true)
                             }
-                            Log.d("sp", sp.toString())
+                            Log.d("sharedPreferences", sp.toString())
                         }
                     } else {
                         firestore.collection(DB_TABLE_COLLECTOR)
