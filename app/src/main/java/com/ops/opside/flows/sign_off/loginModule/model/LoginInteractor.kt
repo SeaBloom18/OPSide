@@ -38,7 +38,7 @@ class LoginInteractor @Inject constructor(
                     if (it.documents.size > 0){
                         for (document in it) {
                             val name = document.data["name"].toString()
-                            val idFirestore = document.data["idFirebase"].toString()
+                            val idFirestore = document.data["id"].toString()
                             if (document.data["isForeigner"] == true){
                                 sp.initPreferences(15.5f, name, email, idFirestore,
                                     SP_FOREIGN_CONCE_ROLE, true, true)
@@ -55,7 +55,7 @@ class LoginInteractor @Inject constructor(
                             .addOnSuccessListener {
                                 for (document in it) {
                                     val name = document.data["name"].toString()
-                                    val idFirestore = document.data["idFirebase"].toString()
+                                    val idFirestore = document.data["id"].toString()
                                     sp.initPreferences(15.5f, name, email, idFirestore,
                                         SP_COLLECTOR_ROLE, true, true)
                                     Log.d("sp", sp.toString())
