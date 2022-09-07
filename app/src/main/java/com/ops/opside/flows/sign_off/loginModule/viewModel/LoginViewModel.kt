@@ -22,8 +22,8 @@ class LoginViewModel @Inject constructor(
         return mLoginInteractor.isSPInitialized()
     }
 
-    fun initSP(){
-        mLoginInteractor.initSP()
+    fun initSP(email: String){
+        mLoginInteractor.initSP(email)
     }
 
     fun getUserLogin(email: String) {

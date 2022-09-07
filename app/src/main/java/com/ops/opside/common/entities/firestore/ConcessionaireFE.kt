@@ -9,6 +9,7 @@ data class ConcessionaireFE(
     var origin: String = "",
     var phone: String = "",
     var email: String = "",
+    var role: Int = 0,
     var linearMeters: Double = 0.0,
     var lineBusiness: String = "",
     val absence: Int = 0,
@@ -24,6 +25,7 @@ data class ConcessionaireFE(
         map["origin"] = origin
         map["phone"] = phone
         map["email"] = email
+        map["role"] = role
         map["linearMeters"] = linearMeters
         map["lineBusiness"] = lineBusiness
         map["absence"] = absence
@@ -41,6 +43,7 @@ data class ConcessionaireFE(
             address,
             phone,
             email,
+            role,
             lineBusiness,
             absence,
             isForeigner,

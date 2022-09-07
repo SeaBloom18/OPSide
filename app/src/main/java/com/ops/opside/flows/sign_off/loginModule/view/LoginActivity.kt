@@ -86,18 +86,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginValidate(passwordFs: String){
+        val email = mBinding.teUserName.text.toString().trim()
         var password = mBinding.tePassword.text.toString().trim()
         val crc32 = CRC32()
         crc32.update(password.toByteArray())
         password = String.format("%08X", crc32.value)
         if (passwordFs == password){
-            launchActivity<MainActivity> {  }
+            if (mViewModel.isSPInitialized()) {
+                mViewModel.initSP(email)
+            }
+            launchActivity<MainActivity> { }
         } else {
             Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
-        }
-
-        if (mViewModel.isSPInitialized()) {
-            mViewModel.initSP()
         }
     }
 

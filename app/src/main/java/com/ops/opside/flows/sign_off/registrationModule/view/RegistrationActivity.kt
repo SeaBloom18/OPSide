@@ -28,10 +28,8 @@ import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.clear
-import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
-import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 import java.util.zip.CRC32
@@ -234,6 +232,7 @@ class RegistrationActivity : AppCompatActivity() {
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
                         origin = mBinding.teOrigin.text.toString()
+                        role = 2
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
                         participatingMarkets = mutableListOf()
                         isForeigner = false
@@ -263,6 +262,7 @@ class RegistrationActivity : AppCompatActivity() {
                         email = mBinding.teEmail.text.toString().trim()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
                         isForeigner = true
+                        role = 1
                         isValid = true
                     }
                 }
@@ -290,6 +290,7 @@ class RegistrationActivity : AppCompatActivity() {
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
+                        role =3
                         isValid = true
                     }
                 }
