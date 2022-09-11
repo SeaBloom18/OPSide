@@ -3,7 +3,6 @@ package com.ops.opside.flows.sign_off.loginModule.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.loginModule.model.LoginInteractor
@@ -22,7 +21,7 @@ class LoginViewModel @Inject constructor(
         return mLoginInteractor.isSPInitialized()
     }
 
-    fun initSP(email: String){
+    fun initSP(email: String) {
         mLoginInteractor.initSP(email)
     }
 
@@ -42,5 +41,4 @@ class LoginViewModel @Inject constructor(
                 )
         )
     }
-
 }

@@ -1,6 +1,7 @@
 package com.ops.opside.common.utils
 
 import android.content.SharedPreferences
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class Preferences @Inject constructor(

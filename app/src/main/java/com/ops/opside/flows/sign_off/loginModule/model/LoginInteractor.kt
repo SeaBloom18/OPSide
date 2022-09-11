@@ -38,7 +38,7 @@ class LoginInteractor @Inject constructor(
                     if (it.documents.size > 0){
                         for (document in it) {
                             val name = document.data["name"].toString()
-                            val idFirestore = document.data["id"].toString()
+                            val idFirestore = document.id
                             if (document.data["isForeigner"] == true){
                                 sp.initPreferences(15.5f, name, email, idFirestore,
                                     SP_FOREIGN_CONCE_ROLE, true, true)
@@ -55,7 +55,7 @@ class LoginInteractor @Inject constructor(
                             .addOnSuccessListener {
                                 for (document in it) {
                                     val name = document.data["name"].toString()
-                                    val idFirestore = document.data["id"].toString()
+                                    val idFirestore = document.id
                                     sp.initPreferences(15.5f, name, email, idFirestore,
                                         SP_COLLECTOR_ROLE, true, true)
                                     Log.d("sp", sp.toString())
@@ -103,16 +103,34 @@ class LoginInteractor @Inject constructor(
         password = ""
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(DB_TABLE_COLLECTOR)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            password = document.data["password"].toString()
-                            Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
-                            subscriber.onNext(password)
-                            Log.d("password", password)
+                        if (documents.documents.size > 0){
+                            for (document in documents) {
+                                password = document.data["password"].toString()
+                                Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
+                                subscriber.onNext(password)
+                                Log.d("password", password)
+                            }
+                        } else {
+                            firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                                .whereEqualTo("email", email)
+                                .get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        password = document.data["password"].toString()
+                                        Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
+                                        subscriber.onNext(password)
+                                        Log.d("password", password)
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    Log.e("initSPError", it.toString())
+                                }
                         }
+
                     }
                     .addOnFailureListener { exception ->
                         Log.w("loginFirestore", "Error getting documents: ", exception)
