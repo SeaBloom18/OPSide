@@ -111,7 +111,11 @@ class RegisterInteractor @Inject constructor(
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener {
-                        subscriber.onNext(it.documents.size > 0)
+                        if (it.documents.size > 0){
+                            subscriber.onNext(true)
+                        } else {
+                            subscriber.onNext(false)
+                        }
                         /*for (document in documents) {
                             _email = document.data["email"].toString()
                             Log.d("loginFirestore", "${document.id} => ${document.data["email"]}")

@@ -90,21 +90,17 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
-    fun getConsultEmailExist(email: String): Boolean{
-        var isEmailExist = false
+    fun getConsultEmailExist(email: String){
         disposable.add(
             mRegisterInteractor.getConsultEmailExist(email).applySchedulers()
                 .subscribe(
                     {
                         _getEmailExists.value = it
-                        isEmailExist = true
                     },
                     {
                         Log.e("Error", it.toString())
-                        isEmailExist = false
                     }
                 )
         )
-        return isEmailExist
     }
 }

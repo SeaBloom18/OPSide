@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.Menu
 import android.view.MenuInflater
@@ -47,6 +48,7 @@ class RegistrationActivity : AppCompatActivity() {
     private val crc32 = CRC32()
     private var passHash = ""
     private lateinit var mOriginList: MutableList<OriginFE>
+    private var emailExist = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,6 +127,11 @@ class RegistrationActivity : AppCompatActivity() {
     /** ViewModel **/
     private fun bindViewModel(){
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
+        mViewModel.getEmailExists.observe(this, Observer(this::getEmailExistValidation))
+    }
+
+    private fun getEmailExistValidation(emailFS: Boolean){
+        isEmailExist(emailFS)
     }
 
     private fun loadOriginList(){
@@ -153,11 +160,9 @@ class RegistrationActivity : AppCompatActivity() {
         val isValid = false
         when(checkedItem){
             0 -> {
-                if (concessionaireViewModel()){
-                    mViewModel.insertConcessionaire(mConcessionaireFE)
-                    bsRegisterSuccess()
-                    cleanEditText()
-                }
+                mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())
+                /*if (concessionaireViewModel()){
+                }*/
             }
             1 -> {
                 if (foreignConcessionaireViewModel()){
@@ -178,43 +183,11 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun concessionaireViewModel(): Boolean {
-        /*val isValid = false
-        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
-                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
-            if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
-                    Toast.LENGTH_SHORT).show()
-            }
-            if (mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, "El correo ya existe!",
-                    Toast.LENGTH_SHORT).show()
-            } else {
-                if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
-                } else {
-                    with(mConcessionaireFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        address = mBinding.teAddress.text.toString().trim()
-                        phone = mBinding.tePhone.text.toString().trim()
-                        email = mBinding.teEmail.text.toString().trim()
-                        origin = mBinding.teOrigin.text.toString()
-                        password = passwordHash(mBinding.tePassword.text.toString().trim())
-                        participatingMarkets = mutableListOf()
-                        isForeigner = false
-                        return true
-                    }
-                }
-            }
-        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
-            Toast.LENGTH_SHORT).show()
-        return isValid*/
         var isValid = false
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.registration_toast_email_validation), Toast.LENGTH_SHORT).show()
             } else {
                 if (validatePassword()){
                     Toast.makeText(this, getString(R.string.registration_toast_password_validation),
@@ -284,7 +257,7 @@ class RegistrationActivity : AppCompatActivity() {
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
-                        role =3
+                        role = 3
                         isValid = true
                     }
                 }
@@ -340,6 +313,24 @@ class RegistrationActivity : AppCompatActivity() {
             tePhone.addTextChangedListener { validateFields(tilPhone) }
             teEmail.addTextChangedListener { validateFields(tilEmail) }
         }
+    }
+
+    private fun isEmailExist(emailFS: Boolean){
+        if (emailFS){
+            Toast.makeText(this, "Correo ya existe", Toast.LENGTH_SHORT).show()
+            Log.d("validEmail", "si existe")
+            //emailExist = false
+        } else {
+            Toast.makeText(this, "Correo no existe", Toast.LENGTH_SHORT).show()
+            //mViewModel.insertConcessionaire(mConcessionaireFE)
+            //bsRegisterSuccess()
+            //cleanEditText()
+            //emailExist = false
+        }
+        /*if (emailFS){
+            emailExist = true
+        }
+        return emailExist*/
     }
 
     /** Form Option and SetUp's **/

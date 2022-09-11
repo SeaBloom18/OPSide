@@ -60,33 +60,6 @@ class LoginActivity : AppCompatActivity() {
         loginValidate(password)
     }
 
-
-    private fun showPolicies() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.setText(com.firebase.ui.auth.R.string.fui_privacy_policy)
-        val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
-        tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
-    private fun showAboutApp() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.text = "About App"
-        val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
-        tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
     private fun loginValidate(passwordFs: String){
         val email = mBinding.teUserName.text.toString().trim()
         var password = mBinding.tePassword.text.toString().trim()
@@ -119,6 +92,32 @@ class LoginActivity : AppCompatActivity() {
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
         tvTitle.setText(Constants.BOTTOM_SHEET_TV_CLOSE_APP)
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    private fun showPolicies() {
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
+
+        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
+        tvTitle.setText(com.firebase.ui.auth.R.string.fui_privacy_policy)
+        val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
+        tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    private fun showAboutApp() {
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
+
+        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
+        tvTitle.text = "About App"
+        val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
+        tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
 
         dialog.setContentView(view)
         dialog.show()
