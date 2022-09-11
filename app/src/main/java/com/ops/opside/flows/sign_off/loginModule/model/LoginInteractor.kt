@@ -14,71 +14,60 @@ class LoginInteractor @Inject constructor(
     private val firestore: FirebaseFirestore) {
 
     private lateinit var password: String
+    private lateinit var userRole: String
 
 
     fun isSPInitialized(): Boolean{
         return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
-    /*
-            * 1.- una vez sabiendo que el login fue exitoso con el mismo correo hacer una consulta
-            * para saber si es que tipo de usuario es
-            * 2.- consultar a la coleccion de concessionarios y el tamaño es mayor a 0 signfica que
-            * pertenece a esa coleccion en caso de que no solo queda la opcion de que sea de la tabla
-            * collector por lo que se hace la consulta a esa coleccion en base al correo
-            * 3.- hacer una consulta a la coleccion donde esta el precio lineal
-            * 4.- llenar la funcion initSP con todos los datos solo en caso de que se login sea success
-    */
 
-    fun initSP(email: String){
-        tryOrPrintException {
-            firestore.collection(DB_TABLE_CONCESSIONAIRE)
-                .whereEqualTo("email", email)
-                .get()
-                .addOnSuccessListener {
-                    if (it.documents.size > 0){
-                        for (document in it) {
-                            val name = document.data["name"].toString()
-                            val idFirestore = document.id
-                            if (document.data["isForeigner"] == true){
-                                sp.initPreferences(15.5f, name, email, idFirestore,
-                                    SP_FOREIGN_CONCE_ROLE, true, true)
-                            } else {
-                                sp.initPreferences(15.5f, name, email, idFirestore,
-                                    SP_NORMAL_CONCE_ROLE, true, true)
-                            }
-                            Log.d("sharedPreferences", sp.toString())
-                        }
-                    } else {
-                        firestore.collection(DB_TABLE_COLLECTOR)
-                            .whereEqualTo("email", email)
-                            .get()
-                            .addOnSuccessListener {
-                                for (document in it) {
-                                    val name = document.data["name"].toString()
-                                    val idFirestore = document.id
+    fun initSP(email: String): Observable<String>{
+        return Observable.unsafeCreate { subscriber ->
+            tryOrPrintException {
+                firestore.collectionGroup(DB_TABLE_CONCESSIONAIRE)
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnSuccessListener { conceSucc ->
+                        if (conceSucc.documents.size > 0){
+                            for (document in conceSucc) {
+                                val name = document.data["name"].toString()
+                                val idFirestore = document.id
+                                userRole = document.data["role"].toString()
+                                if (document.data["isForeigner"] == true){
                                     sp.initPreferences(15.5f, name, email, idFirestore,
-                                        SP_COLLECTOR_ROLE, true, true)
-                                    Log.d("sp", sp.toString())
+                                        SP_FOREIGN_CONCE_ROLE, true, true)
+                                } else {
+                                    sp.initPreferences(15.5f, name, email, idFirestore,
+                                        SP_NORMAL_CONCE_ROLE, true, true)
                                 }
+                                subscriber.onNext(userRole)
                             }
-                            .addOnFailureListener {
-                                Log.e("initSPError", it.toString())
-                            }
+                        } else {
+                            firestore.collection(DB_TABLE_COLLECTOR)
+                                .whereEqualTo("email", email)
+                                .get()
+                                .addOnSuccessListener { collectorSucc ->
+                                    for (document in collectorSucc) {
+                                        val name = document.data["name"].toString()
+                                        val idFirestore = document.id
+                                        userRole = document.data["role"].toString()
+                                        sp.initPreferences(15.5f, name, email, idFirestore,
+                                            SP_COLLECTOR_ROLE, true, true)
+                                        subscriber.onNext(userRole)
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    Log.e("initSPError", it.toString())
+                                    subscriber.onError(it)
+                                }
+                        }
                     }
-                }
-                .addOnFailureListener {
-                    Log.e("initSPError", it.toString())
-                }
+                    .addOnFailureListener {
+                        Log.e("initSPError", it.toString())
+                        subscriber.onError(it)
+                    }
+            }
         }
-
-        /*sp.initPreferences(
-            15.5f,
-            "Mario Armando Razo Valenzuela",
-            "l8oik7bgrvfde",
-            "",
-            5,
-            true
-        )*/
     }
 
     fun getDataIfLoginSuccess(email: String): Observable<Boolean>{
@@ -106,24 +95,20 @@ class LoginInteractor @Inject constructor(
                 firestore.collection(DB_TABLE_COLLECTOR)
                     .whereEqualTo("email", email)
                     .get()
-                    .addOnSuccessListener { documents ->
-                        if (documents.documents.size > 0){
-                            for (document in documents) {
+                    .addOnSuccessListener { collectorSucc ->
+                        if (collectorSucc.documents.size > 0){
+                            for (document in collectorSucc) {
                                 password = document.data["password"].toString()
-                                Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
                                 subscriber.onNext(password)
-                                Log.d("password", password)
                             }
                         } else {
                             firestore.collection(DB_TABLE_CONCESSIONAIRE)
                                 .whereEqualTo("email", email)
                                 .get()
-                                .addOnSuccessListener { documents ->
-                                    for (document in documents) {
+                                .addOnSuccessListener { conceSucc ->
+                                    for (document in conceSucc) {
                                         password = document.data["password"].toString()
-                                        Log.d("loginFirestore", "${document.id} => ${document.data["password"]}")
                                         subscriber.onNext(password)
-                                        Log.d("password", password)
                                     }
                                 }
                                 .addOnFailureListener {
