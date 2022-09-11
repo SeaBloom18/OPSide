@@ -161,8 +161,6 @@ class RegistrationActivity : AppCompatActivity() {
         when(checkedItem){
             0 -> {
                 mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())
-                /*if (concessionaireViewModel()){
-                }*/
             }
             1 -> {
                 if (foreignConcessionaireViewModel()){
@@ -319,18 +317,14 @@ class RegistrationActivity : AppCompatActivity() {
         if (emailFS){
             Toast.makeText(this, "Correo ya existe", Toast.LENGTH_SHORT).show()
             Log.d("validEmail", "si existe")
-            //emailExist = false
         } else {
             Toast.makeText(this, "Correo no existe", Toast.LENGTH_SHORT).show()
-            //mViewModel.insertConcessionaire(mConcessionaireFE)
-            //bsRegisterSuccess()
-            //cleanEditText()
-            //emailExist = false
+            if (concessionaireViewModel()){
+                mViewModel.insertConcessionaire(mConcessionaireFE)
+                bsRegisterSuccess()
+                cleanEditText()
+            }
         }
-        /*if (emailFS){
-            emailExist = true
-        }
-        return emailExist*/
     }
 
     /** Form Option and SetUp's **/
