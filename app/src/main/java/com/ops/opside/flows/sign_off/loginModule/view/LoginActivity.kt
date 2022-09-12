@@ -1,7 +1,6 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -36,10 +35,11 @@ class LoginActivity : AppCompatActivity() {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
             btnLogin.setOnClickListener {
-                val email = mBinding.teUserName.text.toString().trim()
+                val email = mBinding.teLoginEmail.text.toString().trim()
                 val password = mBinding.tePassword.text.toString().trim()
                 if (email.isNotEmpty() && password.isNotEmpty()){
-                    mViewModel.getUserLogin(mBinding.teUserName.text.toString().trim())
+                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
+                    mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim())
                 } else {
                     Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
                 }
@@ -52,23 +52,40 @@ class LoginActivity : AppCompatActivity() {
 
     /**ViewModel SetUp**/
     private fun bindViewModel(){
-        mViewModel.getUserLogin.observe(this, Observer(this::getFirebaseUser))
+        mViewModel.getUserLogin.observe(this, Observer(this::getPasswordUserValidation))
+        mViewModel.getUserRole.observe(this, Observer(this::getUserRole))
         mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
     }
 
-    private fun getFirebaseUser(password: String){
-        loginValidate(password)
+    private fun getPasswordUserValidation(password: String){
+        passwordUserValidation(password)
     }
 
-    private fun loginValidate(passwordFs: String){
-        val email = mBinding.teUserName.text.toString().trim()
+    private fun getUserRole(userRole: String){
+        userRoleValidation(userRole)
+    }
+
+    private fun userRoleValidation(userRole: String){
+        //Roles validations
+        if (userRole == "1" || userRole == "2"){
+            val email = mBinding.teLoginEmail.text.toString().trim()
+            launchActivity<DealerActivity> {  }
+            mViewModel.initSP(email)
+        } else {
+            launchActivity<MainActivity> {  }
+        }
+    }
+
+    private fun passwordUserValidation(passwordFs: String){
+        val email = mBinding.teLoginEmail.text.toString().trim()
         var password = mBinding.tePassword.text.toString().trim()
         val crc32 = CRC32()
         crc32.update(password.toByteArray())
         password = String.format("%08X", crc32.value)
-        if (passwordFs == password){
-            launchActivity<MainActivity> { }
-            mViewModel.initSP(email)
+        if (passwordFs != password){
+            Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
+            /*launchActivity<MainActivity> { }
+            mViewModel.initSP(email)*/
             //Log.d("roleUser", mViewModel.initSP(email).value.toString())
             /*if (mViewModel.initSP(email).value == "2"){
                 launchActivity<DealerActivity> {  }
@@ -78,10 +95,11 @@ class LoginActivity : AppCompatActivity() {
             }*/
             //if (mViewModel.isSPInitialized()) { }
         } else {
-            Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
         }
     }
 
+    /**Override and other Methods**/
     override fun onBackPressed() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)

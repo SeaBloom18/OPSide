@@ -75,6 +75,7 @@
     <string name="registration_toast_fields_validation">You must fill in all the fields!</string>
     <string name="registration_toast_password_validation">Passwords do not match, verify that they are the same!</string>
     <string name="registration_toast_email_validation">Invalid email!</string>
+    <string name="registration_toast_password_exist_validation">Oops, looks like we already have this email registered. Try another one!</string>
     <string name="registration_til_password_validation">The password must be at least 8 characters including an uppercase letter, a number and a special character</string>
 
     <!--BottomNavigationView menu Strings-->

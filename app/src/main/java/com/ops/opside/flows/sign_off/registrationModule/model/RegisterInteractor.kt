@@ -104,7 +104,7 @@ class RegisterInteractor @Inject constructor(
         }
     }
 
-    fun getConsultEmailExist(email: String): Observable<Boolean>{
+    fun getIsEmailExist(email: String): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
@@ -114,14 +114,22 @@ class RegisterInteractor @Inject constructor(
                         if (it.documents.size > 0){
                             subscriber.onNext(true)
                         } else {
-                            subscriber.onNext(false)
+                            firestore.collection(DB_TABLE_COLLECTOR)
+                                .whereEqualTo("email", email)
+                                .get()
+                                .addOnSuccessListener {
+                                    if (it.documents.size > 0){
+                                        subscriber.onNext(true)
+                                    } else {
+                                        subscriber.onNext(false)
+                                    }
+                                }
+                                .addOnFailureListener { exception ->
+                                    Log.w("loginFirestore", "Error getting documents: ", exception)
+                                    subscriber.onError(exception)
+                                }
                         }
-                        /*for (document in documents) {
-                            _email = document.data["email"].toString()
-                            Log.d("loginFirestore", "${document.id} => ${document.data["email"]}")
-                            subscriber.onNext(true)
-                            Log.d("email", _email)
-                        }*/
+                        //subscriber.onNext(false)
                     }
                     .addOnFailureListener { exception ->
                         Log.w("loginFirestore", "Error getting documents: ", exception)
@@ -132,4 +140,27 @@ class RegisterInteractor @Inject constructor(
             }
         }
     }
+
+    /*fun getIsExistCollectorEmail(email: String): Observable<Boolean>{
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                firestore.collection(DB_TABLE_COLLECTOR)
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnSuccessListener {
+                        if (it.documents.size > 0){
+                            subscriber.onNext(true)
+                        } else {
+                            subscriber.onNext(false)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("loginFirestore", "Error getting documents: ", exception)
+                        subscriber.onError(exception)
+                    }
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
+    }*/
 }

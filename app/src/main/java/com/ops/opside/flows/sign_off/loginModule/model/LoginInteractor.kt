@@ -14,14 +14,13 @@ class LoginInteractor @Inject constructor(
     private val firestore: FirebaseFirestore) {
 
     private lateinit var password: String
-    private lateinit var userRole: String
-
 
     fun isSPInitialized(): Boolean{
         return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
 
     fun initSP(email: String): Observable<String>{
+        lateinit var userRole: String
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
                 firestore.collectionGroup(DB_TABLE_CONCESSIONAIRE)
@@ -64,24 +63,6 @@ class LoginInteractor @Inject constructor(
                     }
                     .addOnFailureListener {
                         Log.e("initSPError", it.toString())
-                        subscriber.onError(it)
-                    }
-            }
-        }
-    }
-
-    fun getDataIfLoginSuccess(email: String): Observable<Boolean>{
-        return Observable.unsafeCreate { subscriber ->
-
-            tryOrPrintException {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
-                    .whereEqualTo("email", email)
-                    .get()
-                    .addOnSuccessListener {
-                        subscriber.onNext(it.documents.size > 0)
-
-                    }
-                    .addOnFailureListener {
                         subscriber.onError(it)
                     }
             }

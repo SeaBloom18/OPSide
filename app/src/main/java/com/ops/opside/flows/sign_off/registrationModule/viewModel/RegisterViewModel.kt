@@ -90,9 +90,9 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
-    fun getConsultEmailExist(email: String){
+    fun getIsEmailExist(email: String){
         disposable.add(
-            mRegisterInteractor.getConsultEmailExist(email).applySchedulers()
+            mRegisterInteractor.getIsEmailExist(email).applySchedulers()
                 .subscribe(
                     {
                         _getEmailExists.value = it
@@ -103,4 +103,18 @@ class RegisterViewModel @Inject constructor(
                 )
         )
     }
+
+    /*fun getIsExistCollectorEmail(email: String){
+        disposable.add(
+            mRegisterInteractor.getIsExistCollectorEmail(email).applySchedulers()
+                .subscribe(
+                    {
+                        _getEmailExists.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }*/
 }
