@@ -124,16 +124,11 @@ class RegistrationActivity : AppCompatActivity() {
     private fun bindViewModel(){
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
         mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))
-        //mViewModel.getEmailExists.observe(this, Observer(this::getConcessionaireEmailExistValidation))
     }
 
     private fun getIsEmailExist(emailFS: Boolean){
         isEmailExistValidation(emailFS)
     }
-
-    /*private fun getCollectorEmailExistValidation(emailFS: Boolean){
-        isCollectorEmailExistValidation(emailFS)
-    }*/
 
     private fun loadOriginList(){
         mViewModel.getOriginList()
@@ -337,18 +332,6 @@ class RegistrationActivity : AppCompatActivity() {
             }
         }
     }
-
-    /*private fun isCollectorEmailExistValidation(emailFS: Boolean){
-        if (emailFS){
-            Toast.makeText(this, R.string.registration_toast_password_exist_validation, Toast.LENGTH_SHORT).show()
-        } else {
-            if (collectorViewModel()){
-                mViewModel.insertCollector(mCollectorFE)
-                bsRegisterSuccess()
-                cleanEditText()
-            }
-        }
-    }*/
 
     /** Form Option and SetUp's **/
     private fun alertDialogRegisterOptions() {

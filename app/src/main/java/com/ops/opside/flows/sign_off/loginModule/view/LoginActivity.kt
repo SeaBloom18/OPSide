@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -39,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
                 val password = mBinding.tePassword.text.toString().trim()
                 if (email.isNotEmpty() && password.isNotEmpty()){
                     mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
-                    mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim())
+
                 } else {
                     Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
                 }
@@ -66,36 +67,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun userRoleValidation(userRole: String){
-        //Roles validations
         if (userRole == "1" || userRole == "2"){
-            val email = mBinding.teLoginEmail.text.toString().trim()
             launchActivity<DealerActivity> {  }
-            mViewModel.initSP(email)
         } else {
             launchActivity<MainActivity> {  }
         }
     }
 
     private fun passwordUserValidation(passwordFs: String){
-        val email = mBinding.teLoginEmail.text.toString().trim()
         var password = mBinding.tePassword.text.toString().trim()
         val crc32 = CRC32()
         crc32.update(password.toByteArray())
         password = String.format("%08X", crc32.value)
         if (passwordFs != password){
-            Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
-            /*launchActivity<MainActivity> { }
-            mViewModel.initSP(email)*/
-            //Log.d("roleUser", mViewModel.initSP(email).value.toString())
-            /*if (mViewModel.initSP(email).value == "2"){
-                launchActivity<DealerActivity> {  }
-                mViewModel.initSP(email)
-            } else {
-                launchActivity<MainActivity> { }
-            }*/
-            //if (mViewModel.isSPInitialized()) { }
+            Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
+
         } else {
-            Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
+            mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim())
         }
     }
 
@@ -133,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.text = "About App"
+        tvTitle.text = getString(R.string.login_tv_about_app)
         val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
         tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
 

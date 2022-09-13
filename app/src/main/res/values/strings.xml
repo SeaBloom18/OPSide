@@ -48,6 +48,7 @@
     <string name="login_toast_empy_text">Fields cannot be empty</string>
     <string name="login_toast_credentials_error">Credentials Error</string>
     <string name="login_tv_forget_password">I forgot my password</string>
+    <string name="login_toast_credentials_validation">The password or the email is incorrect, check it!</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>

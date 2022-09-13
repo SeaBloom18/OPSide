@@ -45,11 +45,11 @@ class LoginViewModel @Inject constructor(
                 .subscribe(
                     {
                         _getUserLogin.value = it
-                        showProgress. value = false
+                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
-                        showProgress. value = false
+                        showProgress.value = false
                     }
                 )
         )

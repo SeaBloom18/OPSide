@@ -103,18 +103,4 @@ class RegisterViewModel @Inject constructor(
                 )
         )
     }
-
-    /*fun getIsExistCollectorEmail(email: String){
-        disposable.add(
-            mRegisterInteractor.getIsExistCollectorEmail(email).applySchedulers()
-                .subscribe(
-                    {
-                        _getEmailExists.value = it
-                    },
-                    {
-                        Log.e("Error", it.toString())
-                    }
-                )
-        )
-    }*/
 }
