@@ -201,23 +201,18 @@ class RegistrationActivity : AppCompatActivity() {
     private fun foreignConcessionaireViewModel(): Boolean {
         var isValid = false
         if(validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilEmail,
-                mBinding.tilPasswordConfirm)){
+                mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
                     Toast.LENGTH_SHORT).show()
             } else {
-                if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
-                } else {
-                    with(mConcessionaireFE){
-                        name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        email = mBinding.teEmail.text.toString().trim()
-                        password = passwordHash(mBinding.tePassword.text.toString().trim())
-                        isForeigner = true
-                        role = 1
-                        isValid = true
-                    }
+                with(mConcessionaireFE){
+                    name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    email = mBinding.teEmail.text.toString().trim()
+                    origin = mBinding.teOrigin.text.toString()
+                    isForeigner = true
+                    role = 1
+                    isValid = true
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
@@ -392,21 +387,21 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun registerFormSetUP(formOption: Int){
         when (formOption) {
-            0 -> {
+            0 -> { // Concessionaire
                 registerGeneralSetUp()
             }
-            1 -> {
+            1 -> { // Foreign Concessionaire
                 registerGeneralSetUp()
                 with(mBinding){
                     teAddress.visibility = View.GONE
                     tilAddress.visibility = View.GONE
                     tePhone.visibility = View.GONE
                     tilPhone.visibility = View.GONE
-                    teOrigin.visibility = View.GONE
-                    tilOrigin.visibility = View.GONE
+                    tilPassword.visibility = View.GONE
+                    tePassword.visibility = View.GONE
                 }
             }
-            2 -> {
+            2 -> { // Collector
                 registerGeneralSetUp()
                 with(mBinding){
                     teOrigin.visibility = View.GONE

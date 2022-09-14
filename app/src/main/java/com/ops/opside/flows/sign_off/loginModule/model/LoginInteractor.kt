@@ -3,9 +3,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.*
-import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.SP_IS_INITIALIZED
-import com.ops.opside.common.utils.tryOrPrintException
+import com.ops.opside.common.utils.*
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -20,7 +18,11 @@ class LoginInteractor @Inject constructor(
         return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
 
-    fun initSP(email: String): Observable<String>{
+    fun isRememberMeChecked(): Pair<Boolean, String?> {
+        return Pair (sp.getBoolean(SP_REMEMBER_ME), sp.getString(SP_EMAIL))
+    }
+
+    fun initSP(email: String, rememberMe: Boolean): Observable<String>{
         userRole = ""
         return Observable.unsafeCreate { subscriber ->
             try {
@@ -35,10 +37,10 @@ class LoginInteractor @Inject constructor(
                                 userRole = document.data["role"].toString()
                                 if (document.data["isForeigner"] == true){
                                     sp.initPreferences(15.5f, name, email, idFirestore,
-                                        SP_FOREIGN_CONCE_ROLE, true, true)
+                                        SP_FOREIGN_CONCE_ROLE, true, rememberMe)
                                 } else {
                                     sp.initPreferences(15.5f, name, email, idFirestore,
-                                        SP_NORMAL_CONCE_ROLE, true, true)
+                                        SP_NORMAL_CONCE_ROLE, true, rememberMe)
                                 }
                                 subscriber.onNext(userRole)
                             }
@@ -52,7 +54,7 @@ class LoginInteractor @Inject constructor(
                                         val idFirestore = document.id
                                         userRole = document.data["role"].toString()
                                         sp.initPreferences(15.5f, name, email, idFirestore,
-                                            SP_COLLECTOR_ROLE, true, true)
+                                            SP_COLLECTOR_ROLE, true, rememberMe)
                                         subscriber.onNext(userRole)
                                     }
                                 }

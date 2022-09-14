@@ -24,9 +24,13 @@ class LoginViewModel @Inject constructor(
         return mLoginInteractor.isSPInitialized()
     }
 
-    fun initSP(email: String) {
+    fun isRememberMeChecked(): Pair<Boolean, String?>{
+        return mLoginInteractor.isRememberMeChecked()
+    }
+
+    fun initSP(email: String, rememberMe: Boolean) {
         disposable.add(
-            mLoginInteractor.initSP(email).applySchedulers()
+            mLoginInteractor.initSP(email, rememberMe).applySchedulers()
                 .subscribe(
                     {
                         _getUserRole.value = it

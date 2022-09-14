@@ -40,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
                 val password = mBinding.tePassword.text.toString().trim()
                 if (email.isNotEmpty() && password.isNotEmpty()){
                     mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
-
                 } else {
                     Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
                 }
@@ -49,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         bindViewModel()
+        setEmailSP()
     }
 
     /**ViewModel SetUp**/
@@ -56,6 +56,14 @@ class LoginActivity : AppCompatActivity() {
         mViewModel.getUserLogin.observe(this, Observer(this::getPasswordUserValidation))
         mViewModel.getUserRole.observe(this, Observer(this::getUserRole))
         mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
+    }
+
+    private fun setEmailSP(){
+        val userPref = mViewModel.isRememberMeChecked()
+        if (userPref.first){
+            mBinding.swRememberUser.isChecked = true
+            mBinding.teLoginEmail.setText(userPref.second)
+        }
     }
 
     private fun getPasswordUserValidation(password: String){
@@ -67,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun userRoleValidation(userRole: String){
+        Log.d("userRole", userRole)
         if (userRole == "1" || userRole == "2"){
             launchActivity<DealerActivity> {  }
         } else {
@@ -81,9 +90,9 @@ class LoginActivity : AppCompatActivity() {
         password = String.format("%08X", crc32.value)
         if (passwordFs != password){
             Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
-
         } else {
-            mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim())
+            if (mViewModel.isSPInitialized())
+                mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
         }
     }
 
