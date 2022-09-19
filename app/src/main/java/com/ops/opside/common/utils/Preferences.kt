@@ -1,6 +1,7 @@
 package com.ops.opside.common.utils
 
 import android.content.SharedPreferences
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class Preferences @Inject constructor(
@@ -25,7 +26,8 @@ class Preferences @Inject constructor(
         email: String,
         id: String,
         roll: Int,
-        hasAccess: Boolean
+        hasAccess: Boolean,
+        rememberMe: Boolean
     ){
         sp.edit().putFloat  (SP_PRICE_LINEAR_METER, priceLinearMeter).apply()
         sp.edit().putString (SP_NAME              , name            ).apply()
@@ -33,6 +35,7 @@ class Preferences @Inject constructor(
         sp.edit().putString (SP_ID                , id              ).apply()
         sp.edit().putInt    (SP_ROLL              , roll            ).apply()
         sp.edit().putBoolean(SP_HAS_ACCESS        , hasAccess       ).apply()
+        sp.edit().putBoolean(SP_REMEMBER_ME       , rememberMe      ).apply()
         sp.edit().putBoolean(SP_IS_ON_LINE_MODE   , true            ).apply()
         sp.edit().putBoolean(SP_IS_INITIALIZED    , true            ).apply()
         sp.edit().putString (SP_START_TIME        , ""              ).apply()
@@ -62,5 +65,6 @@ const val SP_END_TIME           = "endTime"
 const val SP_ID                 = "id"
 const val SP_ROLL               = "roll"
 const val SP_HAS_ACCESS         = "hasAccess"
+const val SP_REMEMBER_ME        = "rememberMe"
 const val SP_IS_ON_LINE_MODE    = "isOnLineMode"
 const val SP_IS_INITIALIZED     = "isInitialized"

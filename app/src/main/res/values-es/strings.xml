@@ -48,6 +48,8 @@
     <string name="login_toast_empy_text">Los campos no pueden estar vacíos</string>
     <string name="login_toast_credentials_error">Error en credenciales</string>
     <string name="login_tv_forget_password">He olvidado mi contraseña</string>
+    <string name="login_toast_credentials_validation">La contraseña o el correo esta incorrecto, verificalo!</string>
+
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>
@@ -57,6 +59,7 @@
     <string name="registration_hint_email">Correo electronico</string>
     <string name="registration_hint_market">Tinaguis participante</string>
     <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
+    <string name="registration_hint_origin">Origen</string>
     <string name="registration_tv_title">Crear Cuenta</string>
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
@@ -75,7 +78,9 @@
     <string name="registration_toast_fields_validation">Debes de llenar todos los campos!</string>
     <string name="registration_toast_password_validation">Las contraseñas no coinciden, verifica que sean iguales!</string>
     <string name="registration_toast_email_validation">Correo invalido!</string>
+    <string name="registration_toast_password_exist_validation">Oops, parece que ya tenemos este correo registrado. Intenta con otro!</string>
     <string name="registration_til_password_validation">La contraseña debe tener al menos 8 caracteres incluyendo una letra mayúscula, un número y un carácter especial</string>
+
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>

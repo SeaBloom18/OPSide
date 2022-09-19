@@ -28,10 +28,8 @@ import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.clear
-import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
-import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 import java.util.zip.CRC32
@@ -55,9 +53,7 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnRegister.setOnClickListener {
-                insertUser()
-            }
+            btnRegister.setOnClickListener { insertUser() }
 
             tePassword.addTextChangedListener(object: TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -124,14 +120,14 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    /** ViewModel **/
+    /** ViewModel Conf**/
     private fun bindViewModel(){
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
-        mViewModel.getEmailExists.observe(this, Observer(this::getEmailExist))
+        mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))
     }
 
-    private fun getEmailExist(email: String){
-        emailExistValidate(email)
+    private fun getIsEmailExist(emailFS: Boolean){
+        isEmailExistValidation(emailFS)
     }
 
     private fun loadOriginList(){
@@ -160,80 +156,36 @@ class RegistrationActivity : AppCompatActivity() {
         val isValid = false
         when(checkedItem){
             0 -> {
-                if (concessionaireViewModel()){
-                    mViewModel.insertConcessionaire(mConcessionaireFE)
-                    bsRegisterSuccess()
-                    cleanEditText()
-                }
+                mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
             }
             1 -> {
-                if (foreignConcessionaireViewModel()){
-                    mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                    bsRegisterSuccess()
-                    cleanEditText()
-                }
+                mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
             }
             2 -> {
-                if (collectorViewModel()){
-                    mViewModel.insertCollector(mCollectorFE)
-                    bsRegisterSuccess()
-                    cleanEditText()
-                }
+                mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
             }
         }
         return isValid
     }
 
     private fun concessionaireViewModel(): Boolean {
-        /*val isValid = false
-        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
-                mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
-            if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
-                    Toast.LENGTH_SHORT).show()
-            }
-            mViewModel.getConsultEmailExist(mBinding.teEmail.text.toString().trim())
-            if (!emailExistValidate(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, "El correo ya existe!",
-                    Toast.LENGTH_SHORT).show()
-            } else {
-                if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
-                } else {
-                    with(mConcessionaireFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        address = mBinding.teAddress.text.toString().trim()
-                        phone = mBinding.tePhone.text.toString().trim()
-                        email = mBinding.teEmail.text.toString().trim()
-                        origin = mBinding.teOrigin.text.toString()
-                        password = passwordHash(mBinding.tePassword.text.toString().trim())
-                        participatingMarkets = mutableListOf()
-                        isForeigner = false
-                        return true
-                    }
-                }
-            }
-        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
-            Toast.LENGTH_SHORT).show()
-        return isValid*/
         var isValid = false
-        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
+        if(validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.registration_toast_email_validation), Toast.LENGTH_SHORT).show()
             } else {
                 if (validatePassword()){
                     Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                         Toast.LENGTH_SHORT).show()
                 } else {
                     with(mConcessionaireFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
                         origin = mBinding.teOrigin.text.toString()
+                        role = 2
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
                         participatingMarkets = mutableListOf()
                         isForeigner = false
@@ -248,23 +200,19 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun foreignConcessionaireViewModel(): Boolean {
         var isValid = false
-        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
-                mBinding.tilPasswordConfirm)){
+        if(validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilEmail,
+                mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
                     Toast.LENGTH_SHORT).show()
             } else {
-                if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
-                } else {
-                    with(mConcessionaireFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        email = mBinding.teEmail.text.toString().trim()
-                        password = passwordHash(mBinding.tePassword.text.toString().trim())
-                        isForeigner = true
-                        isValid = true
-                    }
+                with(mConcessionaireFE){
+                    name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    email = mBinding.teEmail.text.toString().trim()
+                    origin = mBinding.teOrigin.text.toString()
+                    isForeigner = true
+                    role = 1
+                    isValid = true
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
@@ -274,7 +222,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun collectorViewModel(): Boolean{
         var isValid = false
-        if (validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
+        if (validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
@@ -285,11 +233,12 @@ class RegistrationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 } else {
                     with(mCollectorFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
                         password = passwordHash(mBinding.tePassword.text.toString().trim())
+                        role = 3
                         isValid = true
                     }
                 }
@@ -301,13 +250,6 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     /** Form Validations **/
-    private fun emailExistValidate(emailFS: String): Boolean{
-        var isEmailExist = false
-        val email = mBinding.teUserName.text.toString().trim()
-        if (email == emailFS) isEmailExist = true
-        return isEmailExist
-    }
-
     private fun passwordHash(password: String): String{
         crc32.update(password.toByteArray())
         passHash = String.format("%08X", crc32.value)
@@ -346,11 +288,43 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun setupTextFields() {
         with(mBinding){
-            teUserName.addTextChangedListener { validateFields(tilUserName) }
+            teRegEmail.addTextChangedListener { validateFields(tilRegEmail) }
             teLastName.addTextChangedListener { validateFields(tilLastName) }
             teAddress.addTextChangedListener { validateFields(tilAddress) }
             tePhone.addTextChangedListener { validateFields(tilPhone) }
             teEmail.addTextChangedListener { validateFields(tilEmail) }
+        }
+    }
+
+    private fun isEmailExistValidation(emailFS: Boolean){
+        if (emailFS){
+            Toast.makeText(this, R.string.registration_toast_password_exist_validation, Toast.LENGTH_SHORT).show()
+        } else {
+            when(checkedItem){
+                0 -> {
+                    if (concessionaireViewModel()){
+                        mViewModel.insertConcessionaire(mConcessionaireFE)
+                        bsRegisterSuccess()
+                        cleanEditText()
+                    }
+                }
+
+                1 -> {
+                    if (foreignConcessionaireViewModel()){
+                        mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                        bsRegisterSuccess()
+                        cleanEditText()
+                    }
+                }
+
+                2 -> {
+                    if (collectorViewModel()){
+                        mViewModel.insertCollector(mCollectorFE)
+                        bsRegisterSuccess()
+                        cleanEditText()
+                    }
+                }
+            }
         }
     }
 
@@ -392,8 +366,8 @@ class RegistrationActivity : AppCompatActivity() {
     private fun registerGeneralSetUp(){
         with(mBinding){
             tvFormTitle.visibility = View.VISIBLE
-            teUserName.visibility = View.VISIBLE
-            tilUserName.visibility = View.VISIBLE
+            teRegEmail.visibility = View.VISIBLE
+            tilRegEmail.visibility = View.VISIBLE
             teLastName.visibility = View.VISIBLE
             tilLastName.visibility = View.VISIBLE
             teAddress.visibility = View.VISIBLE
@@ -413,21 +387,21 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun registerFormSetUP(formOption: Int){
         when (formOption) {
-            0 -> {
+            0 -> { // Concessionaire
                 registerGeneralSetUp()
             }
-            1 -> {
+            1 -> { // Foreign Concessionaire
                 registerGeneralSetUp()
                 with(mBinding){
                     teAddress.visibility = View.GONE
                     tilAddress.visibility = View.GONE
                     tePhone.visibility = View.GONE
                     tilPhone.visibility = View.GONE
-                    teOrigin.visibility = View.GONE
-                    tilOrigin.visibility = View.GONE
+                    tilPassword.visibility = View.GONE
+                    tePassword.visibility = View.GONE
                 }
             }
-            2 -> {
+            2 -> { // Collector
                 registerGeneralSetUp()
                 with(mBinding){
                     teOrigin.visibility = View.GONE
@@ -439,7 +413,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun cleanEditText(){
         with(mBinding){
-            teUserName.clear()
+            teRegEmail.clear()
             teLastName.clear()
             teAddress.clear()
             tePhone.clear()

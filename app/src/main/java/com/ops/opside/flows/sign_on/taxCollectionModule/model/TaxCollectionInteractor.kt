@@ -42,6 +42,7 @@ class TaxCollectionInteractor @Inject constructor(
                                 document.get("origin").toString(),
                                 document.get("phone").toString(),
                                 document.get("email").toString(),
+                                document.get("role") as Int,
                                 document.get("linearMeters").toString().toDouble(),
                                 document.get("lineBusiness").toString(),
                                 0,
