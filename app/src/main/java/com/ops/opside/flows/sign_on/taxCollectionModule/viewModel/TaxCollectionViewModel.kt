@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_on.profileModule.model.profileInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickMarketInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.TaxCollectionInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,9 +20,13 @@ import javax.inject.Inject
 @HiltViewModel
 class TaxCollectionViewModel @Inject constructor(
     private val mTaxCollectionInteractor: TaxCollectionInteractor,
-    private val mPickMarketsInteractor: PickMarketInteractor
+    private val mPickMarketsInteractor: PickMarketInteractor,
+    private val mProfileInteractor: profileInteractor
 ) : CommonViewModel() {
 
+
+    private val _initTaxCollection = MutableLiveData<Boolean>()
+    private val _hasOpenedTaxCollection = MutableLiveData<TaxCollectionSE?>()
     private val _getConcessionairesFEList = MutableLiveData<MutableList<ConcessionaireFE>>()
     private val _getConcessionairesSEList = MutableLiveData<MutableList<ConcessionaireSE>>()
     private val _getParticipatingConcessList =
@@ -27,7 +34,11 @@ class TaxCollectionViewModel @Inject constructor(
     private val _persistConcessionairesSEList = MutableLiveData<Boolean>()
     private val _persistMarketSE = MutableLiveData<Boolean>()
     private val _participatingConcess = MutableLiveData<Boolean>()
+    private val _updateTaxCollection = MutableLiveData<Boolean>()
+    private val _createEvent = MutableLiveData<Boolean>()
 
+    val initTaxCollection: LiveData<Boolean> = _initTaxCollection
+    val hasOpenedTaxCollection: LiveData<TaxCollectionSE?> = _hasOpenedTaxCollection
     val getConcessionairesFEList: LiveData<MutableList<ConcessionaireFE>> =
         _getConcessionairesFEList
     val getParticipatingConcessList: LiveData<MutableList<ParticipatingConcessRE>> =
@@ -37,6 +48,46 @@ class TaxCollectionViewModel @Inject constructor(
     val persistConcessionairesSEList: LiveData<Boolean> = _persistConcessionairesSEList
     val persistMarketSE: LiveData<Boolean> = _persistMarketSE
     val participatingConcess: LiveData<Boolean> = _participatingConcess
+    val updateTaxCollection: LiveData<Boolean> = _updateTaxCollection
+    val createEvent: LiveData<Boolean> = _createEvent
+
+
+
+    fun initTaxCollection(taxCollection: TaxCollectionSE){
+        disposable.add(
+            mTaxCollectionInteractor.createTaxCollection(taxCollection).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        _initTaxCollection.value = true
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                        _initTaxCollection.value = false
+                    }
+                )
+        )
+    }
+
+    fun getOpenedTaxCollection(idMarket: String){
+        disposable.add(
+            mTaxCollectionInteractor.getOpenedTaxCollection(idMarket).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        _hasOpenedTaxCollection.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                        _hasOpenedTaxCollection.value = null
+                    }
+                )
+        )
+    }
 
     fun getConcessionairesFEList(idMarket: String) {
         disposable.add(
@@ -133,24 +184,6 @@ class TaxCollectionViewModel @Inject constructor(
         )
     }
 
-    fun addConcessionaireToMarket(participatingConcess: ParticipatingConcessRE){
-        disposable.add(
-            mTaxCollectionInteractor.addConcessionaireToMarket(participatingConcess).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
-                .subscribe(
-                    {
-                        showProgress.value = false
-                        _participatingConcess.value = true
-                    },
-                    {
-                        showProgress.value = false
-                        Log.e("Error", it.toString())
-                        _participatingConcess.value = false
-                    }
-                )
-        )
-    }
-
     fun getPriceLinearMeter(): Float {
         return mTaxCollectionInteractor.getPriceLinearMeter()
     }
@@ -173,8 +206,52 @@ class TaxCollectionViewModel @Inject constructor(
         )
     }
 
+    fun updateTaxCollection(taxCollection: TaxCollectionSE){
+        disposable.add(
+            mTaxCollectionInteractor.updateTaxCollection(taxCollection).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        _updateTaxCollection.value = true
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                        _updateTaxCollection.value = false
+                    }
+                )
+        )
+    }
+
+    fun createEvent(event: EventRE){
+        disposable.add(
+            mTaxCollectionInteractor.createEvent(event).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        _createEvent.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                        _createEvent.value = false
+                    }
+                )
+        )
+    }
+
     fun isOnLineMode(): Boolean{
         return mPickMarketsInteractor.isOnLineMode()
+    }
+
+    fun getCollectorName(): String{
+        return mProfileInteractor.getCollectorName()
+    }
+
+    fun deleteProfileData(){
+        mProfileInteractor.deleteProfileData()
     }
 
 }
