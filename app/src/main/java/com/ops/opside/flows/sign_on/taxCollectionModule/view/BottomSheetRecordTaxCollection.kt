@@ -4,22 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.adapters.SwipeToDeleteCallback
+import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.databinding.BottomSheetRecordTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.RecordTaxCollectionAdapter
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetRecordTaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
+class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetDialogFragment() {
 
     private lateinit var mAdapter: RecordTaxCollectionAdapter
     private lateinit var mBinding: BottomSheetRecordTaxCollectionBinding
@@ -30,7 +32,7 @@ class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
 
     private val mViewModel: BottomSheetRecordTaxCollectionViewModel by viewModels()
 
-    private lateinit var mEventsList: MutableList<ItemRecord>
+    private lateinit var mEventsList: MutableList<EventRE>
 
 
     override fun onCreateView(
@@ -45,12 +47,17 @@ class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.apply {
+            btnClose.setOnClickListener { dismiss() }
+        }
+
         bindViewModel()
         loadEventsList()
     }
 
-    private fun loadEventsList(){
-        mViewModel.getEventsList()
+
+    private fun loadEventsList() {
+        mViewModel.getEventsList(idTaxCollection)
     }
 
     private fun bindViewModel() {
@@ -80,7 +87,12 @@ class BottomSheetRecordTaxCollection : BottomSheetDialogFragment() {
         itemTouchHelper.attachToRecyclerView(mBinding.rvRecord)
     }
 
-    private fun getEventsList(eventsList: MutableList<ItemRecord>){
+    private fun getEventsList(eventsList: MutableList<EventRE>) {
+        if (eventsList.isEmpty()){
+            mBinding.txtNoHasEvents.isGone = false
+            return
+        }
+
         mEventsList = eventsList
         initRecyclerView()
     }

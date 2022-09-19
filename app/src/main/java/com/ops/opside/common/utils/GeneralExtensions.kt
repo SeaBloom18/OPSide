@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,6 +13,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.textfield.TextInputEditText
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.utils.Formaters.orFalse
 
 inline fun tryOrPrintException(f: () -> Unit) {
@@ -58,6 +60,17 @@ fun AppCompatActivity.launchActivity(
 fun AppCompatActivity.showError(message: String){
     val dialog = BaseDialog(
         this,
+        getString(R.string.common_atention),
+        message,
+        getString(R.string.common_cancel)
+    )
+
+    dialog.show()
+}
+
+fun Fragment.showError(message: String){
+    val dialog = BaseDialog(
+        requireContext(),
         getString(R.string.common_atention),
         message,
         getString(R.string.common_cancel)

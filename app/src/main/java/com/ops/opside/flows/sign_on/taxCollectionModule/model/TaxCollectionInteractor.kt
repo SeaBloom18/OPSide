@@ -6,10 +6,13 @@ import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
 import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_NAME
 import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -162,13 +165,46 @@ class TaxCollectionInteractor @Inject constructor(
         return preferences.getFloat(SP_PRICE_LINEAR_METER)
     }
 
-    fun addConcessionaireToMarket(participatingConcess: ParticipatingConcessRE): Observable<Boolean>{
-        return Observable.unsafeCreate { subscriber ->
+    fun createTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean>{
+        return Observable.unsafeCreate{ subscriber ->
             try {
-                room.participatingConcessDao().addConcessionaireToMarket(participatingConcess)
+                var id = room.taxCollectionDao().addTaxCollection(taxCollection)
 
                 subscriber.onNext(true)
-            } catch (e: Exception) {
+            } catch (e: Exception){
+                subscriber.onError(e)
+            }
+        }
+    }
+
+    fun getOpenedTaxCollection(idMarket: String): Observable<TaxCollectionSE?>{
+        return Observable.unsafeCreate{ subscriber ->
+            try {
+                val taxCollection = room.taxCollectionDao().getOpenedCollection(idMarket)
+                subscriber.onNext(taxCollection)
+            } catch (e: Exception){
+                subscriber.onError(e)
+            }
+        }
+    }
+
+    fun updateTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean>{
+        return Observable.unsafeCreate{ subscriber ->
+            try {
+                room.taxCollectionDao().updateTaxCollection(taxCollection)
+
+                subscriber.onNext(true)
+            } catch (e: Exception){
+                subscriber.onError(e)
+            }
+        }
+    }
+
+    fun createEvent(event: EventRE): Observable<Boolean>{
+        return Observable.unsafeCreate{ subscriber ->
+            try {
+                subscriber.onNext(room.eventDao().createEvent(event) == null)
+            } catch (e: Exception){
                 subscriber.onError(e)
             }
         }

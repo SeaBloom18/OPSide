@@ -12,9 +12,20 @@ data class ParticipatingConcessRE(
     @ColumnInfo(name = "idConcessionaire")
     val idConcessionaire: String,
     @ColumnInfo(name = "idFirebase")
-    val idFirebase: String,
+    var idFirebase: String,
     @ColumnInfo(name = "linearMeters")
     var linearMeters: Double,
     @ColumnInfo(name = "lineBusiness")
     var lineBusiness: String
-)
+){
+    fun getHashMap(): MutableMap<String,Any> {
+        val map: MutableMap<String,Any> = mutableMapOf()
+
+        map["idMarket"] = idMarket
+        map["idConcessionaire"] = idConcessionaire
+        map["linearMeters"] = linearMeters
+        map["lineBusiness"] = lineBusiness
+
+        return map
+    }
+}

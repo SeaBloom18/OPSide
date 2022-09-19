@@ -7,12 +7,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/primaryColor">
 
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_close_regist_screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/selectableItemBackground"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_record_tax_collection"
-        android:layout_marginVertical="@dimen/common_padding_default"
+        android:layout_marginVertical="@dimen/common_padding_min"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnClose"
+        tools:listitem="@layout/item_record_tax_collection" />
+
+    <TextView
+        android:id="@+id/txtNoHasEvents"
+        style="@style/WhiteTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="150dp"
+        android:text="Sin Eventos"
+        android:gravity="center"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
