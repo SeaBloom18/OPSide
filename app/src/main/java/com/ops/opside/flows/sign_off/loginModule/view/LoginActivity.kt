@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -15,6 +16,7 @@ import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
+import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.zip.CRC32
@@ -34,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
             btnLogin.setOnClickListener {
-                val email = mBinding.teUserName.text.toString().trim()
+                val email = mBinding.teLoginEmail.text.toString().trim()
                 val password = mBinding.tePassword.text.toString().trim()
                 if (email.isNotEmpty() && password.isNotEmpty()){
-                    mViewModel.getUserLogin(teUserName.text.toString().trim())
+                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
                 } else {
                     Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
                 }
@@ -46,18 +48,69 @@ class LoginActivity : AppCompatActivity() {
         }
 
         bindViewModel()
+        setEmailSP()
     }
 
-    //Methods
+    /**ViewModel SetUp**/
     private fun bindViewModel(){
-        mViewModel.getUserLogin.observe(this, Observer(this::getFirebaseUser))
+        mViewModel.getUserLogin.observe(this, Observer(this::getPasswordUserValidation))
+        mViewModel.getUserRole.observe(this, Observer(this::getUserRole))
         mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
     }
 
-    private fun getFirebaseUser(password: String){
-        loginValidate(password)
+    private fun setEmailSP(){
+        val userPref = mViewModel.isRememberMeChecked()
+        if (userPref.first){
+            mBinding.swRememberUser.isChecked = true
+            mBinding.teLoginEmail.setText(userPref.second)
+        }
     }
 
+    private fun getPasswordUserValidation(password: String){
+        passwordUserValidation(password)
+    }
+
+    private fun getUserRole(userRole: String){
+        userRoleValidation(userRole)
+    }
+
+    private fun userRoleValidation(userRole: String){
+        Log.d("userRole", userRole)
+        if (userRole == "1" || userRole == "2"){
+            launchActivity<DealerActivity> {  }
+        } else {
+            launchActivity<MainActivity> {  }
+        }
+    }
+
+    private fun passwordUserValidation(passwordFs: String){
+        var password = mBinding.tePassword.text.toString().trim()
+        val crc32 = CRC32()
+        crc32.update(password.toByteArray())
+        password = String.format("%08X", crc32.value)
+        if (passwordFs != password){
+            Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
+        } else {
+            if (mViewModel.isSPInitialized())
+                mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
+        }
+    }
+
+    /**Override and other Methods**/
+    override fun onBackPressed() {
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
+
+        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
+        btnFinish.setText(Constants.BOTTOM_SHEET_BTN_CLOSE_APP)
+        btnFinish.setOnClickListener { finish() }
+
+        val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
+        tvTitle.setText(Constants.BOTTOM_SHEET_TV_CLOSE_APP)
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
 
     private fun showPolicies() {
         val dialog = BottomSheetDialog(this)
@@ -77,40 +130,9 @@ class LoginActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.text = "About App"
+        tvTitle.text = getString(R.string.login_tv_about_app)
         val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
         tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
-    private fun loginValidate(passwordFs: String){
-        var password = mBinding.tePassword.text.toString().trim()
-        val crc32 = CRC32()
-        crc32.update(password.toByteArray())
-        password = String.format("%08X", crc32.value)
-        if (passwordFs == password){
-            launchActivity<MainActivity> {  }
-        } else {
-            Toast.makeText(this, "La contraseña o el correo esta incorrecto, verificalo!", Toast.LENGTH_SHORT).show()
-        }
-
-        if (mViewModel.isSPInitialized()) {
-            mViewModel.initSP()
-        }
-    }
-
-    override fun onBackPressed() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
-
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(Constants.BOTTOM_SHEET_BTN_CLOSE_APP)
-        btnFinish.setOnClickListener { finish() }
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.setText(Constants.BOTTOM_SHEET_TV_CLOSE_APP)
 
         dialog.setContentView(view)
         dialog.show()

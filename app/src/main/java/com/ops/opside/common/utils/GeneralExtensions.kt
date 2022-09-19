@@ -5,10 +5,12 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
@@ -106,5 +108,21 @@ fun Fragment.launchActivity(
 
 fun TextInputEditText.clear(){
     text?.clear()
+}
+/** SnackBar Extensions**/
+internal fun View.shortSnackBar(message: String, action: (Snackbar.() -> Unit)? = null) {
+    val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_SHORT)
+    action?.let { snackbar.it() }
+    snackbar.show()
+}
+
+internal fun View.longSnackBar(message: String, action: (Snackbar.() -> Unit)? = null) {
+    val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
+    action?.let { snackbar.it() }
+    snackbar.show()
+}
+
+internal fun Snackbar.action(message: String, action: (View) -> Unit) {
+    this.setAction(message, action)
 }
 

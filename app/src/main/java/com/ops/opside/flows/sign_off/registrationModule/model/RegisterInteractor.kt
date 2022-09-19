@@ -16,8 +16,6 @@ import javax.inject.Inject
 class RegisterInteractor @Inject constructor(
     private val firestore: FirebaseFirestore){
 
-    private lateinit var _email: String
-
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
@@ -106,27 +104,36 @@ class RegisterInteractor @Inject constructor(
         }
     }
 
-    fun getConsultEmailExist(email: String): Observable<Boolean>{
-        _email = ""
+    fun getIsEmailExist(email: String): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener {
-                        subscriber.onNext(it.documents.size > 0)
-                        /*for (document in documents) {
-                            _email = document.data["email"].toString()
-                            Log.d("loginFirestore", "${document.id} => ${document.data["email"]}")
+                        if (it.documents.size > 0){
                             subscriber.onNext(true)
-                            Log.d("email", _email)
-                        }*/
+                        } else {
+                            firestore.collection(DB_TABLE_COLLECTOR)
+                                .whereEqualTo("email", email)
+                                .get()
+                                .addOnSuccessListener {
+                                    if (it.documents.size > 0){
+                                        subscriber.onNext(true)
+                                    } else {
+                                        subscriber.onNext(false)
+                                    }
+                                }
+                                .addOnFailureListener { exception ->
+                                    Log.w("loginFirestore", "Error getting documents: ", exception)
+                                    subscriber.onError(exception)
+                                }
+                        }
                     }
                     .addOnFailureListener { exception ->
                         Log.w("loginFirestore", "Error getting documents: ", exception)
                         subscriber.onError(exception)
                     }
-                Log.d("password", _email.toString())
             } catch (exception: Exception){
                 subscriber.onError(exception)
             }

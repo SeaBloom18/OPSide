@@ -17,6 +17,8 @@ data class ConcessionaireSE(
     var phone: String = "",
     @ColumnInfo(name = "email")
     var email: String = "",
+    @ColumnInfo(name = "role")
+    var role: Int = 0,
     @ColumnInfo(name = "lineBusiness")
     var lineBusiness: String = "",
     @ColumnInfo(name = "absence")

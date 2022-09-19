@@ -19,6 +19,7 @@ class ConcessionaireInteractor @Inject constructor(
                             "",
                             "",
                             "",
+                            0,
                             "", 0, false
                         )
                     )

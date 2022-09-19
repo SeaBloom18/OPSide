@@ -9,7 +9,7 @@
     android:background="@color/primaryLightColor">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUserName"
+        android:id="@+id/tilLoginEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -39,9 +39,9 @@
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/bottom_sheet_conce_tv_title"
-        app:layout_constraintBottom_toTopOf="@+id/tilUserName"
-        app:layout_constraintEnd_toEndOf="@+id/tilUserName"
-        app:layout_constraintStart_toStartOf="@+id/tilUserName"
+        app:layout_constraintBottom_toTopOf="@+id/tilLoginEmail"
+        app:layout_constraintEnd_toEndOf="@+id/tilLoginEmail"
+        app:layout_constraintStart_toStartOf="@+id/tilLoginEmail"
         style="@style/textViewTitleStyle"/>
 
     <com.google.android.material.button.MaterialButton
