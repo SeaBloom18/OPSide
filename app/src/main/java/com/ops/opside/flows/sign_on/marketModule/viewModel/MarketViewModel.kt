@@ -6,10 +6,14 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.marketModule.model.MarketInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MarketViewModel: CommonViewModel() {
+@HiltViewModel
+class MarketViewModel @Inject constructor(
+    private val mMarketInteractor: MarketInteractor
+): CommonViewModel() {
 
-    private val mMarketInteractor = MarketInteractor()
     val getMarketList = MutableLiveData<MutableList<MarketSE>>()
 
     fun getMarketList(){

@@ -22,18 +22,17 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val market = markets.get(position)
+        val market = markets[position]
         with(holder){
             binding.tvMarketName.text = market.name
             binding.tvItemAddress.text = market.address
             binding.tvItemConcessionaires.text = "Concessionaires count: ${market.numberConcessionaires}"
-            binding.group.visibility = View.GONE
 
             binding.ivDelete.setOnClickListener { listener.onDeleteMarket(market)}
             binding.ivEdit.setOnClickListener { listener.onEditMarket(market) }
         }
 
-        setUpItem(holder)
+        //setUpItem(holder)
     }
 
     override fun getItemCount(): Int = markets.size
@@ -43,7 +42,7 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
         val binding = ItemMarketListBinding.bind(view)
     }
 
-    private fun setUpItem(holder: ViewHolder){
+    /*private fun setUpItem(holder: ViewHolder){
         holder.binding.ibArrow.setOnClickListener {
             if (holder.binding.group.visibility == View.GONE){ //Si la vista esta oculta
                 TransitionManager.beginDelayedTransition(holder.binding.container)
@@ -55,5 +54,5 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
                 holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
             }
         }
-    }
+    }*/
 }

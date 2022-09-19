@@ -30,6 +30,7 @@
 
         <TextView
             android:id="@+id/tvMarketName"
+            style="@style/textViewBodyStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -38,22 +39,10 @@
             android:textSize="@dimen/common_text_size"
             app:layout_anchorGravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/ivMarketItem"
-            app:layout_constraintEnd_toStartOf="@+id/ibArrow"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivMarketItem"
             app:layout_constraintTop_toTopOf="@+id/ivMarketItem"
-            tools:text="Market ixtlahuacan de los membrillos"
-            style="@style/textViewBodyStyle"/>
-
-        <ImageButton
-            android:id="@+id/ibArrow"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_item_arrow_down"
-            android:contentDescription="@string/common_content_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:text="Market ixtlahuacan de los membrillos" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -122,12 +111,12 @@
             app:layout_constraintEnd_toStartOf="@+id/ivDelete"
             app:layout_constraintTop_toTopOf="@+id/ivDelete" />
 
-        <androidx.constraintlayout.widget.Group
+        <!--<androidx.constraintlayout.widget.Group
             android:id="@+id/group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="imageView2, imageView4, tvItemAddress,tvItemConcessionaires,ivEdit,ivDelete"
-            tools:visibility="visible" />
+            tools:visibility="visible" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

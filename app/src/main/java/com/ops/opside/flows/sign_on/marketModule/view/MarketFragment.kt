@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,21 +15,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.databinding.FragmentFinalizeTaxCollectionBinding
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MarketFragment : Fragment(), OnClickListener {
 
-    private var mBinding: FragmentMarketBinding? = null
-    private val binding get() = mBinding!!
+    private lateinit var mBinding: FragmentMarketBinding
     private lateinit var mActivity: MainActivity
 
     private lateinit var mMarketAdapter: MarketAdapter
 
-    private lateinit var mMarketViewModel: MarketViewModel
+    private val mMarketViewModel: MarketViewModel by viewModels()
     private lateinit var mMarketList: MutableList<MarketSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +39,7 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View {
         mBinding = FragmentMarketBinding.inflate(inflater, container, false)
         mActivity = activity as MainActivity
 
@@ -44,12 +47,7 @@ class MarketFragment : Fragment(), OnClickListener {
         bindViewModel()
         loadMarketsList()
 
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mBinding = null
+        return mBinding.root
     }
 
     private fun loadMarketsList() {
@@ -57,7 +55,6 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     private fun bindViewModel() {
-        mMarketViewModel = ViewModelProvider(requireActivity())[MarketViewModel::class.java]
         mMarketViewModel.getMarketList.observe(mActivity, Observer(this::getMarketList))
     }
 
@@ -68,7 +65,7 @@ class MarketFragment : Fragment(), OnClickListener {
 
     //Functions
     private fun setToolbar(){
-        with(binding.toolbarMarket.commonToolbar) {
+        with(mBinding.toolbarMarket.commonToolbar) {
             this.title = getString(R.string.bn_menu_market_opc1)
 
             this.addMenuProvider(object : MenuProvider {
@@ -98,7 +95,7 @@ class MarketFragment : Fragment(), OnClickListener {
         linearLayoutManager = LinearLayoutManager(mActivity)
         mMarketAdapter = MarketAdapter(mMarketList, this)
 
-        binding.recycler.apply {
+        mBinding.recycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = mMarketAdapter
