@@ -20,17 +20,17 @@ class LoginViewModel @Inject constructor(
     private val _getUserRole = MutableLiveData<String>()
     val getUserRole: LiveData<String> = _getUserRole
 
-    fun isSPInitialized(): Boolean{
+    /*fun isSPInitialized(): Boolean{
         return mLoginInteractor.isSPInitialized()
     }
 
     fun isRememberMeChecked(): Pair<Boolean, String?>{
         return mLoginInteractor.isRememberMeChecked()
-    }
+    }*/
 
-    fun initSP(email: String, rememberMe: Boolean) {
+    fun initSP(email: String) {
         disposable.add(
-            mLoginInteractor.initSP(email, rememberMe).applySchedulers()
+            mLoginInteractor.initSP(email).applySchedulers()
                 .subscribe(
                     {
                         _getUserRole.value = it
