@@ -1,7 +1,10 @@
 package com.ops.opside.flows.sign_on.marketModule.model
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.DB_TABLE_MARKET
 import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -12,24 +15,45 @@ class MarketInteractor @Inject constructor(
 
         return Observable.unsafeCreate { subscriber ->
             try {
-                val markets = mutableListOf<MarketSE>()
+                val marketsList = mutableListOf<MarketSE>()
 
-                val market1 = MarketSE("1",  "Tianguis de muestra 1",
-                    "Direccion de muestra 1",0.0,0.0,73)
-                val market2 = MarketSE("2",  "Tianguis de muestra 2",
-                    "Direccion de muestra 2",0.0,0.0,54)
-                val market3 = MarketSE("3",  "Tianguis de muestra 3",
-                    "Direccion de muestra 3",0.0,0.0,43)
+                firestore.collection(DB_TABLE_MARKET)
+                    .get()
+                    .addOnSuccessListener {
 
-                markets.add(market1)
-                markets.add(market2)
-                markets.add(market3)
-
-                subscriber.onNext(markets)
-
+                        for (document in it.documents) {
+                            marketsList.add(MarketSE(
+                                idFirebase = document.id,
+                                name = document.get("name").toString(),
+                                address = document.get("address").toString(),
+                                latitude = 0.0,
+                                longitude = 0.0,
+                                document.get("concessionaires").toString().length))
+                        }
+                        subscriber.onNext(marketsList)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
             }catch (exception: Exception){
                 subscriber.onError(exception)
             }
+        }
+    }
+
+    fun deleteMarket(idFirestore: String): Observable<Boolean>{
+        return Observable.unsafeCreate { subscriber ->
+        tryOrPrintException {
+            firestore.collection(DB_TABLE_MARKET).document(idFirestore).delete()
+                .addOnSuccessListener {
+                    subscriber.onNext(true)
+                    Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
+                }
+                .addOnFailureListener {
+                    subscriber.onError(it)
+                    Log.w("FireStoreDelete", "Error deleting document", it)
+                }
+        }
         }
     }
 }

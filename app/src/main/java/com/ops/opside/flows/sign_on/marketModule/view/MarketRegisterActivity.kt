@@ -75,7 +75,9 @@ class MarketRegisterActivity : AppCompatActivity() {
                 val intent = Intent(this@MarketRegisterActivity, MarketLocationActivity::class.java)
                 mapResult.launch(intent)
             }
-            btnSaveMarket.setOnClickListener { saveMarket() }
+            btnSaveMarket.setOnClickListener {
+                saveMarket()
+            }
         }
 
         locationPermissionRequest.launch(arrayOf(

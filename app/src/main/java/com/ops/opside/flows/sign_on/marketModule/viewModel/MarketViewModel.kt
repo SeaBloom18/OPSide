@@ -15,6 +15,7 @@ class MarketViewModel @Inject constructor(
 ): CommonViewModel() {
 
     val getMarketList = MutableLiveData<MutableList<MarketSE>>()
+    val deleteMarket = MutableLiveData<Boolean>()
 
     fun getMarketList(){
         disposable.add(
@@ -22,6 +23,20 @@ class MarketViewModel @Inject constructor(
                 .subscribe(
                     {
                         getMarketList.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun deleteMarket(idFirestore: String){
+        disposable.add(
+            mMarketInteractor.deleteMarket(idFirestore).applySchedulers()
+                .subscribe(
+                    {
+                        deleteMarket.value = it
                     },
                     {
                         Log.e("Error", it.toString())

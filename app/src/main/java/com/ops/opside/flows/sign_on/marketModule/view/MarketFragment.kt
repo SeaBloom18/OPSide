@@ -28,9 +28,7 @@ class MarketFragment : Fragment(), OnClickListener {
 
     private lateinit var mBinding: FragmentMarketBinding
     private lateinit var mActivity: MainActivity
-
     private lateinit var mMarketAdapter: MarketAdapter
-
     private val mMarketViewModel: MarketViewModel by viewModels()
     private lateinit var mMarketList: MutableList<MarketSE>
 
@@ -50,12 +48,13 @@ class MarketFragment : Fragment(), OnClickListener {
         return mBinding.root
     }
 
-    private fun loadMarketsList() {
-        mMarketViewModel.getMarketList()
-    }
-
+    /** ViewModel and Methods SetUp **/
     private fun bindViewModel() {
         mMarketViewModel.getMarketList.observe(mActivity, Observer(this::getMarketList))
+    }
+
+    private fun loadMarketsList() {
+        mMarketViewModel.getMarketList()
     }
 
     private fun getMarketList(marketList: MutableList<MarketSE>){
@@ -63,7 +62,7 @@ class MarketFragment : Fragment(), OnClickListener {
         setUpRecyclerView()
     }
 
-    //Functions
+    /** Toolbar SetUp **/
     private fun setToolbar(){
         with(mBinding.toolbarMarket.commonToolbar) {
             this.title = getString(R.string.bn_menu_market_opc1)
@@ -90,6 +89,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
+    /** RecyclerView SetUp **/
     private fun setUpRecyclerView(){
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(mActivity)
@@ -102,14 +102,17 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun confirmMarketDelete(market: MarketSE){
+    private fun confirmMarketDelete(marketId: String){
         val dialog = BaseDialog(
             requireActivity(),
             getString(R.string.alert_dialog_delete_title),
             getString(R.string.alert_dialog_delete_message),
             getString(R.string.common_delete),
             "",
-            { Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show() },
+            {
+                mMarketViewModel.deleteMarket(marketId)
+                Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
+            },
             { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
         )
         dialog.show()
@@ -120,19 +123,12 @@ class MarketFragment : Fragment(), OnClickListener {
         Toast.makeText(mActivity, "Editar item", Toast.LENGTH_SHORT).show()
     }
 
-    //Interface
-    override fun onDeleteMarket(market: MarketSE) {
-        confirmMarketDelete(market)
+    /** Interface **/
+    override fun onDeleteMarket(marketId: String) {
+        confirmMarketDelete(marketId)
     }
 
     override fun onEditMarket(market: MarketSE) {
         editMarket()
     }
-
-    /*
-    * Requisitos de esta vista:
-    * onClick: ver detalles del tianguis
-    * menu: opciones de eliminar y editar
-    * recyclerview item: nombre, direccion
-    * */
 }
