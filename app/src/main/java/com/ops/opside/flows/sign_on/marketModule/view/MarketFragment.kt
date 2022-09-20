@@ -102,6 +102,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
+    /** Interface Methods **/
     private fun confirmMarketDelete(marketId: String){
         val dialog = BaseDialog(
             requireActivity(),
@@ -112,6 +113,7 @@ class MarketFragment : Fragment(), OnClickListener {
             {
                 mMarketViewModel.deleteMarket(marketId)
                 Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
+                loadMarketsList()
             },
             { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
         )

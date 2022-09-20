@@ -28,8 +28,14 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
             binding.tvItemAddress.text = market.address
             binding.tvItemConcessionaires.text = "Concessionaires count: ${market.numberConcessionaires}"
 
-            binding.ivDelete.setOnClickListener { listener.onDeleteMarket(market.idFirebase)}
-            binding.ivEdit.setOnClickListener { listener.onEditMarket(market) }
+            binding.ivDelete.setOnClickListener {
+                listener.onDeleteMarket(market.idFirebase)
+                //markets.removeAt(position)
+                notifyDataSetChanged()
+            }
+            binding.ivEdit.setOnClickListener {
+                listener.onEditMarket(market)
+            }
         }
 
         //setUpItem(holder)
