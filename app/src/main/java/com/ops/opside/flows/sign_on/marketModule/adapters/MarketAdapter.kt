@@ -1,14 +1,17 @@
 package com.ops.opside.flows.sign_on.marketModule.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.ItemMarketListBinding
+import com.ops.opside.flows.sign_on.marketModule.view.MarketRegisterActivity
 
 class MarketAdapter(private var markets: MutableList<MarketSE>, private var listener: OnClickListener):
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {
@@ -26,7 +29,7 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
         with(holder){
             binding.tvMarketName.text = market.name
             binding.tvItemAddress.text = market.address
-            binding.tvItemConcessionaires.text = "Numero de conce: ${market.numberConcessionaires}"
+            binding.tvItemConcessionaires.text = market.numberConcessionaires.toString()
 
             binding.ivDelete.setOnClickListener {
                 listener.onDeleteMarket(market.idFirebase)
@@ -34,11 +37,13 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
                 notifyDataSetChanged()
             }
             binding.ivEdit.setOnClickListener {
-                listener.onEditMarket(market)
+                val intent = Intent(context, MarketRegisterActivity::class.java)
+                intent.putExtra("market", market)
+                context.startActivity(intent)
+                //listener.onEditMarket(market)
             }
         }
 
-        //setUpItem(holder)
     }
 
     override fun getItemCount(): Int = markets.size
@@ -47,18 +52,4 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemMarketListBinding.bind(view)
     }
-
-    /*private fun setUpItem(holder: ViewHolder){
-        holder.binding.ibArrow.setOnClickListener {
-            if (holder.binding.group.visibility == View.GONE){ //Si la vista esta oculta
-                TransitionManager.beginDelayedTransition(holder.binding.container)
-                holder.binding.group.visibility = View.VISIBLE
-                holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_up)
-            } else{ //Si la vista esta expuesta
-                TransitionManager.endTransitions(holder.binding.container)
-                holder.binding.group.visibility = View.GONE
-                holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
-            }
-        }
-    }*/
 }

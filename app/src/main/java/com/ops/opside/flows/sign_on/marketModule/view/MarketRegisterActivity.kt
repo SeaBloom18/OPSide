@@ -4,7 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
@@ -15,14 +15,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Constants
-import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +32,8 @@ class MarketRegisterActivity : AppCompatActivity() {
     private val concessionaires = arrayOf("David", "Mario", "Juan", "Luis")
 
     private val mViewModel: MarketRegisterViewModel by viewModels()
-    private val mMarketFE: MarketFE = MarketFE()
+    private var mMarketFE: MarketFE = MarketFE()
+    private var mMarketSE: MarketSE? = null
 
     private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
         .RequestMultiplePermissions()) { permissions ->
@@ -83,11 +82,18 @@ class MarketRegisterActivity : AppCompatActivity() {
         locationPermissionRequest.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
 
+        mMarketSE = intent.getSerializableExtra("market") as? MarketSE
+        if (mMarketSE != null) {
+            setFieldsIsEditMode(mMarketSE!!)
+        }
+        //else mMarketSE = MarketSE("", "", "", 0.0, 0.0, 0)
+
+
         bindViewModel()
         setToolbar()
     }
 
-    /** ViewModel **/
+    /** ViewModel SetUp **/
     private fun bindViewModel(){
 
     }
@@ -139,6 +145,13 @@ class MarketRegisterActivity : AppCompatActivity() {
 
             mViewModel.insertMarket(mMarketFE)
         }
+    }
+
+    private fun setFieldsIsEditMode(marketSE: MarketSE){
+        Log.d("marketSerializable", marketSE.toString())
+        mBinding.teMarketName.setText(marketSE.name)
+        mBinding.tvAddressSelection.text = marketSE.address
+        mBinding.tvConcessionaireNumber.text = marketSE.numberConcessionaires.toString()
     }
 
     private fun viewConcessionaire() {
