@@ -14,19 +14,19 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:background="@color/primaryColor">
+        android:background="@color/primaryColor"
+        android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/ivMarketItem"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_store"
             android:contentDescription="@string/common_content_description"
+            android:src="@drawable/ic_store"
+            app:layout_constraintBottom_toBottomOf="@+id/tvItemConcessionaires"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tvMarketName" />
 
         <TextView
             android:id="@+id/tvMarketName"
@@ -34,58 +34,36 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:maxLines="2"
             android:textSize="@dimen/common_text_size"
             app:layout_anchorGravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/ivMarketItem"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivEdit"
             app:layout_constraintStart_toEndOf="@+id/ivMarketItem"
-            app:layout_constraintTop_toTopOf="@+id/ivMarketItem"
-            tools:text="Market ixtlahuacan de los membrillos" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_item_gps"
-            android:contentDescription="@string/common_content_description"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMarketName" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_item_conce_list"
-            android:contentDescription="@string/common_content_description"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Market Itxtlahuacan" />
 
         <TextView
             android:id="@+id/tvItemAddress"
-            android:layout_marginStart="8dp"
+            style="@style/textViewBodyStyle"
+            android:layout_width="0dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/montserrat_medium"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
-            tools:text="Direccion generica"
-            style="@style/textViewBodyStyle"/>
+            app:layout_constraintEnd_toEndOf="@+id/tvMarketName"
+            app:layout_constraintStart_toStartOf="@+id/tvMarketName"
+            app:layout_constraintTop_toBottomOf="@+id/tvMarketName"
+            tools:text="Direccion generica" />
 
         <TextView
             android:id="@+id/tvItemConcessionaires"
             style="@style/textViewBodyStyle"
-            android:layout_marginStart="8dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/montserrat_medium"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
             app:layout_constraintEnd_toEndOf="@+id/tvItemAddress"
             app:layout_constraintStart_toStartOf="@+id/tvItemAddress"
-            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemAddress"
             tools:text="70 Concessionaires" />
 
         <ImageButton
@@ -93,9 +71,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_item_delete"
             android:contentDescription="@string/common_content_description"
+            android:src="@drawable/ic_item_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -103,13 +82,15 @@
             android:id="@+id/ivEdit"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_item_edit"
             android:contentDescription="@string/common_content_description"
-            app:layout_constraintBottom_toBottomOf="@+id/ivDelete"
-            app:layout_constraintEnd_toStartOf="@+id/ivDelete"
-            app:layout_constraintTop_toTopOf="@+id/ivDelete" />
+            android:src="@drawable/ic_item_edit"
+            app:layout_constraintBottom_toTopOf="@+id/ivDelete"
+            app:layout_constraintEnd_toEndOf="@+id/ivDelete"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/ivDelete"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--<androidx.constraintlayout.widget.Group
             android:id="@+id/group"
