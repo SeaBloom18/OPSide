@@ -29,4 +29,25 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
             }
         }
     }
+
+    fun updateMarket(idFirestore: String, name: String, address: String): Observable<Boolean>{
+        return Observable.unsafeCreate{ subscriber ->
+            tryOrPrintException {
+                firestore.collection(DB_TABLE_MARKET).document(idFirestore)
+                    .update(mapOf(
+                        "name" to name,
+                        "address" to address,
+                        "latitude" to 0.0,
+                        "longitude" to 0.0
+                    ))
+                    .addOnSuccessListener {
+                        subscriber.onNext(true)
+                        Log.d("FireStoreUpdateSuccess", "DocumentSnapshot successfully deleted!")
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            }
+        }
+    }
 }

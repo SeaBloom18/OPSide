@@ -2,11 +2,9 @@ package com.ops.opside.flows.sign_on.marketModule.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.MarketSE
@@ -40,7 +38,6 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
                 val intent = Intent(context, MarketRegisterActivity::class.java)
                 intent.putExtra("market", market)
                 context.startActivity(intent)
-                //listener.onEditMarket(market)
             }
         }
 

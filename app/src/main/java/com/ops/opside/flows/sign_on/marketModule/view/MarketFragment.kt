@@ -3,19 +3,17 @@ package com.ops.opside.flows.sign_on.marketModule.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.databinding.FragmentFinalizeTaxCollectionBinding
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
@@ -120,17 +118,8 @@ class MarketFragment : Fragment(), OnClickListener {
         dialog.show()
     }
 
-    private fun editMarket(){
-        startActivity(Intent(mActivity, MarketRegisterActivity::class.java))
-        Toast.makeText(mActivity, "Editar item", Toast.LENGTH_SHORT).show()
-    }
-
     /** Interface **/
     override fun onDeleteMarket(marketId: String) {
         confirmMarketDelete(marketId)
-    }
-
-    override fun onEditMarket(market: MarketSE) {
-        editMarket()
     }
 }

@@ -34,4 +34,18 @@ class MarketRegisterViewModel @Inject constructor(
                 )
         )
     }
+
+    fun updateMarket(idFirestore: String, name: String, address: String){
+        disposable.add(
+            mMarketRegisterInteractor.updateMarket(idFirestore, name, address).applySchedulers()
+                .subscribe(
+                    {
+                        registerMarket.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
 }

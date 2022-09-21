@@ -86,8 +86,6 @@ class MarketRegisterActivity : AppCompatActivity() {
         if (mMarketSE != null) {
             setFieldsIsEditMode(mMarketSE!!)
         }
-        //else mMarketSE = MarketSE("", "", "", 0.0, 0.0, 0)
-
 
         bindViewModel()
         setToolbar()
@@ -142,8 +140,11 @@ class MarketRegisterActivity : AppCompatActivity() {
                 longitude = 0.0
                 concessionaires = mutableListOf()
             }
-
-            mViewModel.insertMarket(mMarketFE)
+            if (mMarketSE != null)
+                mViewModel.updateMarket(mMarketSE!!.idFirebase, mMarketFE.name, mMarketFE.address)
+            else
+                mViewModel.insertMarket(mMarketFE)
+            Log.d("insertMarketSuccess", mMarketFE.toString())
         }
     }
 
