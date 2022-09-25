@@ -19,5 +19,7 @@ data class MarketSE(
     @ColumnInfo(name = "longitude")
     var longitude: Double = 0.0,
     @ColumnInfo(name = "numberConcessionaires")
-    var numberConcessionaires: Int = 0
+    var numberConcessionaires: Int = 0,
+    @ColumnInfo(name = "isDeleted")
+    var isDeleted: Boolean = false
 ): Serializable

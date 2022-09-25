@@ -22,13 +22,15 @@ class MarketInteractor @Inject constructor(
                     .addOnSuccessListener {
 
                         for (document in it.documents) {
-                            marketsList.add(MarketSE(
-                                idFirebase = document.id,
-                                name = document.get("name").toString(),
-                                address = document.get("address").toString(),
-                                latitude = 0.0,
-                                longitude = 0.0,
-                                document.get("concessionaires").toString().length))
+                            if (document.get("isDeleted") == false){
+                                marketsList.add(MarketSE(
+                                    idFirebase = document.id,
+                                    name = document.get("name").toString(),
+                                    address = document.get("address").toString(),
+                                    latitude = 0.0,
+                                    longitude = 0.0,
+                                    document.get("concessionaires").toString().length))
+                            }
                         }
                         subscriber.onNext(marketsList)
                     }
@@ -44,7 +46,7 @@ class MarketInteractor @Inject constructor(
     fun deleteMarket(idFirestore: String): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
         tryOrPrintException {
-            firestore.collection(DB_TABLE_MARKET).document(idFirestore).delete()
+            firestore.collection(DB_TABLE_MARKET).document(idFirestore).update("isDeleted", true)
                 .addOnSuccessListener {
                     subscriber.onNext(true)
                     Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
