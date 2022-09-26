@@ -45,7 +45,7 @@
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapView"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
@@ -73,8 +73,8 @@
             app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
         <TextView
-            android:id="@+id/tvConcessionaireNumber"
             style="@style/textViewBodyStyle"
+            android:id="@+id/tvConcessionaireNumber"
             android:layout_marginTop="8dp"
             android:text="@string/registration_market_tv_concessionaires"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
@@ -84,8 +84,8 @@
             app:layout_constraintTop_toBottomOf="@+id/btnViewConce" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnViewConce"
             style="@style/CommonButtonStyle"
+            android:id="@+id/btnViewConce"
             android:layout_marginTop="16dp"
             android:text="@string/registration_btn_view_concessionaires"
             app:icon="@drawable/ic_ops_see_concessionaires"
@@ -98,7 +98,10 @@
         <TextView
             android:id="@+id/tvAddressSelection"
             style="@style/textViewBodyStyle"
+            android:layout_width="140dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:text="@string/registration_market_tv_location"
             app:layout_constraintBottom_toTopOf="@+id/btnViewConce"
             app:layout_constraintEnd_toEndOf="@+id/btnSelectLocation"

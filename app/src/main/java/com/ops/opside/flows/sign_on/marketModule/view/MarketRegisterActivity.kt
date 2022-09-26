@@ -3,6 +3,8 @@ package com.ops.opside.flows.sign_on.marketModule.view
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -21,9 +23,12 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Constants
+import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+
 
 @AndroidEntryPoint
 class MarketRegisterActivity : AppCompatActivity() {
@@ -34,6 +39,8 @@ class MarketRegisterActivity : AppCompatActivity() {
     private val mViewModel: MarketRegisterViewModel by viewModels()
     private var mMarketFE: MarketFE = MarketFE()
     private var mMarketSE: MarketSE? = null
+    private var latitudeMaps = 0.0
+    private var longitudeMaps = 0.0
 
     private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
         .RequestMultiplePermissions()) { permissions ->
@@ -51,13 +58,25 @@ class MarketRegisterActivity : AppCompatActivity() {
 
     private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if (it.resultCode == Activity.RESULT_OK) {
-            Toast.makeText(this, "Direccion: ${it.data.toString()}", Toast.LENGTH_SHORT).show()
             it.data?.apply {
-                val latitude = getStringExtra("latitude")
-                val longitude = getStringExtra("longitude")
-                Toast.makeText(this@MarketRegisterActivity, "Lat: $latitude Long: $longitude", Toast.LENGTH_SHORT).show()
+                latitudeMaps = getStringExtra("latitude")?.toDouble().orZero()
+                longitudeMaps = getStringExtra("longitude")?.toDouble().orZero()
+                Toast.makeText(this@MarketRegisterActivity, "Direccion selecciona correctamente!", Toast.LENGTH_SHORT).show()
+                mBinding.btnSelectLocation.text = "Edit Location"
+                val addresses: List<Address>
+                val geocoder = Geocoder(this@MarketRegisterActivity, Locale.getDefault())
+
+                addresses = geocoder.getFromLocation(latitudeMaps, longitudeMaps, 1)
+
+                val address: String = addresses[0].getAddressLine(0)
+
+                val city: String = addresses[0].getLocality()
+                val state: String = addresses[0].getAdminArea()
+                val country: String = addresses[0].getCountryName()
+                val postalCode: String = addresses[0].getPostalCode()
+                val knownName: String = addresses[0].getFeatureName()
+                mBinding.tvAddressSelection.text = address
             }
-            mBinding.tvAddressSelection.text = it.data.toString()
         } else {
             Toast.makeText(this, "Direccion no seleccionada!", Toast.LENGTH_SHORT).show()
         }
@@ -82,14 +101,12 @@ class MarketRegisterActivity : AppCompatActivity() {
         locationPermissionRequest.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
 
-        mMarketSE = intent.getSerializableExtra("market") as? MarketSE
-        if (mMarketSE != null) {
-            setFieldsIsEditMode(mMarketSE!!)
-        }
 
         bindViewModel()
         setToolbar()
+        editModeMarketValidation()
     }
+
 
     /** ViewModel SetUp **/
     private fun bindViewModel(){
@@ -121,7 +138,7 @@ class MarketRegisterActivity : AppCompatActivity() {
 
     private fun setToolbar(){
         with(mBinding.toolbar.commonToolbar) {
-            this.title = getString(R.string.registration_market_tv_title)
+            this.title = getString(R.string.registration_market_create_toolbar_title)
             setSupportActionBar(this)
             (context as MarketRegisterActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
@@ -136,14 +153,18 @@ class MarketRegisterActivity : AppCompatActivity() {
             with(mMarketFE){
                 name = mBinding.teMarketName.text.toString().trim()
                 address = "Direccion generica"
-                latitude = 0.0
-                longitude = 0.0
+                latitude = latitudeMaps
+                longitude = longitudeMaps
                 concessionaires = mutableListOf()
             }
-            if (mMarketSE != null)
+            if (mMarketSE != null){
                 mViewModel.updateMarket(mMarketSE!!.idFirebase, mMarketFE.name, mMarketFE.address)
-            else
+                finish()
+            }
+            else{
                 mViewModel.insertMarket(mMarketFE)
+                finish()
+            }
             Log.d("insertMarketSuccess", mMarketFE.toString())
         }
     }
@@ -180,5 +201,13 @@ class MarketRegisterActivity : AppCompatActivity() {
 
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    private fun editModeMarketValidation() {
+        mMarketSE = intent.getSerializableExtra("market") as? MarketSE
+        if (mMarketSE != null) {
+            mBinding.toolbar.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
+            setFieldsIsEditMode(mMarketSE!!)
+        }
     }
 }

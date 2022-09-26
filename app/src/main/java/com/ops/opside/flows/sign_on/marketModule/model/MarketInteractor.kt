@@ -18,19 +18,17 @@ class MarketInteractor @Inject constructor(
                 val marketsList = mutableListOf<MarketSE>()
 
                 firestore.collection(DB_TABLE_MARKET)
+                    .whereEqualTo("isDeleted", false)
                     .get()
                     .addOnSuccessListener {
-
                         for (document in it.documents) {
-                            if (document.get("isDeleted") == false){
-                                marketsList.add(MarketSE(
-                                    idFirebase = document.id,
-                                    name = document.get("name").toString(),
-                                    address = document.get("address").toString(),
-                                    latitude = 0.0,
-                                    longitude = 0.0,
-                                    document.get("concessionaires").toString().length))
-                            }
+                            marketsList.add(MarketSE(
+                                idFirebase = document.id,
+                                name = document.get("name").toString(),
+                                address = document.get("address").toString(),
+                                latitude = 0.0,
+                                longitude = 0.0,
+                                numberConcessionaires = listOf(document.get("concessionaires")).size))
                         }
                         subscriber.onNext(marketsList)
                     }

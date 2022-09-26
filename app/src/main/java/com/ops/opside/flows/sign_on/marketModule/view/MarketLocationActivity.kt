@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -13,13 +14,17 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ops.opside.R
+import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.ActivityMarketLocationBinding
 import kotlinx.coroutines.*
+
 
 class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
 
@@ -28,6 +33,8 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
     private lateinit var currentLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val permissionCode = 101
+    var latitude = 0.0
+    var longitude = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,29 +43,32 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
 
         with(mBinding){
             btnSaveLocation.setOnClickListener {
-                /*val data = Intent(this@MarketLocationActivity, MarketRegisterActivity::class.java)
-                val text = currentLocation
-                data.putExtra("latitude", currentLocation.latitude)
-                data.putExtra("longitude", currentLocation.longitude)
-                data.putExtra("currentLocation", currentLocation)
-                Toast.makeText(this@MarketLocationActivity, "${currentLocation.latitude} ${currentLocation.longitude}", Toast.LENGTH_SHORT).show()
-                data.data = Uri.parse(text.toString())
-                setResult(RESULT_OK, data)*/
+                val dialog = BaseDialog(
+                    this@MarketLocationActivity,
+                    "Confirm Location",
+                    "Are you sure this location is correct?",
+                    "Confirm",
+                    "",
+                    {
+                        val intent = Intent()
+                        if (latitude > 0.0) {
+                            intent.putExtra("latitude", latitude.toString())
+                            intent.putExtra("longitude", longitude.toString())
+                            intent.data = Uri.parse(intent.toString())
+                            setResult(RESULT_OK, intent)
+                            finish()
+                        } else {
+                            intent.putExtra("latitude", currentLocation.latitude.toString())
+                            intent.putExtra("longitude", currentLocation.longitude.toString())
+                            intent.data = Uri.parse(intent.toString())
+                            setResult(RESULT_OK, intent)
+                            finish()
+                        }
+                    },
+                    { Toast.makeText(this@MarketLocationActivity, "onCancel()", Toast.LENGTH_SHORT).show() },
+                )
+                dialog.show()
 
-                GlobalScope.launch {
-                    withContext(Dispatchers.Main) {
-                        val data = Intent()
-                        val text = currentLocation
-                        data.putExtra("latitude", currentLocation.latitude)
-                        data.putExtra("longitude", currentLocation.longitude)
-                        data.putExtra("currentLocation", currentLocation)
-                        Toast.makeText(this@MarketLocationActivity, "${currentLocation.latitude} ${currentLocation.longitude}", Toast.LENGTH_SHORT).show()
-                        data.data = Uri.parse(text.toString())
-                        setResult(RESULT_OK, data)
-                    }
-                    delay(200L)
-                    finish()
-                }
             }
             ibLocationClose.setOnClickListener { finish() }
         }
@@ -90,19 +100,41 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
                 supportMapFragment.getMapAsync(this)
             }
         }
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-        val markerOptions = MarkerOptions().position(latLng).title("I am here!")
+        val markerOptions = MarkerOptions().position(latLng).title("You are here!").draggable(true)
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f))
+        googleMap.setMaxZoomPreference(17.5F)
+        googleMap.setMinZoomPreference(17.5F)
         googleMap.addMarker(markerOptions)
+
+        googleMap.setOnMarkerDragListener(object: OnMarkerDragListener{
+            override fun onMarkerDrag(p0: Marker) {
+
+            }
+
+            override fun onMarkerDragEnd(p0: Marker) {
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(p0.position, 17.5f))
+                val message = p0.position.latitude.toString() + "" + p0.position.longitude.toString()
+                latitude = p0.position.latitude
+                longitude = p0.position.longitude
+                Log.d("dragMap" + "_END", message)
+            }
+
+            override fun onMarkerDragStart(p0: Marker) {
+                val message = p0.position.latitude.toString() + "" + p0.position.longitude.toString()
+                Log.d("dragMap" + "_DRAG", message)
+            }
+
+        })
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String?>,
+        grantResults: IntArray,
+    ) {
         when (requestCode) {
             permissionCode -> if (grantResults.isNotEmpty() && grantResults[0] ==
                 PackageManager.PERMISSION_GRANTED) {
@@ -110,4 +142,5 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
             }
         }
     }
+
 }

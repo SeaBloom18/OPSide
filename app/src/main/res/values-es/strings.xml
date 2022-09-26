@@ -100,12 +100,13 @@
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Nombre del tianguis</string>
     <string name="registration_hint_market_address">Direccion</string>
-    <string name="registration_market_tv_title">Editar / Crear Tianguis</string>
+    <string name="registration_market_create_toolbar_title">Crear Tianguis</string>
+    <string name="registration_market_edit_toolbar_title">Editar Tianguis</string>
     <string name="registration_btn_select_location">Seleccionar Ubicación</string>
     <string name="registration_btn_view_concessionaires">Ver Concesionarios</string>
     <string name="registration_market_btn_save">Guardar Tianguis</string>
     <string name="registration_market_tv_location">Ubicación sin seleccionar</string>
-    <string name="registration_market_tv_concessionaires">Número de concesionarios: 90</string>
+    <string name="registration_market_tv_concessionaires">Número de concesionarios: 0</string>
 
     <string name="select_location_btn_save_address">Aceptar ubicación</string>
 
