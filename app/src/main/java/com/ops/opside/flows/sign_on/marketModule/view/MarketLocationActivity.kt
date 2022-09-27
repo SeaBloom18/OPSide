@@ -33,8 +33,8 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
     private lateinit var currentLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val permissionCode = 101
-    var latitude = 0.0
-    var longitude = 0.0
+    private var latitude = 0.0
+    private var longitude = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,6 +131,7 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
         })
     }
 
+    /** Permissions **/
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String?>,
         grantResults: IntArray,

@@ -31,7 +31,7 @@
             app:boxStrokeColor="@drawable/states_colors_text_field"
             app:endIconMode="clear_text"
             app:helperText="@string/login_til_required"
-            app:layout_constraintBottom_toTopOf="@+id/mapView"
+            app:layout_constraintBottom_toTopOf="@+id/mapPreview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/mapView"
+            android:id="@+id/mapPreview"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
             android:layout_height="300dp"
@@ -67,10 +67,10 @@
             android:text="@string/registration_btn_select_location"
             app:icon="@drawable/ic_ops_select_location"
             app:layout_constraintBottom_toTopOf="@+id/tvAddressSelection"
-            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            app:layout_constraintEnd_toEndOf="@+id/mapPreview"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/mapView"
-            app:layout_constraintTop_toBottomOf="@+id/mapView" />
+            app:layout_constraintStart_toStartOf="@+id/mapPreview"
+            app:layout_constraintTop_toBottomOf="@+id/mapPreview" />
 
         <TextView
             style="@style/textViewBodyStyle"
@@ -98,7 +98,7 @@
         <TextView
             android:id="@+id/tvAddressSelection"
             style="@style/textViewBodyStyle"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"

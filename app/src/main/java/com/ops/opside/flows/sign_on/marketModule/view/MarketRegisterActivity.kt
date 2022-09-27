@@ -3,8 +3,10 @@ package com.ops.opside.flows.sign_on.marketModule.view
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -17,6 +19,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
@@ -31,7 +43,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class MarketRegisterActivity : AppCompatActivity() {
+class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mBinding: ActivityMarketRegisterBinding
     private val concessionaires = arrayOf("David", "Mario", "Juan", "Luis")
@@ -41,6 +53,10 @@ class MarketRegisterActivity : AppCompatActivity() {
     private var mMarketSE: MarketSE? = null
     private var latitudeMaps = 0.0
     private var longitudeMaps = 0.0
+
+    private lateinit var currentLocation: Location
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val permissionCode = 101
 
     private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
         .RequestMultiplePermissions()) { permissions ->
@@ -63,6 +79,7 @@ class MarketRegisterActivity : AppCompatActivity() {
                 longitudeMaps = getStringExtra("longitude")?.toDouble().orZero()
                 Toast.makeText(this@MarketRegisterActivity, "Direccion selecciona correctamente!", Toast.LENGTH_SHORT).show()
                 mBinding.btnSelectLocation.text = "Edit Location"
+                
                 val addresses: List<Address>
                 val geocoder = Geocoder(this@MarketRegisterActivity, Locale.getDefault())
 
@@ -70,11 +87,6 @@ class MarketRegisterActivity : AppCompatActivity() {
 
                 val address: String = addresses[0].getAddressLine(0)
 
-                val city: String = addresses[0].getLocality()
-                val state: String = addresses[0].getAdminArea()
-                val country: String = addresses[0].getCountryName()
-                val postalCode: String = addresses[0].getPostalCode()
-                val knownName: String = addresses[0].getFeatureName()
                 mBinding.tvAddressSelection.text = address
             }
         } else {
@@ -102,6 +114,8 @@ class MarketRegisterActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
 
 
+        fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
+        fetchLocation()
         bindViewModel()
         setToolbar()
         editModeMarketValidation()
@@ -160,8 +174,7 @@ class MarketRegisterActivity : AppCompatActivity() {
             if (mMarketSE != null){
                 mViewModel.updateMarket(mMarketSE!!.idFirebase, mMarketFE.name, mMarketFE.address)
                 finish()
-            }
-            else{
+            } else{
                 mViewModel.insertMarket(mMarketFE)
                 finish()
             }
@@ -208,6 +221,51 @@ class MarketRegisterActivity : AppCompatActivity() {
         if (mMarketSE != null) {
             mBinding.toolbar.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
             setFieldsIsEditMode(mMarketSE!!)
+        }
+    }
+
+    /** GoogleMaps SetUp**/
+    override fun onMapReady(googleMap: GoogleMap) {
+        //20.348917, -103.194615
+        val latLng = LatLng(20.348917, -103.194615)
+        val markerOptions = MarkerOptions().position(latLng).title("You are here!")
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+        googleMap.setMinZoomPreference(14.0F)
+        googleMap.setMaxZoomPreference(14.0F)
+        googleMap.addMarker(markerOptions)
+    }
+
+    private fun fetchLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), permissionCode)
+            return
+        }
+        val task = fusedLocationProviderClient.lastLocation
+        task.addOnSuccessListener {
+            if (it != null) {
+                currentLocation = it
+                val supportMapFragment = (supportFragmentManager.findFragmentById(R.id.mapPreview) as
+                        SupportMapFragment?)!!
+                supportMapFragment.getMapAsync(this)
+            }
+        }
+    }
+
+    /** Permissions **/
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String?>,
+        grantResults: IntArray,
+    ) {
+        when (requestCode) {
+            permissionCode -> if (grantResults.isNotEmpty() && grantResults[0] ==
+                PackageManager.PERMISSION_GRANTED) {
+                fetchLocation()
+            }
         }
     }
 }
