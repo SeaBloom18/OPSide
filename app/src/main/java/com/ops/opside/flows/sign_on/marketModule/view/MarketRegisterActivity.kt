@@ -27,7 +27,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
@@ -53,6 +52,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private var mMarketSE: MarketSE? = null
     private var latitudeMaps = 0.0
     private var longitudeMaps = 0.0
+    private var addressSelected: String = ""
 
     private lateinit var currentLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -85,9 +85,9 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 addresses = geocoder.getFromLocation(latitudeMaps, longitudeMaps, 1)
 
-                val address: String = addresses[0].getAddressLine(0)
+                addressSelected = addresses[0].getAddressLine(0)
 
-                mBinding.tvAddressSelection.text = address
+                mBinding.tvAddressSelection.text = addressSelected
             }
         } else {
             Toast.makeText(this, "Direccion no seleccionada!", Toast.LENGTH_SHORT).show()
@@ -106,7 +106,15 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
                 mapResult.launch(intent)
             }
             btnSaveMarket.setOnClickListener {
-                saveMarket()
+                if (saveMarket()){
+                    if (mMarketSE != null){
+                        mViewModel.updateMarket(mMarketSE!!.idFirebase, mMarketFE.name, mMarketFE.address)
+                        finish()
+                    } else{
+                        mViewModel.insertMarket(mMarketFE)
+                        finish()
+                    }
+                }
             }
         }
 
@@ -159,27 +167,26 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     /** Other Methods **/
-    private fun saveMarket() {
-        if (mBinding.teMarketName.text.toString().trim().isEmpty()){
-            Toast.makeText(this, "Debes de escribir un nombre para el tianguis",
-                Toast.LENGTH_SHORT).show()
-        } else {
-            with(mMarketFE){
-                name = mBinding.teMarketName.text.toString().trim()
-                address = "Direccion generica"
-                latitude = latitudeMaps
-                longitude = longitudeMaps
-                concessionaires = mutableListOf()
+    private fun saveMarket(): Boolean {
+        var isValid = false
+        if (mBinding.teMarketName.text.toString().trim().isNotEmpty()){
+            if (addressSelected.isEmpty()){
+                Toast.makeText(this, "Debes de seleccionar una ubicacion antes!",
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                with(mMarketFE){
+                    name = mBinding.teMarketName.text.toString().trim()
+                    address = addressSelected
+                    latitude = latitudeMaps
+                    longitude = longitudeMaps
+                    concessionaires = mutableListOf()
+                    isValid = true
+                    Log.d("insertMarketSuccess", mMarketFE.toString())
+                }
             }
-            if (mMarketSE != null){
-                mViewModel.updateMarket(mMarketSE!!.idFirebase, mMarketFE.name, mMarketFE.address)
-                finish()
-            } else{
-                mViewModel.insertMarket(mMarketFE)
-                finish()
-            }
-            Log.d("insertMarketSuccess", mMarketFE.toString())
-        }
+        } else Toast.makeText(this, "Debes de escribir un nombre para el tianguis!",
+            Toast.LENGTH_SHORT).show()
+        return isValid
     }
 
     private fun setFieldsIsEditMode(marketSE: MarketSE){
@@ -221,17 +228,24 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         if (mMarketSE != null) {
             mBinding.toolbar.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
             setFieldsIsEditMode(mMarketSE!!)
+        } else {
+            mBinding.btnViewConce.visibility = View.GONE
+            mBinding.tvConcessionaireNumber.visibility = View.GONE
         }
     }
 
     /** GoogleMaps SetUp**/
     override fun onMapReady(googleMap: GoogleMap) {
         //20.348917, -103.194615
+       /* if (latitudeMaps < 0.0)
+            latLng = LatLng(latitudeMaps, longitudeMaps)
+        else
+            latLng = LatLng(20.348917, -103.194615)*/
         val latLng = LatLng(20.348917, -103.194615)
         val markerOptions = MarkerOptions().position(latLng).title("You are here!")
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-        googleMap.setMinZoomPreference(14.0F)
-        googleMap.setMaxZoomPreference(14.0F)
+        googleMap.setMinZoomPreference(15.5F)
+        googleMap.setMaxZoomPreference(15.5F)
         googleMap.addMarker(markerOptions)
     }
 
