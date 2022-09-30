@@ -108,7 +108,12 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
             btnSaveMarket.setOnClickListener {
                 if (saveMarket()){
                     if (mMarketSE != null){
-                        mViewModel.updateMarket(mMarketSE!!.idFirebase, mMarketFE.name, mMarketFE.address)
+                        mViewModel.updateMarket(
+                            idFirestore = mMarketSE!!.idFirebase,
+                            name = mMarketFE.name,
+                            address = mMarketFE.address,
+                            latitude = latitudeMaps,
+                            longitude = longitudeMaps)
                         finish()
                     } else{
                         mViewModel.insertMarket(mMarketFE)
@@ -170,7 +175,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun saveMarket(): Boolean {
         var isValid = false
         if (mBinding.teMarketName.text.toString().trim().isNotEmpty()){
-            if (addressSelected.isEmpty()){
+            if (mBinding.tvAddressSelection.text.isEmpty()){
                 Toast.makeText(this, "Debes de seleccionar una ubicacion antes!",
                     Toast.LENGTH_SHORT).show()
             } else {
@@ -194,6 +199,9 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         mBinding.teMarketName.setText(marketSE.name)
         mBinding.tvAddressSelection.text = marketSE.address
         mBinding.tvConcessionaireNumber.text = marketSE.numberConcessionaires.toString()
+        latitudeMaps = marketSE.latitude
+        longitudeMaps = marketSE.longitude
+        addressSelected = marketSE.address
     }
 
     private fun viewConcessionaire() {
@@ -218,7 +226,6 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
                 //holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
             }
         }
-
         dialog.setContentView(view)
         dialog.show()
     }

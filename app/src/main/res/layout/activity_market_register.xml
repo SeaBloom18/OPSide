@@ -99,14 +99,15 @@
             app:layout_constraintStart_toStartOf="@+id/tvAddressSelection"
             app:layout_constraintTop_toBottomOf="@+id/tvAddressSelection" />
 
+        <!--android:text="@string/registration_market_tv_location"-->
         <TextView
-            android:id="@+id/tvAddressSelection"
             style="@style/textViewBodyStyle"
+            android:id="@+id/tvAddressSelection"
             android:layout_width="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:text="@string/registration_market_tv_location"
+
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/btnViewConce"
             app:layout_constraintEnd_toEndOf="parent"
