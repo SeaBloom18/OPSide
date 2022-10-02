@@ -8,6 +8,8 @@
     <string name="common_accept">Accept</string>
     <string name="common_delete">Delete</string>
     <string name="common_content_description">Common Content Image Description</string>
+    <string name="common_permission_success">Permission accepted successfully</string>
+    <string name="common_permission_denied">Permission denied</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
@@ -123,6 +125,10 @@
     <string name="google_maps_market_title">You are here!</string>
     <string name="dialog_title_before_select_location">Select a location for the swap meet</string>
     <string name="dialog_message_before_select_location">Remember that we take your current location, if you want to adjust click and drag on the current location.</string>
+    <string name="toast_location_not_selected">Location not selected</string>
+    <string name="btn_text_edit">Edit Location</string>
+    <string name="toast_market_name_validation">You must select a location first</string>
+    <string name="toast_market_location_validation">You must write a name for the market</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>

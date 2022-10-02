@@ -6,8 +6,11 @@
 
     <!-- Common -->
     <string name="common_accept">Aceptar</string>
-    <string name="common_delete">Delete</string>
+    <string name="common_delete">Borrar</string>
     <string name="common_content_description">Common Content Image Description</string>
+    <string name="common_permission_success">Permiso aceptado correctamente</string>
+    <string name="common_permission_denied">Permiso denegado</string>
+
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
@@ -120,6 +123,10 @@
     <string name="google_maps_market_title">Estás aquí!</string>
     <string name="dialog_title_before_select_location">Seleccionar una ubicación para el tianguis</string>
     <string name="dialog_message_before_select_location">Recuerde que tomamos su ubicación actual, si desea ajustar, haga clic y arrastre en la ubicación actual.</string>
+    <string name="toast_location_not_selected">Dirección no seleccionada</string>
+    <string name="btn_text_edit">Editar Dirección</string>
+    <string name="toast_market_name_validation">Debes de seleccionar una ubicación antes</string>
+    <string name="toast_market_location_validation">Debes de escribir un nombre para el tianguis</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Precio lineal</string>

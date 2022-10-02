@@ -31,6 +31,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
+import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
+import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
+import com.ops.opside.common.entities.PUT_EXTRA_MARKET
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Constants
@@ -50,14 +53,15 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private val mViewModel: MarketRegisterViewModel by viewModels()
     private var mMarketFE: MarketFE = MarketFE()
     private var mMarketSE: MarketSE? = null
+
     private var latitudeMaps = 0.0
     private var longitudeMaps = 0.0
     private var addressSelected: String = ""
-
     private lateinit var currentLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val permissionCode = 101
 
+    /** Permission Request **/
     private val locationPermissionRequest = registerForActivityResult(ActivityResultContracts
         .RequestMultiplePermissions()) { permissions ->
         when {
@@ -72,13 +76,13 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    /** ForActivityResult **/
     private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if (it.resultCode == Activity.RESULT_OK) {
             it.data?.apply {
-                latitudeMaps = getStringExtra("latitude")?.toDouble().orZero()
-                longitudeMaps = getStringExtra("longitude")?.toDouble().orZero()
-                Toast.makeText(this@MarketRegisterActivity, "Direccion selecciona correctamente!", Toast.LENGTH_SHORT).show()
-                mBinding.btnSelectLocation.text = "Edit Location"
+                latitudeMaps = getStringExtra(PUT_EXTRA_LATITUDE)?.toDouble().orZero()
+                longitudeMaps = getStringExtra(PUT_EXTRA_LONGITUDE)?.toDouble().orZero()
+                mBinding.btnSelectLocation.text = getString(R.string.btn_text_edit)
                 
                 val addresses: List<Address>
                 val geocoder = Geocoder(this@MarketRegisterActivity, Locale.getDefault())
@@ -90,7 +94,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
                 mBinding.tvAddressSelection.text = addressSelected
             }
         } else {
-            Toast.makeText(this, "Direccion no seleccionada!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.toast_location_not_selected, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -126,7 +130,6 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         locationPermissionRequest.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
 
-
         fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
         fetchLocation()
         bindViewModel()
@@ -140,6 +143,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    /** Override Methods **/
     /** Toolbar Menu and backPressed **/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
@@ -176,8 +180,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         var isValid = false
         if (mBinding.teMarketName.text.toString().trim().isNotEmpty()){
             if (mBinding.tvAddressSelection.text.isEmpty()){
-                Toast.makeText(this, "Debes de seleccionar una ubicacion antes!",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.toast_market_name_validation, Toast.LENGTH_SHORT).show()
             } else {
                 with(mMarketFE){
                     name = mBinding.teMarketName.text.toString().trim()
@@ -189,8 +192,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
                     Log.d("insertMarketSuccess", mMarketFE.toString())
                 }
             }
-        } else Toast.makeText(this, "Debes de escribir un nombre para el tianguis!",
-            Toast.LENGTH_SHORT).show()
+        } else Toast.makeText(this, R.string.toast_market_location_validation, Toast.LENGTH_SHORT).show()
         return isValid
     }
 
@@ -199,6 +201,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         mBinding.teMarketName.setText(marketSE.name)
         mBinding.tvAddressSelection.text = marketSE.address
         mBinding.tvConcessionaireNumber.text = marketSE.numberConcessionaires.toString()
+        mBinding.btnSelectLocation.text = getString(R.string.btn_text_edit)
         latitudeMaps = marketSE.latitude
         longitudeMaps = marketSE.longitude
         addressSelected = marketSE.address
@@ -231,7 +234,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun editModeMarketValidation() {
-        mMarketSE = intent.getSerializableExtra("market") as? MarketSE
+        mMarketSE = intent.getSerializableExtra(PUT_EXTRA_MARKET) as? MarketSE
         if (mMarketSE != null) {
             mBinding.toolbar.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
             setFieldsIsEditMode(mMarketSE!!)
@@ -249,7 +252,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         else
             latLng = LatLng(20.348917, -103.194615)*/
         val latLng = LatLng(20.348917, -103.194615)
-        val markerOptions = MarkerOptions().position(latLng).title("You are here!")
+        val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         googleMap.setMinZoomPreference(15.5F)
         googleMap.setMaxZoomPreference(15.5F)
@@ -277,7 +280,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    /** Permissions **/
+    /** Permissions Result **/
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String?>,
         grantResults: IntArray,
