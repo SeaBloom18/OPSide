@@ -22,14 +22,13 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
+import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
 import com.ops.opside.databinding.ActivityMarketLocationBinding
-import kotlinx.coroutines.*
-
 
 class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
 
     private lateinit var mBinding: ActivityMarketLocationBinding
-
     private lateinit var currentLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val permissionCode = 101
@@ -41,40 +40,54 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
         mBinding = ActivityMarketLocationBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        with(mBinding){
-            btnSaveLocation.setOnClickListener {
-                val dialog = BaseDialog(
-                    this@MarketLocationActivity,
-                    "Confirm Location",
-                    "Are you sure this location is correct?",
-                    "Confirm",
-                    "",
-                    {
-                        val intent = Intent()
-                        if (latitude > 0.0) {
-                            intent.putExtra("latitude", latitude.toString())
-                            intent.putExtra("longitude", longitude.toString())
-                            intent.data = Uri.parse(intent.toString())
-                            setResult(RESULT_OK, intent)
-                            finish()
-                        } else {
-                            intent.putExtra("latitude", currentLocation.latitude.toString())
-                            intent.putExtra("longitude", currentLocation.longitude.toString())
-                            intent.data = Uri.parse(intent.toString())
-                            setResult(RESULT_OK, intent)
-                            finish()
-                        }
-                    },
-                    { Toast.makeText(this@MarketLocationActivity, "onCancel()", Toast.LENGTH_SHORT).show() },
-                )
-                dialog.show()
+        dialogMapsAlertLocation()
 
-            }
+        with(mBinding){
+            btnSaveLocation.setOnClickListener { dialogConfirmLocation() }
             ibLocationClose.setOnClickListener { finish() }
         }
 
         fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
         fetchLocation()
+    }
+
+    /** Other Methods **/
+    private fun dialogConfirmLocation() {
+        val dialog = BaseDialog(
+            this@MarketLocationActivity,
+            getString(R.string.dialog_title_confirm_location),
+            getString(R.string.dialog_message_confirm_location),
+            getString(R.string.common_accept),
+            "",
+            {
+                val intent = Intent()
+                if (latitude > 0.0) {
+                    intent.putExtra(PUT_EXTRA_LATITUDE, latitude.toString())
+                    intent.putExtra(PUT_EXTRA_LONGITUDE, longitude.toString())
+                    intent.data = Uri.parse(intent.toString())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                } else {
+                    intent.putExtra(PUT_EXTRA_LATITUDE, currentLocation.latitude.toString())
+                    intent.putExtra(PUT_EXTRA_LONGITUDE, currentLocation.longitude.toString())
+                    intent.data = Uri.parse(intent.toString())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+            },
+            { Toast.makeText(this@MarketLocationActivity, "onCancel()", Toast.LENGTH_SHORT).show() },
+        )
+        dialog.show()
+    }
+
+    private fun dialogMapsAlertLocation(){
+        val dialog = BaseDialog(
+            this@MarketLocationActivity,
+            getString(R.string.dialog_title_before_select_location),
+            getString(R.string.dialog_message_before_select_location),
+            getString(R.string.common_accept),
+        )
+        dialog.show()
     }
 
     /** GoogleMaps SetUp **/
@@ -84,17 +97,16 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
             PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
             PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), permissionCode)
+
             return
         }
         val task = fusedLocationProviderClient.lastLocation
         task.addOnSuccessListener {
             if (it != null) {
                 currentLocation = it
-                Toast.makeText(applicationContext, currentLocation.latitude.toString() + " " +
-                        currentLocation.longitude, Toast.LENGTH_SHORT).show()
-                //Toast.makeText(applicationContext, "${currentLocation}", Toast.LENGTH_SHORT).show()
                 val supportMapFragment = (supportFragmentManager.findFragmentById(R.id.map) as
                         SupportMapFragment?)!!
                 supportMapFragment.getMapAsync(this)
@@ -104,7 +116,7 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
 
     override fun onMapReady(googleMap: GoogleMap) {
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
-        val markerOptions = MarkerOptions().position(latLng).title("You are here!").draggable(true)
+        val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title)).draggable(true)
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         googleMap.setMaxZoomPreference(17.5F)
         googleMap.setMinZoomPreference(17.5F)
@@ -143,5 +155,4 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
             }
         }
     }
-
 }

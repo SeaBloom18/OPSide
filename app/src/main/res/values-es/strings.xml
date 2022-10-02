@@ -50,7 +50,6 @@
     <string name="login_tv_forget_password">He olvidado mi contraseña</string>
     <string name="login_toast_credentials_validation">La contraseña o el correo esta incorrecto, verificalo!</string>
 
-
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>
     <string name="registration_hint_lastname">Apellidos(s)</string>
@@ -107,18 +106,20 @@
     <string name="registration_market_btn_save">Guardar Tianguis</string>
     <string name="registration_market_tv_location">Ubicación sin seleccionar</string>
     <string name="registration_market_tv_concessionaires">Número de concesionarios: 0</string>
-
     <string name="select_location_btn_save_address">Aceptar ubicación</string>
-
     <string name="bottom_sheet_conce_tv_title">Concesionarios del tianguis X</string>
     <string name="bottom_sheet_conce_tv_all">Ver lista completa</string>
     <string name="bottom_sheet_conce_btn_delete">Eliminar concesionario</string>
     <string name="bottom_sheet_conce_btn_see">Ver Concesionario</string>
     <string name="bottom_sheet_conce_hint_til">Nombre del concesionario</string>
-
     <string name="alert_dialog_delete_title">Eliminar Tianguis</string>
     <string name="alert_dialog_delete_message">¿Estás seguro de que quieres eliminar este tianguis?</string>
-    <string name="toast_delete_message_success">Market deleted</string>
+    <string name="toast_delete_message_success">Tianguis eliminado</string>
+    <string name="dialog_title_confirm_location">Confirmar ubicación</string>
+    <string name="dialog_message_confirm_location">¿Estás seguro de que esta ubicación es correcta?</string>
+    <string name="google_maps_market_title">Estás aquí!</string>
+    <string name="dialog_title_before_select_location">Seleccionar una ubicación para el tianguis</string>
+    <string name="dialog_message_before_select_location">Recuerde que tomamos su ubicación actual, si desea ajustar, haga clic y arrastre en la ubicación actual.</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Precio lineal</string>

@@ -109,18 +109,20 @@
     <string name="registration_market_btn_save">Save Market</string>
     <string name="registration_market_tv_location">Unselected location</string>
     <string name="registration_market_tv_concessionaires">Concessionaires counter: 0</string>
-
     <string name="select_location_btn_save_address">Save location</string>
-
     <string name="bottom_sheet_conce_tv_title">Market Concessionaires X</string>
     <string name="bottom_sheet_conce_tv_all">Watch complete list</string>
     <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
     <string name="bottom_sheet_conce_hint_til">Concessionaire Name</string>
-
     <string name="alert_dialog_delete_title">Delete Market</string>
     <string name="alert_dialog_delete_message">Are you sure to delete market?</string>
-    <string name="toast_delete_message_success">Tianguis eliminado</string>
+    <string name="toast_delete_message_success">Market deleted</string>
+    <string name="dialog_title_confirm_location">Confirm location</string>
+    <string name="dialog_message_confirm_location">Are you sure this location is correct?</string>
+    <string name="google_maps_market_title">You are here!</string>
+    <string name="dialog_title_before_select_location">Select a location for the swap meet</string>
+    <string name="dialog_message_before_select_location">Remember that we take your current location, if you want to adjust click and drag on the current location</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>

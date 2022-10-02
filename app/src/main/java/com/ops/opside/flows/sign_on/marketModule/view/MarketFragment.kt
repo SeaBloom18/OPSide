@@ -100,7 +100,7 @@ class MarketFragment : Fragment(), OnClickListener {
         }
     }
 
-    /** Interface Methods **/
+    /** Interface Methods and SetUp**/
     private fun confirmMarketDelete(marketId: String){
         val dialog = BaseDialog(
             requireActivity(),
@@ -118,7 +118,6 @@ class MarketFragment : Fragment(), OnClickListener {
         dialog.show()
     }
 
-    /** Interface **/
     override fun onDeleteMarket(marketId: String) {
         confirmMarketDelete(marketId)
     }
