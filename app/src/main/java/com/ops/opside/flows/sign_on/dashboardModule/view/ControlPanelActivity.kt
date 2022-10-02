@@ -122,6 +122,7 @@ class ControlPanelActivity : AppCompatActivity() {
     private fun confirmChanges() {
         val dialog = BaseDialog(
             this,
+            R.drawable.ic_store,
             getString(R.string.cp_alertdialog_title),
             getString(R.string.cp_alertdialog_message),
             getString(R.string.common_accept),

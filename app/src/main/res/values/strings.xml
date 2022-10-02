@@ -122,7 +122,7 @@
     <string name="dialog_message_confirm_location">Are you sure this location is correct?</string>
     <string name="google_maps_market_title">You are here!</string>
     <string name="dialog_title_before_select_location">Select a location for the swap meet</string>
-    <string name="dialog_message_before_select_location">Remember that we take your current location, if you want to adjust click and drag on the current location</string>
+    <string name="dialog_message_before_select_location">Remember that we take your current location, if you want to adjust click and drag on the current location.</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>

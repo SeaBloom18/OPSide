@@ -55,6 +55,7 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
     private fun dialogConfirmLocation() {
         val dialog = BaseDialog(
             this@MarketLocationActivity,
+            R.drawable.ic_ops_btn_confirm,
             getString(R.string.dialog_title_confirm_location),
             getString(R.string.dialog_message_confirm_location),
             getString(R.string.common_accept),
@@ -83,9 +84,10 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
     private fun dialogMapsAlertLocation(){
         val dialog = BaseDialog(
             this@MarketLocationActivity,
+            R.drawable.ic_item_gps,
             getString(R.string.dialog_title_before_select_location),
             getString(R.string.dialog_message_before_select_location),
-            getString(R.string.common_accept),
+            getString(R.string.common_accept)
         )
         dialog.show()
     }
