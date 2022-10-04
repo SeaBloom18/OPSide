@@ -75,6 +75,29 @@
         <item name="iconPadding">@dimen/common_padding_min</item>
     </style>
 
+    <!--Switch Style-->
+        <style name="CommonSwitchStyle1" parent="Widget.AppCompat.CompoundButton.Switch">
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_width">wrap_content</item>
+            <item name="android:thumb">@drawable/ic_ops_close_switch</item>
+            <item name="thumbTint">@color/warning</item>
+            <item name="thumbIconTint">@color/secondaryColor</item>
+            <item name="trackTint">@color/error</item>
+            <item name="trackDecorationTint">@color/info</item>
+            <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+            <item name="android:minHeight">?attr/minTouchTargetSize</item>
+        </style>
+
+    <style name="CommonSwitchStyle" >
+        <!--<item name="thumbIcon">@drawable/ic_ops_close_switch</item>-->
+        <item name="trackDecorationTint">@color/secondaryColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="thumbTint">@color/primaryDarkColor</item>
+        <item name="trackTint">#6D04BF7B</item>
+    </style>
+
     <style name="textViewTitleStyle">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:textSize">@dimen/title</item>

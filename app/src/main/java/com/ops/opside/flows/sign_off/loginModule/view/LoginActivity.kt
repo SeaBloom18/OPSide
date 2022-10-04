@@ -60,10 +60,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setEmailSP(){
         val userPref = mViewModel.isRememberMeChecked()
-        if (userPref.first){
-            mBinding.swRememberUser.isChecked = true
-            mBinding.teLoginEmail.setText(userPref.second)
+        with(mBinding){
+            if (userPref.first){
+                swRememberUser.isChecked = true
+                mBinding.teLoginEmail.setText(userPref.second)
+            }
         }
+
     }
 
     private fun getPasswordUserValidation(password: String){
