@@ -14,15 +14,15 @@ class LoginInteractor @Inject constructor(
     private lateinit var password: String
     private lateinit var userRole: String
 
-    /*fun isSPInitialized(): Boolean{
+    fun isSPInitialized(): Boolean{
         return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
 
     fun isRememberMeChecked(): Pair<Boolean, String?> {
         return Pair (sp.getBoolean(SP_REMEMBER_ME), sp.getString(SP_EMAIL))
-    }*/
+    }
 
-    fun initSP(email: String): Observable<String>{
+    fun initSP(email: String, rememberMe: Boolean): Observable<String>{
         userRole = ""
         return Observable.unsafeCreate { subscriber ->
             try {
@@ -37,10 +37,10 @@ class LoginInteractor @Inject constructor(
                                 userRole = document.data["role"].toString()
                                 if (document.data["isForeigner"] == true){
                                     sp.initPreferences(15.5f, name, email, idFirestore,
-                                        SP_FOREIGN_CONCE_ROLE, true, true)
+                                        SP_FOREIGN_CONCE_ROLE, true, rememberMe)
                                 } else {
                                     sp.initPreferences(15.5f, name, email, idFirestore,
-                                        SP_NORMAL_CONCE_ROLE, true, true)
+                                        SP_NORMAL_CONCE_ROLE, true, rememberMe)
                                 }
                                 subscriber.onNext(userRole)
                             }
@@ -54,7 +54,7 @@ class LoginInteractor @Inject constructor(
                                         val idFirestore = document.id
                                         userRole = document.data["role"].toString()
                                         sp.initPreferences(15.5f, name, email, idFirestore,
-                                            SP_COLLECTOR_ROLE, true, true)
+                                            SP_COLLECTOR_ROLE, true, rememberMe)
                                         subscriber.onNext(userRole)
                                     }
                                 }
