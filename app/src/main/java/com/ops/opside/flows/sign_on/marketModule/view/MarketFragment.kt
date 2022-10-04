@@ -104,7 +104,7 @@ class MarketFragment : Fragment(), OnClickListener {
     private fun confirmMarketDelete(marketId: String){
         val dialog = BaseDialog(
             requireActivity(),
-            R.drawable.ic_store,
+            R.drawable.ic_ops_delete,
             getString(R.string.alert_dialog_delete_title),
             getString(R.string.alert_dialog_delete_message),
             getString(R.string.common_delete),

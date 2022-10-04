@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilRegEmail"
+                android:id="@+id/tilUserName"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 app:startIconDrawable="@drawable/ic_ops_user">
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"
-                    android:id="@+id/teRegEmail"
+                    android:id="@+id/teUserName"
                     android:inputType="textPersonName"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -72,9 +72,9 @@
                 android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
-                app:layout_constraintEnd_toEndOf="@+id/tilRegEmail"
-                app:layout_constraintStart_toStartOf="@+id/tilRegEmail"
-                app:layout_constraintTop_toBottomOf="@+id/tilRegEmail">
+                app:layout_constraintEnd_toEndOf="@+id/tilUserName"
+                app:layout_constraintStart_toStartOf="@+id/tilUserName"
+                app:layout_constraintTop_toBottomOf="@+id/tilUserName">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"

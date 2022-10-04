@@ -3,23 +3,23 @@
     <item
         android:id="@+id/navigation_market"
         android:enabled="true"
-        android:icon="@drawable/ic_bn_market"
+        android:icon="@drawable/ic_ops_store"
         android:title="@string/bn_menu_market_opc1"/>
     <item
         android:id="@+id/navigation_concessionaire"
         android:enabled="true"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_ops_user"
         android:title="@string/bn_menu_concessionaire_opc2"/>
 
     <item
         android:id="@+id/navigation_dashBoard"
         android:enabled="true"
-        android:icon="@drawable/ic_bn_dollar"
+        android:icon="@drawable/ic_ops_payments"
         android:title="@string/bn_menu_tax_collection_opc3"/>
 
     <item
         android:id="@+id/navigation_incidents"
         android:enabled="true"
-        android:icon="@drawable/ic_bn_exclamation_mark"
+        android:icon="@drawable/ic_ops_warning"
         android:title="@string/bn_menu_incidents_opc5"/>
 </menu>

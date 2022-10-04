@@ -19,11 +19,11 @@
 
         <ImageView
             android:id="@+id/ivMarketItem"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_marginStart="16dp"
             android:contentDescription="@string/common_content_description"
-            android:src="@drawable/ic_store"
+            android:src="@drawable/google_maps"
             app:layout_constraintBottom_toBottomOf="@+id/tvItemConcessionaires"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvMarketName" />
@@ -45,11 +45,13 @@
             tools:text="Market Itxtlahuacan" />
 
         <TextView
-            android:id="@+id/tvItemAddress"
             style="@style/textViewBodyStyle"
+            android:id="@+id/tvItemAddress"
             android:layout_width="0dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@+id/tvMarketName"
             app:layout_constraintStart_toStartOf="@+id/tvMarketName"
             app:layout_constraintTop_toBottomOf="@+id/tvMarketName"
@@ -72,9 +74,9 @@
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/common_content_description"
-            android:src="@drawable/ic_item_delete"
+            android:src="@drawable/ic_ops_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -83,21 +85,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/common_content_description"
-            android:src="@drawable/ic_item_edit"
+            android:src="@drawable/ic_ops_edit"
             app:layout_constraintBottom_toTopOf="@+id/ivDelete"
             app:layout_constraintEnd_toEndOf="@+id/ivDelete"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/ivDelete"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--<androidx.constraintlayout.widget.Group
-            android:id="@+id/group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="imageView2, imageView4, tvItemAddress,tvItemConcessionaires,ivEdit,ivDelete"
-            tools:visibility="visible" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
