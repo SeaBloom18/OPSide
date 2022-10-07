@@ -5,18 +5,18 @@
     <item
         android:id="@+id/taxProfile"
         android:title="@string/dashboard_user_profile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_ops_user"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/taxNotification"
         android:title="@string/dashboard_user_profile"
-        android:icon="@drawable/ic_bell"
+        android:icon="@drawable/ic_ops_notifications"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/taxSettings"
         android:title="@string/dashboard_user_profile"
-        android:icon="@drawable/ic_setting"
+        android:icon="@drawable/ic_ops_settings"
         app:showAsAction="ifRoom"/>
 </menu>

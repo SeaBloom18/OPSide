@@ -9,7 +9,8 @@ data class MarketFE(
     var address: String = "",
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
-    var concessionaires: MutableList<String> = mutableListOf()
+    var concessionaires: MutableList<String> = mutableListOf(),
+    var isDeleted: Boolean = false
 ){
     fun getHashMap(): MutableMap<String,Any>{
         val map: MutableMap<String,Any> = mutableMapOf()
@@ -19,6 +20,7 @@ data class MarketFE(
         map["latitude"] = latitude
         map["longitude"] = longitude
         map["concessionaires"] = concessionaires
+        map["isDeleted"] = isDeleted
 
         return map
     }
@@ -30,7 +32,8 @@ data class MarketFE(
             address,
             latitude.orZero(),
             longitude.orZero(),
-            concessionaires.size.orZero()
+            concessionaires.size.orZero(),
+            isDeleted.not()
         )
     }
 }

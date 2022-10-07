@@ -10,26 +10,22 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
-import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.Constants
+import com.ops.opside.common.utils.launchActivity
+import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionModule.view.EmailSender
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 import java.util.zip.CRC32
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
-
-    @Inject
-    lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,92 +36,67 @@ class LoginActivity : AppCompatActivity() {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
             btnLogin.setOnClickListener {
-                /*val email = mBinding.teLoginEmail.text.toString().trim()
+                val email = mBinding.teLoginEmail.text.toString().trim()
                 val password = mBinding.tePassword.text.toString().trim()
                 if (email.isNotEmpty() && password.isNotEmpty()){
                     mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
                 } else {
                     Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
-                }*/
-
-                if (preferences.getBoolean(SP_IS_INITIALIZED).not())
-                    preferences.initPreferences(
-                        12.5f,
-                        "Mario Armando Razo Valenzuela",
-                        "mario.v.r404@gmail.com",
-                        "ajdfjadkfaks",
-                        5,
-                        true,
-                        true
-                    )
-
-                launchActivity<MainActivity> {}
+                }
             }
-            tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> { } }
+            tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }
 
         bindViewModel()
         setEmailSP()
-
-        GlobalScope.launch{
-           sendEmail()
-        }
-    }
-
-    suspend fun sendEmail() {
-        coroutineScope {
-            launch(Dispatchers.IO) {
-                EmailSender.send()
-            }
-        }
     }
 
     /**ViewModel SetUp**/
-    private fun bindViewModel() {
+    private fun bindViewModel(){
         mViewModel.getUserLogin.observe(this, Observer(this::getPasswordUserValidation))
         mViewModel.getUserRole.observe(this, Observer(this::getUserRole))
         mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
     }
 
-    private fun setEmailSP() {
+    private fun setEmailSP(){
         val userPref = mViewModel.isRememberMeChecked()
-        if (userPref.first) {
-            mBinding.swRememberUser.isChecked = true
-            mBinding.teLoginEmail.setText(userPref.second)
+        with(mBinding){
+            if (userPref.first){
+                swRememberUser.isChecked = true
+                mBinding.teLoginEmail.setText(userPref.second)
+            }
         }
+
     }
 
-    private fun getPasswordUserValidation(password: String) {
+    private fun getPasswordUserValidation(password: String){
         passwordUserValidation(password)
     }
 
-    private fun getUserRole(userRole: String) {
+    private fun getUserRole(userRole: String){
         userRoleValidation(userRole)
     }
 
-    private fun userRoleValidation(userRole: String) {
+    private fun userRoleValidation(userRole: String){
         Log.d("userRole", userRole)
-        if (userRole == "1" || userRole == "2") {
-            launchActivity<DealerActivity> { }
+        if (userRole == "1" || userRole == "2"){
+            launchActivity<DealerActivity> {  }
         } else {
-            launchActivity<MainActivity> { }
+            launchActivity<MainActivity> {  }
         }
     }
 
-    private fun passwordUserValidation(passwordFs: String) {
+    private fun passwordUserValidation(passwordFs: String){
         var password = mBinding.tePassword.text.toString().trim()
         val crc32 = CRC32()
         crc32.update(password.toByteArray())
         password = String.format("%08X", crc32.value)
-        if (passwordFs != password) {
-            Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT)
-                .show()
+        if (passwordFs != password){
+            Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
         } else {
+            mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
             if (mViewModel.isSPInitialized())
-                mViewModel.initSP(
-                    mBinding.teLoginEmail.text.toString().trim(),
-                    mBinding.swRememberUser.isChecked
-                )
+                mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
         }
     }
 
