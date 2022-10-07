@@ -12,8 +12,6 @@ import com.ops.opside.common.utils.FORMAT_TIME
 import com.ops.opside.common.utils.FORMAT_TIMESTAMP
 import com.ops.opside.common.utils.Formaters
 import com.ops.opside.databinding.ItemRecordTaxCollectionBinding
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
-import java.text.Format
 
 class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
     RecyclerView.Adapter<RecordTaxCollectionAdapter.ViewHolder>() {
@@ -45,6 +43,9 @@ class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
                 tvAction.text = item.status
                 tvAmount.text = "$ ${item.amount}"
 
+                if (adapterPosition == itemCount - 1)
+                    divider.isVisible = false
+
                 when(item.status){
                     FLOOR_COLLECTION -> {
                         tvAction.setTextColor(mContext.getColor(R.color.secondaryLightColor))
@@ -64,6 +65,7 @@ class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
             }
         }
     }
+
 }
 
 const val FLOOR_COLLECTION = "Cobro de Piso"

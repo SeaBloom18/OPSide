@@ -7,6 +7,7 @@ import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.zxing.integration.android.IntentIntegrator
@@ -23,7 +24,6 @@ import com.ops.opside.common.utils.*
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_off.loginModule.view.LoginActivity
-import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
@@ -81,7 +81,20 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     }
 
     private fun initRegisterForeignerConcessionaire(): Boolean {
-        launchActivity<RegistrationActivity> { }
+        val dialog = BottomSheetForeignerAttendance {
+
+            mConcessionairesMap[it.idFirebase] = it.parseToSE()
+            mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessRE(
+                idMarket = mSelectedMarket.idFirebase,
+                idConcessionaire = it.idFirebase,
+                idFirebase = ID.getTemporalId(),
+                linearMeters = it.linearMeters,
+                lineBusiness = it.lineBusiness
+            )
+            chargeDay(FLOOR_COLLECTION, it.idFirebase)
+        }
+
+        dialog.show(supportFragmentManager, dialog.tag)
         return false
     }
 
@@ -119,6 +132,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         mViewModel.initTaxCollection.observe(this, Observer(this::isInitializedTaxCollection))
         mViewModel.persistMarketSE.observe(this, Observer(this::isAddedMarket))
         mViewModel.updateTaxCollection.observe(this, Observer(this::taxCollectionDataUpdated))
+        mViewModel.revertEvent.observe(this, Observer(this::eventWasReverted))
     }
 
     private fun initTaxCollection() {
@@ -152,17 +166,23 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         val dialog = BaseDialog(
             context = this,
             mTitle = getString(R.string.common_atention),
-            mDescription = "Tienes una recolección abierta\n¿Deseas continuarla?",
+            mDescription = "Tienes una recolección abierta\n¿Deseas continuarla?\n\nNota: No puedes tener 2 recolecciones abiertas del mismo tianguis",
             buttonYesText = getString(R.string.common_accept),
             buttonNoText = getString(R.string.common_cancel),
             yesAction = {
                 mOpenedTaxCollection = taxCollection
-                setProgress(mOpenedTaxCollection.totalAmount)
+                mTotalAmount = mOpenedTaxCollection.totalAmount
+                updateProgress()
 
                 mViewModel.addMarket(mSelectedMarket)
             },
             noAction = {
-                initTaxCollection()
+                Toast.makeText(
+                    this,
+                    "Envía la información actual almacenada o eliminala",
+                    Toast.LENGTH_LONG
+                ).show()
+                bsdPickMarket()
             }
         )
 
@@ -228,7 +248,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     private fun isAddedMarket(isAdded: Boolean) {
         if (isAdded) {
             if (mIsOnLineMode)
-                mViewModel.getConcessionairesFEList(mSelectedMarket.idFirebase)
+                mViewModel.getConcessionairesFEList()
             else
                 populateMaps()
 
@@ -259,10 +279,8 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         }
     }
 
-    private fun setProgress(amount: Double) {
-        mBinding.chartTaxMoney.setProgressWithAnimation((amount).toFloat(), 4000)
-
-        mTotalAmount += amount
+    private fun updateProgress() {
+        mBinding.chartTaxMoney.setProgressWithAnimation((mTotalAmount).toFloat(), 4000)
         mBinding.tvTotalAmount.text = "$ $mTotalAmount"
     }
 
@@ -320,18 +338,6 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         dialog.show(supportFragmentManager, dialog.tag)
     }
 
-    override fun hideButtons() {
-        mBinding.btnFinalize.visibility = View.GONE
-        mBinding.btnScan.visibility = View.GONE
-        mBinding.fabRecord.visibility = View.GONE
-    }
-
-    override fun showButtons() {
-        mBinding.btnFinalize.visibility = View.VISIBLE
-        mBinding.btnScan.visibility = View.VISIBLE
-        mBinding.fabRecord.visibility = View.VISIBLE
-    }
-
     private fun initScanner() {
         val integrator = IntentIntegrator(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
@@ -382,11 +388,11 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
                             createNewEvent(
                                 status = status,
-                                foreignIdRow = "",
+                                foreignIdRow = it.second.idFirebase,
                                 idConcessionaire = idConcessionaire,
                                 nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name
                                     ?: "",
-                                0.0
+                                amount = 0.0
                             )
 
                         } else {
@@ -429,42 +435,62 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         mViewModel.createEvent(event)
     }
 
+    private fun setLabelTexts(
+        name: String,
+        linearMeters: String,
+        lineBusiness: String,
+        amount: String,
+        status: String,
+        @ColorRes color: Int = getColor(R.color.secondaryColor)
+    ) {
+        with(mBinding) {
+            etDealerName.setText(name)
+            etLinearMeters.setText(linearMeters)
+            etLineOfBusiness.setText(lineBusiness)
+            etTotalAmount.setText(amount)
+            etStatus.setText(status)
+            etStatus.setTextColor(color)
+        }
+    }
+
     private fun chargeDay(status: String, idConcessionaire: String) {
         val concessionaire = mConcessionairesMap[idConcessionaire]
         val participating = mParticipatingConcessMap[idConcessionaire]
 
         if (concessionaire != null && participating != null) {
-            with(mBinding) {
-                try {
-                    etDealerName.setText(concessionaire.name)
-                    etLinearMeters.setText(participating.linearMeters.toString())
-                    etLineOfBusiness.setText(participating.lineBusiness)
-                    etStatus.setText(status)
-                    etStatus.setTextColor(getColor(R.color.secondaryColor))
 
-                    val amount = (participating.linearMeters * mPriceLinearMeter).orZero()
-                    etTotalAmount.setText(amount.toString())
+            try {
+                val amount = (participating.linearMeters * mPriceLinearMeter).orZero()
+                mTotalAmount += amount
 
-                    setProgress(amount)
+                setLabelTexts(
+                    name = concessionaire.name,
+                    linearMeters = participating.linearMeters.toString(),
+                    lineBusiness = participating.lineBusiness,
+                    amount = amount.toString(),
+                    status
+                )
 
-                    mOpenedTaxCollection.totalAmount += amount
-                    mViewModel.updateTaxCollection(mOpenedTaxCollection)
+                updateProgress()
 
-                    createNewEvent(
-                        status = FLOOR_COLLECTION,
-                        foreignIdRow = "",
-                        idConcessionaire = idConcessionaire,
-                        nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name ?: "",
-                        amount = amount
-                    )
+                mOpenedTaxCollection.totalAmount = mTotalAmount
+                mViewModel.updateTaxCollection(mOpenedTaxCollection)
 
-                    mConcessionairesMap[idConcessionaire]?.wasPaid = true
-                } catch (e: Exception) {
+                createNewEvent(
+                    status = FLOOR_COLLECTION,
+                    foreignIdRow = "",
+                    idConcessionaire = idConcessionaire,
+                    nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name ?: "",
+                    amount = amount
+                )
 
-                }
+                mConcessionairesMap[idConcessionaire]?.wasPaid = true
+            } catch (e: Exception) {
+
             }
         }
     }
+
 
     private fun taxCollectionDataUpdated(itWasUpdate: Boolean) {
         if (itWasUpdate.not()) {
@@ -473,5 +499,65 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         }
     }
 
+    private fun eventWasReverted(itWas: Boolean) {
+        if (itWas.not()) {
+            Toast.makeText(this, "No se pudo revertir el evento", Toast.LENGTH_SHORT).show()
+        }
+    }
 
+    private fun revertCollection(event: EventRE) {
+        val concessionaire = mConcessionairesMap[event.idConcessionaire]
+        val participating = mParticipatingConcessMap[event.idConcessionaire]
+
+        if (concessionaire != null && participating != null) {
+            val amount = (participating.linearMeters * mPriceLinearMeter).orZero()
+
+            mTotalAmount -= amount
+
+            updateProgress()
+
+            mOpenedTaxCollection.totalAmount = mTotalAmount
+            mViewModel.updateTaxCollection(mOpenedTaxCollection)
+
+            mConcessionairesMap[event.idConcessionaire]?.wasPaid = false
+        }
+    }
+
+    /*
+    TaxCollectionAuxListener
+     */
+
+    override fun hideButtons() {
+        mBinding.btnFinalize.visibility = View.GONE
+        mBinding.btnScan.visibility = View.GONE
+        mBinding.fabRecord.visibility = View.GONE
+    }
+
+    override fun showButtons() {
+        mBinding.btnFinalize.visibility = View.VISIBLE
+        mBinding.btnScan.visibility = View.VISIBLE
+        mBinding.fabRecord.visibility = View.VISIBLE
+    }
+
+    override fun revertEvent(event: EventRE) {
+        when (event.status) {
+            ADDED -> {
+                mViewModel.revertRelatedConcess(event.foreignIdRow)
+            }
+            FLOOR_COLLECTION -> {
+                revertCollection(event)
+            }
+            else -> {
+                Toast.makeText(this, "Evento desconocido", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        setLabelTexts(
+            name = "",
+            linearMeters = "",
+            lineBusiness = "",
+            amount = "",
+            status = ""
+        )
+    }
 }

@@ -122,6 +122,10 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activityKtxVersion"
     kapt "com.google.dagger:hilt-compiler:$daggerHiltVersion"
 
+    //SMTP
+    implementation 'com.sun.mail:android-mail:1.5.5'
+    implementation 'com.sun.mail:android-activation:1.5.5'
+
 }
 
 secrets{

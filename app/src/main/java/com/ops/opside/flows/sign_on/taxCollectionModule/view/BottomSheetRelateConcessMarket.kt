@@ -74,12 +74,6 @@ class BottomSheetRelateConcessMarket(
     }
 
     private fun isPersisted(isPersisted: Boolean) {
-        /*var statusString = if (isPersisted.not())
-            "- No se pudo agregar el concesionario"
-         else
-             "-Agregado al tianguis"*/
-
-
         status.invoke(Pair(isPersisted, participatingConcess))
         dismiss()
     }
