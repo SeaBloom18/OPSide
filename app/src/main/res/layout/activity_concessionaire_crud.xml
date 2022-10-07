@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding_default"
             android:layout_marginEnd="@dimen/common_padding_default"
-            android:src="@drawable/ic_close_regist_screen"
+            android:src="@drawable/ic_close_reg_screen"
             android:backgroundTint="@color/fui_transparent"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"

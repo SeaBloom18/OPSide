@@ -34,4 +34,19 @@ class MarketRegisterViewModel @Inject constructor(
                 )
         )
     }
+
+    fun updateMarket(idFirestore: String, name: String, address: String, latitude: Double,
+                     longitude: Double){
+        disposable.add(
+            mMarketRegisterInteractor.updateMarket(idFirestore, name, address, latitude, longitude).applySchedulers()
+                .subscribe(
+                    {
+                        registerMarket.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
 }

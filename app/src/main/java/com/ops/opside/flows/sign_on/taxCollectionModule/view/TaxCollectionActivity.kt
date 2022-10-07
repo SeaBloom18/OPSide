@@ -366,6 +366,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         if (mParticipatingConcessMap.containsKey(idConcessionaire).not()) {
             val alert = BaseDialog(
                 this,
+                R.drawable.ic_store,
                 getString(R.string.common_atention),
                 "El usuario no está dado de alta en este tianguis.\n¿Deseas agregarlo?",
                 getString(R.string.common_accept),

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
@@ -60,6 +61,7 @@ fun AppCompatActivity.launchActivity(
 fun AppCompatActivity.showError(message: String){
     val dialog = BaseDialog(
         this,
+        R.drawable.ic_store,
         getString(R.string.common_atention),
         message,
         getString(R.string.common_cancel)
@@ -71,6 +73,7 @@ fun AppCompatActivity.showError(message: String){
 fun Fragment.showError(message: String){
     val dialog = BaseDialog(
         requireContext(),
+        R.drawable.ic_store,
         getString(R.string.common_atention),
         message,
         getString(R.string.common_cancel)
@@ -119,5 +122,9 @@ fun Fragment.launchActivity(
 
 fun TextInputEditText.clear(){
     text?.clear()
+}
+
+fun TextInputLayout.error(){
+    error = null
 }
 

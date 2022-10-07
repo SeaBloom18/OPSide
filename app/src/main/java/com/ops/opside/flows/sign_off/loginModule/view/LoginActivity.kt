@@ -60,10 +60,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setEmailSP(){
         val userPref = mViewModel.isRememberMeChecked()
-        if (userPref.first){
-            mBinding.swRememberUser.isChecked = true
-            mBinding.teLoginEmail.setText(userPref.second)
+        with(mBinding){
+            if (userPref.first){
+                swRememberUser.isChecked = true
+                mBinding.teLoginEmail.setText(userPref.second)
+            }
         }
+
     }
 
     private fun getPasswordUserValidation(password: String){
@@ -91,6 +94,7 @@ class LoginActivity : AppCompatActivity() {
         if (passwordFs != password){
             Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
         } else {
+            mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
             if (mViewModel.isSPInitialized())
                 mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
         }

@@ -5,11 +5,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.ops.opside.R
 import com.ops.opside.databinding.DialogBaseBinding
 
 class BaseDialog(
     context: Context,
+    private val imageResource: Int = 0,
     private val mTitle: String,
     private val mDescription: String,
     private val buttonYesText: String = "",
@@ -28,6 +31,7 @@ class BaseDialog(
         binding.apply {
             tvTitle.text = mTitle
             tvDescription.text = mDescription
+            ivDialog.setImageResource(imageResource)
             btnYes.text = buttonYesText
             btnNo.text = buttonNoText
             btnNo.isVisible = buttonNoText.isNotEmpty()

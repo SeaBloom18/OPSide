@@ -6,11 +6,16 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.marketModule.model.MarketInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MarketViewModel: CommonViewModel() {
+@HiltViewModel
+class MarketViewModel @Inject constructor(
+    private val mMarketInteractor: MarketInteractor
+): CommonViewModel() {
 
-    private val mMarketInteractor = MarketInteractor()
     val getMarketList = MutableLiveData<MutableList<MarketSE>>()
+    val deleteMarket = MutableLiveData<Boolean>()
 
     fun getMarketList(){
         disposable.add(
@@ -18,6 +23,20 @@ class MarketViewModel: CommonViewModel() {
                 .subscribe(
                     {
                         getMarketList.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun deleteMarket(idFirestore: String){
+        disposable.add(
+            mMarketInteractor.deleteMarket(idFirestore).applySchedulers()
+                .subscribe(
+                    {
+                        deleteMarket.value = it
                     },
                     {
                         Log.e("Error", it.toString())

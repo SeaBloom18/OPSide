@@ -28,6 +28,7 @@ import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.clear
+import com.ops.opside.common.utils.error
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -170,7 +171,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun concessionaireViewModel(): Boolean {
         var isValid = false
-        if(validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilAddress,
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation), Toast.LENGTH_SHORT).show()
@@ -180,7 +181,7 @@ class RegistrationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 } else {
                     with(mConcessionaireFE){
-                        name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
@@ -200,14 +201,14 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun foreignConcessionaireViewModel(): Boolean {
         var isValid = false
-        if(validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilEmail,
+        if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
                 mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
                     Toast.LENGTH_SHORT).show()
             } else {
                 with(mConcessionaireFE){
-                    name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                    name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                     email = mBinding.teEmail.text.toString().trim()
                     origin = mBinding.teOrigin.text.toString()
                     isForeigner = true
@@ -222,7 +223,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun collectorViewModel(): Boolean{
         var isValid = false
-        if (validateFields(mBinding.tilRegEmail, mBinding.tilLastName, mBinding.tilAddress,
+        if (validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 Toast.makeText(this, getString(R.string.registration_toast_email_validation),
@@ -233,7 +234,7 @@ class RegistrationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 } else {
                     with(mCollectorFE){
-                        name = "${mBinding.teRegEmail.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
@@ -288,7 +289,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun setupTextFields() {
         with(mBinding){
-            teRegEmail.addTextChangedListener { validateFields(tilRegEmail) }
+            teUserName.addTextChangedListener { validateFields(tilUserName) }
             teLastName.addTextChangedListener { validateFields(tilLastName) }
             teAddress.addTextChangedListener { validateFields(tilAddress) }
             tePhone.addTextChangedListener { validateFields(tilPhone) }
@@ -366,8 +367,8 @@ class RegistrationActivity : AppCompatActivity() {
     private fun registerGeneralSetUp(){
         with(mBinding){
             tvFormTitle.visibility = View.VISIBLE
-            teRegEmail.visibility = View.VISIBLE
-            tilRegEmail.visibility = View.VISIBLE
+            teUserName.visibility = View.VISIBLE
+            tilUserName.visibility = View.VISIBLE
             teLastName.visibility = View.VISIBLE
             tilLastName.visibility = View.VISIBLE
             teAddress.visibility = View.VISIBLE
@@ -413,13 +414,26 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun cleanEditText(){
         with(mBinding){
-            teRegEmail.clear()
+            teUserName.clear()
+            tilUserName.error()
+
             teLastName.clear()
+            tilLastName.error()
+
             teAddress.clear()
+            tilAddress.error()
+
             tePhone.clear()
+            tilPhone.error()
+
             teEmail.clear()
+            tilEmail.error()
+
             tePassword.clear()
+            tilPassword.error()
+
             tePasswordConfirm.clear()
+            tilPasswordConfirm.error()
         }
     }
 
