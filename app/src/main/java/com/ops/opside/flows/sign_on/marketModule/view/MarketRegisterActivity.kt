@@ -39,6 +39,9 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
+import com.ops.opside.databinding.ActivityTaxCollectionBinding
+import com.ops.opside.flows.sign_on.incidentsModule.view.BottomSheetIncidentsList
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -47,7 +50,11 @@ import java.util.*
 @AndroidEntryPoint
 class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mBinding: ActivityMarketRegisterBinding
+    private val mBinding: ActivityMarketRegisterBinding by lazy {
+        ActivityMarketRegisterBinding.inflate(layoutInflater)
+    }
+    //private lateinit var mBinding: ActivityMarketRegisterBinding
+    private lateinit var mActivity: MainActivity
     private val concessionaires = arrayOf("David", "Mario", "Juan", "Luis")
 
     private val mViewModel: MarketRegisterViewModel by viewModels()
@@ -100,7 +107,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityMarketRegisterBinding.inflate(layoutInflater)
+        //mBinding = ActivityMarketRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {
@@ -200,7 +207,6 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.d("marketSerializable", marketSE.toString())
         mBinding.teMarketName.setText(marketSE.name)
         mBinding.tvAddressSelection.text = marketSE.address
-        mBinding.tvConcessionaireNumber.text = marketSE.numberConcessionaires.toString()
         mBinding.btnSelectLocation.text = getString(R.string.btn_text_edit)
         latitudeMaps = marketSE.latitude
         longitudeMaps = marketSE.longitude
@@ -208,7 +214,9 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun viewConcessionaire() {
-        val dialog = BottomSheetDialog(this)
+        val dialog = BottomSheetConcessionaireList()
+        dialog.show(supportFragmentManager, dialog.tag)
+        /*val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_show_concess, null)
 
         val autoCompUserName = view.findViewById<AutoCompleteTextView>(R.id.acUserName)
@@ -230,7 +238,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         dialog.setContentView(view)
-        dialog.show()
+        dialog.show()*/
     }
 
     private fun editModeMarketValidation() {
@@ -240,17 +248,11 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
             setFieldsIsEditMode(mMarketSE!!)
         } else {
             mBinding.btnViewConce.visibility = View.GONE
-            mBinding.tvConcessionaireNumber.visibility = View.GONE
         }
     }
 
     /** GoogleMaps SetUp**/
     override fun onMapReady(googleMap: GoogleMap) {
-        //20.348917, -103.194615
-       /* if (latitudeMaps < 0.0)
-            latLng = LatLng(latitudeMaps, longitudeMaps)
-        else
-            latLng = LatLng(20.348917, -103.194615)*/
         val latLng = LatLng(20.348917, -103.194615)
         val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))

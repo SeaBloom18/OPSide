@@ -8,6 +8,7 @@
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_market_register.xml" value="0.22" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market_list.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/alert_dialog_success_registration.xml" value="0.136" />
+        <entry key="app/src/main/res/drawable/ic_absence.xml" value="0.3265" />
         <entry key="app/src/main/res/drawable/ic_arrow_forward.xml" value="0.2415" />
         <entry key="app/src/main/res/drawable/ic_bell.xml" value="0.2525" />
         <entry key="app/src/main/res/drawable/ic_bn_exclamation_mark.xml" value="0.2445" />
@@ -46,6 +47,7 @@
         <entry key="app/src/main/res/drawable/states_color_text_fields.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/states_colors_text_field.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.2665" />
+        <entry key="app/src/main/res/layout/activity_bottom_sheet_concessionaires_list.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.3188034188034188" />
         <entry key="app/src/main/res/layout/activity_control_panel.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.3703125" />
@@ -71,11 +73,13 @@
         <entry key="app/src/main/res/layout/bottom_sheet_pick_tianguis.xml" value="0.33034188034188033" />
         <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.21" />
         <entry key="app/src/main/res/layout/bottom_sheet_see_incidents.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/bottom_sheet_show_concess.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/bottom_sheet_show_global_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_sheet_show_qr.xml" value="0.18717948717948718" />
         <entry key="app/src/main/res/layout/bottom_sheet_success_registration.xml" value="0.22" />
         <entry key="app/src/main/res/layout/dialog_base.xml" value="0.3188034188034188" />
         <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_concessionaire_list.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/fragment_concessionaire.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_control_panel.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.25" />

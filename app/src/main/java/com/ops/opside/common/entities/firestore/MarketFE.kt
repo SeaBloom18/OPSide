@@ -32,7 +32,7 @@ data class MarketFE(
             address,
             latitude.orZero(),
             longitude.orZero(),
-            concessionaires.size.orZero(),
+            concessionaires.toString(),
             isDeleted.not()
         )
     }

@@ -24,7 +24,7 @@
             android:layout_marginStart="16dp"
             android:contentDescription="@string/common_content_description"
             android:src="@drawable/google_maps"
-            app:layout_constraintBottom_toBottomOf="@+id/tvItemConcessionaires"
+            app:layout_constraintBottom_toBottomOf="@+id/tvItemAddress"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvMarketName" />
 
@@ -56,17 +56,6 @@
             app:layout_constraintStart_toStartOf="@+id/tvMarketName"
             app:layout_constraintTop_toBottomOf="@+id/tvMarketName"
             tools:text="Direccion generica" />
-
-        <TextView
-            android:id="@+id/tvItemConcessionaires"
-            style="@style/textViewBodyStyle"
-            android:layout_width="0dp"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/montserrat_medium"
-            app:layout_constraintEnd_toEndOf="@+id/tvItemAddress"
-            app:layout_constraintStart_toStartOf="@+id/tvItemAddress"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemAddress"
-            tools:text="70 Concessionaires" />
 
         <ImageButton
             android:id="@+id/ivDelete"

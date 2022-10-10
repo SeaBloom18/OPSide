@@ -53,14 +53,6 @@
         <item name="android:textCursorDrawable">@null</item>
     </style>
 
-    <style name="TextInputLayoutStyleAuto" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="android:textColorHint">@color/primaryTextColor</item>
-        <item name="endIconTint">@color/primaryTextColor</item>
-        <item name="hintTextColor">@color/primaryTextColor</item>
-        <item name="helperTextTextColor">@color/primaryTextColor</item>
-        <item name="fontFamily">@font/montserrat_medium</item>
-    </style>
-
     <!--Button Style-->
     <style name="CommonButtonStyle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="iconTint">@color/secondaryColor</item>
@@ -76,17 +68,6 @@
     </style>
 
     <!--Switch Style-->
-        <style name="CommonSwitchStyle1" parent="Widget.AppCompat.CompoundButton.Switch">
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:thumb">@drawable/ic_ops_close_switch</item>
-            <item name="thumbTint">@color/warning</item>
-            <item name="thumbIconTint">@color/secondaryColor</item>
-            <item name="trackTint">@color/error</item>
-            <item name="trackDecorationTint">@color/info</item>
-            <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
-            <item name="android:minHeight">?attr/minTouchTargetSize</item>
-        </style>
 
     <style name="CommonSwitchStyle" >
         <!--<item name="thumbIcon">@drawable/ic_ops_close_switch</item>-->
