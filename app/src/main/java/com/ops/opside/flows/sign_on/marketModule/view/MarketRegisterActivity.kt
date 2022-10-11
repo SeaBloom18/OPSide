@@ -11,14 +11,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.Group
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -39,9 +36,8 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
-import com.ops.opside.databinding.ActivityTaxCollectionBinding
-import com.ops.opside.flows.sign_on.incidentsModule.view.BottomSheetIncidentsList
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -53,11 +49,11 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private val mBinding: ActivityMarketRegisterBinding by lazy {
         ActivityMarketRegisterBinding.inflate(layoutInflater)
     }
-    //private lateinit var mBinding: ActivityMarketRegisterBinding
     private lateinit var mActivity: MainActivity
     private val concessionaires = arrayOf("David", "Mario", "Juan", "Luis")
 
-    private val mViewModel: MarketRegisterViewModel by viewModels()
+    private val mMarketRegViewModel: MarketRegisterViewModel by viewModels()
+    private val mConcessionaireListViewModel: ConcessionaireListViewModel by viewModels()
     private var mMarketFE: MarketFE = MarketFE()
     private var mMarketSE: MarketSE? = null
 
@@ -119,7 +115,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
             btnSaveMarket.setOnClickListener {
                 if (saveMarket()){
                     if (mMarketSE != null){
-                        mViewModel.updateMarket(
+                        mMarketRegViewModel.updateMarket(
                             idFirestore = mMarketSE!!.idFirebase,
                             name = mMarketFE.name,
                             address = mMarketFE.address,
@@ -127,7 +123,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
                             longitude = longitudeMaps)
                         finish()
                     } else{
-                        mViewModel.insertMarket(mMarketFE)
+                        mMarketRegViewModel.insertMarket(mMarketFE)
                         finish()
                     }
                 }
@@ -214,31 +210,9 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun viewConcessionaire() {
+        mConcessionaireListViewModel.getMarketId(mMarketSE!!.idFirebase)
         val dialog = BottomSheetConcessionaireList()
         dialog.show(supportFragmentManager, dialog.tag)
-        /*val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_concess, null)
-
-        val autoCompUserName = view.findViewById<AutoCompleteTextView>(R.id.acUserName)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, concessionaires)
-        autoCompUserName.setAdapter(adapter)
-
-        val group = view.findViewById<Group>(R.id.groupConce)
-
-        val textViewList = view.findViewById<TextView>(R.id.tvViewAllConcess)
-        textViewList.setOnClickListener {
-            if (group.visibility == View.VISIBLE){ //Si la vista esta oculta
-                //TransitionManager.beginDelayedTransition(holder.binding.marketCardView)
-                group.visibility = View.GONE
-                //holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_up)
-            } else{ //Si la vista esta expuesta
-                //TransitionManager.endTransitions(holder.binding.marketCardView)
-                group.visibility = View.VISIBLE
-                //holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
-            }
-        }
-        dialog.setContentView(view)
-        dialog.show()*/
     }
 
     private fun editModeMarketValidation() {

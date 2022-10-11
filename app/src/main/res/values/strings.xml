@@ -102,7 +102,7 @@
     <string name="registration_market_btn_save">Save Market</string>
     <string name="registration_market_tv_concessionaires">Concessionaires counter: 0</string>
     <string name="select_location_btn_save_address">Save location</string>
-    <string name="bottom_sheet_conce_tv_title">Market Concessionaires X</string>
+    <string name="bottom_sheet_conce_tv_title">Concessionaires List</string>
     <string name="bottom_sheet_conce_tv_all">Watch complete list</string>
     <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>

@@ -100,7 +100,7 @@
     <string name="registration_market_btn_save">Guardar Tianguis</string>
     <string name="registration_market_tv_concessionaires">Número de concesionarios: 0</string>
     <string name="select_location_btn_save_address">Aceptar ubicación</string>
-    <string name="bottom_sheet_conce_tv_title">Concesionarios del tianguis X</string>
+    <string name="bottom_sheet_conce_tv_title">Lista de Concesionarios</string>
     <string name="bottom_sheet_conce_tv_all">Ver lista completa</string>
     <string name="bottom_sheet_conce_btn_delete">Eliminar concesionario</string>
     <string name="bottom_sheet_conce_btn_see">Ver Concesionario</string>
