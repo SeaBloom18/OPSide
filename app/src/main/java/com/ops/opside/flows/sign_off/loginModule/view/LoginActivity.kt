@@ -2,10 +2,12 @@ package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
@@ -39,8 +41,10 @@ class LoginActivity : AppCompatActivity() {
                 val email = mBinding.teLoginEmail.text.toString().trim()
                 val password = mBinding.tePassword.text.toString().trim()
                 if (email.isNotEmpty() && password.isNotEmpty()){
+                    hideError()
                     mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
                 } else {
+                    showError(getString(R.string.login_toast_empy_text))
                     Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -92,8 +96,10 @@ class LoginActivity : AppCompatActivity() {
         crc32.update(password.toByteArray())
         password = String.format("%08X", crc32.value)
         if (passwordFs != password){
+            showError(getString(R.string.login_toast_credentials_validation))
             Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
         } else {
+            hideError()
             mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
             if (mViewModel.isSPInitialized())
                 mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
@@ -101,6 +107,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     /**Override and other Methods**/
+    private fun showError(errorMessage: String){
+        mBinding.tvError.tvError.isVisible = true
+        mBinding.tvError.tvError.text = errorMessage
+
+    }
+
+    private fun hideError(){
+        mBinding.tvError.tvError.isVisible = false
+    }
+
     override fun onBackPressed() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)

@@ -22,7 +22,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilLoginEmail"
@@ -65,6 +65,15 @@
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <include
+                android:id="@+id/tvError"
+                layout="@layout/frame_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+                app:layout_constraintStart_toStartOf="@+id/tilPassword"
+                app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 style="@style/CommonButtonStyle"
@@ -78,17 +87,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/swRememberUser" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                style="@style/CommonSwitchStyle"
                 android:id="@+id/swRememberUser"
-                android:layout_marginBottom="14dp"
+                style="@style/CommonSwitchStyle"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="@string/login_sw_remember_account"
                 app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-                app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+                app:layout_constraintEnd_toEndOf="@+id/tvError"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tilPassword"
-                app:layout_constraintTop_toBottomOf="@+id/tilPassword"
-                />
+                app:layout_constraintStart_toStartOf="@+id/tvError"
+                app:layout_constraintTop_toBottomOf="@+id/tvError" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -108,10 +116,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/login_tv_forget_password"
+                android:textColor="@color/secondaryLightColor"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+                app:layout_constraintEnd_toEndOf="@+id/tvError"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/btnLogin"
+                app:layout_constraintStart_toStartOf="@+id/tvError"
                 app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
