@@ -4,7 +4,7 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Formaters.orZero
 
 data class MarketFE(
-    val idFirebase: String = "",
+    var idFirebase: String = "",
     var name: String = "",
     var address: String = "",
     var latitude: Double = 0.0,

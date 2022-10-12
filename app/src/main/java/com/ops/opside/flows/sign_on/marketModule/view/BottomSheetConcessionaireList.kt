@@ -1,25 +1,30 @@
 package com.ops.opside.flows.sign_on.marketModule.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.ops.opside.databinding.BottomSheetPickMarketBinding
+import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.BottomSheetShowConcessBinding
-import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.marketModule.model.ConcessionaireListInteractor
-import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
-import dagger.hilt.EntryPoint
+import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Created by David Alejandro González Quezada on 10/10/22.
  */
 @AndroidEntryPoint
-class BottomSheetConcessionaireList: BottomSheetDialogFragment() {
+class BottomSheetConcessionaireList(private val market: (MarketSE) -> Unit = {}): BottomSheetDialogFragment() {
 
-    private lateinit var mConcessionaireListInteractor: ConcessionaireListInteractor
+    private var mSelectedMarket: MarketSE? = null
+    private lateinit var mMarketsList: MutableList<MarketSE>
+    private val mViewModel: ConcessionaireListViewModel by viewModels()
     private val mBinding: BottomSheetShowConcessBinding by lazy {
         BottomSheetShowConcessBinding.inflate(layoutInflater)
     }
@@ -35,8 +40,43 @@ class BottomSheetConcessionaireList: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.apply {
-            tvBSTitle.text = (mConcessionaireListInteractor.getConcessionaireList().toString())
+            //tvBSTitle.text = market.invoke()
+            //btnDeleteConcess.setOnClickListener { mViewModel.getMarketId("prueba id") }
         }
+        //bindViewModel()
+        returnSelectedMarket()
+    }
+
+    private fun returnSelectedMarket() {
+        mSelectedMarket = searchSelectedMarket()
+
+        if (mSelectedMarket != null){
+            market.invoke(mSelectedMarket!!)
+            dismiss()
+        } else{
+            Toast.makeText(mActivity, getString(R.string.tax_collection_choose_market),
+                Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun searchSelectedMarket(): MarketSE? {
+        for (item in mMarketsList){
+            if (mBinding.tvBSTitle.text.toString() == item.name){
+                return item
+            }
+        }
+        return null
+    }
+
+    private fun bindViewModel(){
+        mBinding.tvBSTitle.text = mViewModel.getMarketFirestoreId.observe(this, Observer(this::getMarketFirestoreId)).toString()
+        Log.d("marketId", mViewModel.getMarketFirestoreId.observe(this, Observer(this::getMarketFirestoreId)).toString())
+    }
+
+    private fun getMarketFirestoreId(marketId: String){
+        mBinding.tvBSTitle.text = marketId
+        Log.d("marketId", marketId)
+        Toast.makeText(mActivity, marketId, Toast.LENGTH_SHORT).show()
     }
 }
 

@@ -210,8 +210,10 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun viewConcessionaire() {
-        mConcessionaireListViewModel.getMarketId(mMarketSE!!.idFirebase)
-        val dialog = BottomSheetConcessionaireList()
+        //mConcessionaireListViewModel.getMarketId(mMarketSE!!.idFirebase)
+        val dialog = BottomSheetConcessionaireList {
+            mMarketSE = it
+        }
         dialog.show(supportFragmentManager, dialog.tag)
     }
 

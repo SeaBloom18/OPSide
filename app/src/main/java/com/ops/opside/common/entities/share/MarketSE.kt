@@ -9,7 +9,7 @@ import java.io.Serializable
 @Entity(tableName = DB_TABLE_MARKET)
 data class MarketSE(
     @PrimaryKey(autoGenerate = false)
-    val idFirebase: String = "",
+    var idFirebase: String = "",
     @ColumnInfo(name = "name")
     var name: String = "",
     @ColumnInfo(name = "address")

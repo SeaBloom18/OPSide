@@ -10,9 +10,10 @@ import javax.inject.Inject
  */
 class ConcessionaireListInteractor @Inject constructor(private val firestore: FirebaseFirestore){
 
-    fun getConcessionaireList(marketId: String = ""): Observable<String>{
+    fun getConcessionaireList(marketId: String): Observable<String>{
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
+                //Log.d("marketId", marketId)
                 subscriber.onNext(marketId)
             }
         }

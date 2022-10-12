@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.marketModule.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
@@ -15,20 +16,18 @@ import javax.inject.Inject
 class ConcessionaireListViewModel @Inject constructor(
     private val mConcessionaireListInteractor: ConcessionaireListInteractor): CommonViewModel(){
 
-    val marketFirestoreId = MutableLiveData<String>()
+    private val marketFirestoreId = MutableLiveData<String>()
+    val getMarketFirestoreId: LiveData<String> = marketFirestoreId
 
     fun getMarketId(marketId: String){
         disposable.add(
             mConcessionaireListInteractor.getConcessionaireList(marketId).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         marketFirestoreId.value = it
-                        showProgress.value = false
                     },
                     {
                         Log.e("Error", it.toString())
-                        showProgress.value = false
                     }
                 )
         )
