@@ -12,7 +12,6 @@ class MarketInteractor @Inject constructor(
     private val firestore: FirebaseFirestore){
 
     fun getMarkets(): Observable<MutableList<MarketSE>> {
-
         return Observable.unsafeCreate { subscriber ->
             try {
                 val marketsList = mutableListOf<MarketSE>()

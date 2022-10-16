@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
 import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
@@ -49,8 +52,10 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private val mBinding: ActivityMarketRegisterBinding by lazy {
         ActivityMarketRegisterBinding.inflate(layoutInflater)
     }
+    lateinit var latLng: LatLng
+
     private lateinit var mActivity: MainActivity
-    private val concessionaires = arrayOf("David", "Mario", "Juan", "Luis")
+    private var concessionaires = listOf("David", "Alejandro")
 
     private val mMarketRegViewModel: MarketRegisterViewModel by viewModels()
     private val mConcessionaireListViewModel: ConcessionaireListViewModel by viewModels()
@@ -134,17 +139,18 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
 
         fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
-        fetchLocation()
         bindViewModel()
         setToolbar()
         editModeMarketValidation()
+        fetchLocation()
     }
 
 
     /** ViewModel SetUp **/
-    private fun bindViewModel(){
+    private fun bindViewModel() {
 
     }
+
 
     /** Override Methods **/
     /** Toolbar Menu and backPressed **/
@@ -211,10 +217,26 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun viewConcessionaire() {
         //mConcessionaireListViewModel.getMarketId(mMarketSE!!.idFirebase)
-        val dialog = BottomSheetConcessionaireList {
+        /*val dialog = BottomSheetConcessionaireList {
             mMarketSE = it
         }
-        dialog.show(supportFragmentManager, dialog.tag)
+        dialog.show(supportFragmentManager, dialog.tag)*/
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_concess, null)
+        val btnDelete = view.findViewById<MaterialButton>(R.id.btnDeleteConcess)
+        val btnSeeConce = view.findViewById<MaterialButton>(R.id.btnGoConcess)
+        val tvTitle = view.findViewById<MaterialTextView>(R.id.tvBSTitle)
+
+        //Log.d("conce0", mMarketSE!!.numberConcessionaires[0])
+        mMarketRegViewModel.getConcessionairesForMarket(mMarketSE!!.idFirebase)
+        btnDelete.setOnClickListener {}
+
+        val autoCompUserName = view.findViewById<AutoCompleteTextView>(R.id.acUserName)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, concessionaires)
+        autoCompUserName.setAdapter(adapter)
+
+        dialog.setContentView(view)
+        dialog.show()
     }
 
     private fun editModeMarketValidation() {
@@ -229,7 +251,8 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     /** GoogleMaps SetUp**/
     override fun onMapReady(googleMap: GoogleMap) {
-        val latLng = LatLng(20.348917, -103.194615)
+        if (mMarketSE != null) latLng = LatLng(latitudeMaps, longitudeMaps)
+        else latLng = LatLng(20.348917, -103.194615)
         val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         googleMap.setMinZoomPreference(15.5F)

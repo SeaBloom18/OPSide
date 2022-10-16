@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ops.opside.common.entities.DB_TABLE_MARKET
 import java.io.Serializable
-
 @Entity(tableName = DB_TABLE_MARKET)
 data class MarketSE(
     @PrimaryKey(autoGenerate = false)

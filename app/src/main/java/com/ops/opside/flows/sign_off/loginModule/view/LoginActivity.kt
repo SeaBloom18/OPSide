@@ -45,7 +45,6 @@ class LoginActivity : AppCompatActivity() {
                     mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
                 } else {
                     showError(getString(R.string.login_toast_empy_text))
-                    Toast.makeText(this@LoginActivity, R.string.login_toast_empy_text, Toast.LENGTH_SHORT).show()
                 }
             }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
@@ -97,7 +96,6 @@ class LoginActivity : AppCompatActivity() {
         password = String.format("%08X", crc32.value)
         if (passwordFs != password){
             showError(getString(R.string.login_toast_credentials_validation))
-            Toast.makeText(this, R.string.login_toast_credentials_validation, Toast.LENGTH_SHORT).show()
         } else {
             hideError()
             mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)

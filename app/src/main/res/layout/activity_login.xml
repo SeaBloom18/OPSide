@@ -12,7 +12,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="320dp"
-        android:layout_height="420dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         app:cardCornerRadius="14dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
@@ -53,6 +53,7 @@
                 android:hint="@string/login_hint_password"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="password_toggle"
+                app:layout_constraintBottom_toTopOf="@+id/tvError"
                 app:layout_constraintEnd_toEndOf="@+id/tilLoginEmail"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/tilLoginEmail"
@@ -70,14 +71,17 @@
                 layout="@layout/frame_error"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/swRememberUser"
                 app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/tilPassword"
                 app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 style="@style/CommonButtonStyle"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/login_btn"
                 app:icon="@drawable/ic_ops_login"
                 app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -114,6 +118,7 @@
                 style="@style/textViewBodyStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/login_tv_forget_password"
                 android:textColor="@color/secondaryLightColor"

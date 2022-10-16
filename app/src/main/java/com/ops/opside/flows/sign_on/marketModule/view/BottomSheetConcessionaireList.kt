@@ -54,7 +54,7 @@ class BottomSheetConcessionaireList(private val market: (MarketSE) -> Unit = {})
             market.invoke(mSelectedMarket!!)
             dismiss()
         } else{
-            Toast.makeText(mActivity, getString(R.string.tax_collection_choose_market),
+            Toast.makeText(mActivity, "error",
                 Toast.LENGTH_SHORT).show()
         }
     }

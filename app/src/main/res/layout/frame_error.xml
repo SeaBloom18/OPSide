@@ -2,9 +2,10 @@
 <com.google.android.material.textview.MaterialTextView
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/textViewTitleStyle"
+    style="@style/textViewBodyStyle"
     android:id="@+id/tvError"
-    android:drawableStart="@drawable/ic_ops_warning"
+    android:drawableStart="@drawable/ic_ops_error"
+    android:drawableTint="@color/error"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:drawablePadding="@dimen/common_padding_min"

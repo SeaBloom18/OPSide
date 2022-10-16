@@ -14,25 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="@string/bottom_sheet_conce_hint_til"
-        android:textColorHint="@color/primaryTextColor"
-        app:startIconDrawable="@drawable/ic_profile"
-        app:startIconTint="@color/primaryTextColor"
-        app:hintTextColor="@color/primaryTextColor"
-        app:endIconTint="@color/primaryTextColor"
+        app:startIconDrawable="@drawable/ic_ops_user"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/btnDeleteConcess"
         app:layout_constraintEnd_toEndOf="@+id/btnDeleteConcess"
         app:layout_constraintStart_toStartOf="@+id/btnDeleteConcess"
         style="@style/TextInputDropDownLayoutStyle">
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/acUserName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"
-            android:textColor="@color/primaryTextColor" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvBSTitle"
         style="@style/textViewTitleStyle"
         android:layout_width="wrap_content"

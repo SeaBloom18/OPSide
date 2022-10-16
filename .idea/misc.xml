@@ -33,6 +33,7 @@
         <entry key="app/src/main/res/drawable/ic_ops_create_market.xml" value="0.285" />
         <entry key="app/src/main/res/drawable/ic_ops_delete.xml" value="0.3265" />
         <entry key="app/src/main/res/drawable/ic_ops_email_login.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/ic_ops_error.xml" value="0.3165" />
         <entry key="app/src/main/res/drawable/ic_ops_home.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_ops_login.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/ic_ops_mail.xml" value="0.2845" />
@@ -90,6 +91,8 @@
         <entry key="app/src/main/res/layout/fragment_market.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_tax_collection.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/fragment_tax_collection_crud.xml" value="0.18974358974358974" />
+        <entry key="app/src/main/res/layout/frame_card_view.xml" value="0.3692708333333333" />
+        <entry key="app/src/main/res/layout/frame_error.xml" value="0.3703125" />
         <entry key="app/src/main/res/layout/item_absence_tax_collection.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_control_panel_concessionaire_permission.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_crud_concessionaire.xml" value="0.33" />
