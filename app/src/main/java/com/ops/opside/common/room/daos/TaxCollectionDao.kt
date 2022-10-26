@@ -4,9 +4,9 @@ import androidx.room.*
 import com.ops.opside.common.entities.share.TaxCollectionSE
 
 @Dao
-interface TaxCollectionDao {
+interface taxCollectionDao {
 
-   /* @Query("SELECT * FROM TaxCollection")
+    /*@Query("SELECT * FROM TaxCollection")
     fun getAllTaxes(): MutableList<TaxCollectionSE>
 
     @Query("SELECT * FROM TaxCollection where id = :idCollection")
