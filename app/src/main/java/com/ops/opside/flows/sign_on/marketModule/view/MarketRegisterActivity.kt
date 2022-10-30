@@ -36,7 +36,6 @@ import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_MARKET
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.share.MarketSE
-import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
@@ -166,11 +165,11 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
 
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(Constants.BOTTOM_SHEET_BTN_CLOSE_APP)
+        btnFinish.setText(R.string.login_btn_close_bottom_sheet)
         btnFinish.setOnClickListener { finish() }
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.setText(Constants.BOTTOM_SHEET_TV_CLOSE_APP)
+        tvTitle.setText(R.string.login_tv_title_bottom_sheet)
 
         dialog.setContentView(view)
         dialog.show()

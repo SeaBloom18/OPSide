@@ -131,6 +131,21 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBiometricsLogIn"
+        style="@style/CommonButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/primaryTransparentLightColor"
+        android:text="LogIn with Fingerprint"
+        app:icon="@drawable/ic_ops_fingerprint"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -153,7 +168,7 @@
 
         <TextView
             android:id="@+id/tvSignUp"
-            style="@style/textViewBodyStyle"
+            style="@style/textViewSubtitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -161,7 +176,6 @@
             android:drawablePadding="8dp"
             android:text="@string/login_txt_create_account_sign_in"
             android:textColor="@color/secondaryColor"
-            android:textSize="16sp"
             app:drawableEndCompat="@drawable/ic_save_register"
             app:drawableTint="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -204,4 +218,5 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

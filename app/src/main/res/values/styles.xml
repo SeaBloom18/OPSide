@@ -24,10 +24,17 @@
         <item name="android:buttonCornerRadius">0dp</item>
     </style>
 
-    <style name="Divider">
+    <style name="dividerStyle1" parent="Widget.Material3.MaterialDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/primaryDarkColor</item>
+    </style>
+
+    <style name="dividerStyle2" parent="Widget.Material3.MaterialDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/primaryDarkColor</item>
+        <item name="cornerRadius">10dp</item>
     </style>
 
     <dimen name="largeTextCardView">35sp</dimen>

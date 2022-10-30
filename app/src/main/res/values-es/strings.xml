@@ -2,7 +2,6 @@
 <resources>
 
     <!--General Strings-->
-    <string name="app_name">OPSide</string>
 
     <!-- Common -->
     <string name="common_accept">Aceptar</string>

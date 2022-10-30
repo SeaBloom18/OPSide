@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.ops.opside.BuildConfig
 import com.ops.opside.R
-import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
@@ -36,13 +36,19 @@ class LoginActivity : AppCompatActivity() {
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
             btnLogin.setOnClickListener {
-                val email = mBinding.teLoginEmail.text.toString().trim()
-                val password = mBinding.tePassword.text.toString().trim()
-                if (email.isNotEmpty() && password.isNotEmpty()){
-                    hideError()
-                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
+
+                //BuildVersion
+                if (BuildConfig.DEBUG){
+                    launchActivity<MainActivity> {  }
                 } else {
-                    showError(getString(R.string.login_toast_empy_text))
+                    val email = mBinding.teLoginEmail.text.toString().trim()
+                    val password = mBinding.tePassword.text.toString().trim()
+                    if (email.isNotEmpty() && password.isNotEmpty()){
+                        hideError()
+                        mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
+                    } else {
+                        showError(getString(R.string.login_toast_empy_text))
+                    }
                 }
             }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
@@ -118,11 +124,11 @@ class LoginActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
 
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(Constants.BOTTOM_SHEET_BTN_CLOSE_APP)
+        btnFinish.setText(R.string.login_btn_close_bottom_sheet)
         btnFinish.setOnClickListener { finish() }
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.setText(Constants.BOTTOM_SHEET_TV_CLOSE_APP)
+        tvTitle.setText(R.string.login_tv_title_bottom_sheet)
 
         dialog.setContentView(view)
         dialog.show()
