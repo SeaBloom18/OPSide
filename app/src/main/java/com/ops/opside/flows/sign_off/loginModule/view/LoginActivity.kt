@@ -6,7 +6,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.biometric.BiometricPrompt
+//import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -28,9 +28,9 @@ import java.util.zip.CRC32
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var executor: Executor
+    /*private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo*/
 
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        executor = ContextCompat.getMainExecutor(this)
+        /*executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int,
@@ -71,10 +71,10 @@ class LoginActivity : AppCompatActivity() {
             .setTitle("Biometric login for my app")
             .setSubtitle("Log in using your biometric credential")
             .setNegativeButtonText("Use account password")
-            .build()
+            .build()*/
 
         mBinding.apply {
-            btnBiometricsLogIn.setOnClickListener { biometricPrompt.authenticate(promptInfo) }
+            btnBiometricsLogIn.setOnClickListener { /*biometricPrompt.authenticate(promptInfo) */}
             tvPolicies.setOnClickListener { showPolicies() }
             tvAboutApp.setOnClickListener { showAboutApp() }
             btnLogin.setOnClickListener {
