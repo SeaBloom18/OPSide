@@ -18,7 +18,7 @@
         tools:context=".flows.sign_on.marketModule.view.MarketRegisterActivity">
 
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarFragMaket"
             layout="@layout/toolbar_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarFragMaket"
             app:startIconDrawable="@drawable/ic_bn_market"
             app:startIconTint="@color/primaryTextColor">
 

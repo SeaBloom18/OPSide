@@ -10,10 +10,30 @@
 
     <include
         layout="@layout/toolbar_layout"
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarFragConce"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSearch"
+        style="@style/TextInputLayoutStyle"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/common_til_search"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="@+id/toolbarFragConce"
+        app:layout_constraintStart_toStartOf="@+id/toolbarFragConce"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFragConce"
+        app:startIconDrawable="@drawable/ic_ops_search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teSearch"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvConcessionaires"
@@ -23,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/tilSearch"
         tools:listitem="@layout/item_crud_concessionaire" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

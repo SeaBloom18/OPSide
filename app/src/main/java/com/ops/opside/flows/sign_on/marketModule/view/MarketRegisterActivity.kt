@@ -176,7 +176,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setToolbar(){
-        with(mBinding.toolbar.commonToolbar) {
+        with(mBinding.toolbarFragMaket.commonToolbar) {
             this.title = getString(R.string.registration_market_create_toolbar_title)
             setSupportActionBar(this)
             (context as MarketRegisterActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -241,7 +241,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun editModeMarketValidation() {
         mMarketSE = intent.getSerializableExtra(PUT_EXTRA_MARKET) as? MarketSE
         if (mMarketSE != null) {
-            mBinding.toolbar.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
+            mBinding.toolbarFragMaket.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
             setFieldsIsEditMode(mMarketSE!!)
         } else {
             mBinding.btnViewConce.visibility = View.GONE

@@ -80,7 +80,15 @@ class LoginActivity : AppCompatActivity() {
             btnLogin.setOnClickListener {
 
                 //BuildVersion
-                if (BuildConfig.DEBUG){
+                val email = mBinding.teLoginEmail.text.toString().trim()
+                val password = mBinding.tePassword.text.toString().trim()
+                if (email.isNotEmpty() && password.isNotEmpty()){
+                    hideError()
+                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
+                } else {
+                    showError(getString(R.string.login_toast_empy_text))
+                }
+                /*if (BuildConfig.DEBUG){
                     launchActivity<MainActivity> {  }
                 } else {
                     val email = mBinding.teLoginEmail.text.toString().trim()
@@ -91,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         showError(getString(R.string.login_toast_empy_text))
                     }
-                }
+                }*/
             }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }

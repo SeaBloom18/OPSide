@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--General Strings-->
-
     <!-- Common -->
     <string name="common_accept">Accept</string>
     <string name="common_delete">Delete</string>
     <string name="common_content_description">Common Content Image Description</string>
+    <string name="common_til_search">Search</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
@@ -144,6 +143,11 @@
     <string name="tax_collection_choose_market">Elige un Tianguis</string>
     <string name="tax_collection_on_line">On Line</string>
     <string name="tax_collection_off_line">Off Line</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--BottomSheet UserProfile String-->
+    <string name="bottom_sheet_tv_logout_session">Log Out</string>
+    <string name="bottom_sheet_btn_save_changes">Save Changes</string>
+    <string name="bottom_sheet_tv_about_you">More information about you</string>
+
+
 </resources>

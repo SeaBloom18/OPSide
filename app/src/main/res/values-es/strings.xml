@@ -7,6 +7,8 @@
     <string name="common_accept">Aceptar</string>
     <string name="common_delete">Borrar</string>
     <string name="common_content_description">Common Content Image Description</string>
+    <string name="common_til_search">Buscar</string>
+
 
 
     <!-- Tax Collection Module Strins -->
@@ -141,5 +143,11 @@
     <string name="bottom_sheet_til_hint_inc_price">Precio de incidencia</string>
     <string name="tax_collection_choose_market">Elige un Tianguis</string>
     <string name="tax_collection_on_line">On Line</string>
+    <string name="tax_collection_off_line">Off Line</string>
+
+    <!--BottomSheet UserProfile String-->
+    <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>
+    <string name="bottom_sheet_btn_save_changes">Guardar cambios</string>
+    <string name="bottom_sheet_tv_about_you">Más información sobre ti</string>
 
 </resources>
