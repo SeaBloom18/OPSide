@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tilSearch"
+    android:hint="@string/common_til_search"
+    android:paddingTop="@dimen/common_padding_min"
+    android:paddingRight="@dimen/common_padding_default"
+    android:paddingLeft="@dimen/common_padding_default"
+    app:boxStrokeColor="@drawable/states_colors_text_field"
+    app:endIconMode="clear_text"
+    app:startIconDrawable="@drawable/ic_ops_search"
+    style="@style/TextInputLayoutStyle">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/teSearch"
+        style="@style/TextInputEditTextStyle"
+        android:inputType="textEmailAddress" />
+</com.google.android.material.textfield.TextInputLayout>

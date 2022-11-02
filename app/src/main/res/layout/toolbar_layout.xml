@@ -12,6 +12,6 @@
         android:background="@color/primaryDarkColor"
         app:titleTextAppearance="@style/toolbarStyle" />
 
-    <View style="@style/Divider" />
+    <View style="@style/dividerStyle1" />
 </LinearLayout>
 

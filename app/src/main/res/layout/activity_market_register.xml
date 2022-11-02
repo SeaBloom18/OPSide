@@ -18,7 +18,7 @@
         tools:context=".flows.sign_on.marketModule.view.MarketRegisterActivity">
 
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarFragMaket"
             layout="@layout/toolbar_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarFragMaket"
             app:startIconDrawable="@drawable/ic_bn_market"
             app:startIconTint="@color/primaryTextColor">
 
@@ -76,24 +76,13 @@
             app:layout_constraintStart_toStartOf="@+id/mapPreview"
             app:layout_constraintTop_toBottomOf="@+id/mapPreview" />
 
-        <TextView
-            android:id="@+id/tvConcessionaireNumber"
-            style="@style/textViewBodyStyle"
-            android:layout_marginTop="8dp"
-            android:text="@string/registration_market_tv_concessionaires"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="@+id/btnViewConce"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/btnViewConce"
-            app:layout_constraintTop_toBottomOf="@+id/btnViewConce" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnViewConce"
             style="@style/CommonButtonStyle"
             android:layout_marginTop="16dp"
             android:text="@string/registration_btn_view_concessionaires"
             app:icon="@drawable/ic_ops_see_concessionaires"
-            app:layout_constraintBottom_toTopOf="@+id/tvConcessionaireNumber"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="@+id/tvAddressSelection"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/tvAddressSelection"
@@ -101,8 +90,8 @@
 
         <!--android:text="@string/registration_market_tv_location"-->
         <TextView
-            style="@style/textViewBodyStyle"
             android:id="@+id/tvAddressSelection"
+            style="@style/textViewBodyStyle"
             android:layout_width="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"

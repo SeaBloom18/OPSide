@@ -14,7 +14,7 @@ class ConcessionaireCrudInteractor @Inject constructor(
 
                 for (i in 1..7){
                     markets.add(MarketSE(i.toString(), "Tianguis $i", "",
-                        0.0,0.0,0))
+                        0.0,0.0,""))
                 }
 
                 subscriber.onNext(markets)

@@ -62,7 +62,7 @@ class MarketFragment : Fragment(), OnClickListener {
 
     /** Toolbar SetUp **/
     private fun setToolbar(){
-        with(mBinding.toolbarMarket.commonToolbar) {
+        with(mBinding.toolbarFrgMarket.commonToolbar) {
             this.title = getString(R.string.bn_menu_market_opc1)
 
             this.addMenuProvider(object : MenuProvider {
@@ -72,10 +72,6 @@ class MarketFragment : Fragment(), OnClickListener {
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
-                        R.id.menu_market_search -> {
-                            //Action
-                            true
-                        }
                         R.id.menu_market_create -> {
                             startActivity(Intent(activity, MarketRegisterActivity::class.java))
                             true
