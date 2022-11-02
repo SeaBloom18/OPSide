@@ -43,9 +43,17 @@ class LoginInteractor @Inject constructor(
                                 val idFirestore = document.id
                                 userRole = document.data["role"].toString()
                                 if (document.data["isForeigner"] == true){
-                                    sp.initPreferences(15.5f, name, email, phone,
-                                        origin, origin,  idFirestore,
-                                        SP_FOREIGN_CONCE_ROLE, true, rememberMe)
+                                    sp.initPreferences(
+                                        priceLinearMeter = 15.5f,
+                                        name = name,
+                                        email = email,
+                                        phone = phone,
+                                        origin = origin,
+                                        userType = origin,
+                                        id = idFirestore,
+                                        roll = SP_FOREIGN_CONCE_ROLE,
+                                        hasAccess = true,
+                                        rememberMe = rememberMe)
                                 } else {
                                     sp.initPreferences(15.5f, name, email, phone,
                                         origin, origin, idFirestore,
@@ -73,7 +81,9 @@ class LoginInteractor @Inject constructor(
                                             origin = origin,
                                             userType = origin,
                                             id = idFirestore,
-                                            SP_COLLECTOR_ROLE, true, rememberMe)
+                                            roll = SP_COLLECTOR_ROLE,
+                                            hasAccess = true,
+                                            rememberMe = rememberMe)
                                         subscriber.onNext(userRole)
                                     }
                                 }

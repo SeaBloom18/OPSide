@@ -9,6 +9,10 @@ class ConcessionaireCrudInteractor @Inject constructor(
     private val sp: Preferences
 ){
 
+    fun getConcessionaireUserInfo(){
+
+    }
+
     fun getMarketsList(): Observable<MutableList<MarketSE>> {
         return Observable.unsafeCreate{ subscriber ->
             try {
