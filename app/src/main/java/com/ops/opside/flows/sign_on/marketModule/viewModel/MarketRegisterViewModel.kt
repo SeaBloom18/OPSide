@@ -2,7 +2,9 @@ package com.ops.opside.flows.sign_on.marketModule.viewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.marketModule.model.MarketRegisterInteractor
@@ -17,6 +19,7 @@ class MarketRegisterViewModel @Inject constructor(
     private val mMarketRegisterInteractor: MarketRegisterInteractor): CommonViewModel() {
 
     val registerMarket = MutableLiveData<Boolean>()
+    val getMarketData = MutableLiveData<MutableList<String>>()
 
     fun insertMarket(marketFE: MarketFE){
         disposable.add(
@@ -42,6 +45,20 @@ class MarketRegisterViewModel @Inject constructor(
                 .subscribe(
                     {
                         registerMarket.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun getConcessionairesForMarket(idMarketFirestore: String){
+        disposable.add(
+            mMarketRegisterInteractor.getConcessionairesForMarket(idMarketFirestore).applySchedulers()
+                .subscribe(
+                    {
+                        getMarketData.value = it
                     },
                     {
                         Log.e("Error", it.toString())

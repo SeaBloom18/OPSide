@@ -54,7 +54,7 @@ class ConcessionaireFragment : Fragment() {
     }
 
     private fun setToolbar(){
-        with(mBinding.toolbar.commonToolbar){
+        with(mBinding.toolbarFragConce.commonToolbar){
             this.title = getString(R.string.bn_menu_concessionaire_opc2)
 
             this.addMenuProvider(object : MenuProvider {
@@ -66,9 +66,6 @@ class ConcessionaireFragment : Fragment() {
                     return when(menuItem.itemId){
                         R.id.menu_concessionaire_filter -> {
                             initBsd()
-                            true
-                        }
-                        R.id.menu_concessionaire_search -> {
                             true
                         }
                         else -> false

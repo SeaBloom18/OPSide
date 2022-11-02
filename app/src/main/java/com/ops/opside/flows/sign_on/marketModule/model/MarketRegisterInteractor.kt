@@ -2,8 +2,11 @@ package com.ops.opside.flows.sign_on.marketModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_MARKET
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -44,6 +47,34 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
                     .addOnSuccessListener {
                         subscriber.onNext(true)
                         Log.d("FireStoreUpdateSuccess", "DocumentSnapshot successfully deleted!")
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            }
+        }
+    }
+
+    fun getConcessionairesForMarket(idMarketFirestore: String): Observable<MutableList<String>>{
+        return Observable.unsafeCreate { subscriber ->
+            tryOrPrintException {
+                val concessionaireList = mutableListOf<String>()
+                firestore.collection(DB_TABLE_MARKET).document(idMarketFirestore).get()
+                    .addOnSuccessListener {
+                        Log.d("marketData",
+                            it.data?.get("concessionaires").toString()[0].toString())
+                        for (document in it.get("concessionaires").toString()){
+                            concessionaireList.add(document.toString())
+                        }
+                       /* for (document in it.id){
+                            document
+                            *//*val idConce = document.get("concessionaires")
+                            firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                                .document(idConce.toString()).get()
+                            for (){}*//*
+                        }*/
+
+                        subscriber.onNext(concessionaireList)
                     }
                     .addOnFailureListener {
                         subscriber.onError(it)

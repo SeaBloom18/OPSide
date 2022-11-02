@@ -7,9 +7,7 @@ import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_ORIGIN
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.firestore.OriginFE
-import com.ops.opside.common.utils.Constants
 import io.reactivex.Observable
 import javax.inject.Inject
 

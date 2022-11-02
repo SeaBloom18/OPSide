@@ -290,7 +290,6 @@
 
         </GridLayout>
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabTaxCollectionCrud"
             android:layout_width="wrap_content"
@@ -298,7 +297,9 @@
             android:layout_marginBottom="5dp"
             android:contentDescription="@string/tax_collection_record"
             android:src="@drawable/ic_filter"
+            tools:visibility="visible"
             android:visibility="invisible"
+            app:backgroundTint="@color/secondaryLightColor"
             app:layout_constraintBottom_toTopOf="@+id/fabMenu"
             app:layout_constraintEnd_toEndOf="@+id/fabMenu"
             app:tint="@color/primaryTextColor" />
@@ -309,7 +310,9 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/tax_collection_record"
             android:src="@drawable/ic_money_withdrawal"
+            tools:visibility="visible"
             android:visibility="invisible"
+            app:backgroundTint="@color/secondaryLightColor"
             app:layout_constraintBottom_toTopOf="@+id/fabTaxCollectionCrud"
             app:layout_constraintEnd_toEndOf="@+id/fabTaxCollectionCrud"
             app:tint="@color/primaryTextColor" />
@@ -323,7 +326,10 @@
             android:layout_marginBottom="24dp"
             android:clickable="true"
             android:focusable="true"
+            android:contentDescription="@string/common_content_description"
             app:tint="@color/primaryTextColor"
+            app:backgroundTint="@color/secondaryColor"
+            android:outlineSpotShadowColor="@color/info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_item_arrow_up"

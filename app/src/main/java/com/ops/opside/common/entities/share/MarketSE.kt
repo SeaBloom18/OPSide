@@ -5,11 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ops.opside.common.entities.DB_TABLE_MARKET
 import java.io.Serializable
-
 @Entity(tableName = DB_TABLE_MARKET)
 data class MarketSE(
     @PrimaryKey(autoGenerate = false)
-    val idFirebase: String = "",
+    var idFirebase: String = "",
     @ColumnInfo(name = "name")
     var name: String = "",
     @ColumnInfo(name = "address")
@@ -19,7 +18,7 @@ data class MarketSE(
     @ColumnInfo(name = "longitude")
     var longitude: Double = 0.0,
     @ColumnInfo(name = "numberConcessionaires")
-    var numberConcessionaires: Int = 0,
+    var numberConcessionaires: String = "",
     @ColumnInfo(name = "isDeleted")
     var isDeleted: Boolean = false
 ): Serializable
