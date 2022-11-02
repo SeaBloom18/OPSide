@@ -3,12 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.22" />
+        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.129" />
+        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.33" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_global_common.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_user_profile.xml" value="0.33" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/frame_error.xml" value="0.1" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market.xml" value="0.22" />
+        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market_list.xml" value="0.1" />
       </map>
     </option>
   </component>

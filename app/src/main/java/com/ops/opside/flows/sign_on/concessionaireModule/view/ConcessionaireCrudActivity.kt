@@ -52,11 +52,11 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
 
-        /*mBinding.rvParticipatingMarket.apply {
+        mBinding.rvParticipatingMarket.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = mAdapter
-        }*/
+        }
 
         val swipeHandler = object : SwipeToDeleteCallback(this) {
 

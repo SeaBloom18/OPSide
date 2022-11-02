@@ -31,7 +31,7 @@
         android:id="@+id/lottieAnimationView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/tvUserInfoTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvUserInfoTitle"
         app:lottie_autoPlay="true"
@@ -42,9 +42,9 @@
         android:id="@+id/divider1"
         style="@style/dividerStyle1"
         android:layout_width="0dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -110,10 +110,10 @@
         app:layout_constraintEnd_toStartOf="@+id/ivShareConceProfile"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUserInfoTitle"
         style="@style/textViewTitleStyle"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -181,9 +181,9 @@
     <View
         android:id="@+id/divider"
         style="@style/dividerStyle1"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -192,10 +192,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvParticipatingMarket"
-        android:layout_width="379dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
