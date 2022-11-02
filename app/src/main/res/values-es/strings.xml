@@ -48,6 +48,8 @@
     <string name="login_toast_empy_text">Los campos no pueden estar vacíos</string>
     <string name="login_tv_forget_password">He olvidado mi contraseña</string>
     <string name="login_toast_credentials_validation">La contraseña o el correo esta incorrecto, verificalo!</string>
+    <string name="login_tv_remember_name">Bienvenido de vuelta,</string>
+
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>

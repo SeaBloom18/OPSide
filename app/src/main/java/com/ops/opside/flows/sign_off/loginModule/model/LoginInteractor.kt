@@ -7,6 +7,10 @@ import com.ops.opside.common.utils.*
 import io.reactivex.Observable
 import javax.inject.Inject
 
+/**
+ * Created by David Alejandro González Quezada on 02/11/22.
+ */
+
 class LoginInteractor @Inject constructor(
     private val sp: Preferences,
     private val firestore: FirebaseFirestore) {
@@ -18,8 +22,8 @@ class LoginInteractor @Inject constructor(
         return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
 
-    fun isRememberMeChecked(): Pair<Boolean, String?> =
-        Pair (sp.getBoolean(SP_REMEMBER_ME), sp.getString(SP_EMAIL))
+    fun isRememberMeChecked(): Triple<Boolean, String?, String?> =
+        Triple (sp.getBoolean(SP_REMEMBER_ME), sp.getString(SP_EMAIL), sp.getString(SP_NAME))
 
 
     fun initSP(email: String, rememberMe: Boolean): Observable<String>{
@@ -33,13 +37,18 @@ class LoginInteractor @Inject constructor(
                         if (conceSucc.documents.size > 0){
                             for (document in conceSucc) {
                                 val name = document.data["name"].toString()
+                                val phone = document.data["phone"].toString()
+                                val origin = document.data["origin"].toString()
+                                val userType = document.data[""].toString()
                                 val idFirestore = document.id
                                 userRole = document.data["role"].toString()
                                 if (document.data["isForeigner"] == true){
-                                    sp.initPreferences(15.5f, name, email, idFirestore,
+                                    sp.initPreferences(15.5f, name, email, phone,
+                                        origin, origin,  idFirestore,
                                         SP_FOREIGN_CONCE_ROLE, true, rememberMe)
                                 } else {
-                                    sp.initPreferences(15.5f, name, email, idFirestore,
+                                    sp.initPreferences(15.5f, name, email, phone,
+                                        origin, origin, idFirestore,
                                         SP_NORMAL_CONCE_ROLE, true, rememberMe)
                                 }
                                 subscriber.onNext(userRole)
@@ -51,9 +60,19 @@ class LoginInteractor @Inject constructor(
                                 .addOnSuccessListener { collectorSucc ->
                                     for (document in collectorSucc) {
                                         val name = document.data["name"].toString()
+                                        val phone = document.data["phone"].toString()
+                                        val origin = document.data["origin"].toString()
+                                        val userType = document.data[""].toString()
                                         val idFirestore = document.id
                                         userRole = document.data["role"].toString()
-                                        sp.initPreferences(15.5f, name, email, idFirestore,
+                                        sp.initPreferences(
+                                            priceLinearMeter = 15.5f,
+                                            name = name,
+                                            email = email,
+                                            phone = phone,
+                                            origin = origin,
+                                            userType = origin,
+                                            id = idFirestore,
                                             SP_COLLECTOR_ROLE, true, rememberMe)
                                         subscriber.onNext(userRole)
                                     }

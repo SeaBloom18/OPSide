@@ -1,18 +1,15 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
+//import androidx.biometric.BiometricPrompt
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-//import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
-import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.common.utils.showLoading
@@ -22,7 +19,6 @@ import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivit
 import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.Executor
 import java.util.zip.CRC32
 
 @AndroidEntryPoint
@@ -88,6 +84,14 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     showError(getString(R.string.login_toast_empy_text))
                 }
+               /* val email = mBinding.teLoginEmail.text.toString().trim()
+                val password = mBinding.tePassword.text.toString().trim()
+                if (email.isNotEmpty() && password.isNotEmpty()){
+                    hideError()
+                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
+                } else {
+                    showError(getString(R.string.login_toast_empy_text))
+                }*/
                 /*if (BuildConfig.DEBUG){
                     launchActivity<MainActivity> {  }
                 } else {
@@ -120,10 +124,11 @@ class LoginActivity : AppCompatActivity() {
         with(mBinding){
             if (userPref.first){
                 swRememberUser.isChecked = true
-                mBinding.teLoginEmail.setText(userPref.second)
+                teLoginEmail.setText(userPref.second)
+                tvNameRemember.text =
+                    "${getString(R.string.login_tv_remember_name)} ${userPref.third}!"
             }
         }
-
     }
 
     private fun getPasswordUserValidation(password: String){

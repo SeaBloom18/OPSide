@@ -3,21 +3,23 @@ package com.ops.opside.flows.sign_on.dashboardModule.view
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.hardware.Camera
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.utils.toast
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
+import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Created by David Alejandro González Quezada on 28/10/22.
  */
+
 @AndroidEntryPoint
 class BottomSheetUserProfile : BottomSheetDialogFragment(){
 
@@ -25,6 +27,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         BottomSheetUserProfileBinding.inflate(layoutInflater)
     }
 
+    private val mViewModel: BottomSheetUserProfileViewModel by viewModels()
     private val mActivity: MainActivity by lazy { activity as MainActivity }
 
     private val cameraPermission = registerForActivityResult(ActivityResultContracts
@@ -46,8 +49,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         savedInstanceState: Bundle?,
     ): View {
         return mBinding.root
-    } //12 00 16 26 36 9
-      //6601.90
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +65,22 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             }
         }
 
+        /** Methods Calls **/
+        showPersonalUserInfo()
+    }
 
+    /** Other Methods**/
+    private fun showPersonalUserInfo(){
+        val userPersonalInfo = mViewModel.showPersonalInfo()
+        val userAboutInfo = mViewModel.showAboutInfo()
+        with(mBinding){
+            tvUserName.text = userPersonalInfo.first
+            tvUserEmail.text = userPersonalInfo.second
+            tvUserPhone.text = userPersonalInfo.third
+
+            tvUserProfileOrigin.text = userAboutInfo.first
+            tvUserProfileType.text = userAboutInfo.second
+        }
     }
 
     private fun takeUserPhoto() {
