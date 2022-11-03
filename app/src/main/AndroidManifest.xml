@@ -36,9 +36,9 @@
             android:name=".flows.sign_on.dashboardModule.view.ControlPanelActivity"
             android:exported="false" />
 
-<!--        <meta-data
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />-->
+            android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".flows.sign_on.marketModule.view.MarketLocationActivity"
@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".flows.sign_on.dealerModule.view.DealerActivity"
+            android:name=".flows.sign_on.dealerModule.view.view.DealerActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"

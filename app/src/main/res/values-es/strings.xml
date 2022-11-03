@@ -9,7 +9,12 @@
     <string name="common_content_description">Common Content Image Description</string>
     <string name="common_til_search">Buscar</string>
 
-
+    <!--Dealer Strings-->
+    <string name="tv_dealer_title">Tu Perfil</string>
+    <string name="tv_prices_info_linear">metros lineales</string>
+    <string name="tv_prices_info_absence">faltas</string>
+    <string name="dialog_dealer_info_title">¿Estas seguro de que quieres cerrar sesión?</string>
+    <string name="dialog_dealer_info_message">Tendrás que iniciar sesión de nuevo</string>
 
     <!-- Tax Collection Module Strins -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>

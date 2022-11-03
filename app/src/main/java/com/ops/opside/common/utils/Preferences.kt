@@ -26,6 +26,10 @@ class Preferences @Inject constructor(
         email: String,
         phone: String,
         origin: String,
+        address: String,
+        lineBusiness: String,
+        absence: String,
+        linearMeters: String,
         userType: String,
         id: String,
         roll: Int,
@@ -36,7 +40,11 @@ class Preferences @Inject constructor(
         sp.edit().putString (SP_NAME              , name            ).apply()
         sp.edit().putString (SP_EMAIL             , email           ).apply()
         sp.edit().putString (SP_PHONE             , phone           ).apply()
-        sp.edit().putString (SP_ORIGIN            , phone           ).apply()
+        sp.edit().putString (SP_ORIGIN            , origin          ).apply()
+        sp.edit().putString (SP_ADDRESS           , address         ).apply()
+        sp.edit().putString (SP_LINE_BUSINESS     , lineBusiness    ).apply()
+        sp.edit().putString (SP_ABSENCE           , absence         ).apply()
+        sp.edit().putString (SP_LINEAR_METERS     , linearMeters    ).apply()
         sp.edit().putString (SP_USER_TYPE         , phone           ).apply()
         sp.edit().putString (SP_ID                , id              ).apply()
         sp.edit().putInt    (SP_ROLL              , roll            ).apply()
@@ -56,6 +64,10 @@ class Preferences @Inject constructor(
         sp.edit().remove(SP_EMAIL             ).apply()
         sp.edit().remove(SP_PHONE             ).apply()
         sp.edit().remove(SP_ORIGIN            ).apply()
+        sp.edit().remove(SP_ADDRESS           ).apply()
+        sp.edit().remove(SP_LINE_BUSINESS     ).apply()
+        sp.edit().remove(SP_ABSENCE           ).apply()
+        sp.edit().remove(SP_LINEAR_METERS     ).apply()
         sp.edit().remove(SP_USER_TYPE         ).apply()
         sp.edit().remove(SP_START_TIME        ).apply()
         sp.edit().remove(SP_END_TIME          ).apply()
@@ -71,6 +83,10 @@ const val SP_NAME               = "name"
 const val SP_EMAIL              = "email"
 const val SP_PHONE              = "phone"
 const val SP_ORIGIN             = "origin"
+const val SP_ADDRESS            = "address"
+const val SP_LINE_BUSINESS      = "lineBusiness"
+const val SP_ABSENCE            = "absence"
+const val SP_LINEAR_METERS      = "linearMeters"
 const val SP_USER_TYPE          = "userType"
 const val SP_START_TIME         = "startTime"
 const val SP_END_TIME           = "endTime"

@@ -16,7 +16,7 @@ import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
-import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
+import com.ops.opside.flows.sign_on.dealerModule.view.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.zip.CRC32

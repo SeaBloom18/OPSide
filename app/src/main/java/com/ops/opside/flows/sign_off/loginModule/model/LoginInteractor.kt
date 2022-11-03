@@ -39,6 +39,10 @@ class LoginInteractor @Inject constructor(
                                 val name = document.data["name"].toString()
                                 val phone = document.data["phone"].toString()
                                 val origin = document.data["origin"].toString()
+                                val address = document.data["address"].toString()
+                                val lineBusiness = document.data["lineBusiness"].toString()
+                                val absence = document.data["absence"].toString()
+                                val linearMeters = document.data["linearMeters"].toString()
                                 val userType = document.data[""].toString()
                                 val idFirestore = document.id
                                 userRole = document.data["role"].toString()
@@ -49,15 +53,31 @@ class LoginInteractor @Inject constructor(
                                         email = email,
                                         phone = phone,
                                         origin = origin,
+                                        address = address,
+                                        lineBusiness = lineBusiness,
+                                        absence = absence,
+                                        linearMeters = linearMeters,
                                         userType = origin,
                                         id = idFirestore,
                                         roll = SP_FOREIGN_CONCE_ROLE,
                                         hasAccess = true,
                                         rememberMe = rememberMe)
                                 } else {
-                                    sp.initPreferences(15.5f, name, email, phone,
-                                        origin, origin, idFirestore,
-                                        SP_NORMAL_CONCE_ROLE, true, rememberMe)
+                                    sp.initPreferences(
+                                        priceLinearMeter = 15.5f,
+                                        name = name,
+                                        email = email,
+                                        phone = phone,
+                                        origin = origin,
+                                        address = address,
+                                        lineBusiness = lineBusiness,
+                                        absence = absence,
+                                        linearMeters = linearMeters,
+                                        userType = origin,
+                                        id = idFirestore,
+                                        roll = SP_NORMAL_CONCE_ROLE,
+                                        hasAccess = true,
+                                        rememberMe = rememberMe)
                                 }
                                 subscriber.onNext(userRole)
                             }
@@ -70,6 +90,10 @@ class LoginInteractor @Inject constructor(
                                         val name = document.data["name"].toString()
                                         val phone = document.data["phone"].toString()
                                         val origin = document.data["origin"].toString()
+                                        val address = document.data["address"].toString()
+                                        val lineBusiness = document.data["lineBusiness"].toString()
+                                        val absence = document.data["absence"].toString()
+                                        val linearMeters = document.data["linearMeters"].toString()
                                         val userType = document.data[""].toString()
                                         val idFirestore = document.id
                                         userRole = document.data["role"].toString()
@@ -79,6 +103,10 @@ class LoginInteractor @Inject constructor(
                                             email = email,
                                             phone = phone,
                                             origin = origin,
+                                            address = address,
+                                            lineBusiness = lineBusiness,
+                                            absence = absence,
+                                            linearMeters = linearMeters,
                                             userType = origin,
                                             id = idFirestore,
                                             roll = SP_COLLECTOR_ROLE,

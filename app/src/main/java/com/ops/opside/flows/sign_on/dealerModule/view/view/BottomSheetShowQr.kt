@@ -1,4 +1,4 @@
-package com.ops.opside.flows.sign_on.dealerModule.view
+package com.ops.opside.flows.sign_on.dealerModule.view.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

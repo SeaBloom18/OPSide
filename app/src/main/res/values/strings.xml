@@ -7,6 +7,13 @@
     <string name="common_content_description">Common Content Image Description</string>
     <string name="common_til_search">Search</string>
 
+    <!--Dealer Strings-->
+    <string name="tv_dealer_title">Your Profile</string>
+    <string name="tv_prices_info_linear">linear meters</string>
+    <string name="tv_prices_info_absence">absences</string>
+    <string name="dialog_dealer_info_title">Are you sure you want to log out?</string>
+    <string name="dialog_dealer_info_message">You will have to log in again</string>
+
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
