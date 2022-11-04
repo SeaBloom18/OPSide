@@ -2,7 +2,6 @@ package com.ops.opside.flows.sign_off.loginModule.view
 
 //import androidx.biometric.BiometricPrompt
 import android.os.Bundle
-import android.text.TextUtils.split
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -15,15 +14,11 @@ import com.ops.opside.R
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
-import com.ops.opside.databinding.BottomSheetFilterBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionModule.view.EmailSender
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.zip.CRC32
 
 @AndroidEntryPoint
@@ -115,13 +110,6 @@ class LoginActivity : AppCompatActivity() {
 
         bindViewModel()
         setEmailSP()
-        sendEmail()
-    }
-
-    private fun sendEmail(){
-        GlobalScope.launch {
-            EmailSender.send()
-        }
     }
 
     /**ViewModel SetUp**/
@@ -138,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
                 swRememberUser.isChecked = true
                 teLoginEmail.setText(userPref.second)
                 tvNameRemember.text =
-                    "${getString(R.string.login_tv_remember_name)} ${userPref.third.orEmpty().split(" ")[0]}!"
+                    "${getString(R.string.login_tv_remember_name)} ${userPref.third}!"
             }
         }
     }
