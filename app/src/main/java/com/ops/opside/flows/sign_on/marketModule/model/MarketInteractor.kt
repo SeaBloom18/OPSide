@@ -12,7 +12,6 @@ class MarketInteractor @Inject constructor(
     private val firestore: FirebaseFirestore){
 
     fun getMarkets(): Observable<MutableList<MarketSE>> {
-
         return Observable.unsafeCreate { subscriber ->
             try {
                 val marketsList = mutableListOf<MarketSE>()
@@ -28,7 +27,7 @@ class MarketInteractor @Inject constructor(
                                 address = document.get("address").toString(),
                                 latitude = document.get("latitude") as Double,
                                 longitude = document.get("longitude") as Double,
-                                numberConcessionaires = listOf(document.get("concessionaires")).size))
+                                numberConcessionaires = listOf(document.get("concessionaires")).toString()))
                         }
                         subscriber.onNext(marketsList)
                     }

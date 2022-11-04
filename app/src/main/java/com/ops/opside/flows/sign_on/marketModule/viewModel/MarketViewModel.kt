@@ -15,7 +15,7 @@ class MarketViewModel @Inject constructor(
 ): CommonViewModel() {
 
     val getMarketList = MutableLiveData<MutableList<MarketSE>>()
-    val deleteMarket = MutableLiveData<Boolean>()
+    private val deleteMarket = MutableLiveData<Boolean>()
 
     fun getMarketList(){
         disposable.add(

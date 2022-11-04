@@ -31,8 +31,6 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
         with(holder){
             binding.tvMarketName.text = market.name
             binding.tvItemAddress.text = market.address
-            binding.tvItemConcessionaires.text = market.numberConcessionaires.toString().length.toString()
-
             binding.ivDelete.setOnClickListener {
                 listener.onDeleteMarket(market.idFirebase)
                 //markets.removeAt(position)

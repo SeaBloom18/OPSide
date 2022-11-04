@@ -13,6 +13,7 @@ import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.profileModule.model.profileInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickMarketInteractor
+import com.ops.opside.flows.sign_on.taxCollectionModule.model.RecordTaxCollectionInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.TaxCollectionInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,9 +22,9 @@ import javax.inject.Inject
 class TaxCollectionViewModel @Inject constructor(
     private val mTaxCollectionInteractor: TaxCollectionInteractor,
     private val mPickMarketsInteractor: PickMarketInteractor,
-    private val mProfileInteractor: profileInteractor
+    private val mProfileInteractor: profileInteractor,
+    private val mRecordEventInteractor: RecordTaxCollectionInteractor
 ) : CommonViewModel() {
-
 
     private val _initTaxCollection = MutableLiveData<Boolean>()
     private val _hasOpenedTaxCollection = MutableLiveData<TaxCollectionSE?>()
@@ -36,6 +37,8 @@ class TaxCollectionViewModel @Inject constructor(
     private val _participatingConcess = MutableLiveData<Boolean>()
     private val _updateTaxCollection = MutableLiveData<Boolean>()
     private val _createEvent = MutableLiveData<Boolean>()
+    private val _revertEvent = MutableLiveData<Boolean>()
+    private val _getEventList = MutableLiveData<MutableList<EventRE>>()
 
     val initTaxCollection: LiveData<Boolean> = _initTaxCollection
     val hasOpenedTaxCollection: LiveData<TaxCollectionSE?> = _hasOpenedTaxCollection
@@ -50,6 +53,8 @@ class TaxCollectionViewModel @Inject constructor(
     val participatingConcess: LiveData<Boolean> = _participatingConcess
     val updateTaxCollection: LiveData<Boolean> = _updateTaxCollection
     val createEvent: LiveData<Boolean> = _createEvent
+    val revertEvent: LiveData<Boolean> = _revertEvent
+    val getEventList: LiveData<MutableList<EventRE>> = _getEventList
 
 
 
@@ -89,9 +94,9 @@ class TaxCollectionViewModel @Inject constructor(
         )
     }
 
-    fun getConcessionairesFEList(idMarket: String) {
+    fun getConcessionairesFEList() {
         disposable.add(
-            mTaxCollectionInteractor.getConcessionairesFEList(idMarket).applySchedulers()
+            mTaxCollectionInteractor.getConcessionairesFEList().applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
@@ -227,16 +232,45 @@ class TaxCollectionViewModel @Inject constructor(
     fun createEvent(event: EventRE){
         disposable.add(
             mTaxCollectionInteractor.createEvent(event).applySchedulers()
+                .subscribe(
+                    {
+                        _createEvent.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                        _createEvent.value = false
+                    }
+                )
+        )
+    }
+
+    fun getAllEvents(idTaxCollection: String){
+        disposable.add(
+            mRecordEventInteractor.getEventsList(idTaxCollection).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         showProgress.value = false
-                        _createEvent.value = it
+                        _getEventList.value = it
                     },
                     {
                         showProgress.value = false
                         Log.e("Error", it.toString())
-                        _createEvent.value = false
+                    }
+                )
+        )
+    }
+
+    fun revertRelatedConcess(idFirebase: String){
+        disposable.add(
+            mTaxCollectionInteractor.revertRelatedConcess(idFirebase).applySchedulers()
+                .subscribe(
+                    {
+                        _revertEvent.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                        _revertEvent.value = false
                     }
                 )
         )

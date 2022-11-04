@@ -72,7 +72,7 @@ class IncidentsFragment : Fragment() {
     }
 
     private fun setToolbar(){
-        with(binding.toolbar.commonToolbar){
+        with(binding.toolbarFragIncidents.commonToolbar){
             this.title = getString(R.string.bn_menu_incidents_opc5)
 
             this.addMenuProvider(object : MenuProvider {

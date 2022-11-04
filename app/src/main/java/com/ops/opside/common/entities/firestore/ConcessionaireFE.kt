@@ -3,7 +3,7 @@ package com.ops.opside.common.entities.firestore
 import com.ops.opside.common.entities.share.ConcessionaireSE
 
 data class ConcessionaireFE(
-    val idFirebase: String = "",
+    var idFirebase: String = "",
     var name: String = "",
     var address: String = "",
     var origin: String = "",
