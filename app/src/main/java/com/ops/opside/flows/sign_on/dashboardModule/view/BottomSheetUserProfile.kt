@@ -2,6 +2,7 @@ package com.ops.opside.flows.sign_on.dashboardModule.view
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ops.opside.R
+import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.utils.toast
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
@@ -57,12 +60,13 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             //tvUserName.text = sharedPref?.getString(SP_NAME)
             ivBack.setOnClickListener { dismiss() }
             ivShareProfile.setOnClickListener { toast("Share Profile") }
-            tvLogOut.setOnClickListener { closeSession() }
+            tvLogOut.setOnClickListener { logOut() }
             ivChangePhoto.setOnClickListener {
                 cameraPermission.launch(arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA))
                 takeUserPhoto()
             }
+            ivShareProfile.setOnClickListener { shareUserProfile() }
         }
 
         /** Methods Calls **/
@@ -83,12 +87,37 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         }
     }
 
+    private fun shareUserProfile() {
+        val userPersonalInfo = mViewModel.showPersonalInfo()
+        val userAboutInfo = mViewModel.showAboutInfo()
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
+                    "${userPersonalInfo.first}\n" +
+                    "${userPersonalInfo.second}\n" +
+                    "${userPersonalInfo.third}\n" +
+                    "${userAboutInfo.first}\n" +
+                    "${userAboutInfo.second}\n")
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(intent, null)
+        startActivity(shareIntent)
+    }
+
     private fun takeUserPhoto() {
         checkCameraHardware(mActivity)
     }
 
-    private fun closeSession() {
-        //Close Session
+    private fun logOut(){
+        val dialog = BaseDialog(
+            mActivity,
+            R.drawable.ic_ops_logout,
+            getString(R.string.dialog_dealer_info_title),
+            getString(R.string.dialog_dealer_info_message),
+            getString(R.string.common_accept),
+            yesAction = { mActivity.finish() }
+        )
+        dialog.show()
     }
 
     /** Check if this device has a camera */

@@ -1,5 +1,6 @@
 package com.ops.opside.flows.sign_on.dealerModule.view.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DealerActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityDealerBinding
-    private val mViewModel: DealerViewModel by viewModels()
-
+    private val mDealerViewModel: DealerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +36,9 @@ class DealerActivity : AppCompatActivity() {
     }
 
     private fun showPersonalInfo(){
-        val userPersonalInfo = mViewModel.showPersonalInfo()
-        val userAboutInfo = mViewModel.showAboutInfo()
-        val userPricesInfo = mViewModel.showPricesInfo()
+        val userPersonalInfo = mDealerViewModel.showPersonalInfo()
+        val userAboutInfo = mDealerViewModel.showAboutInfo()
+        val userPricesInfo = mDealerViewModel.showPricesInfo()
         with(mBinding){
             tvConceUserName.text = userPersonalInfo.first
             tvConceUserEmail.text = userPersonalInfo.second
@@ -46,9 +46,28 @@ class DealerActivity : AppCompatActivity() {
             tvConceAddress.text = userAboutInfo.first
             tvLineBusiness.text = userAboutInfo.second
             tvAbsenceAndMeters.text =
-                "${userPricesInfo.second} ${getString(R.string.tv_prices_info_linear)} " +
+                "${userPricesInfo.second} ${getString(R.string.tv_prices_info_linear)}, " +
                         "${userPricesInfo.first} ${getString(R.string.tv_prices_info_absence)}"
+            ivShareConceProfile.setOnClickListener { shareUserProfile() }
         }
+    }
+
+    /** Override and Methods **/
+    private fun shareUserProfile() {
+        val userPersonalInfo = mDealerViewModel.showPersonalInfo()
+        val userAboutInfo = mDealerViewModel.showAboutInfo()
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
+                    "${userPersonalInfo.first}\n" +
+                    "${userPersonalInfo.second}\n" +
+                    "${userPersonalInfo.third}\n" +
+                    "${userAboutInfo.first}\n" +
+                    "${userAboutInfo.second}\n")
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(intent, null)
+        startActivity(shareIntent)
     }
 
     private fun logOut(){

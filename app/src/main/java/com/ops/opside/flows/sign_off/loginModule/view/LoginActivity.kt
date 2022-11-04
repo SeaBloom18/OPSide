@@ -143,8 +143,10 @@ class LoginActivity : AppCompatActivity() {
         Log.d("userRole", userRole)
         if (userRole == "1" || userRole == "2"){
             launchActivity<DealerActivity> {  }
+            mBinding.tePassword.setText("")
         } else {
             launchActivity<MainActivity> {  }
+            mBinding.tePassword.setText("")
         }
     }
 
