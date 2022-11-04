@@ -80,24 +80,6 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         setUpPieChart()
     }
 
-    private fun initRegisterForeignerConcessionaire(): Boolean {
-        val dialog = BottomSheetForeignerAttendance {
-
-            mConcessionairesMap[it.idFirebase] = it.parseToSE()
-            mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessRE(
-                idMarket = mSelectedMarket.idFirebase,
-                idConcessionaire = it.idFirebase,
-                idFirebase = ID.getTemporalId(),
-                linearMeters = it.linearMeters,
-                lineBusiness = it.lineBusiness
-            )
-            chargeDay(FLOOR_COLLECTION, it.idFirebase)
-        }
-
-        dialog.show(supportFragmentManager, dialog.tag)
-        return false
-    }
-
     private fun bindViewModel() {
         mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
         mIsOnLineMode = mViewModel.isOnLineMode()
@@ -129,10 +111,29 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         }
 
         mViewModel.hasOpenedTaxCollection.observe(this, Observer(this::hasOpenedTaxCollection))
+        mViewModel.getEventList.observe(this, Observer(this::getAllEvents))
         mViewModel.initTaxCollection.observe(this, Observer(this::isInitializedTaxCollection))
         mViewModel.persistMarketSE.observe(this, Observer(this::isAddedMarket))
         mViewModel.updateTaxCollection.observe(this, Observer(this::taxCollectionDataUpdated))
         mViewModel.revertEvent.observe(this, Observer(this::eventWasReverted))
+    }
+
+    private fun initRegisterForeignerConcessionaire(): Boolean {
+        val dialog = BottomSheetForeignerAttendance {
+
+            mConcessionairesMap[it.idFirebase] = it.parseToSE()
+            mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessRE(
+                idMarket = mSelectedMarket.idFirebase,
+                idConcessionaire = it.idFirebase,
+                idFirebase = ID.getTemporalId(),
+                linearMeters = it.linearMeters,
+                lineBusiness = it.lineBusiness
+            )
+            chargeDay(FLOOR_COLLECTION, it.idFirebase)
+        }
+
+        dialog.show(supportFragmentManager, dialog.tag)
+        return false
     }
 
     private fun initTaxCollection() {
@@ -187,6 +188,14 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         )
 
         dialog.show()
+    }
+
+    private fun getAllEvents(events: MutableList<EventRE>){
+        events.filter {
+            it.status == FLOOR_COLLECTION
+        }.map {
+            mConcessionairesMap[it.idConcessionaire]?.wasPaid = true
+        }
     }
 
     private fun isInitializedTaxCollection(isInitialized: Boolean) {
@@ -289,6 +298,8 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         participatingConcess.map {
             mParticipatingConcessMap.put(it.idConcessionaire, it)
         }
+
+        mViewModel.getAllEvents(mSelectedMarket.idFirebase)
     }
 
     private fun getParticipatingConcessList(participatingConcess: MutableList<ParticipatingConcessRE>) {
@@ -327,7 +338,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
     private fun persistConcessionairesSEList(wasAdded: Boolean) {
         if (wasAdded) {
-            mViewModel.getAllConcessionaires()
+            mViewModel.getAllEvents(mSelectedMarket.idFirebase)
         } else {
             showError("Hubo un error al guardar el listado de concesionarios")
         }
@@ -460,6 +471,12 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
         if (concessionaire != null && participating != null) {
 
+
+            if (concessionaire.wasPaid){
+                showError("No se puede cobrar 2 veces al mismo concesionario")
+                return
+            }
+
             try {
                 val amount = (participating.linearMeters * mPriceLinearMeter).orZero()
                 mTotalAmount += amount
@@ -490,6 +507,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
             }
         }
+
     }
 
 

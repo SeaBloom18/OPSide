@@ -1,6 +1,5 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
-import android.content.SharedPreferences
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
@@ -12,7 +11,6 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
 import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.SP_NAME
 import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
 import io.reactivex.Observable
 import javax.inject.Inject

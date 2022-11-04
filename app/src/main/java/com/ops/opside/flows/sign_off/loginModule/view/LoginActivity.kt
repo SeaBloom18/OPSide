@@ -18,7 +18,9 @@ import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.EmailSender
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import java.util.zip.CRC32
 
 @AndroidEntryPoint
@@ -49,6 +51,13 @@ class LoginActivity : AppCompatActivity() {
 
         bindViewModel()
         setEmailSP()
+        sendEmail()
+    }
+
+    private fun sendEmail(){
+        GlobalScope.launch {
+            EmailSender.send()
+        }
     }
 
     /**ViewModel SetUp**/

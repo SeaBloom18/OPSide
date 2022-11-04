@@ -15,15 +15,16 @@ object EmailSender{
             try {
                 val props = Properties()
                 props["mail.smtp.host"] = "smtp.gmail.com"
-                props["mail.smtp.socketFactory.port"] = "465"
+                props["mail.smtp.socketFactory.port"] = "587"
                 props["mail.smtp.socketFactory.class"] = "javax.net.ssl.SSLSocketFactory"
                 props["mail.smtp.auth"] = "true"
-                props["mail.smtp.port"] = "465"
+                props["mail.smtp.port"] = "587"
                 props["mail.imap.ssl.enable"] = "true" // required for Gmail
                 props["mail.imap.auth.mechanisms"] = "XOAUTH2"
+                props.put("mail.smtp.starttls.enable", "true")
 
                 val email = "ixtlahuacanops@gmail.com"
-                val password = "IxtlahuacanOPS1$"
+                val password = "mifgwfulxqxscmue"
 
                 val session = Session.getInstance(props, object : Authenticator() {
                     override fun getPasswordAuthentication(): PasswordAuthentication {
@@ -32,7 +33,7 @@ object EmailSender{
                 })
 
                 val mm = MimeMessage(session)
-                mm.setFrom(InternetAddress(email))
+                mm.setFrom(InternetAddress("recaudacion_fiscal@ixtlahuacanmembrillo.com"))
                 mm.addRecipient(Message.RecipientType.TO, InternetAddress("mario.v.r404@gmail.com"))
                 mm.subject = "subject"
                 mm.setText("hi how are you")
