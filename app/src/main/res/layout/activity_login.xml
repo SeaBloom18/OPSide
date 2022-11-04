@@ -28,14 +28,14 @@
                 android:id="@+id/tilLoginEmail"
                 style="@style/TextInputLayoutStyle"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:hint="@string/login_hint_email"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRemember"
                 app:startIconDrawable="@drawable/ic_ops_email_login">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -127,6 +127,19 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/tvError"
                 app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNameRemember"
+                style="@style/textViewBodyStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/tilLoginEmail"
+                app:layout_constraintStart_toStartOf="@+id/tilLoginEmail"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:text="Welcome back!, David Alejandro Gonzalez Quezada" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

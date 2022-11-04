@@ -7,6 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ops.opside.R
+import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,5 +31,17 @@ class MainActivity : AppCompatActivity() {
         //setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
+    }
+
+    override fun onBackPressed() {
+        val dialog = BaseDialog(
+            this,
+            R.drawable.ic_ops_logout,
+            getString(R.string.dialog_dealer_info_title),
+            getString(R.string.dialog_dealer_info_message),
+            getString(R.string.common_accept),
+            yesAction = { finish() }
+        )
+        dialog.show()
     }
 }

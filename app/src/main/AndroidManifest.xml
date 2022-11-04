@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".flows.sign_on.dealerModule.view.DealerActivity"
+            android:name=".flows.sign_on.dealerModule.view.view.DealerActivity"
             android:exported="false" />
         <activity
             android:name=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity"
