@@ -27,7 +27,7 @@
         app:startIconDrawable="@drawable/ic_ops_mail"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="custom"
-        app:endIconDrawable="@drawable/ic_search"
+        app:endIconDrawable="@drawable/ic_ops_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnClose">
