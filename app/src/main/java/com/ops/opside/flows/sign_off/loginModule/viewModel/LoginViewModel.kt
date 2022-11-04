@@ -24,7 +24,7 @@ class LoginViewModel @Inject constructor(
         return mLoginInteractor.isSPInitialized()
     }
 
-    fun isRememberMeChecked(): Pair<Boolean, String?>{
+    fun isRememberMeChecked(): Triple<Boolean, String?, String?> {
         return mLoginInteractor.isRememberMeChecked()
     }
 

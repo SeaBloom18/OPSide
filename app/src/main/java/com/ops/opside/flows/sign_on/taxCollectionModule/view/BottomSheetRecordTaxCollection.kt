@@ -1,6 +1,8 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.databinding.BottomSheetRecordTaxCollectionBinding
+import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.RecordTaxCollectionAdapter
+import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetRecordTaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +29,7 @@ class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetD
 
     private lateinit var mAdapter: RecordTaxCollectionAdapter
     private lateinit var mBinding: BottomSheetRecordTaxCollectionBinding
+    private var mListener: TaxCollectionAux? = null
 
     private val mActivity: TaxCollectionActivity by lazy {
         activity as TaxCollectionActivity
@@ -33,6 +38,7 @@ class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetD
     private val mViewModel: BottomSheetRecordTaxCollectionViewModel by viewModels()
 
     private lateinit var mEventsList: MutableList<EventRE>
+    private var tempDeletedEvent: Pair<Int,EventRE?> = Pair(0,null)
 
 
     override fun onCreateView(
@@ -55,6 +61,11 @@ class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetD
         loadEventsList()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mListener = context as? TaxCollectionAux
+    }
+
 
     private fun loadEventsList() {
         mViewModel.getEventsList(idTaxCollection)
@@ -62,6 +73,7 @@ class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetD
 
     private fun bindViewModel() {
         mViewModel.getEventsList.observe(this, Observer(this::getEventsList))
+        mViewModel.wasEventDeleted.observe(this, Observer(this::wasEventDeleted))
     }
 
     private fun initRecyclerView() {
@@ -79,6 +91,13 @@ class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetD
         val swipeHandler = object : SwipeToDeleteCallback(mActivity) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                tempDeletedEvent = Pair(
+                    viewHolder.adapterPosition,
+                    mAdapter.events[viewHolder.adapterPosition]
+                )
+
+                mViewModel.deleteEvent(mAdapter.events[viewHolder.adapterPosition])
+
                 mAdapter.events.removeAt(viewHolder.adapterPosition)
                 mAdapter.notifyItemRemoved(viewHolder.adapterPosition)
             }
@@ -95,6 +114,14 @@ class BottomSheetRecordTaxCollection(val idTaxCollection: String) : BottomSheetD
 
         mEventsList = eventsList
         initRecyclerView()
+    }
+
+    private fun wasEventDeleted(itWas: Boolean){
+        if (itWas){
+            mBinding.txtNoHasEvents.isGone = mEventsList.isNotEmpty()
+
+            tempDeletedEvent.second?.let { mListener?.revertEvent(it) }
+        }
     }
 
 }

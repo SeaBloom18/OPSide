@@ -26,7 +26,6 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
-import com.ops.opside.common.utils.Constants
 import com.ops.opside.common.utils.clear
 import com.ops.opside.common.utils.error
 import com.ops.opside.databinding.ActivityRegistrationBinding
@@ -455,7 +454,7 @@ class RegistrationActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
 
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(Constants.BOTTOM_SHEET_BTN_CLOSE_REGIS)
+        btnFinish.setText(R.string.registration_btn_bs_close)
         btnFinish.setOnClickListener { finish() }
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)

@@ -34,8 +34,8 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnClose.animateOnPress()
-            btnClose.setOnClickListener { onBackPressed() }
+            //btnClose.animateOnPress()
+            //btnClose.setOnClickListener { onBackPressed() }
         }
 
         bindViewModel()
@@ -66,7 +66,7 @@ class ConcessionaireCrudActivity : AppCompatActivity() {
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(mBinding.rvParticipatingMarket)
+        /*itemTouchHelper.attachToRecyclerView(mBinding.rvParticipatingMarket)*/
     }
 
     private fun getMarketsList(marketsList: MutableList<MarketSE>){

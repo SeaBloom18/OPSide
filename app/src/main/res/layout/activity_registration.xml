@@ -244,3 +244,307 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbarRegister"
+        layout="@layout/toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegister">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvFormTitle"
+                style="@style/textViewBodyStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/registration_tv_steps_title"
+                android:textSize="18sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewSect1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/tvFormTitle"
+                app:layout_constraintStart_toStartOf="@+id/tvFormTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvFormTitle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilUserName"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="@string/registration_hint_username"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:endIconMode="clear_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_ops_user">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/teUserName"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="textPersonName"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilLastName"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:hint="@string/registration_hint_lastname"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:endIconMode="clear_text"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tilUserName"
+                        app:layout_constraintStart_toStartOf="@+id/tilUserName"
+                        app:layout_constraintTop_toBottomOf="@+id/tilUserName">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/teLastName"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="textPersonName"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewSect2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/cardViewSect1"
+                app:layout_constraintStart_toStartOf="@+id/cardViewSect1"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewSect1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilOrigin"
+                        style="@style/TextInputDropDownLayoutStyle"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="@string/registration_hint_origin"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/teOrigin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilAddress"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/registration_hint_address"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:endIconMode="clear_text"
+                        app:layout_constraintEnd_toEndOf="@+id/tilOrigin"
+                        app:layout_constraintStart_toStartOf="@+id/tilOrigin"
+                        app:layout_constraintTop_toBottomOf="@+id/tilOrigin"
+                        app:startIconDrawable="@drawable/ic_ops_home">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/teAddress"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="textPersonName"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPhone"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/registration_hint_phone"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10"
+                        app:endIconMode="clear_text"
+                        app:layout_constraintEnd_toEndOf="@+id/tilAddress"
+                        app:layout_constraintStart_toStartOf="@+id/tilAddress"
+                        app:layout_constraintTop_toBottomOf="@+id/tilAddress"
+                        app:startIconDrawable="@drawable/ic_ops_phone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tePhone"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="phone"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmail"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:hint="@string/registration_hint_email"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:endIconMode="clear_text"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tilPhone"
+                        app:layout_constraintStart_toStartOf="@+id/tilPhone"
+                        app:layout_constraintTop_toBottomOf="@+id/tilPhone"
+                        app:startIconDrawable="@drawable/ic_ops_mail">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/teEmail"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="textEmailAddress"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewSect3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardViewSect2"
+                app:layout_constraintStart_toStartOf="@+id/cardViewSect2"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewSect2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPassword"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="@string/login_hint_password"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:endIconMode="password_toggle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_ops_password">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tePassword"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="textPassword"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPasswordConfirm"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:hint="@string/registration_hint_pass_confirm"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@drawable/states_colors_text_field"
+                        app:endIconMode="password_toggle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+                        app:layout_constraintStart_toStartOf="@+id/tilPassword"
+                        app:layout_constraintTop_toBottomOf="@+id/tilPassword">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tePasswordConfirm"
+                            style="@style/TextInputEditTextStyle"
+                            android:inputType="textPassword"
+                            android:visibility="visible" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#C9000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/CommonButtonStyle"
+            android:id="@+id/btnRegister"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/registration_btn_complete_register"
+            app:icon="@drawable/ic_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>-->

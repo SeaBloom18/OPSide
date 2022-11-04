@@ -14,12 +14,10 @@
     <color name="primaryDarkColor">#aeaeae</color>
     <color name="secondaryColor">#04BF7B</color>
     <color name="secondaryLightColor">#07DD8F</color>
-    <color name="secondaryDarkColor">#077A50</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
 
     <!-- Semantics -->
-    <color name="success">#04BF7B</color>
     <color name="warning">#F2B705</color>
     <color name="error">#F21B91</color>
     <color name="info">#6852F2</color>

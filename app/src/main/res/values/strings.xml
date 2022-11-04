@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--General Strings-->
-    <string name="app_name">OPSide</string>
-
     <!-- Common -->
     <string name="common_accept">Accept</string>
     <string name="common_delete">Delete</string>
     <string name="common_content_description">Common Content Image Description</string>
-    <string name="common_permission_success">Permission accepted successfully</string>
-    <string name="common_permission_denied">Permission denied</string>
+    <string name="common_til_search">Search</string>
+
+    <!--Dealer Strings-->
+    <string name="tv_dealer_title">Your Profile</string>
+    <string name="tv_prices_info_linear">linear meters</string>
+    <string name="tv_prices_info_absence">absences</string>
+    <string name="dialog_dealer_info_title">Are you sure you want to log out?</string>
+    <string name="dialog_dealer_info_message">You will have to log in again</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
@@ -24,10 +27,8 @@
     <string name="dashboard_analytics">Analytics</string>
     <string name="dashboard_weekly">Weekly</string>
     <string name="dashboard_monthly">Monthly</string>
-    <string name="dashboard_all_time">all time</string>
     <string name="dashboard_daily">Daily</string>
     <string name="dashboard_user_profile">User profile</string>
-    <string name="dashboard_notifications">Notifications</string>
     <string name="dashboard_arrow">Arrow</string>
     <string name="dashboard_chart">Statistical Graph</string>
     <string name="dashboard_penalty_fee">Fines</string>
@@ -48,9 +49,9 @@
     <string name="login_tv_about_app">About App</string>
     <string name="login_tv_policies">Policies</string>
     <string name="login_toast_empy_text">Fields cannot be empty</string>
-    <string name="login_toast_credentials_error">Credentials Error</string>
     <string name="login_tv_forget_password">I forgot my password</string>
     <string name="login_toast_credentials_validation">The password or the email is incorrect, check it!</string>
+    <string name="login_tv_remember_name">Welcome Back,</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>
@@ -58,13 +59,10 @@
     <string name="registration_hint_address">Address</string>
     <string name="registration_hint_phone">Phone</string>
     <string name="registration_hint_email">Email</string>
-    <string name="registration_hint_market">Participating market</string>
     <string name="registration_hint_pass_confirm">Confirm password</string>
     <string name="registration_hint_origin">Origin</string>
-    <string name="registration_tv_title">Sign Up</string>
     <string name="registration_btn_exit">Go Login</string>
     <string name="registration_tv_success">You have successfully registered!</string>
-    <string name="registration_btn_register">Register!</string>
     <string name="registration_btn_bs_close">Exit</string>
     <string name="registration_tv_bs_close">Are you sure you want to exit this screen?</string>
     <string name="dealer_show_qr">Show QR Code</string>
@@ -103,16 +101,14 @@
 
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Market Name</string>
-    <string name="registration_hint_market_address">Address</string>
     <string name="registration_market_create_toolbar_title">Create Market</string>
     <string name="registration_market_edit_toolbar_title">Edit Market</string>
     <string name="registration_btn_select_location">Select Location</string>
     <string name="registration_btn_view_concessionaires">See Concessionaires</string>
     <string name="registration_market_btn_save">Save Market</string>
-    <string name="registration_market_tv_location">Unselected location</string>
     <string name="registration_market_tv_concessionaires">Concessionaires counter: 0</string>
     <string name="select_location_btn_save_address">Save location</string>
-    <string name="bottom_sheet_conce_tv_title">Market Concessionaires X</string>
+    <string name="bottom_sheet_conce_tv_title">Concessionaires List</string>
     <string name="bottom_sheet_conce_tv_all">Watch complete list</string>
     <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
@@ -155,4 +151,11 @@
     <string name="tax_collection_choose_market">Elige un Tianguis</string>
     <string name="tax_collection_on_line">On Line</string>
     <string name="tax_collection_off_line">Off Line</string>
+
+    <!--BottomSheet UserProfile String-->
+    <string name="bottom_sheet_tv_logout_session">Log Out</string>
+    <string name="bottom_sheet_btn_save_changes">Save Changes</string>
+    <string name="bottom_sheet_tv_about_you">More information about you</string>
+
+
 </resources>
