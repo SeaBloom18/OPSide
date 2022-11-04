@@ -6,20 +6,8 @@
         <item name="android:fontFamily">@font/montserrat_semibold</item>
     </style>
 
-    <style name="WhiteTextSubTitle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">@dimen/subtitle</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
-    </style>
-
     <style name="WhiteTextBody" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">@dimen/body</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
-    </style>
-
-    <style name="SecondaryTextBody" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/secondaryDarkColor</item>
         <item name="android:textSize">@dimen/body</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
@@ -36,19 +24,20 @@
         <item name="android:buttonCornerRadius">0dp</item>
     </style>
 
-    <style name="Divider">
+    <style name="dividerStyle1" parent="Widget.Material3.MaterialDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/primaryDarkColor</item>
     </style>
 
-    <dimen name="largeTextCardView">35sp</dimen>
-
-    <style name="WhiteTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/primaryLightColor</item>
-        <item name="boxStrokeWidth">2dp</item>
-        <item name="android:textColorHint">@color/secondaryColor</item>
+    <style name="dividerStyle2" parent="Widget.Material3.MaterialDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/primaryDarkColor</item>
+        <item name="cornerRadius">10dp</item>
     </style>
+
+    <dimen name="largeTextCardView">35sp</dimen>
 
     <style name="BottomNavigationViewTextStyle">
         <item name="android:fontFamily">@font/montserrat_semibold</item>
@@ -80,17 +69,8 @@
         <item name="fontFamily">@font/montserrat_medium</item>
     </style>
 
-    <style name="ThemeOverlay.App.Button" parent="">
-        <item name="colorPrimary">@color/primaryTextColor</item>
-        <item name="fontFamily">@font/montserrat_medium</item>
-    </style>
-
     <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">8dp</item>
-    </style>
-
-    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerSize">4dp</item>
     </style>
 
 </resources>

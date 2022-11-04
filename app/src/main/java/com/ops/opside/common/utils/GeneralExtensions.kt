@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -128,3 +129,10 @@ fun TextInputLayout.error(){
     error = null
 }
 
+fun Fragment.toast(msg: String?){
+    Toast.makeText(requireContext(),msg, Toast.LENGTH_LONG).show()
+}
+
+fun Activity.toast(msg: String?){
+    Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
+}

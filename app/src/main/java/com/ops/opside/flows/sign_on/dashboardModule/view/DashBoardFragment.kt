@@ -33,23 +33,27 @@ class DashBoardFragment : Fragment() {
         mActivity = activity as MainActivity
 
         setToolbar()
-        binding.fabMenu.setOnClickListener {
-            OnAddButtonClick()
-        }
+        binding.apply {
 
-        binding.fabInitTaxCollection.setOnClickListener {
-            val intent = Intent(activity, TaxCollectionActivity::class.java)
-            activity!!.startActivity(intent)
-        }
+            fabMenu.setOnClickListener {
+                onAddButtonClick()
+            }
 
-        binding.fabTaxCollectionCrud.setOnClickListener {
-            val intent = Intent(activity, TaxCollectionCrudActivity::class.java)
-            activity!!.startActivity(intent)
+            fabInitTaxCollection.setOnClickListener {
+                val intent = Intent(activity, TaxCollectionActivity::class.java)
+                activity!!.startActivity(intent)
+            }
+
+            fabTaxCollectionCrud.setOnClickListener {
+                val intent = Intent(activity, TaxCollectionCrudActivity::class.java)
+                activity!!.startActivity(intent)
+            }
         }
 
         return binding.root
     }
 
+    /** Toolbar SetUp**/
     private fun setToolbar(){
         with(binding.toolbarTaxDashboard.commonToolbar) {
             this.title = getString(R.string.dashboard_analytics)
@@ -70,7 +74,8 @@ class DashBoardFragment : Fragment() {
                             true
                         }
                         R.id.taxProfile -> {
-                            Toast.makeText(mActivity, "Profile", Toast.LENGTH_SHORT).show()
+                            val dialog = BottomSheetUserProfile()
+                            dialog.show(mActivity.supportFragmentManager, dialog.tag)
                             true
                         }
                         else -> false
@@ -80,13 +85,13 @@ class DashBoardFragment : Fragment() {
         }
     }
 
-    private fun OnAddButtonClick() {
+    private fun onAddButtonClick() {
         setVisibility(closed)
         setAnimation(closed)
         closed = !closed;
     }
 
-    // A Function used to set the Animation effect
+    /** Floating Button Animation**/
     private fun setAnimation(closed:Boolean) {
         if(!closed){
             binding.fabTaxCollectionCrud.startAnimation(fromBottom)
@@ -98,7 +103,7 @@ class DashBoardFragment : Fragment() {
             binding.fabMenu.startAnimation(rotateClose)
         }
     }
-    // used to set visibility to VISIBLE / INVISIBLE
+
     private fun setVisibility(closed:Boolean) {
         if(!closed)
         {
@@ -110,6 +115,7 @@ class DashBoardFragment : Fragment() {
         }
     }
 
+    /** Override Methods **/
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null

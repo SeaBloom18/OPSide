@@ -18,9 +18,9 @@ class LoginInteractor @Inject constructor(
         return sp.getBoolean(SP_IS_INITIALIZED).not()
     }
 
-    fun isRememberMeChecked(): Pair<Boolean, String?> {
-        return Pair (sp.getBoolean(SP_REMEMBER_ME), sp.getString(SP_EMAIL))
-    }
+    fun isRememberMeChecked(): Pair<Boolean, String?> =
+        Pair (sp.getBoolean(SP_REMEMBER_ME), sp.getString(SP_EMAIL))
+
 
     fun initSP(email: String, rememberMe: Boolean): Observable<String>{
         userRole = ""

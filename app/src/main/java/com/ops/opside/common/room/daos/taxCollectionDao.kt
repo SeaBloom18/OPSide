@@ -4,7 +4,7 @@ import androidx.room.*
 import com.ops.opside.common.entities.share.TaxCollectionSE
 
 @Dao
-interface TaxCollectionDao {
+interface taxCollectionDao {
 
 
     @Query("SELECT * FROM TaxCollection")

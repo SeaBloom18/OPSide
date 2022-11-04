@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/materialCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="14dp"
+    app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUserName"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/registration_hint_username"
+            android:visibility="visible"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_ops_user">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/teUserName"
+                style="@style/TextInputEditTextStyle"
+                android:inputType="textPersonName"
+                android:visibility="visible" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLastName"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/registration_hint_lastname"
+            android:visibility="visible"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+            app:endIconMode="clear_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tilUserName"
+            app:layout_constraintStart_toStartOf="@+id/tilUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tilUserName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/teLastName"
+                style="@style/TextInputEditTextStyle"
+                android:inputType="textPersonName"
+                android:visibility="visible" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+
+<!--
+<com.google.android.material.textfield.TextInputLayout
+android:id="@+id/tilPassword"
+style="@style/TextInputLayoutStyle"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="16dp"
+android:hint="@string/login_hint_password"
+android:visibility="gone"
+app:startIconDrawable="@drawable/ic_ops_password"
+app:boxStrokeColor="@drawable/states_colors_text_field"
+app:endIconMode="password_toggle"
+app:layout_constraintEnd_toEndOf="@+id/tilEmail"
+app:layout_constraintStart_toStartOf="@+id/tilEmail"
+app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
+<com.google.android.material.textfield.TextInputEditText
+    android:id="@+id/tePassword"
+    style="@style/TextInputEditTextStyle"
+    android:inputType="textPassword"
+    android:visibility="gone" />
+</com.google.android.material.textfield.TextInputLayout>
+
+<com.google.android.material.textfield.TextInputLayout
+android:id="@+id/tilPasswordConfirm"
+style="@style/TextInputLayoutStyle"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_marginTop="16dp"
+android:layout_marginBottom="16dp"
+android:hint="@string/registration_hint_pass_confirm"
+android:visibility="gone"
+app:boxStrokeColor="@drawable/states_colors_text_field"
+app:endIconMode="password_toggle"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+app:layout_constraintStart_toStartOf="@+id/tilPassword"
+app:layout_constraintTop_toBottomOf="@+id/tilPassword">
+
+<com.google.android.material.textfield.TextInputEditText
+    android:id="@+id/tePasswordConfirm"
+    style="@style/TextInputEditTextStyle"
+    android:inputType="textPassword"
+    android:visibility="gone" />
+</com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+android:id="@+id/constraintLayout2"
+android:layout_width="match_parent"
+android:layout_height="80dp"
+android:background="#C9000000"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.0"
+app:layout_constraintStart_toStartOf="parent">
+
+<com.google.android.material.button.MaterialButton
+    style="@style/CommonButtonStyle"
+    android:id="@+id/btnRegister"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:text="@string/registration_btn_complete_register"
+    app:icon="@drawable/ic_login"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />-->
