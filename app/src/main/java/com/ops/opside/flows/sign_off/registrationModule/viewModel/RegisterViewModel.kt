@@ -23,7 +23,8 @@ class RegisterViewModel @Inject constructor(
     private val _getEmailExists = MutableLiveData<Boolean>()
     val getEmailExists: LiveData<Boolean> = _getEmailExists
 
-    private val registerConcessionaire = MutableLiveData<Boolean>()
+    private val _registerConcessionaire = MutableLiveData<Boolean>()
+    val registerConcessionaire: LiveData<Boolean> = _registerConcessionaire
 
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
@@ -31,7 +32,7 @@ class RegisterViewModel @Inject constructor(
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        registerConcessionaire.value = it
+                        _registerConcessionaire.value = it
                         showProgress.value = false
                     },
                     {
@@ -48,7 +49,7 @@ class RegisterViewModel @Inject constructor(
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        registerConcessionaire.value = it
+                        _registerConcessionaire.value = it
                         showProgress.value = false
                     },
                     {
@@ -65,7 +66,7 @@ class RegisterViewModel @Inject constructor(
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        registerConcessionaire.value = it
+                        _registerConcessionaire.value = it
                         showProgress.value = false
                     },
                     {

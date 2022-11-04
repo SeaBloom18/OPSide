@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 
 @Entity(tableName = DB_TABLE_CONCESSIONAIRE)
 data class ConcessionaireSE(
@@ -42,4 +43,22 @@ data class ConcessionaireSE(
         origin = "",
         wasPaid = false
     )
+
+    fun parseToFe(): ConcessionaireFE {
+        return ConcessionaireFE(
+            idFirebase,
+            name,
+            address,
+            origin,
+            phone,
+            email,
+            role ?: 1,
+            0.0,
+            lineBusiness ?: "",
+            0,
+            isForeigner,
+            "",
+            mutableListOf()
+        )
+    }
 }
