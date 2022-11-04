@@ -4,16 +4,16 @@ import androidx.room.*
 import com.ops.opside.common.entities.share.TaxCollectionSE
 
 @Dao
-interface taxCollectionDao {
+interface TaxCollectionDao {
 
-    /*@Query("SELECT * FROM TaxCollection")
+    @Query("SELECT * FROM TaxCollection")
     fun getAllTaxes(): MutableList<TaxCollectionSE>
 
-    @Query("SELECT * FROM TaxCollection where id = :idCollection")
+    @Query("SELECT * FROM TaxCollection where idFirebase = :idCollection")
     fun getTaxById(idCollection: Long): TaxCollectionSE
 
     @Delete
-    fun deleteTaxCollection(taxCollection: TaxCollectionSE)*/
+    fun deleteTaxCollection(taxCollection: TaxCollectionSE)
 
     @Insert
     fun addTaxCollection(taxCollection: TaxCollectionSE): Long
@@ -23,5 +23,6 @@ interface taxCollectionDao {
 
     @Query("SELECT * FROM taxCollection WHERE idMarket = :idMarket")
     fun getOpenedCollection(idMarket: String): TaxCollectionSE
+
 
 }

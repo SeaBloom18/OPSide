@@ -2,6 +2,7 @@
 buildscript {
     repositories {
         google()
+        maven { url "https://repo.sultanofcardio.com/artifactory/sultanofcardio" }
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.14'

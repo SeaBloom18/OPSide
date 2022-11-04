@@ -20,7 +20,7 @@ import com.ops.opside.common.room.daos.*
         EventRE::class], version = 1
 )
 abstract class TaxCollectionDataBase : RoomDatabase() {
-    abstract fun taxCollectionDao(): taxCollectionDao
+    abstract fun taxCollectionDao(): TaxCollectionDao
     abstract fun concessionaireDao(): ConcessionaireDao
     abstract fun marketDao(): MarketDao
     abstract fun participatingConcessDao(): ParticipatingConcessDao

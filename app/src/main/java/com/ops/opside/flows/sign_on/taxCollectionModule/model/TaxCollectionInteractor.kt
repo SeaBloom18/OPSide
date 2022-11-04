@@ -1,6 +1,5 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
-import android.content.SharedPreferences
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
@@ -12,7 +11,6 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
 import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.SP_NAME
 import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -23,12 +21,11 @@ class TaxCollectionInteractor @Inject constructor(
     private val preferences: Preferences
 ) {
 
-    fun getConcessionairesFEList(marketId: String): Observable<MutableList<ConcessionaireFE>> {
+    fun getConcessionairesFEList(): Observable<MutableList<ConcessionaireFE>> {
         return Observable.unsafeCreate { subscriber ->
             val concessionaires: MutableList<ConcessionaireFE> = mutableListOf()
 
             firestore.collection(DB_TABLE_CONCESSIONAIRE)
-                .whereArrayContains("participatingMarkets", marketId)
                 .get()
                 .addOnSuccessListener { it ->
 
@@ -42,7 +39,9 @@ class TaxCollectionInteractor @Inject constructor(
                                 document.get("origin").toString(),
                                 document.get("phone").toString(),
                                 document.get("email").toString(),
-                                document.get("role") as Int,
+                                // TODO: Qué pasó con este campo?
+                    //document.get("role") as Int,
+                                0,
                                 document.get("linearMeters").toString().toDouble(),
                                 document.get("lineBusiness").toString(),
                                 0,
@@ -205,6 +204,24 @@ class TaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate{ subscriber ->
             try {
                 subscriber.onNext(room.eventDao().createEvent(event) == null)
+            } catch (e: Exception){
+                subscriber.onError(e)
+            }
+        }
+    }
+
+    fun revertRelatedConcess(idFirebase: String): Observable<Boolean>{
+        return Observable.unsafeCreate{ subscriber ->
+            try {
+                firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+                    .document(idFirebase)
+                    .delete()
+                    .addOnSuccessListener {
+                        subscriber.onNext(true)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onNext(false)
+                    }
             } catch (e: Exception){
                 subscriber.onError(e)
             }

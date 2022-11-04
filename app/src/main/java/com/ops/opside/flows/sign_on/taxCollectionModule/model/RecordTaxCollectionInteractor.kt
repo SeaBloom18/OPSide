@@ -20,4 +20,17 @@ class RecordTaxCollectionInteractor @Inject constructor(
             }
         }
     }
+
+    fun deleteEvent(event: EventRE): Observable<Boolean>{
+        return Observable.unsafeCreate{ subscriber ->
+            try {
+                val events = room.eventDao().deleteEvent(event)
+
+                subscriber.onNext(true)
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
+    }
+
 }
