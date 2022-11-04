@@ -59,7 +59,6 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         mBinding.apply {
             //tvUserName.text = sharedPref?.getString(SP_NAME)
             ivBack.setOnClickListener { dismiss() }
-            ivShareProfile.setOnClickListener { toast("Share Profile") }
             tvLogOut.setOnClickListener { logOut() }
             ivChangePhoto.setOnClickListener {
                 cameraPermission.launch(arrayOf(

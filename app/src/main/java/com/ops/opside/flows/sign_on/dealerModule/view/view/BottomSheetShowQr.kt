@@ -34,7 +34,7 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.apply {
-            ibSignInClose.setOnClickListener { dismiss() }
+            ivBack.setOnClickListener { dismiss() }
         }
 
         generateQr()

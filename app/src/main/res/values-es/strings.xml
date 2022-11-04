@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--General Strings-->
-
     <!-- Common -->
     <string name="common_accept">Aceptar</string>
     <string name="common_delete">Borrar</string>
@@ -37,6 +35,7 @@
     <string name="dashboard_absences" >Inasistencias</string>
     <string name="dashboard_active_dealers">Concesionarios activos</string>
     <string name="dashboard_tax_collections">Recaudaciones</string>
+    <string name="btn_print_qr_code">Imprimir mi código QR</string>
 
     <!--Login Module Strings-->
     <string name="login_hint_email">Email</string>
@@ -92,6 +91,8 @@
     <string name="bn_menu_incidents_opc5">Incidencias</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
+    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
+    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
     <string name="tax_collection_market">Tianguis</string>
     <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
     <string name="tax_collection_sent">Envía</string>

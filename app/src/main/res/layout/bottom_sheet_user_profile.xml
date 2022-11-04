@@ -135,7 +135,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvUserProfileOrigin"
         app:layout_constraintEnd_toEndOf="@+id/tvAboutYouSubtitle"
         app:layout_constraintStart_toStartOf="@+id/tvAboutYouSubtitle"
-        tools:text="User type"
+        tools:text="Address"
         style="@style/textViewBodyStyle" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -147,7 +147,7 @@
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="@+id/tvUserProfileType"
         app:layout_constraintStart_toStartOf="@+id/tvUserProfileType"
-        tools:text="Origin" />
+        tools:text="Access" />
 
     <View
         android:id="@+id/divider2"

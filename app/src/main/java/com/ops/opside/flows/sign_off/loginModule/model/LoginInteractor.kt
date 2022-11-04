@@ -94,7 +94,6 @@ class LoginInteractor @Inject constructor(
                                         val lineBusiness = document.data["lineBusiness"].toString()
                                         val absence = document.data["absence"].toString()
                                         val linearMeters = document.data["linearMeters"].toString()
-                                        val userType = document.data[""].toString()
                                         val idFirestore = document.id
                                         userRole = document.data["role"].toString()
                                         sp.initPreferences(

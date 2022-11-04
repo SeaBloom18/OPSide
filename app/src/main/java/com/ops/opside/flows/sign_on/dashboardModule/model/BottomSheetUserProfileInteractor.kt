@@ -13,5 +13,5 @@ class BottomSheetUserProfileInteractor @Inject constructor(private val sp: Prefe
         Triple(sp.getString(SP_NAME), sp.getString(SP_EMAIL), sp.getString(SP_PHONE))
 
     fun showAboutInfo(): Pair<String?, String?> =
-        Pair(sp.getString(SP_ORIGIN), sp.getString(SP_USER_TYPE))
+        Pair(sp.getString(SP_ADDRESS), sp.getString(SP_HAS_ACCESS))
 }

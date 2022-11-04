@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/primaryLightColor">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_min">
 
     <ImageButton
         android:id="@+id/ibClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/fui_transparent"
-        android:src="@drawable/ic_close_reg_screen"
         android:contentDescription="@string/registration_btn_bs_close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_close_reg_screen"
+        app:layout_constraintBottom_toTopOf="@+id/tilPickMarket"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputDropDownLayoutStyle"
         android:id="@+id/tilPickMarket"
+        style="@style/TextInputDropDownLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
         android:hint="..."
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:helperText="@string/tax_collection_pick_market"
+        app:layout_constraintBottom_toTopOf="@+id/rbOnLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibClose">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/spPickMarket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
-            android:inputType="none"/>
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.radiobutton.MaterialRadioButton
         android:id="@+id/rbOnLine"
         style="@style/radioButtonStyle"
+        android:layout_marginBottom="8dp"
         android:text="@string/tax_collection_on_line"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:layout_marginStart="@dimen/common_padding_default"
+        app:layout_constraintBottom_toBottomOf="@+id/rbOffLine"
+        app:layout_constraintEnd_toStartOf="@+id/rbOffLine"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilPickMarket"/>
+        app:layout_constraintTop_toTopOf="@+id/rbOffLine" />
 
     <com.google.android.material.radiobutton.MaterialRadioButton
         android:id="@+id/rbOffLine"
         style="@style/radioButtonStyle"
+        android:layout_marginBottom="16dp"
         android:text="@string/tax_collection_off_line"
-        android:layout_marginStart="@dimen/common_padding_default"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rbOnLine"/>
+        app:layout_constraintBottom_toTopOf="@+id/btnPickMarket"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rbOnLine" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPickMarket"
@@ -64,7 +70,6 @@
         app:icon="@drawable/ic_shop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbOffLine"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/primaryColor">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_min">
+
 
     <ImageButton
         android:id="@+id/btnClose"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="?attr/selectableItemBackground"
         android:src="@drawable/ic_close_reg_screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="?attr/selectableItemBackground"/>
+        app:layout_constraintBottom_toTopOf="@+id/tilEmail"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_padding_min"
-        android:hint="@string/registration_hint_email"
         android:layout_marginHorizontal="@dimen/common_padding_default"
-        app:startIconDrawable="@drawable/ic_ops_mail"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/registration_hint_email"
         app:boxStrokeColor="@drawable/states_colors_text_field"
-        app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_ops_search"
-        app:layout_constraintStart_toStartOf="parent"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/tilName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnClose">
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/ic_ops_mail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teEmail"
@@ -43,30 +46,31 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:hint="@string/registration_hint_username"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
-        app:layout_constraintStart_toStartOf="@id/tilEmail"
+        app:layout_constraintBottom_toTopOf="@+id/tilOrigin"
         app:layout_constraintEnd_toEndOf="@id/tilEmail"
-        app:layout_constraintTop_toBottomOf="@id/tilEmail"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
         app:startIconDrawable="@drawable/ic_ops_user">
+
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextInputEditTextStyle"
             android:id="@+id/teName"
-            android:inputType="textPersonName"/>
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputDropDownLayoutStyle"
         android:id="@+id/tilOrigin"
+        style="@style/TextInputDropDownLayoutStyle"
         android:layout_width="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:hint="@string/registration_hint_origin"
         app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/tilLinearMeters"
         app:layout_constraintEnd_toEndOf="@+id/tilEmail"
-        app:layout_constraintStart_toStartOf="@+id/tilEmail"
-        app:layout_constraintTop_toBottomOf="@+id/tilName">
+        app:layout_constraintStart_toStartOf="@+id/tilEmail">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teOrigin"
@@ -80,34 +84,34 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:hint="@string/tax_collection_linear_meters"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
-        app:layout_constraintStart_toStartOf="@id/tilEmail"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="@id/tilEmail"
-        app:layout_constraintTop_toBottomOf="@id/tilOrigin"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
         app:startIconDrawable="@drawable/ic_shop">
+
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextInputEditTextStyle"
             android:id="@+id/teLinearMeters"
-            android:inputType="numberDecimal"/>
+            style="@style/TextInputEditTextStyle"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="#C9000000"
-        android:layout_marginTop="@dimen/common_padding_large"
-        app:layout_constraintTop_toBottomOf="@id/tilLinearMeters"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/CommonButtonStyle"
             android:id="@+id/btnRegister"
+            style="@style/CommonButtonStyle"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="Completar Registro"
