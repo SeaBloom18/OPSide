@@ -23,8 +23,8 @@ object EmailSender{
                 props["mail.imap.auth.mechanisms"] = "XOAUTH2"
                 props.put("mail.smtp.starttls.enable", "true")
 
-                val email = "ixtlahuacanops@gmail.com"
-                val password = "mifgwfulxqxscmue"
+                val email = "recaudacion_fiscal@ixtlahuacanmembrillo.com"
+                val password = "gohufgxgryucedfr"
 
                 val session = Session.getInstance(props, object : Authenticator() {
                     override fun getPasswordAuthentication(): PasswordAuthentication {
@@ -33,7 +33,7 @@ object EmailSender{
                 })
 
                 val mm = MimeMessage(session)
-                mm.setFrom(InternetAddress("recaudacion_fiscal@ixtlahuacanmembrillo.com"))
+                mm.setFrom(InternetAddress(email))
                 mm.addRecipient(Message.RecipientType.TO, InternetAddress("mario.v.r404@gmail.com"))
                 mm.subject = "subject"
                 mm.setText("hi how are you")

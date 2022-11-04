@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/primaryLightColor">
 
     <ImageButton
@@ -29,11 +30,11 @@
         android:layout_marginBottom="@dimen/common_padding_large">
 
         <ImageView
+            android:id="@+id/imgQr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/common_padding_default"
-
-            android:src="@drawable/ic_ops_qr_code" />
+            tools:src="@drawable/ic_ops_qr_code" />
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
