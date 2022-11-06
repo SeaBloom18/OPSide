@@ -13,6 +13,6 @@ class BottomSheetUserProfileViewModel @Inject constructor(
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         mBottomSheetUserProfileInteractor.showPersonalInfo()
 
-    fun showAboutInfo(): Pair<String?, String?> =
+    fun showAboutInfo(): Pair<String?, Boolean?> =
         mBottomSheetUserProfileInteractor.showAboutInfo()
 }
