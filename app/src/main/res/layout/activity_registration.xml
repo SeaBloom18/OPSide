@@ -121,7 +121,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/teAddress"
                     style="@style/TextInputEditTextStyle"
-                    android:inputType="textPersonName"
+                    android:inputType="textPostalAddress"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 

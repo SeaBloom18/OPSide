@@ -4,22 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <!--<ProgressBar
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/secondaryColor"
-        android:background="@color/fui_transparent"
-        android:backgroundTint="@color/fui_transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />-->
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="70dp"
         android:background="@color/fui_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

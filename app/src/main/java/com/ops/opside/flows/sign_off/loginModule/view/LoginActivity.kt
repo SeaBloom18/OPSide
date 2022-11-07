@@ -126,7 +126,9 @@ class LoginActivity : AppCompatActivity() {
                 swRememberUser.isChecked = true
                 teLoginEmail.setText(userPref.second)
                 tvNameRemember.text =
-                    "${getString(R.string.login_tv_remember_name)} ${userPref.third}!"
+                    getString(R.string.login_tv_remember_name, userPref.third.orEmpty().split(" ")[0])
+            } else{
+                tvNameRemember.text = getString(R.string.login_welcome)
             }
         }
     }
