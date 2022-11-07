@@ -46,10 +46,9 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
 
         mBinding.apply {
             ivBack.setOnClickListener { dismiss() }
-            btnPrintQRCode.setOnClickListener { generatePDF() }
+            ivPrintQR.setOnClickListener { generatePDFBadgeSize() }
         }
         generateQr()
-
     }
 
     /** Methods **/
@@ -70,44 +69,109 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
     }
 
     private fun createDocument(mBitmap: Bitmap) {
-        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "myQrCode.png")
+        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "myImageQrCode.png")
         val os: OutputStream = BufferedOutputStream(FileOutputStream(file))
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
         os.close()
     }
 
-    private fun generatePDF() {
+    /** PDF TAMAÑO CARTA **/
+    private fun generatePDFLetterSize() {
+        /** Explicacion de generacion de PDF **/
         val pdfDocument = PdfDocument()
         val paint = Paint()
-        val titulo = TextPaint()
-        val descripcion = TextPaint()
-        val tituloText = "NOTA: Agregar descripcion de uso"
-        val opsText = "Propiedad de OPSide"
+        val textUseConditions = TextPaint()
+        val textOpsDescription = TextPaint()
+        val useConditionTextLine1 = "Este tipo de documentos es exclusivo para usuarios de OPS. \n"
+        val useConditionTextLine2 = "Favor de hacer uso exclusivo en recaudacion."
+        val useConditionTextLine3 = "Cualquier duda contactar con administracion. \n"
+        val opsDescriptionTextLine1 = "Propiedad de OPSide®"
+        val opsDescriptionTextLine2 = "Ixtlahuacan de los Membrillos"
 
-        val paginaInfo = PdfDocument.PageInfo.Builder(215, 270, 1).create()
+        val paginaInfo = PdfDocument.PageInfo.Builder(200, 270, 1).create()
         val pagina1 = pdfDocument.startPage(paginaInfo)
 
+        //Nota: para pintar un recurso (imagen)
         val canvas = pagina1.canvas
-
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ixtlahuacan_logo)
         val bitmapEscala = Bitmap.createScaledBitmap(bitmap, 60,40, false)
-        val bitmapEscala1 = generateQr()?.let { Bitmap.createScaledBitmap(it, 80,80, false) }
+        val bitmapEscala1 = generateQr()?.let { Bitmap.createScaledBitmap(it, 120,120, false) }
         canvas.drawBitmap(bitmapEscala, 20f, 20f, paint)
-        bitmapEscala1?.let { canvas.drawBitmap(it, 70f, 100f, paint) }
+        bitmapEscala1?.let { canvas.drawBitmap(it, 40f, 70f, paint) }
 
-        titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
-        titulo.textSize = 8f
-        canvas.drawText(tituloText, 50f, 200f, titulo)
+        //Print textLines, basic configurations
+        textUseConditions.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        textUseConditions.textSize = 6f
+        canvas.drawText(useConditionTextLine1, 10f, 200f, textUseConditions)
+        canvas.drawText(useConditionTextLine2, 10f, 210f, textUseConditions)
+        canvas.drawText(useConditionTextLine3, 10f, 220f, textUseConditions)
 
-        descripcion.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
-        descripcion.textSize = 4f
-        canvas.drawText(opsText, 90f, 250f, titulo)
+        textOpsDescription.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        textOpsDescription.textSize = 4f
+        canvas.drawText(opsDescriptionTextLine1, 120f, 265f, textUseConditions)
+        canvas.drawText(opsDescriptionTextLine2, 115f, 20f, textUseConditions)
 
 
         pdfDocument.finishPage(pagina1)
 
         val file = File(
             requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MyQrCode.pdf")
+        try {
+            pdfDocument.writeTo(FileOutputStream(file))
+            Toast.makeText(requireContext(), "Se creo el PDF correctamente", Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        pdfDocument.close()
+
+    }
+
+    /** PDF TAMAÑO CARTA **/
+    private fun generatePDFBadgeSize() {
+        /** Explicacion de generacion de PDF **/
+        val pdfDocument = PdfDocument()
+        val paint = Paint()
+        val textUseConditions = TextPaint()
+        val textOpsDescription = TextPaint()
+        val useConditionTextLine1 = "Este tipo de documentos es exclusivo para usuarios de OPS. \n"
+        val useConditionTextLine2 = "Favor de hacer uso exclusivo en recaudacion."
+        val useConditionTextLine3 = "Cualquier duda contactar con administracion. \n"
+        val opsDescriptionTextLine1 = "Propiedad de OPSide®"
+        val opsDescriptionTextLine2 = "Ixtlahuacan de los Membrillos"
+
+        val pageInfo = PdfDocument.PageInfo.Builder(76, 102, 1).create()
+        val page1 = pdfDocument.startPage(pageInfo)
+
+        //Nota: para pintar un recurso (imagen) es necesaria la siguiente configuracion
+        val canvas = page1.canvas
+
+        /*val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ixtlahuacan_logo)
+        val bitmapImg1 = Bitmap.createScaledBitmap(bitmap, 20,10, false)
+        canvas.drawBitmap(bitmapImg1, 20f, 20f, paint)*/
+
+        //Img size
+        val bitmapImg2 = generateQr()?.let { Bitmap.createScaledBitmap(it, 50,50, false) }
+        //Img location
+        bitmapImg2?.let { canvas.drawBitmap(it, 12f, 16f, paint) }
+
+        //Print textLines, basic configurations
+        textUseConditions.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        textUseConditions.textSize = 2.5f
+        canvas.drawText(useConditionTextLine1, 8f, 68f, textUseConditions)
+        canvas.drawText(useConditionTextLine2, 8f, 71f, textUseConditions)
+        canvas.drawText(useConditionTextLine3, 8f, 74f, textUseConditions)
+
+        textOpsDescription.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        textOpsDescription.textSize = 3f
+        canvas.drawText(opsDescriptionTextLine1, 40f, 100f, textOpsDescription)
+        canvas.drawText(opsDescriptionTextLine2, 12f, 15f, textOpsDescription)
+
+
+        pdfDocument.finishPage(page1)
+
+        val file = File(
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MyBadgeQrCode.pdf")
         try {
             pdfDocument.writeTo(FileOutputStream(file))
             Toast.makeText(requireContext(), "Se creo el PDF correctamente", Toast.LENGTH_LONG).show()
