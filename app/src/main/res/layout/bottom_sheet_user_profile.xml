@@ -19,7 +19,6 @@
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <ImageButton
         android:id="@+id/ivShareProfile"
         android:layout_width="40dp"
@@ -123,31 +122,31 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="@string/bottom_sheet_tv_about_you"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserProfileType"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserProfileAdress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvUserProfileType"
+        android:id="@+id/tvUserProfileAdress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserProfileOrigin"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserProfileAccess"
         app:layout_constraintEnd_toEndOf="@+id/tvAboutYouSubtitle"
         app:layout_constraintStart_toStartOf="@+id/tvAboutYouSubtitle"
-        tools:text="User type"
+        tools:text="Address"
         style="@style/textViewBodyStyle" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvUserProfileOrigin"
+        android:id="@+id/tvUserProfileAccess"
         style="@style/textViewBodyStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toEndOf="@+id/tvUserProfileType"
-        app:layout_constraintStart_toStartOf="@+id/tvUserProfileType"
-        tools:text="Origin" />
+        app:layout_constraintEnd_toEndOf="@+id/tvUserProfileAdress"
+        app:layout_constraintStart_toStartOf="@+id/tvUserProfileAdress"
+        tools:text="Access" />
 
     <View
         android:id="@+id/divider2"

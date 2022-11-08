@@ -57,9 +57,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.apply {
-            //tvUserName.text = sharedPref?.getString(SP_NAME)
             ivBack.setOnClickListener { dismiss() }
-            ivShareProfile.setOnClickListener { toast("Share Profile") }
             tvLogOut.setOnClickListener { logOut() }
             ivChangePhoto.setOnClickListener {
                 cameraPermission.launch(arrayOf(
@@ -82,8 +80,8 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             tvUserEmail.text = userPersonalInfo.second
             tvUserPhone.text = userPersonalInfo.third
 
-            tvUserProfileOrigin.text = userAboutInfo.first
-            tvUserProfileType.text = userAboutInfo.second
+            tvUserProfileAdress.text = userAboutInfo.first.orEmpty()
+            tvUserProfileAccess.text = userAboutInfo.second.toString()
         }
     }
 
