@@ -46,7 +46,7 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
 
         mBinding.apply {
             ivBack.setOnClickListener { dismiss() }
-            ivPrintQR.setOnClickListener { generatePDFBadgeSize() }
+            ivPrintQR.setOnClickListener { generatePDFLetterSize() }
         }
         generateQr()
     }
@@ -93,29 +93,31 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
 
         //Nota: para pintar un recurso (imagen)
         val canvas = pagina1.canvas
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ixtlahuacan_logo)
+
+        /*val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ixtlahuacan_logo)
         val bitmapEscala = Bitmap.createScaledBitmap(bitmap, 60,40, false)
+        canvas.drawBitmap(bitmapEscala, 20f, 20f, paint)*/
+
         val bitmapEscala1 = generateQr()?.let { Bitmap.createScaledBitmap(it, 120,120, false) }
-        canvas.drawBitmap(bitmapEscala, 20f, 20f, paint)
         bitmapEscala1?.let { canvas.drawBitmap(it, 40f, 70f, paint) }
 
         //Print textLines, basic configurations
-        textUseConditions.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        textUseConditions.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
         textUseConditions.textSize = 6f
-        canvas.drawText(useConditionTextLine1, 10f, 200f, textUseConditions)
-        canvas.drawText(useConditionTextLine2, 10f, 210f, textUseConditions)
-        canvas.drawText(useConditionTextLine3, 10f, 220f, textUseConditions)
+        canvas.drawText(useConditionTextLine1, 20f, 200f, textUseConditions)
+        canvas.drawText(useConditionTextLine2, 20f, 210f, textUseConditions)
+        canvas.drawText(useConditionTextLine3, 20f, 220f, textUseConditions)
 
         textOpsDescription.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
         textOpsDescription.textSize = 4f
-        canvas.drawText(opsDescriptionTextLine1, 120f, 265f, textUseConditions)
+        canvas.drawText(opsDescriptionTextLine1, 130f, 265f, textUseConditions)
         canvas.drawText(opsDescriptionTextLine2, 115f, 20f, textUseConditions)
 
 
         pdfDocument.finishPage(pagina1)
 
         val file = File(
-            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MyQrCode.pdf")
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MyLetterQrCode.pdf")
         try {
             pdfDocument.writeTo(FileOutputStream(file))
             Toast.makeText(requireContext(), "Se creo el PDF correctamente", Toast.LENGTH_LONG).show()
@@ -127,7 +129,7 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
 
     }
 
-    /** PDF TAMAÑO CARTA **/
+    /** PDF TAMAÑO GAFETE **/
     private fun generatePDFBadgeSize() {
         /** Explicacion de generacion de PDF **/
         val pdfDocument = PdfDocument()
@@ -146,9 +148,9 @@ class BottomSheetShowQr: BottomSheetDialogFragment() {
         //Nota: para pintar un recurso (imagen) es necesaria la siguiente configuracion
         val canvas = page1.canvas
 
-        /*val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ixtlahuacan_logo)
-        val bitmapImg1 = Bitmap.createScaledBitmap(bitmap, 20,10, false)
-        canvas.drawBitmap(bitmapImg1, 20f, 20f, paint)*/
+        /*val bitmap = BitmapFactory.decodeResource(resources, R.drawable.ixtlahuacan_logo_v2)
+        val bitmapImg1 = Bitmap.createScaledBitmap(bitmap, 50,50, false)
+        canvas.drawBitmap(bitmapImg1, 0f, 0f, paint)*/
 
         //Img size
         val bitmapImg2 = generateQr()?.let { Bitmap.createScaledBitmap(it, 50,50, false) }
