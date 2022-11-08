@@ -155,9 +155,9 @@ class LoginInteractor @Inject constructor(
                                 }
                                 .addOnFailureListener {
                                     Log.e("initSPError", it.toString())
+                                    subscriber.onError(it)
                                 }
                         }
-
                     }
                     .addOnFailureListener { exception ->
                         Log.w("loginFirestore", "Error getting documents: ", exception)

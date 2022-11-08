@@ -1,9 +1,10 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
-//import androidx.biometric.BiometricPrompt
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -16,6 +17,7 @@ import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
+import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import com.ops.opside.flows.sign_on.dealerModule.view.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,10 +26,6 @@ import java.util.zip.CRC32
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    /*private lateinit var executor: Executor
-    private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var promptInfo: BiometricPrompt.PromptInfo*/
-
     private lateinit var mBinding: ActivityLoginBinding
     private val mViewModel: LoginViewModel by viewModels()
 
@@ -35,39 +33,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-
-        /*executor = ContextCompat.getMainExecutor(this)
-        biometricPrompt = BiometricPrompt(this, executor,
-            object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationError(errorCode: Int,
-                                                   errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
-                    Toast.makeText(applicationContext,
-                        "Authentication error: $errString", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                override fun onAuthenticationSucceeded(
-                    result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    Toast.makeText(applicationContext,
-                        "Authentication succeeded!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    Toast.makeText(applicationContext, "Authentication failed",
-                        Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric login for my app")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Use account password")
-            .build()*/
 
         mBinding.apply {
             btnBiometricsLogIn.setOnClickListener { /*biometricPrompt.authenticate(promptInfo) */}
@@ -84,26 +49,6 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     showError(getString(R.string.login_toast_empy_text))
                 }
-               /* val email = mBinding.teLoginEmail.text.toString().trim()
-                val password = mBinding.tePassword.text.toString().trim()
-                if (email.isNotEmpty() && password.isNotEmpty()){
-                    hideError()
-                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
-                } else {
-                    showError(getString(R.string.login_toast_empy_text))
-                }*/
-                /*if (BuildConfig.DEBUG){
-                    launchActivity<MainActivity> {  }
-                } else {
-                    val email = mBinding.teLoginEmail.text.toString().trim()
-                    val password = mBinding.tePassword.text.toString().trim()
-                    if (email.isNotEmpty() && password.isNotEmpty()){
-                        hideError()
-                        mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
-                    } else {
-                        showError(getString(R.string.login_toast_empy_text))
-                    }
-                }*/
             }
             tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
         }
@@ -127,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
                 teLoginEmail.setText(userPref.second)
                 tvNameRemember.text =
                     getString(R.string.login_tv_remember_name, userPref.third.orEmpty().split(" ")[0])
+                btnBiometricsLogIn.visibility = View.INVISIBLE
             } else{
                 tvNameRemember.text = getString(R.string.login_welcome)
             }
@@ -143,11 +89,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun userRoleValidation(userRole: String){
         Log.d("userRole", userRole)
+        val userPref = mViewModel.isRememberMeChecked()
         if (userRole == "1" || userRole == "2"){
             launchActivity<DealerActivity> {  }
+            if (userPref.first == false) mBinding.teLoginEmail.setText("")
             mBinding.tePassword.setText("")
         } else {
             launchActivity<MainActivity> {  }
+            if (userPref.first == false) mBinding.teLoginEmail.setText("")
             mBinding.tePassword.setText("")
         }
     }
@@ -171,7 +120,6 @@ class LoginActivity : AppCompatActivity() {
     private fun showError(errorMessage: String){
         mBinding.tvError.tvError.isVisible = true
         mBinding.tvError.tvError.text = errorMessage
-
     }
 
     private fun hideError(){
@@ -198,9 +146,8 @@ class LoginActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.setText(com.firebase.ui.auth.R.string.fui_privacy_policy)
-        val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
-        tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
+        tvTitle.setText(R.string.tv_title_policies)
+        //val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargePolicies)
 
         dialog.setContentView(view)
         dialog.show()
@@ -212,8 +159,8 @@ class LoginActivity : AppCompatActivity() {
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
         tvTitle.text = getString(R.string.login_tv_about_app)
-        val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargeMessage)
-        tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
+        //val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargePolicies)
+        //tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
 
         dialog.setContentView(view)
         dialog.show()
