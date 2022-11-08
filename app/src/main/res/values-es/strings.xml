@@ -38,6 +38,7 @@
     <string name="btn_print_qr_code">Imprimir mi código QR</string>
 
     <!--Login Module Strings-->
+    <string name="login_welcome">¡Bienvenido!</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="login_til_required">Requerido</string>
@@ -52,7 +53,7 @@
     <string name="login_toast_empy_text">Los campos no pueden estar vacíos</string>
     <string name="login_tv_forget_password">He olvidado mi contraseña</string>
     <string name="login_toast_credentials_validation">La contraseña o el correo esta incorrecto, verificalo!</string>
-    <string name="login_tv_remember_name">Bienvenido de vuelta,</string>
+    <string name="login_tv_remember_name">Bienvenido de vuelta, %1$s!</string>
 
 
     <!--Registration Module Strings-->

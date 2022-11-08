@@ -39,6 +39,7 @@
 
 
     <!--Login Module Strings-->
+    <string name="login_welcome">Welcome!</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_til_required">Required</string>
@@ -53,7 +54,7 @@
     <string name="login_toast_empy_text">Fields cannot be empty</string>
     <string name="login_tv_forget_password">I forgot my password</string>
     <string name="login_toast_credentials_validation">The password or the email is incorrect, check it!</string>
-    <string name="login_tv_remember_name">Welcome Back,</string>
+    <string name="login_tv_remember_name">Welcome Back, %1$s!</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>
