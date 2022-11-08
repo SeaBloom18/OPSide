@@ -62,7 +62,7 @@
     <string name="registration_hint_phone">Telefono</string>
     <string name="registration_hint_email">Correo electronico</string>
     <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
-    <string name="registration_hint_origin">Origen</string>
+    <string name="registration_hint_origin">Selecciona un origen</string>
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
     <string name="registration_btn_bs_close">Salir</string>
@@ -72,7 +72,7 @@
     <string name="registration_alert_dialog_title">¿Como te quieres registrar?</string>
     <string name="registration_alert_dialog_negative_button">Regresar al inicio</string>
     <string name="registration_btn_complete_register">Completar registro!</string>
-    <string name="registration_tv_steps_title">Completa todos los pasos para completar tu registro!</string>
+    <string name="registration_tv_steps_title">Completa todos los pasos para completar tu registro para ser un !</string>
     <string name="registration_array_foreign_conce">Concesionario foráneo</string>
     <string name="registration_array_conce">Concesionario</string>
     <string name="registration_array_collector">Collector</string>
