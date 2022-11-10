@@ -34,7 +34,7 @@ class MarketInteractor @Inject constructor(
                     .addOnFailureListener {
                         subscriber.onError(it)
                     }
-            }catch (exception: Exception){
+            } catch (exception: Exception){
                 subscriber.onError(exception)
             }
         }

@@ -42,7 +42,6 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
                 context.startActivity(intent)
             }
         }
-
     }
 
     /** ItemCount **/

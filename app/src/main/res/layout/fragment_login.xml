@@ -150,7 +150,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:background="#C9000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,19 +160,21 @@
             style="@style/textViewBodyStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/login_txt_create_account"
             android:textColor="@color/primaryLightColor"
             app:layout_constraintBottom_toTopOf="@+id/tvSignUp"
             app:layout_constraintEnd_toEndOf="@+id/tvSignUp"
-            app:layout_constraintStart_toStartOf="@+id/tvSignUp" />
+            app:layout_constraintStart_toStartOf="@+id/tvSignUp"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvSignUp"
             style="@style/textViewSubtitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
             android:background="?attr/selectableItemBackground"
             android:drawablePadding="8dp"
             android:text="@string/login_txt_create_account_sign_in"

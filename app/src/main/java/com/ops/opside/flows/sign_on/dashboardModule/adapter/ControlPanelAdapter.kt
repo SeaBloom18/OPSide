@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
 
-class ControlPanelAdapter(var concessionaireRE: MutableList<ConcessionaireSE>):
+class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>):
 RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
 
     private lateinit var context: Context
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
@@ -22,18 +21,18 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val concessionaire = concessionaireRE.get(position)
-        holder.binding.tvConcessionaireName.text = concessionaire.name
-
+        val collectors = collectorsList[position]
+        holder.binding.tvConcessionaireName.text = collectors.name
     }
 
-    override fun getItemCount(): Int = concessionaireRE.size
+    override fun getItemCount(): Int = collectorsList.size
 
-    fun setConcessionaires(concessionaireRE: List<ConcessionaireSE>){
-        this.concessionaireRE = concessionaireRE as MutableList<ConcessionaireSE>
+    /*fun setConcessionaires(concessionaireRE: List<ConcessionaireSE>){
+        this.collectorsLits = concessionaireRE as MutableList<CollectorSE>
         notifyDataSetChanged()
-    }
+    }*/
 
+    /** Inner Class **/
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemControlPanelConcessionairePermissionBinding.bind(view)
     }
