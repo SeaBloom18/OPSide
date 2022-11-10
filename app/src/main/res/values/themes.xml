@@ -52,6 +52,13 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:textCursorDrawable">@null</item>
     </style>
+    
+    <!--CheckBox Style-->
+    <style name="CheckBoxStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        
+    </style>
 
     <!--Button Style-->
     <style name="CommonButtonStyle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
