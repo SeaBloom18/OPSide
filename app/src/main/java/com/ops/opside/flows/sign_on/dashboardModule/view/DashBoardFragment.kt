@@ -10,6 +10,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.ops.opside.R
+import com.ops.opside.common.dialogs.InDevelopmentFragment
 import com.ops.opside.databinding.FragmentDashBoardBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
@@ -50,6 +51,8 @@ class DashBoardFragment : Fragment() {
             }
         }
 
+        mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_container, InDevelopmentFragment()).commit()
+
         return binding.root
     }
 
@@ -69,10 +72,10 @@ class DashBoardFragment : Fragment() {
                             startActivity(Intent(activity, ControlPanelActivity::class.java))
                             true
                         }
-                        R.id.taxNotification -> {
+                        /*R.id.taxNotification -> {
                             Toast.makeText(mActivity, "Notification", Toast.LENGTH_SHORT).show()
                             true
-                        }
+                        }*/
                         R.id.taxProfile -> {
                             val dialog = BottomSheetUserProfile()
                             dialog.show(mActivity.supportFragmentManager, dialog.tag)

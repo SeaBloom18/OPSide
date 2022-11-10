@@ -20,7 +20,6 @@ class RegisterInteractor @Inject constructor(
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                         subscriber.onNext(true)
                     }
                     .addOnFailureListener {

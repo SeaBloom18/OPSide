@@ -1,5 +1,6 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
+import android.util.Log
 import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.room.TaxCollectionDataBase
 import io.reactivex.Observable
@@ -19,6 +20,13 @@ class RecordTaxCollectionInteractor @Inject constructor(
                 subscriber.onError(exception)
             }
         }
+    }
+
+
+    fun hasEvents(idTaxCollection: String): Boolean{
+        val events = room.eventDao().getAllEvents(idTaxCollection)
+        Log.d("event", events.toString())
+        return events.size > 0
     }
 
     fun deleteEvent(event: EventRE): Observable<Boolean>{

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="30dp"
+            android:paddingBottom="@dimen/common_padding_default">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLoginEmail"
+                style="@style/TextInputLayoutStyle"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/login_hint_email"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRemember"
+                app:startIconDrawable="@drawable/ic_ops_email_login">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teLoginEmail"
+                    style="@style/TextInputEditTextStyle"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/login_hint_password"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="password_toggle"
+                app:layout_constraintBottom_toTopOf="@+id/tvError"
+                app:layout_constraintEnd_toEndOf="@+id/tilLoginEmail"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tilLoginEmail"
+                app:layout_constraintTop_toBottomOf="@+id/tilLoginEmail"
+                app:startIconDrawable="@drawable/ic_ops_pass_login">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tePassword"
+                    style="@style/TextInputEditTextStyle"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <include
+                android:id="@+id/tvError"
+                layout="@layout/frame_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/swRememberUser"
+                app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tilPassword"
+                app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogin"
+                style="@style/CommonButtonStyle"
+                android:layout_marginTop="8dp"
+                android:text="@string/login_btn"
+                app:icon="@drawable/ic_ops_login"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="@+id/swRememberUser"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/swRememberUser"
+                app:layout_constraintTop_toBottomOf="@+id/swRememberUser" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swRememberUser"
+                style="@style/CommonSwitchStyle"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/login_sw_remember_account"
+                app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+                app:layout_constraintEnd_toEndOf="@+id/tvError"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tvError"
+                app:layout_constraintTop_toBottomOf="@+id/tvError" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/textViewBodyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/login_tv_forget_password"
+                android:textColor="@color/secondaryLightColor"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvError"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tvError"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvNameRemember"
+                style="@style/textViewTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginVertical="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/tilLoginEmail"
+                app:layout_constraintStart_toStartOf="@+id/tilLoginEmail"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Welcome back!, David Alejandro Gonzalez Quezada" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageButton
+        android:id="@+id/btnBiometricsLogIn"
+        style="@style/CommonButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryTransparentLightColor"
+        android:src="@drawable/ic_ops_fingerprint"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout2"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="#C9000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            style="@style/textViewBodyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/login_txt_create_account"
+            android:textColor="@color/primaryLightColor"
+            app:layout_constraintBottom_toTopOf="@+id/tvSignUp"
+            app:layout_constraintEnd_toEndOf="@+id/tvSignUp"
+            app:layout_constraintStart_toStartOf="@+id/tvSignUp" />
+
+        <TextView
+            android:id="@+id/tvSignUp"
+            style="@style/textViewSubtitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawablePadding="8dp"
+            android:text="@string/login_txt_create_account_sign_in"
+            android:textColor="@color/secondaryColor"
+            app:drawableEndCompat="@drawable/ic_save_register"
+            app:drawableTint="@color/secondaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvAboutApp"
+        style="@style/textViewBodyStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:text="@string/login_tv_about_app"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        style="@style/textViewBodyStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:text="@string/app_name"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPolicies"
+        app:layout_constraintStart_toEndOf="@+id/tvAboutApp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPolicies"
+        style="@style/textViewBodyStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:text="@string/login_tv_policies"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

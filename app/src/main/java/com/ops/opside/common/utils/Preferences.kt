@@ -34,7 +34,8 @@ class Preferences @Inject constructor(
         id: String,
         roll: Int,
         hasAccess: Boolean,
-        rememberMe: Boolean
+        rememberMe: Boolean,
+        useBiometrics: Boolean
     ){
         sp.edit().putFloat  (SP_PRICE_LINEAR_METER, priceLinearMeter).apply()
         sp.edit().putString (SP_NAME              , name            ).apply()
@@ -50,6 +51,7 @@ class Preferences @Inject constructor(
         sp.edit().putInt    (SP_ROLL              , roll            ).apply()
         sp.edit().putBoolean(SP_HAS_ACCESS        , hasAccess       ).apply()
         sp.edit().putBoolean(SP_REMEMBER_ME       , rememberMe      ).apply()
+        sp.edit().putBoolean(SP_USE_BIOMETRICS    , useBiometrics   ).apply()
         sp.edit().putBoolean(SP_IS_ON_LINE_MODE   , true            ).apply()
         sp.edit().putBoolean(SP_IS_INITIALIZED    , true            ).apply()
         sp.edit().putString (SP_START_TIME        , ""              ).apply()
@@ -95,4 +97,5 @@ const val SP_ROLL               = "roll"
 const val SP_HAS_ACCESS         = "hasAccess"
 const val SP_REMEMBER_ME        = "rememberMe"
 const val SP_IS_ON_LINE_MODE    = "isOnLineMode"
+const val SP_USE_BIOMETRICS     = "useBiometrics"
 const val SP_IS_INITIALIZED     = "isInitialized"

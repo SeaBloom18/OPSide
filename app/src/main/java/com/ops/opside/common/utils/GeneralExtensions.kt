@@ -62,7 +62,7 @@ fun AppCompatActivity.launchActivity(
 fun AppCompatActivity.showError(message: String){
     val dialog = BaseDialog(
         this,
-        R.drawable.ic_store,
+        R.drawable.ic_ops_error,
         getString(R.string.common_atention),
         message,
         getString(R.string.common_cancel)
@@ -74,7 +74,7 @@ fun AppCompatActivity.showError(message: String){
 fun Fragment.showError(message: String){
     val dialog = BaseDialog(
         requireContext(),
-        R.drawable.ic_store,
+        R.drawable.ic_ops_error,
         getString(R.string.common_atention),
         message,
         getString(R.string.common_cancel)

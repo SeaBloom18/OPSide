@@ -9,12 +9,15 @@ import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
-import com.ops.opside.flows.sign_on.profileModule.model.profileInteractor
+import com.ops.opside.flows.sign_on.profileModule.model.ProfileInteractor
+import com.ops.opside.flows.sign_on.taxCollectionModule.actions.TaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickMarketInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.RecordTaxCollectionInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.TaxCollectionInteractor
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -22,9 +25,11 @@ import javax.inject.Inject
 class TaxCollectionViewModel @Inject constructor(
     private val mTaxCollectionInteractor: TaxCollectionInteractor,
     private val mPickMarketsInteractor: PickMarketInteractor,
-    private val mProfileInteractor: profileInteractor,
+    private val mProfileInteractor: ProfileInteractor,
     private val mRecordEventInteractor: RecordTaxCollectionInteractor
 ) : CommonViewModel() {
+    private val _action: SingleLiveEvent<TaxCollectionAction> = SingleLiveEvent()
+    fun getAction(): LiveData<TaxCollectionAction> = _action
 
     private val _initTaxCollection = MutableLiveData<Boolean>()
     private val _hasOpenedTaxCollection = MutableLiveData<TaxCollectionSE?>()
@@ -39,6 +44,7 @@ class TaxCollectionViewModel @Inject constructor(
     private val _createEvent = MutableLiveData<Boolean>()
     private val _revertEvent = MutableLiveData<Boolean>()
     private val _getEventList = MutableLiveData<MutableList<EventRE>>()
+    private val _getCollectorName = MutableLiveData<String>()
 
     val initTaxCollection: LiveData<Boolean> = _initTaxCollection
     val hasOpenedTaxCollection: LiveData<TaxCollectionSE?> = _hasOpenedTaxCollection
@@ -55,6 +61,7 @@ class TaxCollectionViewModel @Inject constructor(
     val createEvent: LiveData<Boolean> = _createEvent
     val revertEvent: LiveData<Boolean> = _revertEvent
     val getEventList: LiveData<MutableList<EventRE>> = _getEventList
+    val getCollectorName: LiveData<String> = _getCollectorName
 
 
 
@@ -74,6 +81,16 @@ class TaxCollectionViewModel @Inject constructor(
                     }
                 )
         )
+    }
+
+    fun deleteTaxCollection(taxCollection: TaxCollectionSE){
+        val result = mTaxCollectionInteractor.deleteTaxCollection(taxCollection)
+        if (result.first){
+            _action.value = TaxCollectionAction.ResetActivity
+        } else{
+            Log.d("Error", result.second)
+            _action.value = TaxCollectionAction.ShowMessageError(result.second)
+        }
     }
 
     fun getOpenedTaxCollection(idMarket: String){
@@ -261,6 +278,8 @@ class TaxCollectionViewModel @Inject constructor(
         )
     }
 
+    fun hasEvents(idTaxCollection: String) = mRecordEventInteractor.hasEvents(idTaxCollection)
+
     fun revertRelatedConcess(idFirebase: String){
         disposable.add(
             mTaxCollectionInteractor.revertRelatedConcess(idFirebase).applySchedulers()
@@ -276,12 +295,18 @@ class TaxCollectionViewModel @Inject constructor(
         )
     }
 
+    fun sendReceipt(email: TaxCollectionActivity.Email){
+        _action.value = TaxCollectionAction.SendReceipt(email)
+    }
+
     fun isOnLineMode(): Boolean{
         return mPickMarketsInteractor.isOnLineMode()
     }
 
     fun getCollectorName(): String{
-        return mProfileInteractor.getCollectorName()
+        val collectorName = mProfileInteractor.getCollectorName()
+        _action.value = TaxCollectionAction.SetCollectorName(collectorName!!)
+        return collectorName
     }
 
     fun deleteProfileData(){

@@ -1,12 +1,15 @@
 package com.ops.opside.common.entities.share
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = DB_TABLE_CONCESSIONAIRE)
 data class ConcessionaireSE(
     @PrimaryKey(autoGenerate = false)
@@ -30,7 +33,7 @@ data class ConcessionaireSE(
     @ColumnInfo(name = "origin")
     var origin: String = "",
     @Ignore var wasPaid: Boolean = false
-) {
+): Parcelable {
     constructor() : this(
         idFirebase = "",
         name = "",

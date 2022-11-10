@@ -1,35 +1,56 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.viewModel
 
-import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.ops.opside.common.utils.applySchedulers
+import com.ops.opside.common.utils.BiometricsManager
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.viewModel.CommonViewModel
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
+import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
+import com.ops.opside.flows.sign_off.loginModule.model.LoginInteractor
+import com.ops.opside.flows.sign_on.taxCollectionModule.actions.FinalizeTaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.FinalizeTaxCollectionInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FinalizeTaxCollectionViewModel @Inject constructor(
-    private val mFinalizeTaxCollectionInteractor: FinalizeTaxCollectionInteractor
-): CommonViewModel() {
+    private val mFinalizeTaxCollectionInteractor: FinalizeTaxCollectionInteractor,
+    private val mLoginInteractor: LoginInteractor
+) : CommonViewModel(), BiometricsManager.BiometricListener {
 
-    private val _getAbsencesList = MutableLiveData<MutableList<ItemAbsence>>()
-    val getAbsencesList: LiveData<MutableList<ItemAbsence>> = _getAbsencesList
+    private val _action: SingleLiveEvent<FinalizeTaxCollectionAction> = SingleLiveEvent()
+    fun getAction(): LiveData<FinalizeTaxCollectionAction> = _action
 
-    fun getAbsencesList(){
-        disposable.add(
-            mFinalizeTaxCollectionInteractor.getAbsenceList().applySchedulers()
-                .subscribe(
-                    {
-                        _getAbsencesList.value = it
-                    },
-                    {
-                        Log.e("Error", it.toString())
-                    }
-                )
-        )
+    private var biometricsManager: BiometricsManager? = null
+
+    fun checkBiometrics(fragment: Fragment) {
+        biometricsManager = BiometricsManager(fragment)
+        if (isBiometricsActivated())
+            biometricsManager?.loadCredentials(this)
+        //else
+        //_action.value = Promp Contraseña
+    }
+
+    private fun isBiometricsActivated() = mLoginInteractor.isBiometricsActivated()
+
+    override fun onSaveFinished() {
+        //doNothing
+    }
+
+    override fun onCredentialsError(isSaved: Boolean) {
+        if (isSaved) {
+            //_action.value = Promp Contraseña
+        } else {
+            mLoginInteractor.setUseBiometrics(false)
+        }
+    }
+
+    override fun onKeyErrorDeleted() {
+        mLoginInteractor.setUseBiometrics(false)
+    }
+
+    override fun onCredentialsLoaded(credential: String) {
+        _action.value = FinalizeTaxCollectionAction.SendCollection
     }
 
 }

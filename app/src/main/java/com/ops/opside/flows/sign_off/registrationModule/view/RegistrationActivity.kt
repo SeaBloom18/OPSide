@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -27,6 +28,7 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
+import com.ops.opside.common.utils.MD5
 import com.ops.opside.common.utils.clear
 import com.ops.opside.common.utils.error
 import com.ops.opside.common.utils.toast
@@ -46,9 +48,8 @@ class RegistrationActivity : AppCompatActivity() {
     private val mConcessionaireFE: ConcessionaireFE = ConcessionaireFE()
     private val mCollectorFE: CollectorFE = CollectorFE()
     private var checkedItem = 0
-    private val crc32 = CRC32()
-    private var passHash = ""
     private var isValidPassword = false
+
     private lateinit var mOriginList: MutableList<OriginFE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,27 +59,19 @@ class RegistrationActivity : AppCompatActivity() {
         mBinding.apply {
             btnRegister.setOnClickListener { insertUser() }
 
-            tePassword.addTextChangedListener(object: TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    charSequence?.apply {
-                        if(isValidPassword()) {
-                            mBinding.tilPassword.error = null
-                            isValidPassword =  true
-                        }
-                        else {
-                            mBinding.tilPassword.error =
-                                getString(R.string.registration_til_password_validation)
-                            isValidPassword = false
-                        }
+            tePassword.doAfterTextChanged { charSequence ->
+                charSequence.toString().apply {
+                    if(isValidPassword()) {
+                        mBinding.tilPassword.error = null
+                        isValidPassword =  true
+                    }
+                    else {
+                        mBinding.tilPassword.error =
+                            getString(R.string.registration_til_password_validation)
+                        isValidPassword = false
                     }
                 }
-
-                override fun afterTextChanged(p0: Editable?) {
-                }
-            })
+            }
         }
 
         bindViewModel()
@@ -193,7 +186,7 @@ class RegistrationActivity : AppCompatActivity() {
                         email = mBinding.teEmail.text.toString().trim()
                         origin = mBinding.teOrigin.text.toString()
                         role = 2
-                        password = passwordHash(mBinding.tePassword.text.toString().trim())
+                        password = MD5.hashString(mBinding.tePassword.text.toString().trim())
                         participatingMarkets = mutableListOf()
                         isForeigner = false
                         isValid = true
@@ -242,7 +235,7 @@ class RegistrationActivity : AppCompatActivity() {
                         address = mBinding.teAddress.text.toString().trim()
                         phone = mBinding.tePhone.text.toString().trim()
                         email = mBinding.teEmail.text.toString().trim()
-                        password = passwordHash(mBinding.tePassword.text.toString().trim())
+                        password = MD5.hashString(mBinding.tePassword.text.toString().trim())
                         role = 3
                         isValid = true
                     }
@@ -255,11 +248,6 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     /** Form Validations **/
-    private fun passwordHash(password: String): String{
-        crc32.update(password.toByteArray())
-        passHash = String.format("%08X", crc32.value)
-        return passHash
-    }
 
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()

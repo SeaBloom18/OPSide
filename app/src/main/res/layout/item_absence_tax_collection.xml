@@ -8,6 +8,7 @@
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/cbAbsence"
+        style="@style/CheckBoxStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/common_padding_default"
