@@ -13,6 +13,7 @@ import com.ops.opside.databinding.DialogBaseBinding
 class BaseDialog(
     context: Context,
     private val imageResource: Int = 0,
+    //private val typeDialog: String? = DIALOG_WARNING,
     private val mTitle: String,
     private val mDescription: String,
     private val buttonYesText: String = "",
@@ -43,6 +44,13 @@ class BaseDialog(
                 noAction.invoke()
                 dismiss()
             }
+
+            /*when(typeDialog){
+                DIALOG_WARNING -> ivDialog.setColorFilter(R.color.warning)
+                DIALOG_ERROR -> ivDialog.setColorFilter(R.color.error)
+                DIALOG_INFO -> ivDialog.setColorFilter(R.color.info)
+                DIALOG_SUCCESS -> ivDialog.setColorFilter(R.color.secondaryColor)
+            }*/
         }
     }
 
@@ -54,3 +62,8 @@ class BaseDialog(
         window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 }
+
+const val DIALOG_WARNING = "warning"
+const val DIALOG_ERROR = "error"
+const val DIALOG_INFO = "info"
+const val DIALOG_SUCCESS = "success"

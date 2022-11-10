@@ -40,7 +40,7 @@ class TaxCollectionInteractor @Inject constructor(
                                 document.get("phone").toString(),
                                 document.get("email").toString(),
                                 // TODO: Qué pasó con este campo?
-                    //document.get("role") as Int,
+                                //document.get("role") as Int,
                                 0,
                                 document.get("linearMeters").toString().toDouble(),
                                 document.get("lineBusiness").toString(),
@@ -165,53 +165,53 @@ class TaxCollectionInteractor @Inject constructor(
         return preferences.getFloat(SP_PRICE_LINEAR_METER)
     }
 
-    fun createTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean>{
-        return Observable.unsafeCreate{ subscriber ->
+    fun createTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
             try {
                 var id = room.taxCollectionDao().addTaxCollection(taxCollection)
 
                 subscriber.onNext(true)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 subscriber.onError(e)
             }
         }
     }
 
-    fun getOpenedTaxCollection(idMarket: String): Observable<TaxCollectionSE?>{
-        return Observable.unsafeCreate{ subscriber ->
+    fun getOpenedTaxCollection(idMarket: String): Observable<TaxCollectionSE?> {
+        return Observable.unsafeCreate { subscriber ->
             try {
                 val taxCollection = room.taxCollectionDao().getOpenedCollection(idMarket)
                 subscriber.onNext(taxCollection)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 subscriber.onError(e)
             }
         }
     }
 
-    fun updateTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean>{
-        return Observable.unsafeCreate{ subscriber ->
+    fun updateTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
             try {
                 room.taxCollectionDao().updateTaxCollection(taxCollection)
 
                 subscriber.onNext(true)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 subscriber.onError(e)
             }
         }
     }
 
-    fun createEvent(event: EventRE): Observable<Boolean>{
-        return Observable.unsafeCreate{ subscriber ->
+    fun createEvent(event: EventRE): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
             try {
                 subscriber.onNext(room.eventDao().createEvent(event) == null)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 subscriber.onError(e)
             }
         }
     }
 
-    fun revertRelatedConcess(idFirebase: String): Observable<Boolean>{
-        return Observable.unsafeCreate{ subscriber ->
+    fun revertRelatedConcess(idFirebase: String): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
                     .document(idFirebase)
@@ -222,11 +222,19 @@ class TaxCollectionInteractor @Inject constructor(
                     .addOnFailureListener {
                         subscriber.onNext(false)
                     }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 subscriber.onError(e)
             }
         }
     }
 
+    fun deleteTaxCollection(taxCollection: TaxCollectionSE): Pair<Boolean, String> {
+        return try {
+            room.taxCollectionDao().deleteTaxCollection(taxCollection)
+            Pair(true, "Success")
+        } catch (exception: Exception) {
+            Pair(false, exception.message.toString())
+        }
+    }
 
 }

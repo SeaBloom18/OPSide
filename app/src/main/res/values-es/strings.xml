@@ -62,7 +62,7 @@
     <string name="registration_hint_phone">Telefono</string>
     <string name="registration_hint_email">Correo electronico</string>
     <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
-    <string name="registration_hint_origin">Origen</string>
+    <string name="registration_hint_origin">Municipio recidencia</string>
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
     <string name="registration_btn_bs_close">Salir</string>
@@ -98,6 +98,7 @@
     <string name="tax_collection_absence">Inasistencias</string>
     <string name="tax_collection_send">Enviar</string>
     <string name="tax_collection_crud_collections">Recaudaciones</string>
+    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
 
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Nombre del tianguis</string>

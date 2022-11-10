@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -41,6 +42,23 @@ class BottomSheetForeignerAttendanceInteractor @Inject constructor(
                     .addOnFailureListener { exception ->
                         Log.w("loginFirestore", "Error getting documents: ", exception)
                         subscriber.onError(exception)
+                    }
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
+    }
+
+    fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<String>{
+        return Observable.unsafeCreate{ subscriber ->
+            try {
+                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                    .add(concessionaireFE.getHashMap())
+                    .addOnSuccessListener { documentReference ->
+                        subscriber.onNext(documentReference.id)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onNext("")
                     }
             } catch (exception: Exception){
                 subscriber.onError(exception)

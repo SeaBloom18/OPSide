@@ -6,6 +6,8 @@
     <string name="common_delete">Delete</string>
     <string name="common_content_description">Common Content Image Description</string>
     <string name="common_til_search">Search</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_atention">Atención</string>
 
     <!--Dealer Strings-->
     <string name="tv_dealer_title">Your Profile</string>
@@ -22,6 +24,16 @@
     <string name="tax_collection_total_amount">Monto Total</string>
     <string name="tax_collection_finalize">Finalizar</string>
     <string name="tax_collection_record">Historial</string>
+    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
+    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
+    <string name="tax_collection_market">Tianguis</string>
+    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
+    <string name="tax_collection_sent">Envía</string>
+    <string name="tax_collection_absence">Inasistencias</string>
+    <string name="tax_collection_send">Enviar</string>
+    <string name="tax_collection_crud_collections">Recaudaciones</string>
+    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
+
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics">Analytics</string>
@@ -63,7 +75,7 @@
     <string name="registration_hint_phone">Phone</string>
     <string name="registration_hint_email">Email</string>
     <string name="registration_hint_pass_confirm">Confirm password</string>
-    <string name="registration_hint_origin">Origin</string>
+    <string name="registration_hint_origin">Municipio recidencia</string>
     <string name="registration_btn_exit">Go Login</string>
     <string name="registration_tv_success">You have successfully registered!</string>
     <string name="registration_btn_bs_close">Exit</string>
@@ -89,18 +101,6 @@
     <string name="bn_menu_tax_collection_opc3">Tax</string>
     <string name="bn_menu_control_panel_opc4">Control Panel</string>
     <string name="bn_menu_incidents_opc5">Incidents</string>
-
-
-    <string name="common_cancel">Cancelar</string>
-    <string name="common_atention">Atención</string>
-    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
-    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
-    <string name="tax_collection_market">Tianguis</string>
-    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
-    <string name="tax_collection_sent">Envía</string>
-    <string name="tax_collection_absence">Inasistencias</string>
-    <string name="tax_collection_send">Enviar</string>
-    <string name="tax_collection_crud_collections">Recaudaciones</string>
 
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Market Name</string>

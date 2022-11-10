@@ -1,25 +1,29 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.common.utils.launchActivity
-import com.ops.opside.common.utils.tryOrPrintException
+import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.databinding.FragmentFinalizeTaxCollectionBinding
+import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
+import com.ops.opside.flows.sign_on.taxCollectionModule.actions.FinalizeTaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.AbsenceTaxCollectionAdapter
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.FinalizeTaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.parcelize.Parcelize
 
 @AndroidEntryPoint
 class FinalizeTaxCollectionFragment : Fragment() {
@@ -29,8 +33,7 @@ class FinalizeTaxCollectionFragment : Fragment() {
 
     private val mViewModel: FinalizeTaxCollectionViewModel by viewModels()
 
-    private lateinit var mAbsencesList: MutableList<ItemAbsence>
-    private lateinit var mTypeTransaction: String
+    private lateinit var mFinalizeCollection: FinalizeCollection
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,39 +43,34 @@ class FinalizeTaxCollectionFragment : Fragment() {
 
         mBinding.apply {
 
-            btnCloseFinalize.animateOnPress()
-            btnCloseFinalize.setOnClickListener {
+            btnClose.animateOnPress()
+            btnClose.setOnClickListener {
                 closeFragment()
             }
 
-            cbAgreeDeclaration.setOnClickListener {
-                btnSend.isEnabled = cbAgreeDeclaration.isChecked
-            }
-
             btnSend.setOnClickListener {
-                if (mTypeTransaction == "create") {
-                    launchActivity(TaxCollectionActivity(), context!!)
-                } else {
-                    launchActivity(TaxCollectionCrudActivity(), context!!)
-                }
+                mViewModel.checkBiometrics(this@FinalizeTaxCollectionFragment)
             }
-
         }
 
         setUpActivity()
         bindViewModel()
-        loadAbsencesList()
 
         return mBinding.root
     }
 
     private fun bindViewModel() {
-        mViewModel.getAbsencesList.observe(requireActivity(), Observer(this::getAbsencesList))
+        mViewModel.getAction().observe(requireActivity(), Observer(this::handleAction))
     }
 
+    private fun handleAction(action: FinalizeTaxCollectionAction){
+        when(action){
+            is FinalizeTaxCollectionAction.SendCollection -> requireActivity().startActivity<MainActivity>()
+        }
+    }
 
     private fun closeFragment() {
-        if (mTypeTransaction == "create") {
+        if (mFinalizeCollection.type == "create") {
             val activity = activity as? TaxCollectionActivity
             activity?.showButtons()
             activity?.onBackPressed()
@@ -83,24 +81,29 @@ class FinalizeTaxCollectionFragment : Fragment() {
         }
     }
 
-    private fun setUpActivity() {
-
+    private fun obtainArguments(){
         tryOrPrintException {
-            val bundle = arguments
-
-            bundle?.let {
+            arguments?.let {
                 tryOrPrintException {
-                    mTypeTransaction = bundle.getString("type")!!
+                    it.getParcelable<FinalizeCollection>("finalizeCollection")?.let {
+                        mFinalizeCollection = it
+                    }
 
-                    if (mTypeTransaction == "update") {
-                        mBinding.txtTitle.text = getString(R.string.tax_collection_update_title)
+                    if (mFinalizeCollection.type == "update") {
+                        mBinding.tvTitle.text = getString(R.string.tax_collection_update_title)
                         mBinding.etTotalAmount.isEnabled = true
                     }
+
+                    Log.d("Demo", mFinalizeCollection.absences.toString())
                 }
             }
         }
+    }
 
-        if (mTypeTransaction == "create") {
+    private fun setUpActivity() {
+        obtainArguments()
+
+        if (mFinalizeCollection.type == "create") {
             (activity as? TaxCollectionActivity)?.hideButtons()
             TaxCollectionActivity()
         } else {
@@ -108,10 +111,21 @@ class FinalizeTaxCollectionFragment : Fragment() {
             TaxCollectionCrudActivity()
         }
 
+        mBinding.apply {
+            etMarketName.setText(mFinalizeCollection.marketName)
+            etTotalAmount.setText(mFinalizeCollection.totalAmount.toString())
+            etSent.setText(mFinalizeCollection.collector)
+        }
+
+        initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        mAdapter = AbsenceTaxCollectionAdapter(mAbsencesList)
+        mAdapter = AbsenceTaxCollectionAdapter(
+            (mFinalizeCollection.absences.map {
+                ItemAbsence(ID.getTemporalId(), it.name, it.email, false)
+            }) as MutableList<ItemAbsence>
+        )
 
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(context!!)
@@ -123,14 +137,14 @@ class FinalizeTaxCollectionFragment : Fragment() {
         }
     }
 
-    private fun getAbsencesList(absencesList: MutableList<ItemAbsence>){
-        mAbsencesList = absencesList
-
-        initRecyclerView()
-    }
-
-    private fun loadAbsencesList(){
-        mViewModel.getAbsencesList()
-    }
+    @Parcelize
+    data class FinalizeCollection(
+        val type: String = "create",
+        val idMarket: String,
+        val marketName: String,
+        val collector: String,
+        val totalAmount: Double,
+        val absences: MutableList<ConcessionaireSE>
+    ) : Parcelable
 
 }

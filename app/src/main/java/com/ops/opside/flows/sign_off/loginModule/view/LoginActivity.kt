@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -12,118 +13,34 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
+import com.ops.opside.common.dialogs.InDevelopmentFragment
 import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityLoginBinding
+import com.ops.opside.databinding.FragmentLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import com.ops.opside.flows.sign_on.dealerModule.view.view.DealerActivity
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.EmailSender
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.zip.CRC32
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var mBinding: ActivityLoginBinding
-    private val mViewModel: LoginViewModel by viewModels()
+    private val mBinding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.apply {
-            btnBiometricsLogIn.setOnClickListener { /*biometricPrompt.authenticate(promptInfo) */}
-            tvPolicies.setOnClickListener { showPolicies() }
-            tvAboutApp.setOnClickListener { showAboutApp() }
-            btnLogin.setOnClickListener {
-
-                //BuildVersion
-                val email = mBinding.teLoginEmail.text.toString().trim()
-                val password = mBinding.tePassword.text.toString().trim()
-                if (email.isNotEmpty() && password.isNotEmpty()){
-                    hideError()
-                    mViewModel.getUserLogin(mBinding.teLoginEmail.text.toString().trim())
-                } else {
-                    showError(getString(R.string.login_toast_empy_text))
-                }
-            }
-            tvSignUp.setOnClickListener { launchActivity<RegistrationActivity> {  } }
-        }
-
-        bindViewModel()
-        setEmailSP()
-    }
-
-    /**ViewModel SetUp**/
-    private fun bindViewModel(){
-        mViewModel.getUserLogin.observe(this, Observer(this::getPasswordUserValidation))
-        mViewModel.getUserRole.observe(this, Observer(this::getUserRole))
-        mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
-    }
-
-    private fun setEmailSP(){
-        val userPref = mViewModel.isRememberMeChecked()
-        with(mBinding){
-            if (userPref.first){
-                swRememberUser.isChecked = true
-                teLoginEmail.setText(userPref.second)
-                tvNameRemember.text =
-                    getString(R.string.login_tv_remember_name, userPref.third.orEmpty().split(" ")[0])
-                btnBiometricsLogIn.visibility = View.INVISIBLE
-            } else{
-                tvNameRemember.text = getString(R.string.login_welcome)
-            }
-        }
-    }
-
-    private fun getPasswordUserValidation(password: String){
-        passwordUserValidation(password)
-    }
-
-    private fun getUserRole(userRole: String){
-        userRoleValidation(userRole)
-    }
-
-    private fun userRoleValidation(userRole: String){
-        Log.d("userRole", userRole)
-        val userPref = mViewModel.isRememberMeChecked()
-        if (userRole == "1" || userRole == "2"){
-            launchActivity<DealerActivity> {  }
-            if (userPref.first == false) mBinding.teLoginEmail.setText("")
-            mBinding.tePassword.setText("")
-        } else {
-            launchActivity<MainActivity> {  }
-            if (userPref.first == false) mBinding.teLoginEmail.setText("")
-            mBinding.tePassword.setText("")
-        }
-    }
-
-    private fun passwordUserValidation(passwordFs: String){
-        var password = mBinding.tePassword.text.toString().trim()
-        val crc32 = CRC32()
-        crc32.update(password.toByteArray())
-        password = String.format("%08X", crc32.value)
-        if (passwordFs != password){
-            showError(getString(R.string.login_toast_credentials_validation))
-        } else {
-            hideError()
-            mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
-            if (mViewModel.isSPInitialized())
-                mViewModel.initSP(mBinding.teLoginEmail.text.toString().trim(), mBinding.swRememberUser.isChecked)
-        }
-    }
-
-    /**Override and other Methods**/
-    private fun showError(errorMessage: String){
-        mBinding.tvError.tvError.isVisible = true
-        mBinding.tvError.tvError.text = errorMessage
-    }
-
-    private fun hideError(){
-        mBinding.tvError.tvError.isVisible = false
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, LoginFragment()).commit()
     }
 
     override fun onBackPressed() {
@@ -141,28 +58,4 @@ class LoginActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showPolicies() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.setText(R.string.tv_title_policies)
-        //val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargePolicies)
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
-    private fun showAboutApp() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.text = getString(R.string.login_tv_about_app)
-        //val tvMessage = view.findViewById<TextView>(R.id.tvBottomLargePolicies)
-        //tvMessage.setText(com.firebase.ui.auth.R.string.fui_sms_terms_of_service_and_privacy_policy_extended)
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
 }

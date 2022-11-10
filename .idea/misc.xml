@@ -11,6 +11,31 @@
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/frame_error.xml" value="0.1" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market.xml" value="0.22" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market_list.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_close_reg_screen.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_ops_add_a_photo.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_ops_warning.xml" value="0.156" />
+        <entry key="app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.15897435897435896" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.20811965811965813" />
+        <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.20811965811965813" />
+        <entry key="app/src/main/res/layout/bottom_sheet_foreigner_attendance.xml" value="0.34720001220703123" />
+        <entry key="app/src/main/res/layout/bottom_sheet_pick_market.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.15897435897435896" />
+        <entry key="app/src/main/res/layout/bottom_sheet_relate_concess_market.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/bottom_sheet_show_qr.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/bottom_sheet_user_profile.xml" value="0.15897435897435896" />
+        <entry key="app/src/main/res/layout/dialog_base.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.14264984130859376" />
+        <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.20811965811965813" />
+        <entry key="app/src/main/res/layout/fragment_finalize_tax_collection.xml" value="0.29968053051549143" />
+        <entry key="app/src/main/res/layout/fragment_in_development.xml" value="0.20726495726495728" />
+        <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.15897435897435896" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_absence_tax_collection.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.20811965811965813" />
       </map>
     </option>
   </component>

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -36,6 +38,7 @@ class BottomSheetForeignerAttendance(
     private val mRegistrationViewModel: RegisterViewModel by viewModels()
 
     private var mForeignerConcessionaire = ConcessionaireFE()
+    private var existConcessionaire = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +47,20 @@ class BottomSheetForeignerAttendance(
     ): View {
         return mBinding.root
     }
+
+    /*override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+
+        dialog.setOnShowListener {
+            val bottomSheet = dialog.findViewById<View>(
+                com.google.android.material.R.id.design_bottom_sheet
+            ) as? FrameLayout
+            val behavior = BottomSheetBehavior.from(bottomSheet!!)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        return dialog
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +76,15 @@ class BottomSheetForeignerAttendance(
                     Toast.makeText(context, "Correo invalido", Toast.LENGTH_SHORT).show()
             }
 
+            teEmail.doAfterTextChanged {
+                showForm(false)
+                mForeignerConcessionaire.idFirebase = ""
+            }
+
+            cbConcess.setOnClickListener { cbConcessForeigner.isChecked = false }
+            cbConcessForeigner.setOnClickListener { cbConcess.isChecked = false }
+
             btnRegister.setOnClickListener { completeRegister() }
-
-
         }
 
         bindViewModel()
@@ -70,9 +93,24 @@ class BottomSheetForeignerAttendance(
 
     private fun bindViewModel() {
         mViewModel.getEmailInformation.observe(this, Observer(this::getEmailInformation))
-
         mRegistrationViewModel.getOriginList.observe(this, Observer(this::getOriginList))
-        mRegistrationViewModel.registerConcessionaire.observe(this, Observer(this::wasRegistered))
+        mViewModel.registerConcessionaire.observe(this, Observer(this::wasRegistered))
+    }
+
+    private fun validateTypeOfRegister(): Boolean {
+        if ((mBinding.cbConcess.isChecked.not() && mBinding.cbConcessForeigner.isChecked.not())
+            && existConcessionaire.not()
+        ) {
+            Toast.makeText(
+                context,
+                "Elige un tipo de registro",
+                Toast.LENGTH_LONG
+            ).show()
+
+            return false
+        }
+
+        return true
     }
 
     private fun completeRegister() {
@@ -81,8 +119,9 @@ class BottomSheetForeignerAttendance(
                 mBinding.tilName,
                 mBinding.tilOrigin,
                 mBinding.tilLinearMeters
-            ) and
-            isValidEmail(mBinding.teEmail.text.toString())
+            ) &&
+            isValidEmail(mBinding.teEmail.text.toString()) &&
+            validateTypeOfRegister()
         ) {
             if (mForeignerConcessionaire.idFirebase.isNotEmpty()) {
                 mForeignerConcessionaire.linearMeters =
@@ -92,24 +131,26 @@ class BottomSheetForeignerAttendance(
 
                 dismiss()
             } else {
-                mForeignerConcessionaire = ConcessionaireFE(
-                    isForeigner = true,
-                    email = mBinding.teEmail.text.toString(),
-                    name = mBinding.teName.text.toString(),
-                    origin = mBinding.teOrigin.text.toString(),
-                    linearMeters = mBinding.teLinearMeters.text.toString().toDouble(),
-                    idFirebase = ID.getTemporalId(),
+                with(mBinding) {
+                    mForeignerConcessionaire = ConcessionaireFE(
+                        isForeigner = cbConcessForeigner.isChecked,
+                        email = teEmail.text.toString(),
+                        name = teName.text.toString(),
+                        origin = teOrigin.text.toString(),
+                        linearMeters = teLinearMeters.text.toString().toDouble(),
+                        role = if (cbConcessForeigner.isChecked) 1 else 2,
+                        idFirebase = ID.getTemporalId(),
 
-                    address = "",
-                    phone = "",
-                    role = 1,
-                    lineBusiness = "",
-                    absence = 0,
-                    password = "",
-                    participatingMarkets = mutableListOf()
-                )
+                        address = "",
+                        phone = "",
+                        lineBusiness = "",
+                        absence = 0,
+                        password = "",
+                        participatingMarkets = mutableListOf()
+                    )
+                }
 
-                mRegistrationViewModel.insertConcessionaire(mForeignerConcessionaire)
+                mViewModel.insertConcessionaire(mForeignerConcessionaire)
             }
         }
     }
@@ -117,7 +158,9 @@ class BottomSheetForeignerAttendance(
     private fun validateFields(vararg textFields: TextInputLayout): Boolean {
         var isValid = true
         for (textField in textFields) {
-            if (textField.editText?.text.toString().trim().isEmpty()) {
+            if (textField.editText?.text.toString().trim().isEmpty() ||
+                textField.editText?.text.toString() == "Municipio recidencia"
+            ) {
                 textField.error = getString(com.ops.opside.R.string.login_til_required)
                 isValid = false
             } else {
@@ -127,13 +170,14 @@ class BottomSheetForeignerAttendance(
         return isValid
     }
 
-    private fun wasRegistered(itWasRegistered: Boolean) {
+    private fun wasRegistered(idFirebase: String) {
         Toast.makeText(
             context,
-            "Concesionario foraneo registrado",
+            "Concesionario Registrado",
             Toast.LENGTH_LONG
         ).show()
 
+        mForeignerConcessionaire.idFirebase = idFirebase
         registration.invoke(mForeignerConcessionaire)
 
         dismiss()
@@ -145,6 +189,8 @@ class BottomSheetForeignerAttendance(
     }
 
     private fun getOriginList(origins: MutableList<OriginFE>) {
+        origins.add(0, OriginFE("", "Municipio recidencia"))
+
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(
                 requireContext(), R.layout.simple_list_item_1,
@@ -155,32 +201,56 @@ class BottomSheetForeignerAttendance(
     }
 
     private fun getEmailInformation(concessionaire: ConcessionaireSE?) {
+        showForm(true)
+
         if (concessionaire == null) {
             Toast.makeText(
                 context,
                 "El concesionario no existe\nLlena los demás campos solicitados",
                 Toast.LENGTH_LONG
             ).show()
+            existConcessionaire = false
             return
         }
 
-        if (concessionaire.isForeigner.not()) {
+        setDataConcess(concessionaire)
+        mForeignerConcessionaire = concessionaire.parseToFe()
+    }
 
-            Toast.makeText(
-                context,
-                "El concesionario ya existe pero no es foraneo",
-                Toast.LENGTH_LONG
-            ).show()
-
-            return
-        }
-
-
+    private fun setDataConcess(concessionaire: ConcessionaireSE) {
         with(mBinding) {
             teName.setText(concessionaire.name)
             teOrigin.setText(concessionaire.origin)
+            cbConcess.isChecked = concessionaire.isForeigner.not()
+            cbConcessForeigner.isChecked = concessionaire.isForeigner
 
-            mForeignerConcessionaire = concessionaire.parseToFe()
+            cbConcess.isClickable = false
+            cbConcessForeigner.isClickable = false
+
+            existConcessionaire = true
+        }
+    }
+
+    private fun showForm(show: Boolean) {
+        with(mBinding) {
+            tilName.isGone = show.not()
+            tilOrigin.isGone = show.not()
+            tilLinearMeters.isGone = show.not()
+            tilEmail.isHelperTextEnabled = show.not()
+
+            teName.setText("")
+            teLinearMeters.setText("")
+
+            cbConcess.isGone = show.not()
+            cbConcessForeigner.isGone = show.not()
+            cbConcess.isClickable = true
+            cbConcessForeigner.isClickable = true
+            cbConcess.isChecked = false
+            cbConcessForeigner.isChecked = false
+
+            if (show.not()) tilEmail.helperText = "Ingresa un correo para buscar al concesionario"
+
+            divider.visibility = if (show) View.VISIBLE else View.INVISIBLE
         }
     }
 }

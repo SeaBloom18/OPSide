@@ -3,7 +3,7 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.view
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -24,11 +24,14 @@ import com.ops.opside.common.utils.*
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_off.loginModule.view.LoginActivity
+import com.ops.opside.flows.sign_on.taxCollectionModule.actions.TaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.TaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
@@ -42,6 +45,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     private lateinit var mOpenedTaxCollection: TaxCollectionSE
     private lateinit var mSelectedMarket: MarketFE
     private lateinit var mConcessionairesFEList: MutableList<ConcessionaireFE>
+    private lateinit var mCollectorName: String
     private var mIsOnLineMode: Boolean = true
     private var mPriceLinearMeter: Float = 0f
     private var mTotalAmount: Double = 0.0
@@ -71,6 +75,8 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             btnScan.setOnLongClickListener {
                 initRegisterForeignerConcessionaire()
             }
+
+            btnClose.setOnClickListener { onBackPressed() }
 
         }
 
@@ -116,20 +122,46 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         mViewModel.persistMarketSE.observe(this, Observer(this::isAddedMarket))
         mViewModel.updateTaxCollection.observe(this, Observer(this::taxCollectionDataUpdated))
         mViewModel.revertEvent.observe(this, Observer(this::eventWasReverted))
+        mViewModel.getAction().observe(this, Observer(this::handleAction))
+    }
+
+    private fun handleAction(action: TaxCollectionAction) {
+        when (action) {
+            is TaxCollectionAction.SendReceipt -> sendReceipt(action.email)
+            is TaxCollectionAction.ResetActivity -> resetActivity()
+            is TaxCollectionAction.ShowMessageError -> showError(action.error)
+            is TaxCollectionAction.SetCollectorName -> mCollectorName = action.collectorName
+        }
+    }
+
+    private fun resetActivity() {
+        mConcessionairesFEList.clear()
+        mConcessionairesMap.clear()
+        mParticipatingConcessMap.clear()
+
+        Toast.makeText(this, "Recolección Eliminada", Toast.LENGTH_SHORT).show()
+
+        bsdPickMarket()
     }
 
     private fun initRegisterForeignerConcessionaire(): Boolean {
         val dialog = BottomSheetForeignerAttendance {
 
             mConcessionairesMap[it.idFirebase] = it.parseToSE()
-            mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessRE(
-                idMarket = mSelectedMarket.idFirebase,
-                idConcessionaire = it.idFirebase,
-                idFirebase = ID.getTemporalId(),
-                linearMeters = it.linearMeters,
-                lineBusiness = it.lineBusiness
-            )
-            chargeDay(FLOOR_COLLECTION, it.idFirebase)
+
+            if (it.isForeigner) {
+                mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessRE(
+                    idMarket = mSelectedMarket.idFirebase,
+                    idConcessionaire = it.idFirebase,
+                    idFirebase = ID.getTemporalId(),
+                    linearMeters = it.linearMeters,
+                    lineBusiness = it.lineBusiness
+                )
+
+                chargeDay(FLOOR_COLLECTION, it.idFirebase)
+            } else {
+                setConcessionaireData(it.idFirebase)
+            }
         }
 
         dialog.show(supportFragmentManager, dialog.tag)
@@ -165,9 +197,10 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         }
 
         val dialog = BaseDialog(
+            imageResource = R.drawable.ic_ops_warning,
             context = this,
             mTitle = getString(R.string.common_atention),
-            mDescription = "Tienes una recolección abierta\n¿Deseas continuarla?\n\nNota: No puedes tener 2 recolecciones abiertas del mismo tianguis",
+            mDescription = "Tienes una recolección abierta\n¿Deseas continuarla?\n\nNota:\nNo puedes tener 2 recolecciones abiertas del mismo tianguis",
             buttonYesText = getString(R.string.common_accept),
             buttonNoText = getString(R.string.common_cancel),
             yesAction = {
@@ -190,7 +223,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         dialog.show()
     }
 
-    private fun getAllEvents(events: MutableList<EventRE>){
+    private fun getAllEvents(events: MutableList<EventRE>) {
         events.filter {
             it.status == FLOOR_COLLECTION
         }.map {
@@ -212,33 +245,43 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
     }
 
     private fun showAlertFinalize() {
+
+        if (mViewModel.hasEvents(mOpenedTaxCollection.idFirebase)) {
+            launchFinalizeFragment()
+            return
+        }
+
         val dialog = BaseDialog(
+            imageResource = R.drawable.ic_ops_delete,
             context = this@TaxCollectionActivity,
             mTitle = getString(R.string.common_atention),
-            mDescription = getString(R.string.tax_collection_finalize_collection),
+            mDescription = "No hay eventos por procesar.\n¿Deseas eliminar la recolección?",
             buttonYesText = getString(R.string.common_accept),
-            buttonNoText = "",
-            yesAction = { launchFinalizeFragment() }
+            buttonNoText = getString(R.string.common_cancel),
+            yesAction = { mViewModel.deleteTaxCollection(mOpenedTaxCollection) },
         )
+
         dialog.show()
     }
 
     private fun launchFinalizeFragment() {
-        val bundle = Bundle()
-        bundle.putString("type", "create")
-        bundle.putString("marketId", mSelectedMarket.idFirebase)
-        bundle.putString("marketName", mSelectedMarket.name)
-        bundle.putParcelableArrayList(
-            "absences",
-            mConcessionairesMap.filterValues { it.wasPaid.not() }
-                .map { it.value } as ArrayList<out Parcelable>
+        val finalizeCollection = FinalizeTaxCollectionFragment.FinalizeCollection(
+            type = "create",
+            idMarket = mSelectedMarket.idFirebase,
+            marketName = mSelectedMarket.name,
+            collector = mViewModel.getCollectorName(),
+            totalAmount = mTotalAmount,
+            absences = mConcessionairesMap.filterValues {
+                it.wasPaid.not() && mParticipatingConcessMap.containsKey(it.idFirebase)
+            }
+                .map { it.value } as MutableList<ConcessionaireSE>
         )
 
         launchFragment(
             fragment = FinalizeTaxCollectionFragment(),
             fragmentManager = supportFragmentManager,
             containerId = R.id.containerTaxCollection,
-            bundle = bundle
+            bundle = Bundle().apply { putParcelable("finalizeCollection",finalizeCollection) }
         )
     }
 
@@ -382,12 +425,12 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
         if (mParticipatingConcessMap.containsKey(idConcessionaire).not()) {
             val alert = BaseDialog(
-                this,
-                R.drawable.ic_store,
-                getString(R.string.common_atention),
-                "El usuario no está dado de alta en este tianguis.\n¿Deseas agregarlo?",
-                getString(R.string.common_accept),
-                getString(R.string.common_cancel),
+                context = this,
+                imageResource = R.drawable.ic_store,
+                mTitle = getString(R.string.common_atention),
+                mDescription = "El usuario no está dado de alta en este tianguis.\n¿Deseas agregarlo?",
+                buttonYesText = getString(R.string.common_accept),
+                buttonNoText = getString(R.string.common_cancel),
                 {
 
                     val dialog = BottomSheetRelateConcessMarket(
@@ -402,8 +445,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
                                 status = status,
                                 foreignIdRow = it.second.idFirebase,
                                 idConcessionaire = idConcessionaire,
-                                nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name
-                                    ?: "",
+                                nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name.orEmpty(),
                                 amount = 0.0
                             )
 
@@ -472,7 +514,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
         if (concessionaire != null && participating != null) {
 
 
-            if (concessionaire.wasPaid){
+            if (concessionaire.wasPaid) {
                 showError("No se puede cobrar 2 veces al mismo concesionario")
                 return
             }
@@ -503,6 +545,19 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
                 )
 
                 mConcessionairesMap[idConcessionaire]?.wasPaid = true
+
+
+                mViewModel.sendReceipt(
+                    Email(
+                        name = concessionaire.name,
+                        market = mSelectedMarket.name,
+                        linearMeters = participating.linearMeters.toString(),
+                        totalAmount = amount.toString(),
+                        collectorName = mCollectorName,
+                        emailConcessionaire = concessionaire.email
+                    )
+                )
+
             } catch (e: Exception) {
 
             }
@@ -539,6 +594,27 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             mViewModel.updateTaxCollection(mOpenedTaxCollection)
 
             mConcessionairesMap[event.idConcessionaire]?.wasPaid = false
+        }
+    }
+
+    private fun sendReceipt(email: Email) {
+        val body = getString(
+            R.string.tax_collection_receipt,
+            email.name,
+            email.market,
+            email.linearMeters,
+            email.totalAmount,
+            mCollectorName
+        )
+
+        GlobalScope.launch {
+            EmailSender.send(
+                body, email.emailConcessionaire
+            ) {
+                if (it.first.not()) {
+                    showError(it.second)
+                }
+            }
         }
     }
 
@@ -579,4 +655,14 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             status = ""
         )
     }
+
+    data class Email(
+        val name: String,
+        val market: String,
+        val linearMeters: String,
+        val totalAmount: String,
+        val collectorName: String,
+        val emailConcessionaire: String
+    )
+
 }

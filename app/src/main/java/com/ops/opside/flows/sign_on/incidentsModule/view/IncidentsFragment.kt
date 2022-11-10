@@ -15,6 +15,7 @@ import com.ops.opside.flows.sign_on.incidentsModule.adapter.IncidentAdapter
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.IncidentsViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import androidx.lifecycle.Observer
+import com.ops.opside.common.dialogs.InDevelopmentFragment
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.ListIncidentsAdapter
 
 class IncidentsFragment : Fragment() {
@@ -41,6 +42,8 @@ class IncidentsFragment : Fragment() {
         bindViewModel()
         loadIncidentsPersonsList()
 
+        mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_container, InDevelopmentFragment()).commit()
+
         return binding.root
     }
 
@@ -64,11 +67,11 @@ class IncidentsFragment : Fragment() {
 
         mIncidentAdapter = IncidentAdapter(mIncidentList)
 
-        binding.recycler.apply {
+        /*binding.recycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = mIncidentAdapter
-        }
+        }*/
     }
 
     private fun setToolbar(){
@@ -83,11 +86,11 @@ class IncidentsFragment : Fragment() {
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when(menuItem.itemId){
                         R.id.create_incident -> {
-                            createIncident()
+                        //    createIncident()
                             true
                         }
                         R.id.see_incident -> {
-                            seeIncidents()
+                        //    seeIncidents()
                             true
                         }
                         else -> false
