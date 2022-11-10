@@ -95,6 +95,9 @@
     <string name="registration_toast_password_exist_validation">Oops, looks like we already have this email registered. Try another one!</string>
     <string name="registration_til_password_validation">The password must be at least 8 characters including an uppercase letter, a number and a special character</string>
     <string name="registration_checkbox_accept_policies">Accept privacy policies</string>
+    <string name="registration_toast_password_regex_validation">Oops, it looks like the password doesn\'t meet the requirements!</string>
+    <string name="registration_toast_policies_validation">Before you must accept our privacy policies!</string>
+    <string name="registration_see_policies_validation">Tap to see Privacy Policies!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>

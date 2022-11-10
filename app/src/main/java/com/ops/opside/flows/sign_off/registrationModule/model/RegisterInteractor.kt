@@ -91,7 +91,8 @@ class RegisterInteractor @Inject constructor(
                                 )
                             )
                         }
-                        subscriber.onNext(originList)
+                        val sortedByName = originList.sortedBy { myObject -> myObject.originName}
+                        subscriber.onNext(sortedByName as MutableList<OriginFE>)
                     }.addOnFailureListener {
                         subscriber.onError(it)
                     }
@@ -137,3 +138,5 @@ class RegisterInteractor @Inject constructor(
         }
     }
 }
+
+

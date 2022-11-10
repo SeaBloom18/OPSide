@@ -194,6 +194,7 @@
                     style="@style/TextInputEditTextStyle"
                     android:id="@+id/tePassword"
                     android:inputType="textPassword"
+                    android:digits="0123456789qwertyuioplkjhgfasdzxcvbnmñÑQWERTYUOIPLKJHGFDASZXCVBNM!@#$%*"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,7 +219,7 @@
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
+            <CheckBox
                 android:id="@+id/checkBoxPolicies"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -237,7 +238,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:background="#C9000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -245,16 +246,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/CommonButtonStyle"
             android:id="@+id/btnRegister"
+            style="@style/CommonButtonStyle"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/registration_btn_complete_register"
             app:icon="@drawable/ic_login"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/textViewBodyStyle"
+            android:id="@+id/tvSeePolicies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/registration_see_policies_validation"
+            android:textColor="@color/primaryLightColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnRegister"
+            app:layout_constraintStart_toStartOf="@+id/btnRegister"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

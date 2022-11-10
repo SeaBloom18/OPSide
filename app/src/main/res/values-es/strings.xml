@@ -82,6 +82,10 @@
     <string name="registration_toast_password_exist_validation">Oops, parece que ya tenemos este correo registrado. Intenta con otro!</string>
     <string name="registration_til_password_validation">La contraseña debe tener al menos 8 caracteres incluyendo una letra mayúscula, un número y un carácter especial</string>
     <string name="registration_checkbox_accept_policies">Aceptar Politicas de privacidad</string>
+    <string name="registration_toast_password_regex_validation">Oops, parece que la contraseña no cumple con los requisitos!</string>
+    <string name="registration_toast_policies_validation">Antes debes de aceptar nuestras politicas de privacidad!</string>
+    <string name="registration_see_policies_validation">Toca para ver las Políticas de Privacidad</string>
+
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
