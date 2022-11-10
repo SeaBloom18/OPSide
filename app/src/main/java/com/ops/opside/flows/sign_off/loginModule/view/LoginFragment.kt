@@ -14,7 +14,10 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.MD5
+import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.utils.showLoading
+import com.ops.opside.common.utils.startActivity
 import com.ops.opside.databinding.FragmentLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
@@ -120,9 +123,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun launchHome() {
-        when(userRol){
-            1,2 -> mActivity.startActivity<DealerActivity>()
-            3,4,5 -> mActivity.startActivity<MainActivity>()
+        val userPref = mViewModel.isRememberMeChecked()
+        when (userRol) {
+            1, 2 -> {
+                if (!userPref.first) mBinding.teLoginEmail.setText("")
+                mBinding.tePassword.setText("")
+
+                mActivity.startActivity<DealerActivity>()
+            }
+            3, 4, 5 -> {
+                if (!userPref.first) mBinding.teLoginEmail.setText("")
+                mBinding.tePassword.setText("")
+
+                mActivity.startActivity<MainActivity>()
+            }
         }
     }
 
@@ -161,7 +175,7 @@ class LoginFragment : Fragment() {
         checkIfSharedPreferencesISInit()
     }
 
-    private fun checkIfSharedPreferencesISInit(){
+    private fun checkIfSharedPreferencesISInit() {
         if (mViewModel.isSPInitialized()) {
             showBiometricsPermission()
             return

@@ -14,8 +14,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,6 +31,7 @@ import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.MD5
 import com.ops.opside.common.utils.clear
 import com.ops.opside.common.utils.error
+import com.ops.opside.common.utils.toast
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +48,8 @@ class RegistrationActivity : AppCompatActivity() {
     private val mConcessionaireFE: ConcessionaireFE = ConcessionaireFE()
     private val mCollectorFE: CollectorFE = CollectorFE()
     private var checkedItem = 0
+    private var isValidPassword = false
+
     private lateinit var mOriginList: MutableList<OriginFE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,23 +59,19 @@ class RegistrationActivity : AppCompatActivity() {
         mBinding.apply {
             btnRegister.setOnClickListener { insertUser() }
 
-            tePassword.addTextChangedListener(object: TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    charSequence?.apply {
-                        if(!isValidPassword()) mBinding.tilPassword.error =
+            tePassword.doAfterTextChanged { charSequence ->
+                charSequence.toString().apply {
+                    if(isValidPassword()) {
+                        mBinding.tilPassword.error = null
+                        isValidPassword =  true
+                    }
+                    else {
+                        mBinding.tilPassword.error =
                             getString(R.string.registration_til_password_validation)
-                        else mBinding.tilPassword.error = null
+                        isValidPassword = false
                     }
                 }
-
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-            })
+            }
         }
 
         bindViewModel()
@@ -93,7 +94,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_user_register, menu)
+        //menuInflater.inflate(R.menu.menu_user_register, menu)
         return true
     }
 
@@ -172,12 +173,12 @@ class RegistrationActivity : AppCompatActivity() {
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm, mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation), Toast.LENGTH_SHORT).show()
+                mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
                 if (validatePassword()){
                     Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                         Toast.LENGTH_SHORT).show()
-                } else {
+                } else if (isValidPassword) {
                     with(mConcessionaireFE){
                         name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                         address = mBinding.teAddress.text.toString().trim()
@@ -202,8 +203,7 @@ class RegistrationActivity : AppCompatActivity() {
         if(validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilEmail,
                 mBinding.tilOrigin)){
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
-                    Toast.LENGTH_SHORT).show()
+                mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
                 with(mConcessionaireFE){
                     name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
@@ -223,14 +223,13 @@ class RegistrationActivity : AppCompatActivity() {
         var isValid = false
         if (validateFields(mBinding.tilUserName, mBinding.tilLastName, mBinding.tilAddress,
                 mBinding.tilPhone, mBinding.tilEmail, mBinding.tilPasswordConfirm)){
-            if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
-                Toast.makeText(this, getString(R.string.registration_toast_email_validation),
-                    Toast.LENGTH_SHORT).show()
+            if(!isValidEmail(mBinding.teEmail.text.toString().trim())) {
+                mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
                 if (validatePassword()){
                     Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                         Toast.LENGTH_SHORT).show()
-                } else {
+                } else if (isValidPassword) {
                     with(mCollectorFE){
                         name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
                         address = mBinding.teAddress.text.toString().trim()
@@ -292,7 +291,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun isEmailExistValidation(emailFS: Boolean){
         if (emailFS){
-            Toast.makeText(this, R.string.registration_toast_password_exist_validation, Toast.LENGTH_SHORT).show()
+            mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
         } else {
             when(checkedItem){
                 0 -> {
@@ -335,16 +334,19 @@ class RegistrationActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.common_accept)) { _, _ ->
                 when(checkedItem){
                     0 -> {
-                        Toast.makeText(this, "Conce ", Toast.LENGTH_SHORT).show()
                         registerFormSetUP(checkedItem)
+                        mBinding.tvFormTitle.text = getString(R.string.registration_tv_steps_title,
+                            getString(R.string.registration_array_conce))
                     }
                     1 -> {
-                        Toast.makeText(this, "conce fore", Toast.LENGTH_SHORT).show()
                         registerFormSetUP(checkedItem)
+                        mBinding.tvFormTitle.text = getString(R.string.registration_tv_steps_title,
+                            getString(R.string.registration_array_foreign_conce))
                     }
                     2 -> {
-                        Toast.makeText(this, " collector", Toast.LENGTH_SHORT).show()
                         registerFormSetUP(checkedItem)
+                        mBinding.tvFormTitle.text = getString(R.string.registration_tv_steps_title,
+                            getString(R.string.registration_array_collector))
                     }
                 }
             }
@@ -372,10 +374,14 @@ class RegistrationActivity : AppCompatActivity() {
             tilEmail.visibility = View.VISIBLE
             tePassword.visibility = View.VISIBLE
             tilPassword.visibility = View.VISIBLE
+            tilPassword.error =
+                getString(R.string.registration_til_password_validation)
             tePasswordConfirm.visibility = View.VISIBLE
             tilPasswordConfirm.visibility = View.VISIBLE
             teOrigin.visibility = View.VISIBLE
             tilOrigin.visibility = View.VISIBLE
+            checkBoxPolicies.visibility = View.VISIBLE
+
         }
     }
 
@@ -393,6 +399,7 @@ class RegistrationActivity : AppCompatActivity() {
                     tilPhone.visibility = View.GONE
                     tilPassword.visibility = View.GONE
                     tePassword.visibility = View.GONE
+                    checkBoxPolicies.visibility = View.VISIBLE
                 }
             }
             2 -> { // Collector
@@ -438,7 +445,7 @@ class RegistrationActivity : AppCompatActivity() {
         val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
         anim.setAnimation(R.raw.success_lottie_anim)
         btnFinish.setOnClickListener { finish() }
-        dialog.setCancelable(true)
+        dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
     }

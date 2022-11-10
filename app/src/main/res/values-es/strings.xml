@@ -72,7 +72,7 @@
     <string name="registration_alert_dialog_title">¿Como te quieres registrar?</string>
     <string name="registration_alert_dialog_negative_button">Regresar al inicio</string>
     <string name="registration_btn_complete_register">Completar registro!</string>
-    <string name="registration_tv_steps_title">Completa todos los pasos para completar tu registro!</string>
+    <string name="registration_tv_steps_title">Completa todos los pasos para completar tu registro para ser un !</string>
     <string name="registration_array_foreign_conce">Concesionario foráneo</string>
     <string name="registration_array_conce">Concesionario</string>
     <string name="registration_array_collector">Collector</string>
@@ -81,6 +81,7 @@
     <string name="registration_toast_email_validation">Correo invalido!</string>
     <string name="registration_toast_password_exist_validation">Oops, parece que ya tenemos este correo registrado. Intenta con otro!</string>
     <string name="registration_til_password_validation">La contraseña debe tener al menos 8 caracteres incluyendo una letra mayúscula, un número y un carácter especial</string>
+    <string name="registration_checkbox_accept_policies">Aceptar Politicas de privacidad</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
