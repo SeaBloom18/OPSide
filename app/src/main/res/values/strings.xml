@@ -63,7 +63,7 @@
     <string name="registration_hint_phone">Phone</string>
     <string name="registration_hint_email">Email</string>
     <string name="registration_hint_pass_confirm">Confirm password</string>
-    <string name="registration_hint_origin">Origin</string>
+    <string name="registration_hint_origin">Select a origin</string>
     <string name="registration_btn_exit">Go Login</string>
     <string name="registration_tv_success">You have successfully registered!</string>
     <string name="registration_btn_bs_close">Exit</string>
@@ -73,7 +73,7 @@
     <string name="registration_alert_dialog_title">How do you want to register?</string>
     <string name="registration_alert_dialog_negative_button">Return to Login</string>
     <string name="registration_btn_complete_register">Complete Sign In</string>
-    <string name="registration_tv_steps_title">Complete all steps to complete your register!</string>
+    <string name="registration_tv_steps_title">Complete all steps to complete your register to become a %1$s!</string>
     <string name="registration_array_foreign_conce">Foreign dealer</string>
     <string name="registration_array_conce">Concessionaire</string>
     <string name="registration_array_collector">Collector</string>
@@ -82,6 +82,7 @@
     <string name="registration_toast_email_validation">Invalid email!</string>
     <string name="registration_toast_password_exist_validation">Oops, looks like we already have this email registered. Try another one!</string>
     <string name="registration_til_password_validation">The password must be at least 8 characters including an uppercase letter, a number and a special character</string>
+    <string name="registration_checkbox_accept_policies">Accept privacy policies</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>
