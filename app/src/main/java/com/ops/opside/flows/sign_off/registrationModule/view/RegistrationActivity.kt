@@ -61,15 +61,7 @@ class RegistrationActivity : AppCompatActivity() {
 
             tePassword.doAfterTextChanged { charSequence ->
                 charSequence.toString().apply {
-                    if(isValidPassword()) {
-                        mBinding.tilPassword.error = null
-                        isValidPassword =  true
-                    }
-                    else {
-                        mBinding.tilPassword.error =
-                            getString(R.string.registration_til_password_validation)
-                        isValidPassword = false
-                    }
+                    isValidPassword = isValidPassword()
                 }
             }
         }
@@ -176,20 +168,23 @@ class RegistrationActivity : AppCompatActivity() {
                 mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
                 if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
-                } else if (isValidPassword) {
-                    with(mConcessionaireFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        address = mBinding.teAddress.text.toString().trim()
-                        phone = mBinding.tePhone.text.toString().trim()
-                        email = mBinding.teEmail.text.toString().trim()
-                        origin = mBinding.teOrigin.text.toString()
-                        role = 2
-                        password = MD5.hashString(mBinding.tePassword.text.toString().trim())
-                        participatingMarkets = mutableListOf()
-                        isForeigner = false
-                        isValid = true
+                    toast(getString(R.string.registration_toast_password_validation))
+                } else {
+                    if(isValidPassword){
+                        with(mConcessionaireFE){
+                            name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                            address = mBinding.teAddress.text.toString().trim()
+                            phone = mBinding.tePhone.text.toString().trim()
+                            email = mBinding.teEmail.text.toString().trim()
+                            origin = mBinding.teOrigin.text.toString()
+                            role = 2
+                            password = MD5.hashString(mBinding.tePassword.text.toString().trim())
+                            participatingMarkets = mutableListOf()
+                            isForeigner = false
+                            isValid = true
+                        }
+                    } else {
+                        toast("Ops, parece que la contraseña no cumple con los requisitos!")
                     }
                 }
             }
@@ -229,15 +224,19 @@ class RegistrationActivity : AppCompatActivity() {
                 if (validatePassword()){
                     Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                         Toast.LENGTH_SHORT).show()
-                } else if (isValidPassword) {
-                    with(mCollectorFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        address = mBinding.teAddress.text.toString().trim()
-                        phone = mBinding.tePhone.text.toString().trim()
-                        email = mBinding.teEmail.text.toString().trim()
-                        password = MD5.hashString(mBinding.tePassword.text.toString().trim())
-                        role = 3
-                        isValid = true
+                } else {
+                    if(isValidPassword) {
+                        with(mCollectorFE){
+                            name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                            address = mBinding.teAddress.text.toString().trim()
+                            phone = mBinding.tePhone.text.toString().trim()
+                            email = mBinding.teEmail.text.toString().trim()
+                            password = MD5.hashString(mBinding.tePassword.text.toString().trim())
+                            role = 3
+                            isValid = true
+                        }
+                    } else {
+                        toast("Ops, parece que la contraseña no cumple con los requisitos!")
                     }
                 }
             }
@@ -272,7 +271,7 @@ class RegistrationActivity : AppCompatActivity() {
         return isValid
     }
 
-    fun CharSequence.isValidPassword(): Boolean {
+    private fun CharSequence.isValidPassword(): Boolean {
         val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(this)
@@ -374,8 +373,6 @@ class RegistrationActivity : AppCompatActivity() {
             tilEmail.visibility = View.VISIBLE
             tePassword.visibility = View.VISIBLE
             tilPassword.visibility = View.VISIBLE
-            tilPassword.error =
-                getString(R.string.registration_til_password_validation)
             tePasswordConfirm.visibility = View.VISIBLE
             tilPasswordConfirm.visibility = View.VISIBLE
             teOrigin.visibility = View.VISIBLE
