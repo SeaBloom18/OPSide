@@ -84,9 +84,11 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                 firestore.collection(DB_TABLE_COLLECTOR).document(idFirestore).update("hasAccess", hasAccess)
                     .addOnSuccessListener {
                         Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
+                        Toast.makeText(context, "Acceso Actualizado correctamente!", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {
                         Log.w("FireStoreDelete", "Error deleting document", it)
+                        Toast.makeText(context, "Error al actulizar acceso!", Toast.LENGTH_SHORT).show()
                     }
             }
         }
