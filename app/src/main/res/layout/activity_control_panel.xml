@@ -40,7 +40,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teLinealPrice"
             style="@style/TextInputEditTextStyle"
-            android:inputType="textPersonName" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -92,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Desde"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tvDesde"
         app:layout_constraintEnd_toEndOf="@+id/tvDesde"
         app:layout_constraintHorizontal_bias="0.5"
@@ -102,6 +103,7 @@
         android:id="@+id/tvDesde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/tvHasta"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,6 +115,7 @@
         android:id="@+id/tvHasta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvDesde"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -127,6 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Hasta"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tvHasta"
         app:layout_constraintEnd_toEndOf="@+id/tvHasta"
         app:layout_constraintStart_toStartOf="@+id/tvHasta"

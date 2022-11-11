@@ -55,6 +55,4 @@ class MarketInteractor @Inject constructor(
         }
         }
     }
-
-
 }

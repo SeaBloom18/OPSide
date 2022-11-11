@@ -8,11 +8,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
@@ -23,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
+import java.util.*
 
 @AndroidEntryPoint
 class ControlPanelActivity : AppCompatActivity() {
@@ -33,17 +31,24 @@ class ControlPanelActivity : AppCompatActivity() {
     private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
+    private var mPriceLinearMeter: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityControlPanelBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.btnSaveChanges.setOnClickListener { confirmChanges() }
+        mBinding.apply {
+            btnSaveChanges.setOnClickListener {
+                mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
+                    mBinding.teLinealPrice.text.toString().trim())
+            }
+        }
 
         setToolbar()
         bindViewModel()
         loadCollectorList()
+        loadPriceLinearMeter()
         setUpStartTime()
         setUpEndTime()
         updateDuration()
@@ -52,6 +57,7 @@ class ControlPanelActivity : AppCompatActivity() {
     /** ViewModel and Methods SetUp**/
     private fun bindViewModel() {
         mControlPanelViewModel.getCollectorList.observe(this, Observer(this::getCollectors))
+        mControlPanelViewModel.priceLinearMeter.observe(this, Observer(this::getPriceLinearMeter))
     }
 
     private fun loadCollectorList() {
@@ -63,6 +69,16 @@ class ControlPanelActivity : AppCompatActivity() {
         setUpRecyclerView()
     }
 
+    private fun getPriceLinearMeter(priceLinearMeter: String) {
+        mPriceLinearMeter = priceLinearMeter
+        mBinding.teLinealPrice.setText(mPriceLinearMeter)
+    }
+
+    private fun loadPriceLinearMeter() {
+        mControlPanelViewModel.getPriceLinearMeter()
+    }
+
+    /** Other Methods**/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> finish()

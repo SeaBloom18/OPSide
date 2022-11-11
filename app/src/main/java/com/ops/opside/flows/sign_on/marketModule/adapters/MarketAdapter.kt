@@ -17,6 +17,7 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
 
     private lateinit var context: Context
 
+
     /** ADAPTER SETUP **/
     /** CreateViewHolder **/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

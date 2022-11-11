@@ -147,7 +147,7 @@
     <string name="concessionaire">Consecionario</string>
     <string name="tax_collection_update_title">Actualizar Recaudación</string>
     <string name="concessionaire_address">Dirección</string>
-    <string name="control_panel_alert_dialog_title">¿Estás seguro de que quieres dar acceso a %1$s?</string>
+    <string name="control_panel_alert_dialog_title">¿Estás seguro de que quieres cambiar acceso a %1$s?</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>

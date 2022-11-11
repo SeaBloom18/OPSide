@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.dashboardModule.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.applySchedulers
@@ -17,6 +18,10 @@ class ControlPanelViewModel @Inject constructor(
     private val mControlPanelInteractor: ControlPanelInteractor): CommonViewModel(){
 
     val getCollectorList = MutableLiveData<MutableList<CollectorSE>>()
+    private val _getPriceLinearMeter = MutableLiveData<String>()
+    val priceLinearMeter: LiveData<String> = _getPriceLinearMeter
+    private val updatePrice = MutableLiveData<Boolean>()
+
 
     fun getCollectorList() {
         disposable.add(
@@ -24,6 +29,34 @@ class ControlPanelViewModel @Inject constructor(
                 .subscribe(
                     {
                         getCollectorList.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun getPriceLinearMeter(){
+        disposable.add(
+            mControlPanelInteractor.getLinealPriceMeter().applySchedulers()
+                .subscribe(
+                    {
+                        _getPriceLinearMeter.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun updateLinealPriceMeter(idFirestore: String, price: String){
+        disposable.add(
+            mControlPanelInteractor.updateLinealPriceMeter(idFirestore, price).applySchedulers()
+                .subscribe(
+                    {
+                        updatePrice.value = it
                     },
                     {
                         Log.e("Error", it.toString())
