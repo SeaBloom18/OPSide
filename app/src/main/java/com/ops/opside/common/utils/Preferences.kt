@@ -21,21 +21,20 @@ class Preferences @Inject constructor(
     fun getInt(key: String) = sp.getInt(key, -1)
 
     fun initPreferences(
-        priceLinearMeter: Float,
-        name: String,
-        email: String,
-        phone: String,
-        origin: String,
-        address: String,
-        lineBusiness: String,
-        absence: String,
-        linearMeters: String,
-        userType: String,
-        id: String,
-        roll: Int,
-        hasAccess: Boolean,
-        rememberMe: Boolean,
-        useBiometrics: Boolean
+        priceLinearMeter: Float = 0f,
+        name: String = "",
+        email: String = "",
+        phone: String = "",
+        origin: String = "",
+        address: String = "",
+        lineBusiness: String = "",
+        absence: String = "",
+        linearMeters: String = "",
+        id: String = "",
+        roll: Int = 0,
+        hasAccess: Boolean = false,
+        rememberMe: Boolean = false,
+        useBiometrics: Boolean = false
     ){
         sp.edit().putFloat  (SP_PRICE_LINEAR_METER, priceLinearMeter).apply()
         sp.edit().putString (SP_NAME              , name            ).apply()
