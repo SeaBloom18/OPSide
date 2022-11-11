@@ -1,9 +1,13 @@
 package com.ops.opside.flows.sign_off.loginModule.viewModel
 
+import android.app.Application
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.CollectorFE
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.BiometricsManager
 import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
@@ -15,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val mLoginInteractor: LoginInteractor
+    private val mLoginInteractor: LoginInteractor,
+    private val application: Application
 ) : CommonViewModel(), BiometricsManager.BiometricListener {
 
     private val _action: SingleLiveEvent<LoginAction> = SingleLiveEvent()
@@ -23,48 +28,70 @@ class LoginViewModel @Inject constructor(
 
     private var biometricsManager: BiometricsManager? = null
 
-    private val _getUserLogin = MutableLiveData<String>()
-    val getUserLogin: LiveData<String> = _getUserLogin
+    fun isSPInitialized() = mLoginInteractor.isSPInitialized()
+    fun isRememberMe() = mLoginInteractor.isRememberMe()
+    fun updateRememberMe(rememberMe: Boolean) = mLoginInteractor.updateRememberMe(rememberMe)
+    fun getLoginSp() = mLoginInteractor.getLoginSp()
 
-    private val _getUserRole = MutableLiveData<String>()
-    val getUserRole: LiveData<String> = _getUserRole
-
-    fun isSPInitialized(): Boolean {
-        return mLoginInteractor.isSPInitialized()
+    fun initSPForCollector(
+        collector: CollectorFE,
+        rememberMe: Boolean,
+        useBiometrics: Boolean): Pair<Boolean,String> {
+        return mLoginInteractor.initSPForCollector(collector, rememberMe, useBiometrics)
     }
 
-    fun isRememberMeChecked(): Triple<Boolean, String?, String?> {
-        return mLoginInteractor.isRememberMeChecked()
+    fun initSPForConcessionaire(
+        concessionaire: ConcessionaireFE,
+        rememberMe: Boolean,
+        useBiometrics: Boolean
+    ): Pair<Boolean,String> {
+        return mLoginInteractor.initSPForConcessionaire(concessionaire, rememberMe, useBiometrics)
     }
 
-    fun initSP(email: String, rememberMe: Boolean, useBiometrics: Boolean) {
+    fun searchForCollector(email: String) {
         disposable.add(
-            mLoginInteractor.initSP(email, rememberMe, useBiometrics).applySchedulers()
+            mLoginInteractor.getCollectorByEmail(email).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        _getUserRole.value = it
+                        showProgress.value = false
+                        if (it.idFirebase.isNotEmpty()) {
+                            _action.value = LoginAction.SetUserData(collector = it)
+                        } else {
+                            searchForConcessionaire(email)
+                        }
                     },
                     {
                         Log.e("Error", it.toString())
+                        showProgress.value = false
+                        _action.value =
+                            LoginAction.ShowMessageError(it.message.toString())
                     }
                 )
         )
     }
 
-    fun getRol() = mLoginInteractor.getRol()
-
-    fun getUserLogin(email: String) {
+    private fun searchForConcessionaire(email: String) {
         disposable.add(
-            mLoginInteractor.getUserByEmail(email).applySchedulers()
+            mLoginInteractor.getConcessionaireByEmail(email).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        _getUserLogin.value = it
                         showProgress.value = false
+                        if (it.idFirebase.isNotEmpty()) {
+                            _action.value = LoginAction.SetUserData(concessionaire = it)
+                        } else {
+                            _action.value =
+                                LoginAction.ShowMessageError(
+                                    application.getString(R.string.login_toast_credentials_validation)
+                                )
+                        }
                     },
                     {
                         Log.e("Error", it.toString())
                         showProgress.value = false
+                        _action.value =
+                            LoginAction.ShowMessageError(it.message.toString())
                     }
                 )
         )
@@ -109,6 +136,6 @@ class LoginViewModel @Inject constructor(
         val pss = credential.split(":", ignoreCase = false, limit = 2)
             .lastOrNull().orEmpty()
 
-        _action.value = LoginAction.TryLogIn(user,pss)
+        _action.value = LoginAction.TryLogIn(user, pss)
     }
 }
