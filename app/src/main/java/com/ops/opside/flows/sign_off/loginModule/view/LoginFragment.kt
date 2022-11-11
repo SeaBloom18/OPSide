@@ -14,10 +14,9 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.utils.MD5
-import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.common.utils.showLoading
-import com.ops.opside.common.utils.startActivity
+import com.ops.opside.common.entities.firestore.CollectorFE
+import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.utils.*
 import com.ops.opside.databinding.FragmentLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
@@ -38,9 +37,9 @@ class LoginFragment : Fragment() {
         activity as LoginActivity
     }
 
-    private var userRol = 0
-    private var email = ""
-    private var password = ""
+    private lateinit var mCollector: CollectorFE
+    private lateinit var mConcessionaire: ConcessionaireFE
+    private var mIsCollector: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,10 +63,10 @@ class LoginFragment : Fragment() {
             tvAboutApp.setOnClickListener { showAboutApp() }
 
             btnLogin.setOnClickListener {
-                //BuildVersion
-                email = mBinding.teLoginEmail.text.toString().trim()
-                password = mBinding.tePassword.text.toString().trim()
-                logIn(email, password)
+                logIn(
+                    email = mBinding.teLoginEmail.text.toString().trim(),
+                    password = mBinding.tePassword.text.toString().trim()
+                )
             }
 
             tvSignUp.setOnClickListener { mActivity.startActivity<RegistrationActivity>() }
@@ -80,16 +79,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun logIn(email: String, password: String) {
-        this.email = email
-        this.password = password
-
         if (email.isEmpty() && password.isEmpty()) {
             showErrorOnCredentials(getString(R.string.login_toast_empy_text))
             return
         }
-
-        mViewModel.getUserLogin(email)
         hideErrorOnCredentials()
+        mBinding.tePassword.setText(password)
+        mViewModel.searchForCollector(email)
     }
 
 
@@ -97,8 +93,6 @@ class LoginFragment : Fragment() {
     private fun bindViewModel() {
         mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
         mViewModel.getAction().observe(mActivity, Observer(this::handleAction))
-        mViewModel.getUserLogin.observe(mActivity, Observer(this::passwordUserValidation))
-        mViewModel.getUserRole.observe(mActivity, Observer(this::userRoleValidation))
     }
 
     private fun showLoading(show: Boolean) {
@@ -111,78 +105,98 @@ class LoginFragment : Fragment() {
             is LoginAction.LaunchHome -> launchHome()
             is LoginAction.TryLogIn -> logIn(action.user, action.pass)
             is LoginAction.DismissBtnBiometrics -> mBinding.btnBiometricsLogIn.isGone = true
+            is LoginAction.SetUserData -> setUserData(action.collector, action.concessionaire)
+            is LoginAction.ShowMessageError -> showError(action.error)
+        }
+    }
+
+    private fun setUserData(collector: CollectorFE?, concessionaire: ConcessionaireFE?) {
+        if (collector != null) {
+            mIsCollector = true
+            mCollector = collector
+            passwordUserValidation(mCollector.password, mBinding.tePassword.text.toString())
+            return
+        }
+
+        if (concessionaire != null) {
+            mIsCollector = false
+            mConcessionaire = concessionaire
+            passwordUserValidation(mConcessionaire.password, mBinding.tePassword.text.toString())
         }
     }
 
     private fun initSharedPreferences(useBiometrics: Boolean) {
-        mViewModel.initSP(
-            email,
-            mBinding.swRememberUser.isChecked,
-            useBiometrics
-        )
+        val result = if (mIsCollector) {
+            mViewModel.initSPForCollector(
+                mCollector,
+                mBinding.swRememberUser.isChecked,
+                useBiometrics
+            )
+        } else {
+            mViewModel.initSPForConcessionaire(
+                mConcessionaire,
+                mBinding.swRememberUser.isChecked,
+                useBiometrics
+            )
+        }
+
+        if (result.first) {
+            launchHome()
+        } else {
+            showError(result.second)
+        }
+    }
+
+    private fun setFinalizedForm(){
+        mViewModel.updateRememberMe(mBinding.swRememberUser.isChecked)
+        mBinding.tePassword.setText("")
+        if (mViewModel.isRememberMe().not())
+            mBinding.teLoginEmail.setText("")
     }
 
     private fun launchHome() {
-        val userPref = mViewModel.isRememberMeChecked()
-        when (userRol) {
+        setFinalizedForm()
+        when (if (mIsCollector) mCollector.role else (if (mConcessionaire.isForeigner) 1 else 2)) {
             1, 2 -> {
-                if (!userPref.first) mBinding.teLoginEmail.setText("")
-                mBinding.tePassword.setText("")
-
                 mActivity.startActivity<DealerActivity>()
             }
             3, 4, 5 -> {
-                if (!userPref.first) mBinding.teLoginEmail.setText("")
-                mBinding.tePassword.setText("")
-
                 mActivity.startActivity<MainActivity>()
             }
         }
     }
 
     private fun setFormWhitSharedPreferences() {
-        val userPref = mViewModel.isRememberMeChecked()
         with(mBinding) {
-            if (userPref.first) {
+            if (mViewModel.isSPInitialized() and mViewModel.isRememberMe()) {
                 swRememberUser.isChecked = true
-                teLoginEmail.setText(userPref.second)
+                val loginPreferences = mViewModel.getLoginSp()
+                teLoginEmail.setText(loginPreferences.first)
                 tvNameRemember.text =
-                    getString(
-                        R.string.login_tv_remember_name,
-                        userPref.third.orEmpty().split(" ")[0]
-                    )
+                    getString(R.string.login_tv_remember_name, loginPreferences.second)
             } else {
                 tvNameRemember.text = getString(R.string.login_welcome)
             }
         }
     }
 
-    private fun userRoleValidation(userRole: String) {
-        userRol = userRole.toInt()
-        launchHome()
-    }
-
-    private fun passwordUserValidation(passwordFs: String) {
-        var password = this.password
-
-        password = MD5.hashString(password)
-        if (passwordFs != password) {
+    private fun passwordUserValidation(passwordServer: String, passwordLocal: String) {
+        if (passwordServer != MD5.hashString(passwordLocal)) {
             showErrorOnCredentials(getString(R.string.login_toast_credentials_validation))
             return
         }
-
         hideErrorOnCredentials()
         checkIfSharedPreferencesISInit()
     }
 
     private fun checkIfSharedPreferencesISInit() {
-        if (mViewModel.isSPInitialized()) {
+        if (mViewModel.isSPInitialized().not()) {
             showBiometricsPermission()
-            return
+        } else {
+            launchHome()
         }
-
-        userRoleValidation(mViewModel.getRol().toString())
     }
+
 
     private fun showBiometricsPermission() {
         val dialog = BaseDialog(
@@ -194,7 +208,9 @@ class LoginFragment : Fragment() {
             buttonNoText = getString(R.string.common_cancel),
             yesAction = {
                 mViewModel.saveCredentials(
-                    credentials = "$email:$password"
+                    credentials = "${
+                        mBinding.teLoginEmail.text.toString().trim()
+                    }:${mBinding.tePassword.text.toString().trim()}"
                 )
             },
             noAction = {
