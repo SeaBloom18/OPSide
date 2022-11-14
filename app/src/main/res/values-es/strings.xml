@@ -134,7 +134,7 @@
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Precio lineal</string>
-    <string name="cp_btn_save">Guardar cambios</string>
+    <string name="cp_btn_save">Guardar precio lineal</string>
     <string name="cp_alertdialog_title">Aceptar cambios</string>
     <string name="cp_alertdialog_message">¿Estás seguro de actualizar los cambios?</string>
     <string name="cp_toast_success">Cambio realizado con éxito</string>
@@ -148,6 +148,8 @@
     <string name="tax_collection_update_title">Actualizar Recaudación</string>
     <string name="concessionaire_address">Dirección</string>
     <string name="control_panel_alert_dialog_title">¿Estás seguro de que quieres cambiar acceso a %1$s?</string>
+    <string name="control_panel_toast_lineal_price_update_success">Precio lineal actualizado correctamente</string>
+    <string name="control_panel_toast_lineal_price_update_error">Error al actualizar el precio de línea</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>

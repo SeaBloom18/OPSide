@@ -71,11 +71,17 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                 mTitle = context.getString(R.string.cp_alertdialog_title),
                 mDescription = context.getString(R.string.control_panel_alert_dialog_title, collectorName),
                 buttonYesText = context.getString(R.string.common_accept),
+                buttonNoText = context.getString(R.string.common_cancel),
                 yesAction = {
-                    //binding.switchHasAccess.isChecked = true
                     updateHasAccess(idFirestore, hasAccess)
+                },
+                noAction = {
+                    binding.apply {
+                        switchHasAccess.isChecked = switchHasAccess.isChecked
+                    }
                 }
             )
+            dialog.setCancelable(false)
             dialog.show()
         }
 

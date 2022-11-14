@@ -33,14 +33,13 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
             binding.tvMarketName.text = market.name
             binding.tvItemAddress.text = market.address
             binding.ivDelete.setOnClickListener {
-                listener.onDeleteMarket(market.idFirebase)
-                //markets.removeAt(position)
-                notifyDataSetChanged()
+                listener.onDeleteMarket(market.idFirebase, position)
             }
             binding.ivEdit.setOnClickListener {
                 val intent = Intent(context, MarketRegisterActivity::class.java)
                 intent.putExtra(PUT_EXTRA_MARKET, market)
                 context.startActivity(intent)
+                notifyItemChanged(position)
             }
         }
     }
@@ -51,5 +50,10 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
     /** Inner Class **/
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemMarketListBinding.bind(view)
+    }
+
+    fun updateListPostDelete(position: Int) {
+        markets.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

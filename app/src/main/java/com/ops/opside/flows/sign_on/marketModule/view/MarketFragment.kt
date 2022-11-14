@@ -30,10 +30,6 @@ class MarketFragment : Fragment(), OnClickListener {
     private val mMarketViewModel: MarketViewModel by viewModels()
     private lateinit var mMarketList: MutableList<MarketSE>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View {
         mBinding = FragmentMarketBinding.inflate(inflater, container, false)
@@ -80,6 +76,7 @@ class MarketFragment : Fragment(), OnClickListener {
                     }
                 }
             }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            loadMarketsList()
         }
     }
 
@@ -97,7 +94,7 @@ class MarketFragment : Fragment(), OnClickListener {
     }
 
     /** Interface Methods and SetUp**/
-    private fun confirmMarketDelete(marketId: String){
+    private fun confirmMarketDelete(marketId: String, position: Int){
         val dialog = BaseDialog(
             requireActivity(),
             R.drawable.ic_ops_delete,
@@ -108,14 +105,19 @@ class MarketFragment : Fragment(), OnClickListener {
             {
                 mMarketViewModel.deleteMarket(marketId)
                 Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
-                loadMarketsList()
+                //mMarketAdapter.updateListPostDelete(position)
             },
             { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
         )
         dialog.show()
     }
 
-    override fun onDeleteMarket(marketId: String) {
-        confirmMarketDelete(marketId)
+    override fun onDeleteMarket(marketId: String, position: Int) {
+        confirmMarketDelete(marketId, position)
+    }
+
+    override fun onResume() {
+        loadMarketsList()
+        super.onResume()
     }
 }

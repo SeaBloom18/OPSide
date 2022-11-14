@@ -36,7 +36,7 @@ class ConcessionaireFragment : Fragment() {
 
     private val mViewModel: ConcessionaireViewModel by viewModels()
 
-    private lateinit var mConcessionaresList: MutableList<ConcessionaireSE>
+    private lateinit var mConcessionairesList: MutableList<ConcessionaireSE>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -83,7 +83,7 @@ class ConcessionaireFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        mAdapter = ConcessionaireAdapter(mConcessionaresList)
+        mAdapter = ConcessionaireAdapter(mConcessionairesList)
 
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(context)
@@ -96,7 +96,7 @@ class ConcessionaireFragment : Fragment() {
     }
 
     private fun getAbsencesList(concessionaresList: MutableList<ConcessionaireSE>){
-        mConcessionaresList = concessionaresList
+        mConcessionairesList = concessionaresList
 
         initRecyclerView()
     }

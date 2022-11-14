@@ -16,7 +16,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/common_content_description"
         android:src="@drawable/ic_ops_arrow_back"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toTopOf="@+id/ivProfilePicture"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -43,12 +43,12 @@
         app:lottie_rawRes="@raw/avatar_user_profile" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivProfilePicture"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/common_content_description"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toStartOf="@+id/ivBack" />
 
@@ -61,8 +61,8 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/common_content_description"
         android:src="@drawable/ic_ops_add_a_photo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfilePicture"
+        app:layout_constraintEnd_toEndOf="@+id/ivProfilePicture" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUserName"
@@ -74,7 +74,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lottieAnimationView"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/ivProfilePicture"
         tools:text="David Alejandro Gonzalez Quezada" />
 
     <com.google.android.material.textview.MaterialTextView

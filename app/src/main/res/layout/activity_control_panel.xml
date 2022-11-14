@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
+    android:background="@color/primaryColor"
     tools:context=".flows.sign_on.dashboardModule.view.ControlPanelActivity">
 
     <include
@@ -74,7 +74,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/cp_btn_save"
             android:textColor="@color/secondaryColor"
-            app:icon="@drawable/ic_save_register"
+            app:icon="@drawable/ic_ops_upgrade"
             app:iconTint="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

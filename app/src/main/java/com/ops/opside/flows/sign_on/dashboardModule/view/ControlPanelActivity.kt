@@ -14,6 +14,7 @@ import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
+import com.ops.opside.common.utils.toast
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
@@ -40,8 +41,10 @@ class ControlPanelActivity : AppCompatActivity() {
 
         mBinding.apply {
             btnSaveChanges.setOnClickListener {
-                mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
-                    mBinding.teLinealPrice.text.toString().trim())
+                if (mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
+                        mBinding.teLinealPrice.text.toString().trim()))
+                    toast(getString(R.string.control_panel_toast_lineal_price_update_success))
+                    else toast(getString(R.string.control_panel_toast_lineal_price_update_error))
             }
         }
 

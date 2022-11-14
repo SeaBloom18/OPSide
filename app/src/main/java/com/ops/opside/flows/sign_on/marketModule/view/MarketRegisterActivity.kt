@@ -165,11 +165,11 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
 
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(R.string.login_btn_close_bottom_sheet)
+        btnFinish.setText(R.string.registration_btn_bs_close)
         btnFinish.setOnClickListener { finish() }
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.setText(R.string.login_tv_title_bottom_sheet)
+        tvTitle.setText(R.string.registration_tv_bs_close)
 
         dialog.setContentView(view)
         dialog.show()

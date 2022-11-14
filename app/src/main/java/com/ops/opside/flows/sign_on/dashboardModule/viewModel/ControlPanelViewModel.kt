@@ -51,18 +51,22 @@ class ControlPanelViewModel @Inject constructor(
         )
     }
 
-    fun updateLinealPriceMeter(idFirestore: String, price: String){
+    fun updateLinealPriceMeter(idFirestore: String, price: String): Boolean {
+        var updateSuccess = false
         disposable.add(
             mControlPanelInteractor.updateLinealPriceMeter(idFirestore, price).applySchedulers()
                 .subscribe(
                     {
                         updatePrice.value = it
+                        updateSuccess = true
                     },
                     {
                         Log.e("Error", it.toString())
+                        updateSuccess = false
                     }
                 )
         )
+        return updateSuccess
     }
 
 }
