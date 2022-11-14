@@ -18,7 +18,7 @@ class TaxCollectionCrudInteractor @Inject constructor(
                             i.toString(), "",
                             "Tianguis Minicipal",
                             1250.0,
-                            "2022-07-12",
+                            "2022-07-12","2022-07-12",
                             "", "", ""
                         )
                     )

@@ -21,7 +21,7 @@ class Preferences @Inject constructor(
     fun getInt(key: String) = sp.getInt(key, -1)
 
     fun initPreferences(
-        priceLinearMeter: Float = 0f,
+        priceLinearMeter: Float = 15f,
         name: String = "",
         email: String = "",
         phone: String = "",

@@ -58,7 +58,7 @@ class BottomSheetRecordTaxCollection(private val idTaxCollection: String) :
         }
 
         bindViewModel()
-        loadEventsList()
+        getEventsList(mViewModel.getEventsList(idTaxCollection))
     }
 
     override fun onAttach(context: Context) {
@@ -66,13 +66,7 @@ class BottomSheetRecordTaxCollection(private val idTaxCollection: String) :
         mListener = context as? TaxCollectionAux
     }
 
-
-    private fun loadEventsList() {
-        mViewModel.getEventsList(idTaxCollection)
-    }
-
     private fun bindViewModel() {
-        mViewModel.getEventsList.observe(this, Observer(this::getEventsList))
         mViewModel.wasEventDeleted.observe(this, Observer(this::wasEventDeleted))
     }
 

@@ -17,7 +17,8 @@ import com.ops.opside.common.room.daos.*
         MarketSE::class,
         EmailSentRE::class,
         ParticipatingConcessRE::class,
-        EventRE::class], version = 1
+        EventRE::class,
+        PendingEmailSE::class], version = 1
 )
 abstract class TaxCollectionDataBase : RoomDatabase() {
     abstract fun taxCollectionDao(): TaxCollectionDao
@@ -25,6 +26,7 @@ abstract class TaxCollectionDataBase : RoomDatabase() {
     abstract fun marketDao(): MarketDao
     abstract fun participatingConcessDao(): ParticipatingConcessDao
     abstract fun eventDao(): EventDao
+    abstract fun pendingEmailDao(): PendingEmailDao
 }
 
 const val DB_NAME = "ops_db"

@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.BiometricsManager
 import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
@@ -26,6 +27,9 @@ class LoginViewModel @Inject constructor(
     private val _action: SingleLiveEvent<LoginAction> = SingleLiveEvent()
     fun getAction(): LiveData<LoginAction> = _action
 
+    private val _getLinealMetersPrice = MutableLiveData<Double>()
+    val getLinealMetersPrice: LiveData<Double> = _getLinealMetersPrice
+
     private var biometricsManager: BiometricsManager? = null
 
     fun isSPInitialized() = mLoginInteractor.isSPInitialized()
@@ -35,9 +39,10 @@ class LoginViewModel @Inject constructor(
 
     fun initSPForCollector(
         collector: CollectorFE,
+        linearMeterPrice: Double,
         rememberMe: Boolean,
         useBiometrics: Boolean): Pair<Boolean,String> {
-        return mLoginInteractor.initSPForCollector(collector, rememberMe, useBiometrics)
+        return mLoginInteractor.initSPForCollector(collector, linearMeterPrice, rememberMe, useBiometrics)
     }
 
     fun initSPForConcessionaire(
@@ -46,6 +51,23 @@ class LoginViewModel @Inject constructor(
         useBiometrics: Boolean
     ): Pair<Boolean,String> {
         return mLoginInteractor.initSPForConcessionaire(concessionaire, rememberMe, useBiometrics)
+    }
+
+    fun getLinealMeterPrice(){
+        disposable.add(
+            mLoginInteractor.getLinearMetersPrice().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        _getLinealMetersPrice.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        LoginAction.ShowMessageError(it.message.toString())
+                    }
+                )
+        )
     }
 
     fun searchForCollector(email: String) {
@@ -118,9 +140,7 @@ class LoginViewModel @Inject constructor(
     }
 
     override fun onCredentialsError(isSaved: Boolean) {
-        if (isSaved) {
-            _action.value = LoginAction.LaunchHome
-        } else {
+        if (isSaved.not()) {
             mLoginInteractor.setUseBiometrics(false)
         }
     }

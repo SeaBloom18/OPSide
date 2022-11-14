@@ -21,19 +21,10 @@ class BottomSheetRecordTaxCollectionViewModel @Inject constructor(
     private val _wasEventDeleted = MutableLiveData<Boolean>()
     val wasEventDeleted: LiveData<Boolean> = _wasEventDeleted
 
-    fun getEventsList(idTaxCollection: String) {
-        disposable.add(
-            mRecordTaxCollectionInteractor.getEventsList(idTaxCollection).applySchedulers()
-                .subscribe(
-                    {
-                        _getEventsList.value = it
-                    },
-                    {
-                        Log.e("Error", it.toString())
-                    }
-                )
-        )
-    }
+    fun getEventsList(idTaxCollection: String) =
+            mRecordTaxCollectionInteractor.getEventsList(idTaxCollection)
+
+
 
     fun deleteEvent(event: EventRE){
         disposable.add(

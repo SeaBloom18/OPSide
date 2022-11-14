@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.*
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.*
@@ -39,6 +40,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var mCollector: CollectorFE
     private lateinit var mConcessionaire: ConcessionaireFE
+    private var mLinealMeterPrice: Double = 0.0
     private var mIsCollector: Boolean = true
 
     override fun onCreateView(
@@ -75,7 +77,7 @@ class LoginFragment : Fragment() {
         bindViewModel()
         setFormWhitSharedPreferences()
 
-        mViewModel.checkBiometrics(this)
+        mViewModel.getLinealMeterPrice()
     }
 
     private fun logIn(email: String, password: String) {
@@ -93,6 +95,7 @@ class LoginFragment : Fragment() {
     private fun bindViewModel() {
         mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
         mViewModel.getAction().observe(mActivity, Observer(this::handleAction))
+        mViewModel.getLinealMetersPrice.observe(mActivity, Observer(this::getLinealMeterPrice))
     }
 
     private fun showLoading(show: Boolean) {
@@ -108,6 +111,11 @@ class LoginFragment : Fragment() {
             is LoginAction.SetUserData -> setUserData(action.collector, action.concessionaire)
             is LoginAction.ShowMessageError -> showError(action.error)
         }
+    }
+
+    private fun getLinealMeterPrice(price: Double){
+        mLinealMeterPrice = price
+        mViewModel.checkBiometrics(this)
     }
 
     private fun setUserData(collector: CollectorFE?, concessionaire: ConcessionaireFE?) {
@@ -129,6 +137,7 @@ class LoginFragment : Fragment() {
         val result = if (mIsCollector) {
             mViewModel.initSPForCollector(
                 mCollector,
+                mLinealMeterPrice,
                 mBinding.swRememberUser.isChecked,
                 useBiometrics
             )
@@ -156,12 +165,17 @@ class LoginFragment : Fragment() {
 
     private fun launchHome() {
         setFinalizedForm()
-        when (if (mIsCollector) mCollector.role else (if (mConcessionaire.isForeigner) 1 else 2)) {
-            1, 2 -> {
+        when (if (mIsCollector) mCollector.role else (if (mConcessionaire.isForeigner)
+            SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE))
+        {
+            SP_FOREIGN_CONCE_ROLE, SP_NORMAL_CONCE_ROLE -> {
                 mActivity.startActivity<DealerActivity>()
             }
-            3, 4, 5 -> {
+
+            SP_COLLECTOR_ROLE, SP_TAX_EXECUTOR_ROLE, SP_SUPER_USER_ROLE -> {
+                if (mCollector.hasAccess || mCollector.role > SP_COLLECTOR_ROLE)
                 mActivity.startActivity<MainActivity>()
+                else showError("Actualmente no tienes permitido entrar al sistema")
             }
         }
     }

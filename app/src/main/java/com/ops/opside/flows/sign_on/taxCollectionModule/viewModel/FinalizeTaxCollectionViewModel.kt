@@ -2,10 +2,12 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.viewModel
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.ops.opside.common.entities.room.EventRE
+import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.BiometricsManager
 import com.ops.opside.common.utils.SingleLiveEvent
+import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
-import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
 import com.ops.opside.flows.sign_off.loginModule.model.LoginInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.actions.FinalizeTaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.FinalizeTaxCollectionInteractor
@@ -22,6 +24,116 @@ class FinalizeTaxCollectionViewModel @Inject constructor(
     fun getAction(): LiveData<FinalizeTaxCollectionAction> = _action
 
     private var biometricsManager: BiometricsManager? = null
+
+    fun searchIfExistTaxCollection(taxCollection: TaxCollectionSE) {
+        disposable.add(
+            mFinalizeTaxCollectionInteractor.searchIfExistTaxCollection(taxCollection.idFirebase)
+                .applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    { exist ->
+                        if (exist.not()) {
+                            insertTaxCollection(taxCollection)
+                        } else {
+                            val events =
+                                mFinalizeTaxCollectionInteractor.getEventsList(taxCollection.idFirebase)
+
+                            if (events.size > 0) {
+                                insertAllEvents(events, taxCollection.idFirebase, taxCollection.idFirebase)
+                            } else {
+                                _action.value = FinalizeTaxCollectionAction.SendEmails
+                            }
+                        }
+                    },
+                    {
+                        showProgress.value = false
+                        _action.value =
+                            FinalizeTaxCollectionAction.ShowMessageError(it.message.toString())
+                    }
+                )
+        )
+    }
+
+    private fun insertTaxCollection(taxCollection: TaxCollectionSE) {
+        disposable.add(
+            mFinalizeTaxCollectionInteractor.insertTaxCollection(taxCollection).applySchedulers()
+                .subscribe(
+                    { id ->
+                        val beforeId = taxCollection.idFirebase
+                        val result = mFinalizeTaxCollectionInteractor.updateTaxCollectionId(
+                            taxCollection,
+                            id
+                        )
+                        if (result.first) {
+                            mFinalizeTaxCollectionInteractor
+                            insertAllEvents(
+                                mFinalizeTaxCollectionInteractor.getEventsList(beforeId),
+                                id,
+                                beforeId
+                            )
+                        } else {
+                            showProgress.value = false
+                            _action.value =
+                                FinalizeTaxCollectionAction.ShowMessageError(result.second)
+                        }
+                    },
+                    {
+                        showProgress.value = false
+                        _action.value =
+                            FinalizeTaxCollectionAction.ShowMessageError(it.message.toString())
+                    }
+                )
+        )
+    }
+
+    private fun insertAllEvents(events: MutableList<EventRE>, idTaxCollection: String, beforeId: String) {
+        if (updateIdTaxCollectionEvents(events, idTaxCollection)) {
+            val updatedEvents = mFinalizeTaxCollectionInteractor.getEventsList(idTaxCollection)
+            disposable.add(
+                mFinalizeTaxCollectionInteractor.insertAllEvents(updatedEvents, idTaxCollection)
+                    .applySchedulers()
+                    .subscribe(
+                        {
+                            if (it == "Success")
+                                _action.value = FinalizeTaxCollectionAction.SendEmails
+                            else
+                                _action.value =
+                                    FinalizeTaxCollectionAction.ShowMessageError(it)
+                        }, {
+                            showProgress.value = false
+                            updateIdTaxCollectionEvents(events, beforeId)
+                            _action.value =
+                                FinalizeTaxCollectionAction.ShowMessageError(it.message.toString())
+                        }
+                    )
+            )
+        } else {
+            showProgress.value = false
+            _action.value =
+                FinalizeTaxCollectionAction.ShowMessageError("No se pudieron actualizar los eventos locales")
+        }
+    }
+
+    private fun updateIdTaxCollectionEvents(
+        events: MutableList<EventRE>,
+        idTaxCollection: String
+    ): Boolean {
+        return try {
+            events.map {
+                it.idTaxCollection = idTaxCollection
+                mFinalizeTaxCollectionInteractor.updateEvent(it)
+            }
+            true
+        } catch (exception: Exception) {
+            showProgress.value = false
+            _action.value =
+                FinalizeTaxCollectionAction.ShowMessageError(exception.message.toString())
+            false
+        }
+    }
+
+    fun closeTaxcollection(taxCollection: TaxCollectionSE) =
+        mFinalizeTaxCollectionInteractor.closeTaxCollection(taxCollection)
 
     fun checkBiometrics(fragment: Fragment) {
         biometricsManager = BiometricsManager(fragment)

@@ -80,7 +80,6 @@ class BottomSheetRelateConcessMarket(
 
 
     private fun relate(linearMeters: Double, lineBusiness: String) {
-        // TODO: Validación 
         if (linearMeters <= 0) {
             Toast.makeText(
                 requireContext(),
