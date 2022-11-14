@@ -79,7 +79,7 @@ class Preferences @Inject constructor(
 
 }
 
-const val SP_PRICE_LINEAR_METER = "priceLinearMeter"
+const val SP_PRICE_LINEAR_METER = "priceLinealMeter"
 const val SP_NAME               = "name"
 const val SP_EMAIL              = "email"
 const val SP_PHONE              = "phone"

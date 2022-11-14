@@ -61,17 +61,10 @@ class RegistrationActivity : AppCompatActivity() {
 
             tePassword.doAfterTextChanged { charSequence ->
                 charSequence.toString().apply {
-                    if(isValidPassword()) {
-                        mBinding.tilPassword.error = null
-                        isValidPassword =  true
-                    }
-                    else {
-                        mBinding.tilPassword.error =
-                            getString(R.string.registration_til_password_validation)
-                        isValidPassword = false
-                    }
+                    isValidPassword = isValidPassword()
                 }
             }
+            tvSeePolicies.setOnClickListener { showPolicies() }
         }
 
         bindViewModel()
@@ -176,20 +169,27 @@ class RegistrationActivity : AppCompatActivity() {
                 mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
                 if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
-                } else if (isValidPassword) {
-                    with(mConcessionaireFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        address = mBinding.teAddress.text.toString().trim()
-                        phone = mBinding.tePhone.text.toString().trim()
-                        email = mBinding.teEmail.text.toString().trim()
-                        origin = mBinding.teOrigin.text.toString()
-                        role = 2
-                        password = MD5.hashString(mBinding.tePassword.text.toString().trim())
-                        participatingMarkets = mutableListOf()
-                        isForeigner = false
-                        isValid = true
+                    toast(getString(R.string.registration_toast_password_validation))
+                } else {
+                    if(isValidPassword){
+                        if(mBinding.checkBoxPolicies.isChecked) {
+                            with(mConcessionaireFE){
+                                name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                                address = mBinding.teAddress.text.toString().trim()
+                                phone = mBinding.tePhone.text.toString().trim()
+                                email = mBinding.teEmail.text.toString().trim()
+                                origin = mBinding.teOrigin.text.toString()
+                                role = 2
+                                password = MD5.hashString(mBinding.tePassword.text.toString().trim())
+                                participatingMarkets = mutableListOf()
+                                isForeigner = false
+                                isValid = true
+                            }
+                        } else {
+                            toast(getString(R.string.registration_toast_policies_validation))
+                        }
+                    } else {
+                        toast(getString(R.string.registration_toast_password_regex_validation))
                     }
                 }
             }
@@ -205,13 +205,17 @@ class RegistrationActivity : AppCompatActivity() {
             if(!isValidEmail(mBinding.teEmail.text.toString().trim())){
                 mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
-                with(mConcessionaireFE){
-                    name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                    email = mBinding.teEmail.text.toString().trim()
-                    origin = mBinding.teOrigin.text.toString()
-                    isForeigner = true
-                    role = 1
-                    isValid = true
+                if(mBinding.checkBoxPolicies.isChecked) {
+                    with(mConcessionaireFE){
+                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                        email = mBinding.teEmail.text.toString().trim()
+                        origin = mBinding.teOrigin.text.toString()
+                        isForeigner = true
+                        role = 1
+                        isValid = true
+                    }
+                } else {
+                    toast(getString(R.string.registration_toast_password_regex_validation))
                 }
             }
         } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
@@ -229,15 +233,23 @@ class RegistrationActivity : AppCompatActivity() {
                 if (validatePassword()){
                     Toast.makeText(this, getString(R.string.registration_toast_password_validation),
                         Toast.LENGTH_SHORT).show()
-                } else if (isValidPassword) {
-                    with(mCollectorFE){
-                        name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
-                        address = mBinding.teAddress.text.toString().trim()
-                        phone = mBinding.tePhone.text.toString().trim()
-                        email = mBinding.teEmail.text.toString().trim()
-                        password = MD5.hashString(mBinding.tePassword.text.toString().trim())
-                        role = 3
-                        isValid = true
+                } else {
+                    if(isValidPassword) {
+                        if(mBinding.checkBoxPolicies.isChecked) {
+                            with(mCollectorFE){
+                                name = "${mBinding.teUserName.text.toString().trim()} ${mBinding.teLastName.text.toString().trim()}"
+                                address = mBinding.teAddress.text.toString().trim()
+                                phone = mBinding.tePhone.text.toString().trim()
+                                email = mBinding.teEmail.text.toString().trim()
+                                password = MD5.hashString(mBinding.tePassword.text.toString().trim())
+                                role = 3
+                                isValid = true
+                            }
+                        } else {
+                            toast(getString(R.string.registration_toast_policies_validation))
+                        }
+                    } else {
+                        toast(getString(R.string.registration_toast_password_regex_validation))
                     }
                 }
             }
@@ -272,7 +284,7 @@ class RegistrationActivity : AppCompatActivity() {
         return isValid
     }
 
-    fun CharSequence.isValidPassword(): Boolean {
+    private fun CharSequence.isValidPassword(): Boolean {
         val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(this)
@@ -374,8 +386,6 @@ class RegistrationActivity : AppCompatActivity() {
             tilEmail.visibility = View.VISIBLE
             tePassword.visibility = View.VISIBLE
             tilPassword.visibility = View.VISIBLE
-            tilPassword.error =
-                getString(R.string.registration_til_password_validation)
             tePasswordConfirm.visibility = View.VISIBLE
             tilPasswordConfirm.visibility = View.VISIBLE
             teOrigin.visibility = View.VISIBLE
@@ -460,6 +470,17 @@ class RegistrationActivity : AppCompatActivity() {
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
         tvTitle.text = getString(R.string.registration_btn_exit)
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    private fun showPolicies() {
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
+
+        val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
+        tvTitle.setText(R.string.tv_title_policies)
 
         dialog.setContentView(view)
         dialog.show()

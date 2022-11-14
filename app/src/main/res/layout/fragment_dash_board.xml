@@ -308,7 +308,7 @@
             android:src="@drawable/ic_filter"
             tools:visibility="visible"
             android:visibility="invisible"
-            app:backgroundTint="@color/secondaryLightColor"
+            app:backgroundTint="@color/secondaryColor"
             app:layout_constraintBottom_toTopOf="@+id/fabMenu"
             app:layout_constraintEnd_toEndOf="@+id/fabMenu"
             app:tint="@color/primaryTextColor" />
@@ -321,7 +321,7 @@
             android:src="@drawable/ic_money_withdrawal"
             tools:visibility="visible"
             android:visibility="invisible"
-            app:backgroundTint="@color/secondaryLightColor"
+            app:backgroundTint="@color/secondaryColor"
             app:layout_constraintBottom_toTopOf="@+id/fabTaxCollectionCrud"
             app:layout_constraintEnd_toEndOf="@+id/fabTaxCollectionCrud"
             app:tint="@color/primaryTextColor" />
@@ -337,7 +337,7 @@
             android:focusable="true"
             android:contentDescription="@string/common_content_description"
             app:tint="@color/primaryTextColor"
-            app:backgroundTint="@color/secondaryColor"
+            app:backgroundTint="@color/secondaryLightColor"
             android:outlineSpotShadowColor="@color/info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

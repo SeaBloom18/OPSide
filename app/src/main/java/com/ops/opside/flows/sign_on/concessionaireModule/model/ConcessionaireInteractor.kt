@@ -12,7 +12,7 @@ class ConcessionaireInteractor @Inject constructor(
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
 
-                for (i in 1..30) {
+                /*for (i in 1..30) {
                     concessionaires.add(
                         ConcessionaireSE(
                             i.toString(), "Concesionario $i",
@@ -23,7 +23,7 @@ class ConcessionaireInteractor @Inject constructor(
                             "", 0, false
                         )
                     )
-                }
+                }*/
 
                 subscriber.onNext(concessionaires)
             } catch (exception: Exception){
