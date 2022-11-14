@@ -1,16 +1,22 @@
 package com.ops.opside.flows.sign_on.dashboardModule.view
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.utils.toast
@@ -18,6 +24,7 @@ import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 /**
  * Created by David Alejandro González Quezada on 28/10/22.
@@ -25,7 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BottomSheetUserProfile : BottomSheetDialogFragment(){
-
     private val mBinding: BottomSheetUserProfileBinding by lazy {
         BottomSheetUserProfileBinding.inflate(layoutInflater)
     }
@@ -37,15 +43,23 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         .RequestMultiplePermissions()) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.CAMERA, false) -> {
-                // Precise location access granted.
             }
             permissions.getOrDefault(Manifest.permission.CAMERA, false) -> {
-                // Only approximate location access granted.
             } else -> {
             mActivity.finish()
         }
         }
     }
+
+    private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+        if (isSuccess) {
+            latestTmpUri?.let { uri ->
+                mBinding.ivProfilePicture.setImageURI(uri)
+                mBinding.lottieAnimationView.visibility = View.INVISIBLE
+            }
+        }
+    }
+    private var latestTmpUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,19 +70,40 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        cameraPermission.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA))
+        takeUserPhoto()
         mBinding.apply {
             ivBack.setOnClickListener { dismiss() }
             tvLogOut.setOnClickListener { logOut() }
             ivChangePhoto.setOnClickListener {
-                cameraPermission.launch(arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA))
-                takeUserPhoto()
+                takeImage()
             }
             ivShareProfile.setOnClickListener { shareUserProfile() }
         }
 
         /** Methods Calls **/
         showPersonalUserInfo()
+    }
+
+    /** Take Photo **/
+    private fun takeImage() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                latestTmpUri = uri
+                takeImageResult.launch(uri)
+            }
+        }
+    }
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", mActivity.cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(mActivity, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
     }
 
     /** Other Methods**/

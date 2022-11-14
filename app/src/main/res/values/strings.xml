@@ -95,6 +95,9 @@
     <string name="registration_toast_password_exist_validation">Oops, looks like we already have this email registered. Try another one!</string>
     <string name="registration_til_password_validation">The password must be at least 8 characters including an uppercase letter, a number and a special character</string>
     <string name="registration_checkbox_accept_policies">Accept privacy policies</string>
+    <string name="registration_toast_password_regex_validation">Oops, it looks like the password doesn\'t meet the requirements!</string>
+    <string name="registration_toast_policies_validation">Before you must accept our privacy policies!</string>
+    <string name="registration_see_policies_validation">Tap to see Privacy Policies!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>
@@ -132,7 +135,7 @@
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>
-    <string name="cp_btn_save">Save changes</string>
+    <string name="cp_btn_save">Save Lineal Price</string>
     <string name="cp_alertdialog_title">Accept Changes</string>
     <string name="cp_alertdialog_message">Are you sure to update the changes?</string>
     <string name="cp_toast_success">Change made successfully</string>
@@ -145,6 +148,9 @@
     <string name="concessionaire">Consecionario</string>
     <string name="tax_collection_update_title">Actualizar Recaudación</string>
     <string name="concessionaire_address">Dirección</string>
+    <string name="control_panel_alert_dialog_title">Are you sure you want to change access to %1$s?</string>
+    <string name="control_panel_toast_lineal_price_update_success">Linear price updated successfully</string>
+    <string name="control_panel_toast_lineal_price_update_error">Error updating line price</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Create new Incident</string>
