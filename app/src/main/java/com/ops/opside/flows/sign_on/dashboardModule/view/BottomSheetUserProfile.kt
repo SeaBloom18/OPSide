@@ -70,7 +70,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         cameraPermission.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA))
         takeUserPhoto()
