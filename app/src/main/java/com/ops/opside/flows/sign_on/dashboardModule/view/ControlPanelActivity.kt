@@ -177,7 +177,7 @@ class ControlPanelActivity : AppCompatActivity() {
     private fun setUpRecyclerView() {
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
-        controlPanelAdapter = ControlPanelAdapter(mCollectorList)
+        controlPanelAdapter = ControlPanelAdapter(mCollectorList, mControlPanelViewModel)
 
         mBinding.recyclerControlPanel.apply {
             setHasFixedSize(true)
