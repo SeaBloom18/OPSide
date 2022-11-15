@@ -41,10 +41,8 @@ class ControlPanelActivity : AppCompatActivity() {
 
         mBinding.apply {
             btnSaveChanges.setOnClickListener {
-                if (mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
-                        mBinding.teLinealPrice.text.toString().trim()))
-                    toast(getString(R.string.control_panel_toast_lineal_price_update_success))
-                    else toast(getString(R.string.control_panel_toast_lineal_price_update_error))
+                mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
+                    mBinding.teLinealPrice.text.toString().trim())
             }
         }
 
