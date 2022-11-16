@@ -14,7 +14,7 @@
     <string name="dialog_dealer_info_title">¿Estas seguro de que quieres cerrar sesión?</string>
     <string name="dialog_dealer_info_message">Tendrás que iniciar sesión de nuevo</string>
 
-    <!-- Tax Collection Module Strins -->
+    <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
     <string name="tax_collection_linear_meters">Metros Lineales</string>
@@ -22,6 +22,8 @@
     <string name="tax_collection_total_amount">Monto Total</string>
     <string name="tax_collection_finalize">Finalizar</string>
     <string name="tax_collection_record">Historial</string>
+    <!-- Finalize Tax Collection -->
+    <string name="tax_collection_absence_email">Buenas tardes, %1$s \n\nTe hacemos llegar tu informe de inasistencia donde recaudamos la siguiente información:\n\nTianguis: %2$s \nReporta: %3$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>
@@ -89,7 +91,7 @@
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
-    <string name="bn_menu_concessionaire_opc2">Concesi</string>
+    <string name="bn_menu_concessionaire_opc2">Concesionarios</string>
     <string name="bn_menu_tax_collection_opc3">Cobranza</string>
     <string name="bn_menu_control_panel_opc4">Panel de Conttrol</string>
     <string name="bn_menu_incidents_opc5">Incidencias</string>

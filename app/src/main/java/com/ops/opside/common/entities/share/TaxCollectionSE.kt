@@ -1,29 +1,48 @@
 package com.ops.opside.common.entities.share
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ops.opside.common.entities.DB_TABLE_TAX_COLLECTION
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = DB_TABLE_TAX_COLLECTION)
 data class TaxCollectionSE(
     @PrimaryKey(autoGenerate = false)
-    val idFirebase: String,
+    var idFirebase: String,
     @ColumnInfo(name = "idMarket")
     var idMarket: String,
     @ColumnInfo(name = "marketName")
     var marketName: String,
     @ColumnInfo(name = "totalAmount")
     var totalAmount: Double,
-    @ColumnInfo(name = "date")
-    val date: String,
+    @ColumnInfo(name = "startDate")
+    val startDate: String,
+    @ColumnInfo(name = "endDate")
+    var endDate: String,
     @ColumnInfo(name = "startTime")
     val startTime: String,
     @ColumnInfo(name = "endTime")
-    val endTime: String,
+    var endTime: String,
     @ColumnInfo(name = "taxCollector")
     val taxCollector: String,
-){
+): Parcelable{
+
+    fun getHashMap(): MutableMap<String,Any>{
+        val map: MutableMap<String,Any> = mutableMapOf()
+        map["idMarket"] = idMarket
+        map["marketName"] = marketName
+        map["totalAmount"] = totalAmount
+        map["startDate"] = startDate
+        map["endDate"] = endDate
+        map["startTime"] = startTime
+        map["endTime"] = endTime
+        map["taxCollector"] = taxCollector
+
+        return map
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

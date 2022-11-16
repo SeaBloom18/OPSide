@@ -261,22 +261,9 @@ class TaxCollectionViewModel @Inject constructor(
         )
     }
 
-    fun getAllEvents(idTaxCollection: String){
-        disposable.add(
-            mRecordEventInteractor.getEventsList(idTaxCollection).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
-                .subscribe(
-                    {
-                        showProgress.value = false
-                        _getEventList.value = it
-                    },
-                    {
-                        showProgress.value = false
-                        Log.e("Error", it.toString())
-                    }
-                )
-        )
-    }
+    fun getAllEvents(idTaxCollection: String) =
+            mRecordEventInteractor.getEventsList(idTaxCollection)
+
 
     fun hasEvents(idTaxCollection: String) = mRecordEventInteractor.hasEvents(idTaxCollection)
 
@@ -303,11 +290,8 @@ class TaxCollectionViewModel @Inject constructor(
         return mPickMarketsInteractor.isOnLineMode()
     }
 
-    fun getCollectorName(): String{
-        val collectorName = mProfileInteractor.getCollectorName()
-        _action.value = TaxCollectionAction.SetCollectorName(collectorName!!)
-        return collectorName
-    }
+    fun getCollectorName() = mProfileInteractor.getCollectorName()
+
 
     fun deleteProfileData(){
         mProfileInteractor.deleteProfileData()

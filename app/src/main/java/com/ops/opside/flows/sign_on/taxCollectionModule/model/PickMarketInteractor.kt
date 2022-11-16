@@ -19,6 +19,7 @@ class PickMarketInteractor @Inject constructor(
                 val markets: MutableList<MarketFE> = mutableListOf()
 
                 firestore.collection(DB_TABLE_MARKET)
+                    .whereEqualTo("isDeleted",false)
                     .get()
                     .addOnSuccessListener {
 

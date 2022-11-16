@@ -10,21 +10,12 @@ class RecordTaxCollectionInteractor @Inject constructor(
     val room: TaxCollectionDataBase
 ){
 
-    fun getEventsList(idTaxCollection: String): Observable<MutableList<EventRE>> {
-        return Observable.unsafeCreate{ subscriber ->
-            try {
-                val events = room.eventDao().getAllEvents(idTaxCollection)
-
-                subscriber.onNext(events)
-            } catch (exception: Exception){
-                subscriber.onError(exception)
-            }
-        }
-    }
+    fun getEventsList(idTaxCollection: String): MutableList<EventRE> =
+        room.eventDao().getAllEventsById(idTaxCollection)
 
 
     fun hasEvents(idTaxCollection: String): Boolean{
-        val events = room.eventDao().getAllEvents(idTaxCollection)
+        val events = room.eventDao().getAllEventsById(idTaxCollection)
         Log.d("event", events.toString())
         return events.size > 0
     }
@@ -33,9 +24,8 @@ class RecordTaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate{ subscriber ->
             try {
                 val events = room.eventDao().deleteEvent(event)
-
                 subscriber.onNext(true)
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }

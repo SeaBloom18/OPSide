@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 
 class RelateConcessMarketInteractor @Inject constructor(
-    val firestore: FirebaseFirestore,
+    private val firestore: FirebaseFirestore,
     private val room: TaxCollectionDataBase
 ) {
 

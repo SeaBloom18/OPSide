@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
+import com.ops.opside.common.entities.DB_TABLE_RESOURCES
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.*
@@ -28,6 +29,7 @@ class LoginInteractor @Inject constructor(
 
     fun initSPForCollector(
         collector: CollectorFE,
+        linearMeterPrice: Double,
         rememberMe: Boolean,
         useBiometrics: Boolean
     ): Pair<Boolean,String> {
@@ -39,6 +41,7 @@ class LoginInteractor @Inject constructor(
                 phone =  collector.phone,
                 email = collector.email,
                 roll = collector.role,
+                linearMeters = linearMeterPrice.toString(),
                 hasAccess = collector.hasAccess,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
@@ -151,6 +154,19 @@ class LoginInteractor @Inject constructor(
             } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
+        }
+    }
+
+    fun getLinearMetersPrice(): Observable<Double> {
+        return Observable.unsafeCreate{ subscriber ->
+            firestore.collection(DB_TABLE_RESOURCES).document("Ulmp4yMD4noSlOE6IwpX")
+                .get()
+                .addOnSuccessListener { response ->
+                    subscriber.onNext(response.data!!["priceLinealMeter"].toString().toDouble())
+                }
+                .addOnFailureListener {
+                    subscriber.onError(it)
+                }
         }
     }
 

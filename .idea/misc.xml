@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_user_profile.xml" value="0.15897435897435896" />
         <entry key="app/src/main/res/layout/dialog_base.xml" value="0.33" />
         <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.14264984130859376" />
+        <entry key="app/src/main/res/layout/fragment_concessionaire.xml" value="0.16965811965811967" />
         <entry key="app/src/main/res/layout/fragment_dash_board.xml" value="0.20811965811965813" />
         <entry key="app/src/main/res/layout/fragment_finalize_tax_collection.xml" value="0.29968053051549143" />
         <entry key="app/src/main/res/layout/fragment_in_development.xml" value="0.20726495726495728" />

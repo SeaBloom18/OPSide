@@ -189,8 +189,6 @@ class BottomSheetForeignerAttendance(
     }
 
     private fun getOriginList(origins: MutableList<OriginFE>) {
-        origins.add(0, OriginFE("", "Municipio recidencia"))
-
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(
                 requireContext(), R.layout.simple_list_item_1,

@@ -9,7 +9,7 @@ data class EventRE(
     @PrimaryKey(autoGenerate = true)
     val id: Long?,
     @ColumnInfo(name = "idTaxCollection")
-    val idTaxCollection: String,
+    var idTaxCollection: String,
     @ColumnInfo(name = "idConcessionaire")
     val idConcessionaire: String,
     @ColumnInfo(name = "nameConcessionaire")
@@ -22,4 +22,17 @@ data class EventRE(
     var amount: Double = 0.0,
     @ColumnInfo(name = "foreignIdRow")
     var foreignIdRow: String
-)
+){
+    fun getHashMap(): MutableMap<String,Any>{
+        val map: MutableMap<String,Any> = mutableMapOf()
+
+        map["idConcessionaire"] = idConcessionaire
+        map["nameConcessionaire"] = nameConcessionaire
+        map["status"] = status
+        map["timeStamp"] = timeStamp
+        map["amount"] = amount
+        map["foreignIdRow"] = foreignIdRow
+
+        return map
+    }
+}

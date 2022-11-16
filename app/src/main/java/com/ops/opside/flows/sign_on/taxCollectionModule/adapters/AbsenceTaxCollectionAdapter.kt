@@ -31,12 +31,14 @@ class AbsenceTaxCollectionAdapter(
 
     override fun getItemCount(): Int = events.size
 
+    fun getListAbsenceEmails() = events.filter { it.isAssist.not() }.map { it }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemAbsenceTaxCollectionBinding.bind(view)
 
         fun bind(item : ItemAbsence){
             binding.txtName.text = item.dealerName
+            binding.cbAbsence.setOnClickListener { item.isAssist = binding.cbAbsence.isChecked}
         }
 
     }
