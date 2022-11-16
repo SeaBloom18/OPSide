@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.dashboardModule.model
 
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_RESOURCES
@@ -74,6 +75,20 @@ data class ControlPanelInteractor @Inject constructor(
                     .addOnFailureListener {
                         subscriber.onError(it)
                         Log.w("FireStoreDelete", "Error deleting updated", it)
+                    }
+            }
+        }
+    }
+
+    fun updateHasAccess(idFirestore: String, hasAccess: Boolean): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
+            tryOrPrintException {
+                firestore.collection(DB_TABLE_COLLECTOR).document(idFirestore).update("hasAccess", hasAccess)
+                    .addOnSuccessListener {
+                        Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
+                    }
+                    .addOnFailureListener {
+                        Log.w("FireStoreDelete", "Error deleting document", it)
                     }
             }
         }

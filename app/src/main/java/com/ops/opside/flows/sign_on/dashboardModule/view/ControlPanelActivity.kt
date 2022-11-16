@@ -42,10 +42,7 @@ class ControlPanelActivity : AppCompatActivity() {
         mBinding.apply {
             btnSaveChanges.setOnClickListener {
                 mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
-                        mBinding.teLinealPrice.text.toString().trim())
-
-                    toast(getString(R.string.control_panel_toast_lineal_price_update_success))
-
+                    mBinding.teLinealPrice.text.toString().trim())
             }
         }
 
@@ -178,7 +175,7 @@ class ControlPanelActivity : AppCompatActivity() {
     private fun setUpRecyclerView() {
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
-        controlPanelAdapter = ControlPanelAdapter(mCollectorList)
+        controlPanelAdapter = ControlPanelAdapter(mCollectorList, mControlPanelViewModel)
 
         mBinding.recyclerControlPanel.apply {
             setHasFixedSize(true)

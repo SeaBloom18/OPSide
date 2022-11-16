@@ -16,6 +16,8 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
@@ -32,12 +34,15 @@ import java.io.File
 
 @AndroidEntryPoint
 class BottomSheetUserProfile : BottomSheetDialogFragment(){
+
     private val mBinding: BottomSheetUserProfileBinding by lazy {
         BottomSheetUserProfileBinding.inflate(layoutInflater)
     }
 
     private val mViewModel: BottomSheetUserProfileViewModel by viewModels()
     private val mActivity: MainActivity by lazy { activity as MainActivity }
+    private lateinit var mStorageReference: StorageReference
+
 
     private val cameraPermission = registerForActivityResult(ActivityResultContracts
         .RequestMultiplePermissions()) { permissions ->
@@ -59,6 +64,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             }
         }
     }
+
     private var latestTmpUri: Uri? = null
 
     override fun onCreateView(
@@ -81,6 +87,14 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
                 takeImage()
             }
             ivShareProfile.setOnClickListener { shareUserProfile() }
+            btnSaveProfile.setOnClickListener {
+                mStorageReference = FirebaseStorage.getInstance().reference
+                /*tomar foto
+                * subir a storage y obtener su url
+                * agregar url al nuevo campo de firestore
+                * consumir url con glide*/
+                //mStorageReference.child()
+            }
         }
 
         /** Methods Calls **/
