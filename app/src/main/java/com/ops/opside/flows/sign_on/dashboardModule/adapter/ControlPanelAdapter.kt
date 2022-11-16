@@ -21,7 +21,8 @@ import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBindin
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
 
-class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>):
+class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>,
+                          var mControlPanelViewModel: ControlPanelViewModel):
 RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
 
     private lateinit var context: Context
@@ -73,7 +74,8 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                 buttonYesText = context.getString(R.string.common_accept),
                 buttonNoText = context.getString(R.string.common_cancel),
                 yesAction = {
-                    updateHasAccess(idFirestore, hasAccess)
+                    mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
+                    //updateHasAccess(idFirestore, hasAccess)
                 },
                 noAction = {
                     binding.apply {
@@ -85,7 +87,7 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
             dialog.show()
         }
 
-        private fun updateHasAccess(idFirestore: String, hasAccess: Boolean) {
+        /*private fun updateHasAccess(idFirestore: String, hasAccess: Boolean) {
             tryOrPrintException {
                 firestore.collection(DB_TABLE_COLLECTOR).document(idFirestore).update("hasAccess", hasAccess)
                     .addOnSuccessListener {
@@ -97,6 +99,6 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                         Toast.makeText(context, "Error al actulizar acceso!", Toast.LENGTH_SHORT).show()
                     }
             }
-        }
+        }*/
     }
 }

@@ -98,7 +98,7 @@ dependencies {
     //Real Time Data Base
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     //FireStore
-    implementation 'com.google.firebase:firebase-firestore:24.2.2'
+    implementation 'com.google.firebase:firebase-firestore:24.4.0'
 
     //Room
     implementation "androidx.room:room-runtime:$roomVersion"

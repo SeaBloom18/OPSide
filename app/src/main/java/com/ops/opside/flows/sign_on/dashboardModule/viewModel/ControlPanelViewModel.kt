@@ -21,6 +21,7 @@ class ControlPanelViewModel @Inject constructor(
     private val _getPriceLinearMeter = MutableLiveData<String>()
     val priceLinearMeter: LiveData<String> = _getPriceLinearMeter
     private val updatePrice = MutableLiveData<Boolean>()
+    private val updateHasAccess = MutableLiveData<Boolean>()
 
 
     fun getCollectorList() {
@@ -51,22 +52,31 @@ class ControlPanelViewModel @Inject constructor(
         )
     }
 
-    fun updateLinealPriceMeter(idFirestore: String, price: String): Boolean {
-        var updateSuccess = false
+    fun updateLinealPriceMeter(idFirestore: String, price: String) {
         disposable.add(
             mControlPanelInteractor.updateLinealPriceMeter(idFirestore, price).applySchedulers()
                 .subscribe(
                     {
                         updatePrice.value = it
-                        updateSuccess = true
                     },
                     {
                         Log.e("Error", it.toString())
-                        updateSuccess = false
                     }
                 )
         )
-        return updateSuccess
     }
 
+    fun updateHasAccess(idFirestore: String, hasAccess: Boolean){
+        disposable.add(
+            mControlPanelInteractor.updateHasAccess(idFirestore, hasAccess).applySchedulers()
+                .subscribe(
+                    {
+                        updateHasAccess.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
 }
