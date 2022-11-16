@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_RESOURCES
 import com.ops.opside.common.entities.share.CollectorSE
+import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
 import com.ops.opside.common.utils.tryOrPrintException
@@ -66,9 +67,9 @@ data class ControlPanelInteractor @Inject constructor(
             tryOrPrintException {
                 firestore.collection(DB_TABLE_RESOURCES).document(idFirestore).update("priceLinealMeter", priceLinealMeter)
                     .addOnSuccessListener {
-                        subscriber.onNext(true)
-                        sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter)
+                        sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter.toFloat().orZero())
                         Log.d("FireStoreDelete", "DocumentSnapshot successfully updated!")
+                        subscriber.onNext(true)
                     }
                     .addOnFailureListener {
                         subscriber.onError(it)
