@@ -1,5 +1,7 @@
 package com.ops.opside.flows.sign_on.dashboardModule.viewModel
 
+import android.net.Uri
+import com.google.firebase.storage.FirebaseStorage
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.dashboardModule.model.BottomSheetUserProfileInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,4 +17,8 @@ class BottomSheetUserProfileViewModel @Inject constructor(
 
     fun showAboutInfo(): Pair<String?, Boolean?> =
         mBottomSheetUserProfileInteractor.showAboutInfo()
+
+    fun uploadUserImage(uri: Uri) {
+        mBottomSheetUserProfileInteractor.uploadUserImage(uri)
+    }
 }
