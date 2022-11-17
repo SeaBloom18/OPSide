@@ -1,25 +1,17 @@
 package com.ops.opside.flows.sign_on.dashboardModule.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
-import com.ops.opside.common.entities.DB_TABLE_MARKET
 import com.ops.opside.common.entities.share.CollectorSE
-import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
-import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
 
 class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>,
                           var mControlPanelViewModel: ControlPanelViewModel):
@@ -40,7 +32,7 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
         holder.apply {
             binding.tvConcessionaireName.text = collectors.name
             if (collectors.hasAccess) binding.switchHasAccess.isChecked = true
-            binding.switchHasAccess.setOnCheckedChangeListener { compoundButton, isChecked ->
+            binding.switchHasAccess.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     changeHasAccess(collectors.name, collectors.idFirebase,
                         binding.switchHasAccess.isChecked)
@@ -54,11 +46,6 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
     }
 
     override fun getItemCount(): Int = collectorsList.size
-
-    /*fun setConcessionaires(concessionaireRE: List<ConcessionaireSE>){
-        this.collectorsLits = concessionaireRE as MutableList<CollectorSE>
-        notifyDataSetChanged()
-    }*/
 
     /** Inner Class **/
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -75,30 +62,15 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                 buttonNoText = context.getString(R.string.common_cancel),
                 yesAction = {
                     mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
-                    //updateHasAccess(idFirestore, hasAccess)
                 },
                 noAction = {
                     binding.apply {
-                        switchHasAccess.isChecked = switchHasAccess.isChecked
+                        switchHasAccess.isChecked = !hasAccess
                     }
                 }
             )
             dialog.setCancelable(false)
             dialog.show()
         }
-
-        /*private fun updateHasAccess(idFirestore: String, hasAccess: Boolean) {
-            tryOrPrintException {
-                firestore.collection(DB_TABLE_COLLECTOR).document(idFirestore).update("hasAccess", hasAccess)
-                    .addOnSuccessListener {
-                        Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
-                        Toast.makeText(context, "Acceso Actualizado correctamente!", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Log.w("FireStoreDelete", "Error deleting document", it)
-                        Toast.makeText(context, "Error al actulizar acceso!", Toast.LENGTH_SHORT).show()
-                    }
-            }
-        }*/
     }
 }

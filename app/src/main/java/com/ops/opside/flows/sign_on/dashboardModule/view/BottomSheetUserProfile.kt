@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,15 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             latestTmpUri?.let { uri ->
                 mBinding.ivProfilePicture.setImageURI(uri)
                 mBinding.lottieAnimationView.visibility = View.INVISIBLE
+                mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
+
+                val uploadTask = mStorageReference.child("opsUserProfile/testName").putFile(uri)
+                mBinding.tvUserPhone.text = mStorageReference.child("opsUserProfile/testName").downloadUrl.toString()
+                Log.d("imgStorageURL", mStorageReference.child("opsUserProfile/testName").downloadUrl.toString())
+
+                uploadTask.addOnSuccessListener {
+
+                }
             }
         }
     }

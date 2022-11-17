@@ -46,9 +46,9 @@
             android:name=".flows.sign_on.dashboardModule.view.ControlPanelActivity"
             android:exported="false" />
 
-        <meta-data
+        <!--<meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="${MAPS_API_KEY}" />-->
 
         <activity
             android:name=".flows.sign_on.marketModule.view.MarketLocationActivity"
@@ -78,7 +78,8 @@
             android:exported="false" />
         <activity
             android:name=".flows.sign_off.registrationModule.view.RegistrationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".flows.sign_off.splashModule.view.SplashActivity"
             android:exported="true">
@@ -90,7 +91,8 @@
         </activity>
         <activity
             android:name=".flows.sign_off.loginModule.view.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
