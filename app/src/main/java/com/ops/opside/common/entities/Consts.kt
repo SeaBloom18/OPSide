@@ -28,8 +28,10 @@ const val PUT_EXTRA_LONGITUDE = "longitude"
 const val PUT_EXTRA_MARKET = "market"
 
 /** Firebase Storage **/
-const val LINK_CONCESSIONAIRES_FOLDER = "gs://opss-fbd9e.appspot.com/opsUserProfile/ConcessionairesUserPhotos"
-const val LINK_COLLECTOR_FOLDER = "gs://opss-fbd9e.appspot.com/opsUserProfile/CollectorsUserPhotos"
+const val LINK_CONCESSIONAIRES_STORAGE = "gs://opss-fbd9e.appspot.com/"
+const val LINK_COLLECTOR_FOLDER = "opsUserProfile/CollectorsUserPhotos/"
+const val LINK_COLLECTOR_STORAGE = "gs://opss-fbd9e.appspot.com/"
+const val LINK_CONCESSIONAIRES_FOLDER = "opsUserProfile/ConcessionairesUserPhotos/"
 
 
 

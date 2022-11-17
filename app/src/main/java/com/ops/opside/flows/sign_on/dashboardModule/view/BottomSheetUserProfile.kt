@@ -65,7 +65,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
 
                 mViewModel.uploadUserImage(uri)
                 //
-                mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
+                /*mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
 
                 val uploadTask = mStorageReference.child("opsUserProfile/{$uri}").putFile(uri)
                 Log.d("imgStorageURL", mStorageReference.child("opsUserProfile/testName").downloadUrl.toString())
@@ -77,7 +77,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
                     }.addOnFailureListener {
                             toast("no")
                         }
-                }
+                }*/
                 //
 
             }

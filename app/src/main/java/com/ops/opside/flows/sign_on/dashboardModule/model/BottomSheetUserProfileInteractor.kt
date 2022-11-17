@@ -2,9 +2,11 @@ package com.ops.opside.flows.sign_on.dashboardModule.model
 
 import android.net.Uri
 import android.os.Build
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ops.opside.common.entities.LINK_COLLECTOR_FOLDER
+import com.ops.opside.common.entities.LINK_CONCESSIONAIRES_STORAGE
 import com.ops.opside.common.utils.*
 import javax.inject.Inject
 
@@ -13,8 +15,9 @@ import javax.inject.Inject
  */
 
 class BottomSheetUserProfileInteractor @Inject constructor(
-    private val sp: Preferences,
-    private var firebaseStorage: FirebaseStorage) {
+    private val sp: Preferences) {
+
+    private lateinit var mStorageReference: StorageReference
 
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         Triple(sp.getString(SP_NAME), sp.getString(SP_EMAIL), sp.getString(SP_PHONE))
@@ -23,12 +26,13 @@ class BottomSheetUserProfileInteractor @Inject constructor(
         Pair(sp.getString(SP_ADDRESS), sp.getBoolean(SP_HAS_ACCESS))
 
     fun uploadUserImage(uri: Uri) {
-        firebaseStorage = FirebaseStorage.getInstance(LINK_COLLECTOR_FOLDER).reference
 
-        val uploadTask = firebaseStorage.child("opsUserProfile/{$uri.conce}").putFile(uri)
+        mStorageReference = FirebaseStorage.getInstance(LINK_CONCESSIONAIRES_STORAGE).reference
+
+        val uploadTask = mStorageReference.child("$LINK_COLLECTOR_FOLDER/{$uri.conce}").putFile(uri)
 
         uploadTask.addOnSuccessListener {
-            firebaseStorage.child("opsUserProfile/{$uri}").downloadUrl.addOnSuccessListener {
+            mStorageReference.child("opsUserProfile/CollectorUserPhotos/{$uri}").downloadUrl.addOnSuccessListener {
                 updateImageURL(it.toString())
                 //toast("si")
             }.addOnFailureListener {
