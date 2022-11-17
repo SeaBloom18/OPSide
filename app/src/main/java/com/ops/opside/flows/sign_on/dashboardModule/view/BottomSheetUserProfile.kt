@@ -64,12 +64,17 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
                 mBinding.lottieAnimationView.visibility = View.INVISIBLE
                 mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
 
-                val uploadTask = mStorageReference.child("opsUserProfile/testName").putFile(uri)
-                mBinding.tvUserPhone.text = mStorageReference.child("opsUserProfile/testName").downloadUrl.toString()
+                val uploadTask = mStorageReference.child("opsUserProfile/{$uri}").putFile(uri)
+                //mBinding.tvUserPhone.text = mStorageReference.child("opsUserProfile/testName").downloadUrl.toString()
                 Log.d("imgStorageURL", mStorageReference.child("opsUserProfile/testName").downloadUrl.toString())
 
                 uploadTask.addOnSuccessListener {
-
+                    mStorageReference.child("opsUserProfile/{$uri}").downloadUrl.addOnSuccessListener {
+                        toast("si")
+                        mBinding.tvUserProfileAdress.text = it.toString()
+                    }.addOnFailureListener {
+                            toast("no")
+                        }
                 }
             }
         }
