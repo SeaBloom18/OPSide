@@ -1,14 +1,11 @@
 package com.ops.opside.flows.sign_on.dashboardModule.view
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,18 +13,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.utils.toast
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import com.ops.opside.BuildConfig
 
 /**
  * Created by David Alejandro González Quezada on 28/10/22.
@@ -43,7 +39,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
     private val mViewModel: BottomSheetUserProfileViewModel by viewModels()
     private val mActivity: MainActivity by lazy { activity as MainActivity }
     private lateinit var mStorageReference: StorageReference
-
+    private var latestTmpUri: Uri? = null
 
     private val cameraPermission = registerForActivityResult(ActivityResultContracts
         .RequestMultiplePermissions()) { permissions ->
@@ -61,9 +57,8 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         if (isSuccess) {
             latestTmpUri?.let { uri ->
                 mBinding.ivProfilePicture.setImageURI(uri)
-                mBinding.lottieAnimationView.visibility = View.INVISIBLE
+                mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
 
-                mViewModel.uploadUserImage(uri)
                 //
                 /*mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
 
@@ -83,8 +78,6 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             }
         }
     }
-
-    private var latestTmpUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,12 +100,9 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             }
             ivShareProfile.setOnClickListener { shareUserProfile() }
             btnSaveProfile.setOnClickListener {
-                mStorageReference = FirebaseStorage.getInstance().reference
-                /*tomar foto
-                * subir a storage y obtener su url
-                * agregar url al nuevo campo de firestore
-                * consumir url con glide*/
-                //mStorageReference.child()
+                latestTmpUri?.let { it1 -> mViewModel.uploadUserImage(it1) }
+                //mViewModel.updateImageURL("3Ir8wt7aUNtqnhO7D0LB", "test")
+                //mStorageReference = FirebaseStorage.getInstance().reference
             }
         }
 
@@ -150,6 +140,12 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
 
             tvUserProfileAdress.text = userAboutInfo.first.orEmpty()
             tvUserProfileAccess.text = userAboutInfo.second.toString()
+            if (userAboutInfo.third.toString().isNotEmpty()) {
+                mBinding.ivProfilePicture.visibility = View.VISIBLE
+                mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
+                Glide.with(mActivity)
+                    .load(userAboutInfo.third).circleCrop().into(mBinding.ivProfilePicture)
+            }
         }
     }
 

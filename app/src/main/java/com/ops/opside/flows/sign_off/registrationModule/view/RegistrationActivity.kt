@@ -1,9 +1,7 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Patterns
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
@@ -36,7 +33,6 @@ import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
-import java.util.zip.CRC32
 
 @AndroidEntryPoint
 class RegistrationActivity : AppCompatActivity() {
