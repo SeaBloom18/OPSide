@@ -30,6 +30,7 @@ import com.ops.opside.common.utils.clear
 import com.ops.opside.common.utils.error
 import com.ops.opside.common.utils.toast
 import com.ops.opside.databinding.ActivityRegistrationBinding
+import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
@@ -111,8 +112,15 @@ class RegistrationActivity : AppCompatActivity() {
 
     /** ViewModel Conf**/
     private fun bindViewModel(){
+        mViewModel.getAction().observe(this, Observer(this::handleAction))
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
         mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))
+    }
+
+    private fun handleAction(action: RegistrationAction) {
+        when(action) {
+            is RegistrationAction.InsertConcessionaire ->
+        }
     }
 
     private fun getIsEmailExist(emailFS: Boolean){

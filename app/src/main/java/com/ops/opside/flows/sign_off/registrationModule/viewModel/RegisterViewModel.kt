@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
+import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -26,6 +29,9 @@ class RegisterViewModel @Inject constructor(
     private val _registerConcessionaire = MutableLiveData<Boolean>()
     val registerConcessionaire: LiveData<Boolean> = _registerConcessionaire
 
+    private val _action: SingleLiveEvent<RegistrationAction> = SingleLiveEvent()
+    fun getAction(): LiveData<RegistrationAction> = _action
+
     fun insertConcessionaire(concessionaireFE: ConcessionaireFE){
         disposable.add(
             mRegisterInteractor.registerConcessionaire(concessionaireFE).applySchedulers()
@@ -34,10 +40,12 @@ class RegisterViewModel @Inject constructor(
                     {
                         _registerConcessionaire.value = it
                         showProgress.value = false
+                        _action.value = RegistrationAction.InsertConcessionaire(concessionaireFE)
                     },
                     {
                         Log.e("Error", it.toString())
                         showProgress.value = false
+                        _action.value = RegistrationAction.ShowMessageError(it.message.toString())
                     }
                 )
         )
