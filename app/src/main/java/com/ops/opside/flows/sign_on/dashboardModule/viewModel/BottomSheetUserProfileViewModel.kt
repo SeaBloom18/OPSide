@@ -9,7 +9,6 @@ import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.dashboardModule.model.BottomSheetUserProfileInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
 @HiltViewModel
 class BottomSheetUserProfileViewModel @Inject constructor(
     private val mBottomSheetUserProfileInteractor: BottomSheetUserProfileInteractor):
@@ -27,17 +26,8 @@ class BottomSheetUserProfileViewModel @Inject constructor(
         mBottomSheetUserProfileInteractor.uploadUserImage(uri)
     }
 
-    /*fun updateImageURL(idFirestore: String, imageURL: String) {
-        disposable.add(
-            mBottomSheetUserProfileInteractor.updateImageURL(idFirestore, imageURL).applySchedulers()
-                .subscribe(
-                    {
-                        updateImageURL.value = it
-                    },
-                    {
-                        Log.e("Error", it.toString())
-                    }
-                )
-        )
-    }*/
+    fun updateImageURL(imageURL: String) {
+        mBottomSheetUserProfileInteractor.updateImageURL(imageURL)
+    }
 }
+

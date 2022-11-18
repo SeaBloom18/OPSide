@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
@@ -24,6 +25,7 @@ import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import com.ops.opside.BuildConfig
+import com.ops.opside.common.utils.toast
 
 /**
  * Created by David Alejandro González Quezada on 28/10/22.
@@ -100,9 +102,22 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             }
             ivShareProfile.setOnClickListener { shareUserProfile() }
             btnSaveProfile.setOnClickListener {
-                latestTmpUri?.let { it1 -> mViewModel.uploadUserImage(it1) }
-                //mViewModel.updateImageURL("3Ir8wt7aUNtqnhO7D0LB", "test")
-                //mStorageReference = FirebaseStorage.getInstance().reference
+                latestTmpUri?.let { it1 ->
+                    //mViewModel.uploadUserImage(it1)
+                    mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
+
+                    val uploadTask = mStorageReference.child("opsUserProfile/{$it1}").putFile(it1)
+                    //Log.d("imgStorageURL", mStorageReference.child("opsUserProfile/testName").downloadUrl.toString())
+
+                    uploadTask.addOnSuccessListener {
+                        mStorageReference.child("opsUserProfile/{$it1}").downloadUrl.addOnSuccessListener {
+                            toast("si")
+                            mViewModel.updateImageURL(it.toString())
+                        }.addOnFailureListener {
+                            toast("no")
+                        }
+                    }
+                }
             }
         }
 
@@ -121,7 +136,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
     }
 
     private fun getTmpFileUri(): Uri {
-        val tmpFile = File.createTempFile("tmp_image_file", ".png", mActivity.cacheDir).apply {
+        val tmpFile = File.createTempFile("ops_profile_photo", ".png", mActivity.cacheDir).apply {
             createNewFile()
             deleteOnExit()
         }

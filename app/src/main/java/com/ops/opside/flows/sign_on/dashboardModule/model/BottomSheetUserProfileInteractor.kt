@@ -30,12 +30,11 @@ class BottomSheetUserProfileInteractor @Inject constructor(
 
     fun uploadUserImage(uri: Uri) {
         mStorageReference = FirebaseStorage.getInstance(LINK_CONCESSIONAIRES_STORAGE).reference
-
         val uploadTask = mStorageReference.child("$LINK_COLLECTOR_FOLDER/{$uri.conce}").putFile(uri)
+
 
         uploadTask.addOnSuccessListener {
             mStorageReference.child("opsUserProfile/CollectorUserPhotos/{$uri}").downloadUrl.addOnSuccessListener {
-                updateImageURL(sp.getString(SP_ID).toString(), it.toString())
                 //toast("si")
             }.addOnFailureListener {
                 //toast("no")
@@ -43,9 +42,9 @@ class BottomSheetUserProfileInteractor @Inject constructor(
         }
     }
 
-    fun updateImageURL(idFirestore: String, url: String) {
+    fun updateImageURL(url: String) {
         tryOrPrintException {
-            firestore.collection(DB_TABLE_COLLECTOR).document("3Ir8wt7aUNtqnhO7D0LB").update("imageURL", url)
+            firestore.collection(DB_TABLE_COLLECTOR).document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
                     Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
                 }
