@@ -46,10 +46,11 @@ class BottomSheetUserProfileInteractor @Inject constructor(
         tryOrPrintException {
             firestore.collection(DB_TABLE_COLLECTOR).document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
-                    Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
+                    sp.putValue(SP_USER_URL_PHOTO, url)
+                    Log.d("FireStoreDelete", "DocumentSnapshot successfully updated!")
                 }
                 .addOnFailureListener {
-                    Log.w("FireStoreDelete", "Error deleting document", it)
+                    Log.w("FireStoreDelete", "Error updating document", it)
                 }
         }
     }
