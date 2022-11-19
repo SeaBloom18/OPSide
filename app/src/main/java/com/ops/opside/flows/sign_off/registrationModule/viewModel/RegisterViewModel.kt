@@ -37,12 +37,12 @@ class RegisterViewModel @Inject constructor(
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        _registerConcessionaire.value = it
+                        //_registerConcessionaire.value = it
                         showProgress.value = false
                         _action.value = RegistrationAction.ShowMessageSuccess
                     },
                     {
-                        _registerConcessionaire.value = false
+                        //_registerConcessionaire.value = false
                         Log.e("Error", it.toString())
                         showProgress.value = false
                         _action.value = RegistrationAction.ShowMessageError
@@ -94,7 +94,7 @@ class RegisterViewModel @Inject constructor(
                     },
                     {
                         Log.e("Error", it.toString())
-                        _action.value = RegistrationAction.ShowMessageError
+                        //_action.value = RegistrationAction.ShowMessageError
                     }
                 )
         )

@@ -109,16 +109,19 @@ class RegistrationActivity : AppCompatActivity() {
 
     /** ViewModel Conf**/
     private fun bindViewModel(){
-        //mViewModel.getAction().observe(this, Observer(this::handleAction))
+        mViewModel.getAction().observe(this, Observer(this::handleAction))
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
         mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))
-        //mViewModel.registerConcessionaire.observe(this, Observer(this::insertConcessionaire))
     }
 
     private fun handleAction(action: RegistrationAction) {
         when(action) {
-            is RegistrationAction.ShowMessageSuccess -> bsRegisterSuccess()
-            is RegistrationAction.ShowMessageError -> bsRegisterError()
+            is RegistrationAction.ShowMessageSuccess -> {
+                toast("success")
+            }
+            is RegistrationAction.ShowMessageError -> {
+                toast("error")
+            }
         }
     }
 
@@ -133,15 +136,6 @@ class RegistrationActivity : AppCompatActivity() {
     private fun getOriginList(originList: MutableList<OriginFE>){
         mOriginList = originList
         setUpOriginList()
-    }
-
-    private fun insertConcessionaire(register: Boolean) {
-        if (concessionaireViewModel()) {
-            mViewModel.insertConcessionaire(mConcessionaireFE)
-            bsRegisterSuccess()
-            cleanEditText()
-        }
-        toast(register.toString())
     }
 
     /** OriginAutoCompleteText **/
@@ -310,12 +304,11 @@ class RegistrationActivity : AppCompatActivity() {
             mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
         } else {
             when(checkedItem){
-                //0 -> insertConcessionaire(true)
                 0 -> {
                     if (concessionaireViewModel()){
                         mViewModel.insertConcessionaire(mConcessionaireFE)
-                        bsRegisterSuccess()
-                        cleanEditText()
+                        /*bsRegisterSuccess()
+                        cleanEditText()*/
                     }
                 }
 

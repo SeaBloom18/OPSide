@@ -17,7 +17,7 @@ class RegisterInteractor @Inject constructor(
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
-                firestore.collection("098")
+                firestore.collection("DB_TABLE_CONCESSIONAIRE")
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { _ ->
                         subscriber.onNext(true)
