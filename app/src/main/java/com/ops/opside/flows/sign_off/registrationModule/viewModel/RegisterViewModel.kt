@@ -9,7 +9,6 @@ import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
-import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
 import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_off.registrationModule.model.RegisterInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,12 +39,13 @@ class RegisterViewModel @Inject constructor(
                     {
                         _registerConcessionaire.value = it
                         showProgress.value = false
-                        _action.value = RegistrationAction.InsertConcessionaire(concessionaireFE)
+                        _action.value = RegistrationAction.ShowMessageSuccess
                     },
                     {
+                        _registerConcessionaire.value = false
                         Log.e("Error", it.toString())
                         showProgress.value = false
-                        _action.value = RegistrationAction.ShowMessageError(it.message.toString())
+                        _action.value = RegistrationAction.ShowMessageError
                     }
                 )
         )
@@ -94,6 +94,7 @@ class RegisterViewModel @Inject constructor(
                     },
                     {
                         Log.e("Error", it.toString())
+                        _action.value = RegistrationAction.ShowMessageError
                     }
                 )
         )
