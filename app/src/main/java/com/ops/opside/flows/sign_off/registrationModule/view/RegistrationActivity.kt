@@ -1,7 +1,11 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.Menu
 import android.view.MenuInflater
@@ -300,31 +304,34 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun isEmailExistValidationAndRegister(emailFS: Boolean){
-        if (emailFS){
-            mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
-        } else {
-            when(checkedItem){
-                0 -> {
-                    if (concessionaireViewModel()){
-                        mViewModel.insertConcessionaire(mConcessionaireFE)
-                        /*bsRegisterSuccess()
-                        cleanEditText()*/
+        if (!isOnline(this)) toast("ops, it seems you have no connection")
+        else {
+            if (emailFS){
+                mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
+            } else {
+                when(checkedItem){
+                    0 -> {
+                        if (concessionaireViewModel()){
+                            mViewModel.insertConcessionaire(mConcessionaireFE)
+                            /*bsRegisterSuccess()
+                            cleanEditText()*/
+                        }
                     }
-                }
 
-                1 -> {
-                    if (foreignConcessionaireViewModel()){
-                        mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                        bsRegisterSuccess()
-                        cleanEditText()
+                    1 -> {
+                        if (foreignConcessionaireViewModel()){
+                            mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                            bsRegisterSuccess()
+                            cleanEditText()
+                        }
                     }
-                }
 
-                2 -> {
-                    if (collectorViewModel()){
-                        mViewModel.insertCollector(mCollectorFE)
-                        bsRegisterSuccess()
-                        cleanEditText()
+                    2 -> {
+                        if (collectorViewModel()){
+                            mViewModel.insertCollector(mCollectorFE)
+                            bsRegisterSuccess()
+                            cleanEditText()
+                        }
                     }
                 }
             }
@@ -494,5 +501,28 @@ class RegistrationActivity : AppCompatActivity() {
 
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    /** Internet Verify **/
+    private fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
