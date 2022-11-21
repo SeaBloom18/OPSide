@@ -19,7 +19,7 @@ class RegisterInteractor @Inject constructor(
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .add(concessionaireFE.getHashMap())
-                    .addOnSuccessListener { documentReference ->
+                    .addOnSuccessListener { _ ->
                         subscriber.onNext(true)
                     }
                     .addOnFailureListener {

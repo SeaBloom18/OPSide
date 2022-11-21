@@ -105,7 +105,7 @@ class MarketFragment : Fragment(), OnClickListener {
             {
                 mMarketViewModel.deleteMarket(marketId)
                 Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
-                //mMarketAdapter.updateListPostDelete(position)
+                mMarketAdapter.updateListPostDelete(position)
             },
             { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
         )

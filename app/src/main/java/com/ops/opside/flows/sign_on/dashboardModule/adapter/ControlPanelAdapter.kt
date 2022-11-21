@@ -5,24 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
 
-class ControlPanelAdapter(
-    var collectorsList: MutableList<CollectorSE>,
-    var mControlPanelViewModel: ControlPanelViewModel
-) : RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>() {
+class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>,
+                          var mControlPanelViewModel: ControlPanelViewModel):
+RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
 
     private lateinit var context: Context
+    val firestore = Firebase.firestore
 
     /** Adapter And ViewHolder Configuration**/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        val view = LayoutInflater.from(context)
-            .inflate(R.layout.item_control_panel_concessionaire_permission, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_control_panel_concessionaire_permission, parent, false)
         return ViewHolder(view)
     }
 
@@ -33,16 +34,12 @@ class ControlPanelAdapter(
             if (collectors.hasAccess) binding.switchHasAccess.isChecked = true
             binding.switchHasAccess.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    changeHasAccess(
-                        collectors.name, collectors.idFirebase,
-                        binding.switchHasAccess.isChecked
-                    )
+                    changeHasAccess(collectors.name, collectors.idFirebase,
+                        binding.switchHasAccess.isChecked)
                 }
                 if (!isChecked) {
-                    changeHasAccess(
-                        collectors.name, collectors.idFirebase,
-                        binding.switchHasAccess.isChecked
-                    )
+                    changeHasAccess(collectors.name, collectors.idFirebase,
+                        binding.switchHasAccess.isChecked)
                 }
             }
         }
@@ -50,9 +47,8 @@ class ControlPanelAdapter(
 
     override fun getItemCount(): Int = collectorsList.size
 
-
     /** Inner Class **/
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemControlPanelConcessionairePermissionBinding.bind(view)
 
         /** Other Methods**/
@@ -61,10 +57,7 @@ class ControlPanelAdapter(
                 context,
                 imageResource = R.drawable.ic_ops_warning,
                 mTitle = context.getString(R.string.cp_alertdialog_title),
-                mDescription = context.getString(
-                    R.string.control_panel_alert_dialog_title,
-                    collectorName
-                ),
+                mDescription = context.getString(R.string.control_panel_alert_dialog_title, collectorName),
                 buttonYesText = context.getString(R.string.common_accept),
                 buttonNoText = context.getString(R.string.common_cancel),
                 yesAction = {
@@ -72,13 +65,12 @@ class ControlPanelAdapter(
                 },
                 noAction = {
                     binding.apply {
-                        switchHasAccess.isChecked = switchHasAccess.isChecked
+                        switchHasAccess.isChecked = !hasAccess
                     }
                 }
             )
             dialog.setCancelable(false)
             dialog.show()
         }
-
     }
 }
