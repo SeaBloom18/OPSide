@@ -1,7 +1,6 @@
 package com.ops.opside.common.utils
 
 import android.content.SharedPreferences
-import io.reactivex.Observable
 import javax.inject.Inject
 
 class Preferences @Inject constructor(
@@ -23,6 +22,7 @@ class Preferences @Inject constructor(
     fun initPreferences(
         priceLinearMeter: Float = 15f,
         name: String = "",
+        urlPhoto: String = "",
         email: String = "",
         phone: String = "",
         origin: String = "",
@@ -38,6 +38,7 @@ class Preferences @Inject constructor(
     ){
         sp.edit().putFloat  (SP_PRICE_LINEAR_METER, priceLinearMeter).apply()
         sp.edit().putString (SP_NAME              , name            ).apply()
+        sp.edit().putString (SP_USER_URL_PHOTO    , urlPhoto        ).apply()
         sp.edit().putString (SP_EMAIL             , email           ).apply()
         sp.edit().putString (SP_PHONE             , phone           ).apply()
         sp.edit().putString (SP_ORIGIN            , origin          ).apply()
@@ -61,6 +62,7 @@ class Preferences @Inject constructor(
     fun deletePreferences(){
         sp.edit().remove(SP_PRICE_LINEAR_METER).apply()
         sp.edit().remove(SP_NAME              ).apply()
+        sp.edit().remove(SP_USER_URL_PHOTO    ).apply()
         sp.edit().remove(SP_ID                ).apply()
         sp.edit().remove(SP_EMAIL             ).apply()
         sp.edit().remove(SP_PHONE             ).apply()
@@ -81,6 +83,7 @@ class Preferences @Inject constructor(
 
 const val SP_PRICE_LINEAR_METER = "priceLinealMeter"
 const val SP_NAME               = "name"
+const val SP_USER_URL_PHOTO     = "urlPhoto"
 const val SP_EMAIL              = "email"
 const val SP_PHONE              = "phone"
 const val SP_ORIGIN             = "origin"

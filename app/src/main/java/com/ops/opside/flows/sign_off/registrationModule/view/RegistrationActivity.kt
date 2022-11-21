@@ -1,9 +1,11 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,7 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
@@ -28,15 +29,12 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
-import com.ops.opside.common.utils.MD5
-import com.ops.opside.common.utils.clear
-import com.ops.opside.common.utils.error
-import com.ops.opside.common.utils.toast
+import com.ops.opside.common.utils.*
 import com.ops.opside.databinding.ActivityRegistrationBinding
+import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
-import java.util.zip.CRC32
 
 @AndroidEntryPoint
 class RegistrationActivity : AppCompatActivity() {
@@ -115,12 +113,24 @@ class RegistrationActivity : AppCompatActivity() {
 
     /** ViewModel Conf**/
     private fun bindViewModel(){
+        mViewModel.getAction().observe(this, Observer(this::handleAction))
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
         mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))
     }
 
-    private fun getIsEmailExist(emailFS: Boolean){
-        isEmailExistValidation(emailFS)
+    private fun handleAction(action: RegistrationAction) {
+        when(action) {
+            is RegistrationAction.ShowMessageSuccess -> {
+                toast("success")
+            }
+            is RegistrationAction.ShowMessageError -> {
+                toast("error")
+            }
+        }
+    }
+
+    private fun getIsEmailExist(emailFS: Boolean) {
+        isEmailExistValidationAndRegister(emailFS)
     }
 
     private fun loadOriginList(){
@@ -148,15 +158,7 @@ class RegistrationActivity : AppCompatActivity() {
     private fun insertUser(): Boolean{
         val isValid = false
         when(checkedItem){
-            0 -> {
-                mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
-            }
-            1 -> {
-                mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
-            }
-            2 -> {
-                mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
-            }
+            0, 1, 2 -> mViewModel.getIsEmailExist(mBinding.teEmail.text.toString().trim())
         }
         return isValid
     }
@@ -301,32 +303,35 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun isEmailExistValidation(emailFS: Boolean){
-        if (emailFS){
-            mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
-        } else {
-            when(checkedItem){
-                0 -> {
-                    if (concessionaireViewModel()){
-                        mViewModel.insertConcessionaire(mConcessionaireFE)
-                        bsRegisterSuccess()
-                        cleanEditText()
+    private fun isEmailExistValidationAndRegister(emailFS: Boolean){
+        if (!isOnline(this)) toast("ops, it seems you have no connection")
+        else {
+            if (emailFS){
+                mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
+            } else {
+                when(checkedItem){
+                    0 -> {
+                        if (concessionaireViewModel()){
+                            mViewModel.insertConcessionaire(mConcessionaireFE)
+                            /*bsRegisterSuccess()
+                            cleanEditText()*/
+                        }
                     }
-                }
 
-                1 -> {
-                    if (foreignConcessionaireViewModel()){
-                        mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                        bsRegisterSuccess()
-                        cleanEditText()
+                    1 -> {
+                        if (foreignConcessionaireViewModel()){
+                            mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                            bsRegisterSuccess()
+                            cleanEditText()
+                        }
                     }
-                }
 
-                2 -> {
-                    if (collectorViewModel()){
-                        mViewModel.insertCollector(mCollectorFE)
-                        bsRegisterSuccess()
-                        cleanEditText()
+                    2 -> {
+                        if (collectorViewModel()){
+                            mViewModel.insertCollector(mCollectorFE)
+                            bsRegisterSuccess()
+                            cleanEditText()
+                        }
                     }
                 }
             }
@@ -460,6 +465,18 @@ class RegistrationActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun bsRegisterError(){
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
+        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
+        val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        anim.setAnimation(R.raw.loading_lottie_anim)
+        btnFinish.setOnClickListener { finish() }
+        dialog.setCancelable(false)
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
     private fun bottomSheet(){
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
@@ -484,5 +501,28 @@ class RegistrationActivity : AppCompatActivity() {
 
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    /** Internet Verify **/
+    private fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
     }
 }

@@ -225,7 +225,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/registration_checkbox_accept_policies"
-                android:buttonTint="@color/secondaryLightColor"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tilPasswordConfirm"
