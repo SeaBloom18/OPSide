@@ -72,10 +72,12 @@
         android:layout_marginEnd="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_default"
         android:contentDescription="@string/tax_collection_record"
+        app:backgroundTint="@color/secondaryColor"
+        android:outlineSpotShadowColor="@color/info"
         android:src="@drawable/ic_money_withdrawal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

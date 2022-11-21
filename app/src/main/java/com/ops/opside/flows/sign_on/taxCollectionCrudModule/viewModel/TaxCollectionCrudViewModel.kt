@@ -22,11 +22,14 @@ class TaxCollectionCrudViewModel @Inject constructor(
     fun getCollectionsList(){
         disposable.add(
             mTaxCollectionCrudInteractor.getCollectionList().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
+                        showProgress.value = false
                         _getCollectionsList.value = it
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )

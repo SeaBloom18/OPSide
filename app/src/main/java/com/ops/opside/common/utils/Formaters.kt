@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
+import java.util.*
 
 object Formaters {
 
@@ -22,9 +21,9 @@ object Formaters {
     fun Boolean?.orFalse(): Boolean = this ?: false
 
     fun Double?.formatCurrency(): String {
-        val cleanString = this.toString().replace("""[$,.]""".toRegex(), "")
-        val parsed = cleanString.toDouble()
-        return NumberFormat.getCurrencyInstance().format((parsed / 100)).toString()
+        val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
+        format.currency = Currency.getInstance("USD")
+        return format.format(this.toString().toDouble())
     }
 
     fun formatDate(strDate: String?): String {
