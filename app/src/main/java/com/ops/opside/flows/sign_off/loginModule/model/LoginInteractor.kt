@@ -19,8 +19,7 @@ import javax.inject.Inject
 
 class LoginInteractor @Inject constructor(
     private val sp: Preferences,
-    private val firestore: FirebaseFirestore
-) {
+    private val firestore: FirebaseFirestore) {
 
     fun isSPInitialized() = sp.getBoolean(SP_IS_INITIALIZED)
     fun isRememberMe() = sp.getBoolean(SP_REMEMBER_ME)
@@ -37,11 +36,13 @@ class LoginInteractor @Inject constructor(
             sp.initPreferences(
                 id = collector.idFirebase,
                 name =  collector.name,
+                urlPhoto = collector.imageURL,
                 address = collector.address,
                 phone =  collector.phone,
                 email = collector.email,
                 roll = collector.role,
                 linearMeters = linearMeterPrice.toString(),
+                priceLinearMeter = linearMeterPrice.toFloat(),
                 hasAccess = collector.hasAccess,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
@@ -67,6 +68,7 @@ class LoginInteractor @Inject constructor(
                 email = concessionaire.email,
                 roll = if(concessionaire.isForeigner) 1 else 2,
                 linearMeters = concessionaire.linearMeters.toString(),
+                priceLinearMeter = 0f,
                 lineBusiness = concessionaire.lineBusiness,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
@@ -93,6 +95,7 @@ class LoginInteractor @Inject constructor(
                                 CollectorFE(
                                     idFirebase = document.id,
                                     name = document.data!!["name"].toString(),
+                                    imageURL = document.data!!["imageURL"].toString(),
                                     address = document.data!!["address"].toString(),
                                     phone = document.data!!["phone"].toString(),
                                     email = document.data!!["email"].toString(),

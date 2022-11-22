@@ -153,6 +153,10 @@
     <string name="control_panel_alert_dialog_title">Are you sure you want to change access to %1$s?</string>
     <string name="control_panel_toast_lineal_price_update_success">Linear price updated successfully</string>
     <string name="control_panel_toast_lineal_price_update_error">Error updating line price</string>
+    <string name="control_panel_dialog_title">Update Meter Price</string>
+    <string name="control_panel_dialog_message">Are you sure to update the Meter Price?</string>
+    <string name="control_panel_dialog_yes_action_message">The Price Meter has been updated</string>
+    <string name="control_panel_dialog_no_action_message">The Price Meter not has been updated</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Create new Incident</string>

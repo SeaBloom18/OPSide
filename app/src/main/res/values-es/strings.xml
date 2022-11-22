@@ -151,7 +151,12 @@
     <string name="concessionaire_address">Dirección</string>
     <string name="control_panel_alert_dialog_title">¿Estás seguro de que quieres cambiar acceso a %1$s?</string>
     <string name="control_panel_toast_lineal_price_update_success">Precio lineal actualizado correctamente</string>
-    <string name="control_panel_toast_lineal_price_update_error">Error al actualizar el precio de línea</string>
+    <string name="control_panel_toast_lineal_price_update_error">Error al actualizar el precio de líneal</string>
+    <string name="control_panel_dialog_title">Actualizar Precio Lineal</string>
+    <string name="control_panel_dialog_message">¿Estas seguro que de quieres actualizar el precio lineal?</string>
+    <string name="control_panel_dialog_yes_action_message">El precio lineal ha sido actualizado con exito</string>
+    <string name="control_panel_dialog_no_action_message">Error al actualizar el precio lineal</string>
+
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>

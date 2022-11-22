@@ -10,6 +10,7 @@ import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.utils.launchActivity
+import com.ops.opside.common.utils.showLoading
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollectionsCrudAdapter
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
@@ -57,6 +58,7 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
     private fun bindViewModel() {
         mViewModel.getCollectionsList.observe(this, Observer(this::getCollectionsList))
+        mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
     }
 
     private fun initBsd() {

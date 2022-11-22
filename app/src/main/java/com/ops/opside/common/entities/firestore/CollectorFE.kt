@@ -3,6 +3,7 @@ package com.ops.opside.common.entities.firestore
 data class CollectorFE(
     val idFirebase: String = "",
     var name: String = "",
+    var imageURL: String = "",
     var address: String = "",
     var phone: String = "",
     var email: String ="",
@@ -15,6 +16,7 @@ data class CollectorFE(
         val map: MutableMap<String, Any> = mutableMapOf()
 
         map["name"] = name
+        map["imageURL"] = imageURL
         map["address"] = address
         map["phone"] = phone
         map["email"] = email
@@ -29,6 +31,7 @@ data class CollectorFE(
         return CollectorFE(
             idFirebase,
             name,
+            imageURL,
             address,
             phone,
             email,

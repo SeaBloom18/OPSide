@@ -40,10 +40,7 @@ class ControlPanelActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnSaveChanges.setOnClickListener {
-                mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
-                    mBinding.teLinealPrice.text.toString().trim())
-            }
+            btnSaveChanges.setOnClickListener { confirmUpdateLinearPrice() }
         }
 
         setToolbar()
@@ -157,20 +154,6 @@ class ControlPanelActivity : AppCompatActivity() {
         return time > mBinding.tvDesde.getTime()
     }
 
-    private fun confirmChanges() {
-        val dialog = BaseDialog(
-            this,
-            R.drawable.ic_store,
-            getString(R.string.cp_alertdialog_title),
-            getString(R.string.cp_alertdialog_message),
-            getString(R.string.common_accept),
-            "",
-            { Toast.makeText(this, R.string.cp_toast_success, Toast.LENGTH_SHORT).show() },
-            { Toast.makeText(this, "onCancel()", Toast.LENGTH_SHORT).show() },
-        )
-
-        dialog.show()
-    }
 
     private fun setUpRecyclerView() {
         val linearLayoutManager: RecyclerView.LayoutManager
@@ -182,14 +165,6 @@ class ControlPanelActivity : AppCompatActivity() {
             layoutManager = linearLayoutManager
             adapter = controlPanelAdapter
         }
-
-        /*controlPanelAdapter = ControlPanelAdapter(getConcessionaires())
-        linearLayoutManager = LinearLayoutManager(this)
-
-        val recycler = mBinding.recycler.apply {
-            layoutManager = linearLayoutManager
-            adapter = controlPanelAdapter
-        }*/
 
         //Swipe to Delete
         /*val swipeHandler = object : SwipeToDeleteCallback(this) {
@@ -217,5 +192,26 @@ class ControlPanelActivity : AppCompatActivity() {
 
     infix fun LocalTime.hoursBetween(end: LocalTime): Double {
         return Duration.between(this, end).toMinutes() / 60.0
+    }
+
+    private fun confirmUpdateLinearPrice() {
+        val dialog = BaseDialog(
+            context = this,
+            imageResource = R.drawable.ic_ops_btn_confirm,
+            mTitle = getString(R.string.control_panel_dialog_title),
+            mDescription = getString(R.string.control_panel_dialog_message),
+            buttonNoText = getString(R.string.common_cancel),
+            buttonYesText = getString(R.string.common_accept),
+            yesAction = {
+                mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
+                    mBinding.teLinealPrice.text.toString().trim())
+                toast(getString(R.string.control_panel_dialog_yes_action_message))
+            },
+            noAction = {
+                toast(getString(R.string.control_panel_dialog_no_action_message))
+            },
+        )
+        dialog.setCancelable(false)
+        dialog.show()
     }
 }

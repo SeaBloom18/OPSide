@@ -66,7 +66,7 @@ data class ControlPanelInteractor @Inject constructor(
     fun updateLinealPriceMeter(idFirestore: String, priceLinealMeter: String): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
-                firestore.collection(DB_TABLE_RESOURCES).document(idFirestore).update("priceLinealMeter", priceLinealMeter)
+                firestore.collection(DB_TABLE_RESOURCES).document(idFirestore).update("priceLinealMeter", priceLinealMeter.toDouble())
                     .addOnSuccessListener {
                         sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter.toFloat().orZero())
                         Log.d("FireStoreDelete", "DocumentSnapshot successfully updated!")
