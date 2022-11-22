@@ -42,6 +42,7 @@ class LoginInteractor @Inject constructor(
                 email = collector.email,
                 roll = collector.role,
                 linearMeters = linearMeterPrice.toString(),
+                priceLinearMeter = linearMeterPrice.toFloat(),
                 hasAccess = collector.hasAccess,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
@@ -67,6 +68,7 @@ class LoginInteractor @Inject constructor(
                 email = concessionaire.email,
                 roll = if(concessionaire.isForeigner) 1 else 2,
                 linearMeters = concessionaire.linearMeters.toString(),
+                priceLinearMeter = 0f,
                 lineBusiness = concessionaire.lineBusiness,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
