@@ -25,6 +25,8 @@ import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import com.ops.opside.BuildConfig
+import com.ops.opside.common.entities.LINK_FIRESTORE_REFERENCE
+import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
 import com.ops.opside.common.utils.toast
 
 /**
@@ -60,23 +62,10 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             latestTmpUri?.let { uri ->
                 mBinding.ivProfilePicture.setImageURI(uri)
                 mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
-
-                //
-                /*mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
-
-                val uploadTask = mStorageReference.child("opsUserProfile/{$uri}").putFile(uri)
-                Log.d("imgStorageURL", mStorageReference.child("opsUserProfile/testName").downloadUrl.toString())
-
-                uploadTask.addOnSuccessListener {
-                    mStorageReference.child("opsUserProfile/{$uri}").downloadUrl.addOnSuccessListener {
-                        toast("si")
-                        mBinding.tvUserProfileAdress.text = it.toString()
-                    }.addOnFailureListener {
-                            toast("no")
-                        }
-                }*/
-                //
-
+                mBinding.btnSaveProfile.apply {
+                    alpha = 1F
+                    isEnabled = true
+                }
             }
         }
     }
@@ -103,18 +92,22 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             ivShareProfile.setOnClickListener { shareUserProfile() }
             btnSaveProfile.setOnClickListener {
                 latestTmpUri?.let { it1 ->
+                    //TODO refactorizar para un futuro al viewModel e Interactor (ya existen los metodos :D)
                     //mViewModel.uploadUserImage(it1)
-                    mStorageReference = FirebaseStorage.getInstance("gs://opss-fbd9e.appspot.com").reference
+                    mStorageReference = FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference
 
-                    val uploadTask = mStorageReference.child("opsUserProfile/{$it1}").putFile(it1)
-                    //Log.d("imgStorageURL", mStorageReference.child("opsUserProfile/testName").downloadUrl.toString())
+                    val uploadTask = mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${it1}}").putFile(it1)
 
                     uploadTask.addOnSuccessListener {
-                        mStorageReference.child("opsUserProfile/{$it1}").downloadUrl.addOnSuccessListener {
-                            toast("si")
+                        mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$it1}").downloadUrl.addOnSuccessListener {
+                            toast("Imagen actualizada con exito!")
+                            mBinding.btnSaveProfile.apply {
+                                isEnabled = false
+                                alpha = 0.5F
+                            }
                             mViewModel.updateImageURL(it.toString())
                         }.addOnFailureListener {
-                            toast("no")
+                            toast("Error al actualizar tu foto de perfil, intentalo de nuevo!")
                         }
                     }
                 }
