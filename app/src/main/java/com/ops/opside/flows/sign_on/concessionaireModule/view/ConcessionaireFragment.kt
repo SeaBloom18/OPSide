@@ -18,6 +18,7 @@ import com.ops.opside.R
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.tryOrPrintException
+import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.ConcessionaireAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireViewModel
@@ -25,7 +26,7 @@ import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ConcessionaireFragment : Fragment() {
+class ConcessionaireFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentConcessionaireBinding
     private lateinit var mAdapter: ConcessionaireAdapter

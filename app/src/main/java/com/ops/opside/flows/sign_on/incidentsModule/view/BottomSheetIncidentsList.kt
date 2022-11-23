@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetSeeIncidentsBinding
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.ListIncidentsAdapter
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetIncidentsListViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 
-class BottomSheetIncidentsList: BottomSheetDialogFragment() {
+class BottomSheetIncidentsList: BaseBottomSheetFragment() {
 
     private lateinit var mBinding: BottomSheetSeeIncidentsBinding
     private lateinit var mActivity: MainActivity

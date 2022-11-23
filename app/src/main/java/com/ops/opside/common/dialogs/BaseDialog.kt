@@ -14,12 +14,12 @@ class BaseDialog(
     context: Context,
     private val imageResource: Int = 0,
     //private val typeDialog: String? = DIALOG_WARNING,
-    private val mTitle: String,
-    private val mDescription: String,
-    private val buttonYesText: String = "",
-    private val buttonNoText: String = "",
-    private val yesAction: () -> Unit = {},
-    private val noAction: () -> Unit = {}
+    private var mTitle: String,
+    private var mDescription: String,
+    private var buttonYesText: String = "",
+    private var buttonNoText: String = "",
+    private var yesAction: () -> Unit = {},
+    private var noAction: () -> Unit = {}
 ) : Dialog(context) {
 
     private lateinit var binding: DialogBaseBinding
@@ -36,10 +36,12 @@ class BaseDialog(
             btnYes.text = buttonYesText
             btnNo.text = buttonNoText
             btnNo.isVisible = buttonNoText.isNotEmpty()
+
             btnYes.setOnClickListener {
                 yesAction.invoke()
                 dismiss()
             }
+
             btnNo.setOnClickListener {
                 noAction.invoke()
                 dismiss()

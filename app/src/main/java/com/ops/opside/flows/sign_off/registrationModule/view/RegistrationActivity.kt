@@ -30,6 +30,7 @@ import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.*
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
@@ -37,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : BaseActivity() {
 
     private val mBinding: ActivityRegistrationBinding by lazy{
         ActivityRegistrationBinding.inflate(layoutInflater)
@@ -195,8 +196,7 @@ class RegistrationActivity : AppCompatActivity() {
                     }
                 }
             }
-        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
-            Toast.LENGTH_SHORT).show()
+        } else toast(getString(R.string.registration_toast_fields_validation))
         return isValid
     }
 
@@ -220,8 +220,7 @@ class RegistrationActivity : AppCompatActivity() {
                     toast(getString(R.string.registration_toast_password_regex_validation))
                 }
             }
-        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
-            Toast.LENGTH_SHORT).show()
+        } else toast(getString(R.string.registration_toast_fields_validation))
         return isValid
     }
 
@@ -233,8 +232,7 @@ class RegistrationActivity : AppCompatActivity() {
                 mBinding.tilEmail.error = getString(R.string.registration_toast_email_validation)
             } else {
                 if (validatePassword()){
-                    Toast.makeText(this, getString(R.string.registration_toast_password_validation),
-                        Toast.LENGTH_SHORT).show()
+                    toast(getString(R.string.registration_toast_password_validation))
                 } else {
                     if(isValidPassword) {
                         if(mBinding.checkBoxPolicies.isChecked) {
@@ -256,8 +254,7 @@ class RegistrationActivity : AppCompatActivity() {
                 }
             }
 
-        } else Toast.makeText(this, getString(R.string.registration_toast_fields_validation),
-            Toast.LENGTH_SHORT).show()
+        } else toast(getString(R.string.registration_toast_fields_validation))
         return isValid
     }
 

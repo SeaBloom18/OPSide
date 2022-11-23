@@ -15,6 +15,9 @@ interface TaxCollectionDao {
     @Delete
     fun deleteTaxCollection(taxCollection: TaxCollectionSE)
 
+    @Query("DELETE FROM taxCollection WHERE idMarket = :idMarket")
+    fun deleteTaxCollectionByMarket(idMarket: String)
+
     @Insert
     fun addTaxCollection(taxCollection: TaxCollectionSE): Long
 

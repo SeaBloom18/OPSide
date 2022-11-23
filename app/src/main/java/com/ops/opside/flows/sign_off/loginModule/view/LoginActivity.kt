@@ -6,11 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.ops.opside.R
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private val mBinding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)

@@ -16,9 +16,10 @@ import com.ops.opside.flows.sign_on.incidentsModule.viewModel.IncidentsViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import androidx.lifecycle.Observer
 import com.ops.opside.common.dialogs.InDevelopmentFragment
+import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.ListIncidentsAdapter
 
-class IncidentsFragment : Fragment() {
+class IncidentsFragment : BaseFragment() {
 
     private var mBinding: FragmentIncidentsBinding? = null
     private val binding get() = mBinding!!

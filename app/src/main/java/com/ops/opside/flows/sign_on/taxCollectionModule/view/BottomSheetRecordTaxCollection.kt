@@ -11,10 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.utils.showError
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetRecordTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
@@ -25,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BottomSheetRecordTaxCollection(private val idTaxCollection: String) :
-    BottomSheetDialogFragment() {
+    BaseBottomSheetFragment() {
 
     private lateinit var mAdapter: RecordTaxCollectionAdapter
     private lateinit var mBinding: BottomSheetRecordTaxCollectionBinding
@@ -91,7 +90,7 @@ class BottomSheetRecordTaxCollection(private val idTaxCollection: String) :
 
                 if (event.status == FLOOR_COLLECTION ||
                     (event.status == ADDED &&
-                    canBeDelated(event.idConcessionaire))
+                            canBeDelated(event.idConcessionaire))
                 ) {
                     tempDeletedEvent = Pair(position, event)
 

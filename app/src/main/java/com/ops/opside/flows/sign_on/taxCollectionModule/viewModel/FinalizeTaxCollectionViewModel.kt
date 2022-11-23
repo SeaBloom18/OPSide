@@ -132,8 +132,13 @@ class FinalizeTaxCollectionViewModel @Inject constructor(
         }
     }
 
-    fun closeTaxcollection(taxCollection: TaxCollectionSE) =
-        mFinalizeTaxCollectionInteractor.closeTaxCollection(taxCollection)
+    fun closeTaxcollection(taxCollection: TaxCollectionSE) {
+        val result = mFinalizeTaxCollectionInteractor.closeTaxCollection(taxCollection)
+        if (result.first)
+            _action.value = FinalizeTaxCollectionAction.FinalizeCollection
+        else
+            _action.value = FinalizeTaxCollectionAction.ShowMessageError(result.second)
+    }
 
     fun checkBiometrics(fragment: Fragment) {
         biometricsManager = BiometricsManager(fragment)

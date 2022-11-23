@@ -11,12 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.InDevelopmentFragment
+import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentDashBoardBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
-class DashBoardFragment : Fragment() {
+class DashBoardFragment : BaseFragment() {
 
     private var mBinding: FragmentDashBoardBinding? = null
     private val binding get() = mBinding!!

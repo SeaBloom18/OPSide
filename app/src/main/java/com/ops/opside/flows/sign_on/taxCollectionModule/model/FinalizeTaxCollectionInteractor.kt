@@ -89,6 +89,13 @@ class FinalizeTaxCollectionInteractor @Inject constructor(
         }
     }
 
-    fun closeTaxCollection(taxCollection: TaxCollectionSE) =
-        room.taxCollectionDao().deleteTaxCollection(taxCollection)
+    fun closeTaxCollection(taxCollection: TaxCollectionSE): Pair<Boolean,String> {
+        return try {
+            room.taxCollectionDao().deleteTaxCollectionByMarket(taxCollection.idMarket)
+            Pair(true,"Success")
+        } catch (e: Exception){
+            Pair(false,e.message.toString())
+        }
+    }
+
 }

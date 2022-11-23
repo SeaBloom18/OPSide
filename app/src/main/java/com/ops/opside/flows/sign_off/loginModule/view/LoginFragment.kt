@@ -18,6 +18,7 @@ import com.ops.opside.common.entities.*
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.*
+import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentLoginBinding
 import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
 import com.ops.opside.flows.sign_off.loginModule.viewModel.LoginViewModel
@@ -27,7 +28,7 @@ import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private val mBinding: FragmentLoginBinding by lazy {
         FragmentLoginBinding.inflate(layoutInflater)
@@ -96,10 +97,6 @@ class LoginFragment : Fragment() {
         mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
         mViewModel.getAction().observe(mActivity, Observer(this::handleAction))
         mViewModel.getLinealMetersPrice.observe(mActivity, Observer(this::getLinealMeterPrice))
-    }
-
-    private fun showLoading(show: Boolean) {
-        mActivity.showLoading(show)
     }
 
     private fun handleAction(action: LoginAction) {

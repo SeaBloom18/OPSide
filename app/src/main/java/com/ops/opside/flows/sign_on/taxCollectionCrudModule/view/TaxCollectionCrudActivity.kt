@@ -2,7 +2,6 @@ package com.ops.opside.flows.sign_on.taxCollectionCrudModule.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,8 @@ import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.utils.launchActivity
-import com.ops.opside.common.utils.showLoading
+import com.ops.opside.common.utils.startActivity
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.adapters.TaxCollectionsCrudAdapter
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
@@ -19,7 +19,7 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
+class TaxCollectionCrudActivity : BaseActivity(), TaxCollectionCrudAux {
 
     private lateinit var mAdapter: TaxCollectionsCrudAdapter
 
@@ -48,7 +48,7 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
             fabInitTaxCollection.animateOnPress()
             fabInitTaxCollection.setOnClickListener {
-                launchActivity(TaxCollectionActivity(), this@TaxCollectionCrudActivity)
+                startActivity<TaxCollectionActivity>()
             }
         }
 
@@ -81,7 +81,7 @@ class TaxCollectionCrudActivity : AppCompatActivity(), TaxCollectionCrudAux {
 
     }
 
-    private fun loadCollectionsList(){
+    private fun loadCollectionsList() {
         mViewModel.getCollectionsList()
     }
 
