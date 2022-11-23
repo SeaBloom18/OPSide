@@ -13,15 +13,16 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
+import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentFinalizeTaxCollectionBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.actions.FinalizeTaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.AbsenceTaxCollectionAdapter
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.FinalizeTaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @AndroidEntryPoint
-class FinalizeTaxCollectionFragment : Fragment() {
+class FinalizeTaxCollectionFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentFinalizeTaxCollectionBinding
     private lateinit var mAdapter: AbsenceTaxCollectionAdapter
@@ -38,7 +39,6 @@ class FinalizeTaxCollectionFragment : Fragment() {
     private val mViewModel: FinalizeTaxCollectionViewModel by viewModels()
 
     private lateinit var mFinalizeCollection: FinalizeCollection
-    private var mBlockEmailSender = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,57 +69,66 @@ class FinalizeTaxCollectionFragment : Fragment() {
         mViewModel.getAction().observe(requireActivity(), Observer(this::handleAction))
     }
 
-    private fun showLoading(show: Boolean) {
-        when(val activity = requireActivity()){
-            is TaxCollectionActivity -> activity.showLoading(show)
-            is TaxCollectionCrudActivity -> activity.showLoading(show)
-        }
-    }
-
     private fun handleAction(action: FinalizeTaxCollectionAction) {
         when (action) {
             is FinalizeTaxCollectionAction.SendCollection -> insertTaxCollection()
             is FinalizeTaxCollectionAction.SendEmails -> sendAbsenceEmails(mAdapter.getListAbsenceEmails())
             is FinalizeTaxCollectionAction.ShowMessageError -> showError(action.error)
+            is FinalizeTaxCollectionAction.FinalizeCollection -> finalizeCollection()
         }
     }
 
-    private fun insertTaxCollection(){
-        mFinalizeCollection.taxCollection.endDate = CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
-        mFinalizeCollection.taxCollection.endTime = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
-        mViewModel.searchIfExistTaxCollection(mFinalizeCollection.taxCollection)
+    private fun insertTaxCollection() {
+        try {
+            mFinalizeCollection.taxCollection.endDate =
+                CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
+            mFinalizeCollection.taxCollection.endTime =
+                CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
+            mViewModel.searchIfExistTaxCollection(mFinalizeCollection.taxCollection)
+        } catch (e: Exception) {
+            showError(e.message.toString())
+        }
     }
 
     private fun sendAbsenceEmails(list: List<ItemAbsence>) {
         GlobalScope.launch {
-            list.mapIndexed { index, concessionaire ->
-                if (mBlockEmailSender.not()) {
-                    val body = getString(
-                        R.string.tax_collection_absence_email,
-                        concessionaire.dealerName,
-                        mFinalizeCollection.marketName,
-                        mFinalizeCollection.collector
-                    )
-                    EmailSender.send(
+
+            val emails: MutableList<EmailObject> = mutableListOf()
+            list.forEach { concessionaire ->
+                val body = getString(
+                    R.string.tax_collection_absence_email,
+                    concessionaire.dealerName,
+                    mFinalizeCollection.marketName,
+                    mFinalizeCollection.collector
+                )
+                emails.add(
+                    EmailObject(
                         subject = "Inasistencia ${CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)}",
                         body = body,
-                        recipient = concessionaire.email) {
-                        if (it.first.not()){
-                            mBlockEmailSender = true
-                            showError(it.second)
-                        }
-                    }
+                        recipient = concessionaire.email
+                    )
+                )
+            }
 
-                    if(index == (list.size-1)){
-                        showLoading(false)
-                        if (mBlockEmailSender.not()){
-                            mViewModel.closeTaxcollection(mFinalizeCollection.taxCollection)
-                        }
-                        Toast.makeText(requireContext(), "Recaudación Enviada", Toast.LENGTH_LONG).show()
-                        requireActivity().finish()
-                    }
+            EmailSender.send(emails) {
+                if (it.first) {
+                    showLoading(false)
+                    mViewModel.closeTaxcollection(mFinalizeCollection.taxCollection)
+                } else {
+                    showError(it.second)
                 }
             }
+
+        }
+    }
+
+    private fun finalizeCollection() {
+        if (mFinalizeCollection.type == "create") {
+            val activity = activity as? TaxCollectionActivity
+            activity?.startActivity<MainActivity>()
+        } else {
+            val activity = activity as? TaxCollectionCrudActivity
+            activity?.startActivity<MainActivity>()
         }
     }
 

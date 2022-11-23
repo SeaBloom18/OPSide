@@ -13,13 +13,13 @@ import androidx.core.view.isGone
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.ID
 import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetForeignerAttendanceBinding
 import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetForeignerAttendanceViewModel
@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class BottomSheetForeignerAttendance(
     private val registration: (ConcessionaireFE) -> Unit = {}
-) : BottomSheetDialogFragment() {
+) : BaseBottomSheetFragment() {
 
     private val mBinding: BottomSheetForeignerAttendanceBinding by lazy {
         BottomSheetForeignerAttendanceBinding.inflate(layoutInflater)
@@ -48,20 +48,6 @@ class BottomSheetForeignerAttendance(
         return mBinding.root
     }
 
-    /*override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-
-        dialog.setOnShowListener {
-            val bottomSheet = dialog.findViewById<View>(
-                com.google.android.material.R.id.design_bottom_sheet
-            ) as? FrameLayout
-            val behavior = BottomSheetBehavior.from(bottomSheet!!)
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-
-        return dialog
-    }*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
@@ -73,7 +59,7 @@ class BottomSheetForeignerAttendance(
                 if (isValidEmail(email))
                     mViewModel.getEmailInformation(email)
                 else
-                    Toast.makeText(context, "Correo invalido", Toast.LENGTH_SHORT).show()
+                    toast("Correo invalido")
             }
 
             teEmail.doAfterTextChanged {
@@ -101,12 +87,7 @@ class BottomSheetForeignerAttendance(
         if ((mBinding.cbConcess.isChecked.not() && mBinding.cbConcessForeigner.isChecked.not())
             && existConcessionaire.not()
         ) {
-            Toast.makeText(
-                context,
-                "Elige un tipo de registro",
-                Toast.LENGTH_LONG
-            ).show()
-
+            toast("Elige un tipo de registro")
             return false
         }
 
@@ -171,11 +152,7 @@ class BottomSheetForeignerAttendance(
     }
 
     private fun wasRegistered(idFirebase: String) {
-        Toast.makeText(
-            context,
-            "Concesionario Registrado",
-            Toast.LENGTH_LONG
-        ).show()
+        toast("Concesionario Registrado")
 
         mForeignerConcessionaire.idFirebase = idFirebase
         registration.invoke(mForeignerConcessionaire)
@@ -202,11 +179,7 @@ class BottomSheetForeignerAttendance(
         showForm(true)
 
         if (concessionaire == null) {
-            Toast.makeText(
-                context,
-                "El concesionario no existe\nLlena los demás campos solicitados",
-                Toast.LENGTH_LONG
-            ).show()
+            toast("El concesionario no existe\nLlena los demás campos solicitados")
             existConcessionaire = false
             return
         }
@@ -219,6 +192,10 @@ class BottomSheetForeignerAttendance(
         with(mBinding) {
             teName.setText(concessionaire.name)
             teOrigin.setText(concessionaire.origin)
+
+            tilLinearMeters.isGone = true
+            teLinearMeters.setText("0.0")
+
             cbConcess.isChecked = concessionaire.isForeigner.not()
             cbConcessForeigner.isChecked = concessionaire.isForeigner
 

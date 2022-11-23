@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 
-class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): BottomSheetDialogFragment() {
+class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): BaseBottomSheetFragment() {
 
     private lateinit var mBinding: BottomSheetCreateIncidentBinding
     private lateinit var mActivity: MainActivity

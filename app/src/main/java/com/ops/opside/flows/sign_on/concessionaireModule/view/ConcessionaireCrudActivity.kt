@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityConcessionaireCrudBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.MarketParticipatingAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireCrudViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ConcessionaireCrudActivity : AppCompatActivity() {
+class ConcessionaireCrudActivity : BaseActivity() {
 
     private lateinit var mAdapter: MarketParticipatingAdapter
 

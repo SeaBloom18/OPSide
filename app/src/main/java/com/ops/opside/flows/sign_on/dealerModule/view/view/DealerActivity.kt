@@ -6,12 +6,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityDealerBinding
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.DealerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DealerActivity : AppCompatActivity() {
+class DealerActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityDealerBinding
     private val mDealerViewModel: DealerViewModel by viewModels()
@@ -71,15 +72,14 @@ class DealerActivity : AppCompatActivity() {
     }
 
     private fun logOut(){
-        val dialog = BaseDialog(
-            this,
-            R.drawable.ic_ops_logout,
-            getString(R.string.dialog_dealer_info_title),
-            getString(R.string.dialog_dealer_info_message),
-            getString(R.string.common_accept),
-            yesAction = { finish() }
+        showDialog(
+            imageResource = R.drawable.ic_ops_logout,
+            title = getString(R.string.dialog_dealer_info_title),
+            message = getString(R.string.dialog_dealer_info_message),
+            buttonYesTitle = getString(R.string.common_accept),
+            funButtonYes = { finish() }
         )
-        dialog.show()
+
     }
 
     override fun onBackPressed() {

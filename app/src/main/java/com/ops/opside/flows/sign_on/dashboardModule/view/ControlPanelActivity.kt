@@ -4,9 +4,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +12,7 @@ import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
-import com.ops.opside.common.utils.toast
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
@@ -25,7 +23,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
-class ControlPanelActivity : AppCompatActivity() {
+class ControlPanelActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
@@ -78,13 +76,13 @@ class ControlPanelActivity : AppCompatActivity() {
 
     /** Other Methods**/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setToolbar(){
+    private fun setToolbar() {
         with(mBinding.toolbarControlP.commonToolbar) {
             this.title = getString(R.string.bn_menu_control_panel_opc4)
             setSupportActionBar(this)
@@ -130,7 +128,11 @@ class ControlPanelActivity : AppCompatActivity() {
         return time < mBinding.tvHasta.getTime()
     }
 
-    private fun showDialog(initialHour: Int, initialMinute: Int, observer: TimePickerDialog.OnTimeSetListener) {
+    private fun showDialog(
+        initialHour: Int,
+        initialMinute: Int,
+        observer: TimePickerDialog.OnTimeSetListener
+    ) {
         newInstance(initialHour, initialMinute, observer)
             .show(supportFragmentManager, "time-picker")
     }
@@ -203,8 +205,10 @@ class ControlPanelActivity : AppCompatActivity() {
             buttonNoText = getString(R.string.common_cancel),
             buttonYesText = getString(R.string.common_accept),
             yesAction = {
-                mControlPanelViewModel.updateLinealPriceMeter("Ulmp4yMD4noSlOE6IwpX",
-                    mBinding.teLinealPrice.text.toString().trim())
+                mControlPanelViewModel.updateLinealPriceMeter(
+                    "Ulmp4yMD4noSlOE6IwpX",
+                    mBinding.teLinealPrice.text.toString().trim()
+                )
                 toast(getString(R.string.control_panel_dialog_yes_action_message))
             },
             noAction = {

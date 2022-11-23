@@ -19,6 +19,7 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.ops.opside.R
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetShowQrBinding
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.BottomSheetShowQrViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,7 @@ import java.lang.Exception
 
 
 @AndroidEntryPoint
-class BottomSheetShowQr: BottomSheetDialogFragment() {
+class BottomSheetShowQr: BaseBottomSheetFragment() {
 
     private lateinit var mBinding: BottomSheetShowQrBinding
     private val mViewModel: BottomSheetShowQrViewModel by viewModels()

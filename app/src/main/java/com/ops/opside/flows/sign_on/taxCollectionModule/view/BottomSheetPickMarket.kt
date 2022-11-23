@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetPickMarketBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetPickMarketViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class BottomSheetPickMarket(
     private val selection: (MarketFE) -> Unit = {}
-) : BottomSheetDialogFragment() {
+) : BaseBottomSheetFragment() {
 
     private val mBinding: BottomSheetPickMarketBinding by lazy {
         BottomSheetPickMarketBinding.inflate(layoutInflater)

@@ -1,6 +1,7 @@
 package com.ops.opside.common.utils
 
 import android.util.Log
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -10,7 +11,7 @@ import javax.mail.internet.MimeMessage
 
 
 object EmailSender{
-    suspend fun send(subject: String, body: String, recipient: String, response: (Pair<Boolean,String>) -> Unit = {}) {
+    suspend fun send(emails: MutableList<EmailObject>, response: (Pair<Boolean,String>) -> Unit = {}) {
         withContext(Dispatchers.IO) {
             try {
                 val props = Properties()
@@ -32,17 +33,18 @@ object EmailSender{
                     }
                 })
 
-                val mm = MimeMessage(session)
-                mm.setFrom(InternetAddress(email))
-                mm.addRecipient(Message.RecipientType.TO, InternetAddress(recipient))
-                mm.subject = subject
-                mm.setText(body)
+                emails.forEach {
+                    val mm = MimeMessage(session)
+                    mm.setFrom(InternetAddress(email))
+                    mm.addRecipient(Message.RecipientType.TO, InternetAddress(it.recipient))
+                    mm.subject = it.subject
+                    mm.setText(it.body)
 
-                Transport.send(mm)
-
+                    Transport.send(mm)
+                }
                 response.invoke(Pair(true,"Success"))
             } catch (e: Exception) {
-                Log.d("Demo", "sendEmail: ${e.message}")
+                Log.d("Error", "sendEmail: ${e.message}")
                 response.invoke(Pair(false,e.message.orEmpty()))
             }
         }

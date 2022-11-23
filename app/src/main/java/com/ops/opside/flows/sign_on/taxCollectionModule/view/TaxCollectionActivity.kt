@@ -22,11 +22,13 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.utils.Formaters.orZero
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_off.loginModule.view.LoginActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.actions.TaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ADDED
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import com.ops.opside.flows.sign_on.taxCollectionModule.interfaces.TaxCollectionAux
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.TaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +36,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
+class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
 
     private val mBinding: ActivityTaxCollectionBinding by lazy {
         ActivityTaxCollectionBinding.inflate(layoutInflater)
@@ -545,9 +547,11 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
 
         GlobalScope.launch {
             EmailSender.send(
-                subject = "Recibo ${CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)}",
-                body = body,
-                recipient = email.emailConcessionaire
+                mutableListOf(EmailObject(
+                    subject = "Recibo ${CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)}",
+                    body = body,
+                    recipient = email.emailConcessionaire
+                ))
             ) {
                 if (it.first.not()) {
                     showError(it.second)
@@ -645,6 +649,7 @@ class TaxCollectionActivity : AppCompatActivity(), TaxCollectionAux {
             }
                 .map { it.value } as MutableList<ConcessionaireSE>
         )
+
 
         launchFragment(
             fragment = FinalizeTaxCollectionFragment(),

@@ -12,6 +12,7 @@ import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetRelateConcessMarketBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetRelateConcessMarketViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,7 @@ class BottomSheetRelateConcessMarket(
     val concessionaire: ConcessionaireSE,
     val market: MarketSE,
     private val status: (Pair<Boolean, ParticipatingConcessRE>) -> Unit = {}
-) : BottomSheetDialogFragment() {
+) : BaseBottomSheetFragment() {
 
     private val mBinding: BottomSheetRelateConcessMarketBinding by lazy {
         BottomSheetRelateConcessMarketBinding.inflate(layoutInflater)
