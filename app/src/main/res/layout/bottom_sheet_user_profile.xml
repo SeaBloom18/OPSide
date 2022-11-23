@@ -48,7 +48,7 @@
         android:layout_height="110dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/common_content_description"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:src="@drawable/ic_ops_user"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toStartOf="@+id/ivBack" />
@@ -153,7 +153,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveProfile"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -172,7 +172,6 @@
             style="@style/textViewSubtitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="?attr/selectableItemBackground"
             android:drawablePadding="8dp"
@@ -182,19 +181,23 @@
             app:drawableTint="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveProfile"
+            style="@style/CommonButtonStyle"
+            android:layout_width="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/bottom_sheet_btn_save_changes"
+            android:enabled="false"
+            android:alpha="0.5"
+            app:icon="@drawable/ic_ops_btn_confirm"
+            app:layout_constraintBottom_toTopOf="@+id/tvLogOut"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSaveProfile"
-        android:layout_width="0dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/bottom_sheet_btn_save_changes"
-        app:icon="@drawable/ic_ops_btn_confirm"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/divider2"
-        app:layout_constraintStart_toStartOf="@+id/divider2"
-        style="@style/CommonButtonStyle" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
