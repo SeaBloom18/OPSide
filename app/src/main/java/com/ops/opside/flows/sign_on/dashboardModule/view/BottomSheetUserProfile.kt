@@ -14,27 +14,26 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.LINK_FIRESTORE_REFERENCE
+import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
+import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import com.ops.opside.BuildConfig
-import com.ops.opside.common.entities.LINK_FIRESTORE_REFERENCE
-import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
-import com.ops.opside.common.utils.toast
 
 /**
  * Created by David Alejandro González Quezada on 28/10/22.
  */
 
 @AndroidEntryPoint
-class BottomSheetUserProfile : BottomSheetDialogFragment(){
+class BottomSheetUserProfile : BaseBottomSheetFragment() {
 
     private val mBinding: BottomSheetUserProfileBinding by lazy {
         BottomSheetUserProfileBinding.inflate(layoutInflater)
@@ -45,30 +44,34 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
     private lateinit var mStorageReference: StorageReference
     private var latestTmpUri: Uri? = null
 
-    private val cameraPermission = registerForActivityResult(ActivityResultContracts
-        .RequestMultiplePermissions()) { permissions ->
+    private val cameraPermission = registerForActivityResult(
+        ActivityResultContracts
+            .RequestMultiplePermissions()
+    ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.CAMERA, false) -> {
             }
             permissions.getOrDefault(Manifest.permission.CAMERA, false) -> {
-            } else -> {
-            mActivity.finish()
-        }
-        }
-    }
-
-    private val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
-        if (isSuccess) {
-            latestTmpUri?.let { uri ->
-                mBinding.ivProfilePicture.setImageURI(uri)
-                mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
-                mBinding.btnSaveProfile.apply {
-                    alpha = 1F
-                    isEnabled = true
-                }
+            }
+            else -> {
+                mActivity.finish()
             }
         }
     }
+
+    private val takeImageResult =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                latestTmpUri?.let { uri ->
+                    mBinding.ivProfilePicture.setImageURI(uri)
+                    mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
+                    mBinding.btnSaveProfile.apply {
+                        alpha = 1F
+                        isEnabled = true
+                    }
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,8 +83,11 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cameraPermission.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA))
+        cameraPermission.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA
+            )
+        )
         takeUserPhoto()
         mBinding.apply {
             ivBack.setOnClickListener { dismiss() }
@@ -94,9 +100,11 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
                 latestTmpUri?.let { it1 ->
                     //TODO refactorizar para un futuro al viewModel e Interactor (ya existen los metodos :D)
                     //mViewModel.uploadUserImage(it1)
-                    mStorageReference = FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference
+                    mStorageReference =
+                        FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference
 
-                    val uploadTask = mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${it1}}").putFile(it1)
+                    val uploadTask =
+                        mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${it1}}").putFile(it1)
 
                     uploadTask.addOnSuccessListener {
                         mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$it1}").downloadUrl.addOnSuccessListener {
@@ -134,14 +142,18 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
             deleteOnExit()
         }
 
-        return FileProvider.getUriForFile(mActivity, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
+        return FileProvider.getUriForFile(
+            mActivity,
+            "${BuildConfig.APPLICATION_ID}.provider",
+            tmpFile
+        )
     }
 
     /** Other Methods**/
-    private fun showPersonalUserInfo(){
+    private fun showPersonalUserInfo() {
         val userPersonalInfo = mViewModel.showPersonalInfo()
         val userAboutInfo = mViewModel.showAboutInfo()
-        with(mBinding){
+        with(mBinding) {
             tvUserName.text = userPersonalInfo.first
             tvUserEmail.text = userPersonalInfo.second
             tvUserPhone.text = userPersonalInfo.third
@@ -162,12 +174,14 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         val userAboutInfo = mViewModel.showAboutInfo()
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
-                    "${userPersonalInfo.first}\n" +
-                    "${userPersonalInfo.second}\n" +
-                    "${userPersonalInfo.third}\n" +
-                    "${userAboutInfo.first}\n" +
-                    "${userAboutInfo.second}\n")
+            putExtra(
+                Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
+                        "${userPersonalInfo.first}\n" +
+                        "${userPersonalInfo.second}\n" +
+                        "${userPersonalInfo.third}\n" +
+                        "${userAboutInfo.first}\n" +
+                        "${userAboutInfo.second}\n"
+            )
             type = "text/plain"
         }
         val shareIntent = Intent.createChooser(intent, null)
@@ -178,7 +192,7 @@ class BottomSheetUserProfile : BottomSheetDialogFragment(){
         checkCameraHardware(mActivity)
     }
 
-    private fun logOut(){
+    private fun logOut() {
         val dialog = BaseDialog(
             mActivity,
             R.drawable.ic_ops_logout,
