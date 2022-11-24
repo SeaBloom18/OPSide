@@ -11,7 +11,7 @@ class ConcessionaireCrudInteractor {
                 val markets = mutableListOf<MarketSE>()
 
                 for (i in 1..7){
-                    markets.add(MarketSE(i.toString(), "Tianguis $i", "",
+                    markets.add(MarketSE(i.toString(), "Tianguis $i", "", 0.0,
                         0.0,0.0,""))
                 }
 

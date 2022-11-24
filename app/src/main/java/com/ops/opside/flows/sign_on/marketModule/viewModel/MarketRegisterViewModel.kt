@@ -18,8 +18,8 @@ import javax.inject.Inject
 class MarketRegisterViewModel @Inject constructor(
     private val mMarketRegisterInteractor: MarketRegisterInteractor): CommonViewModel() {
 
-    val registerMarket = MutableLiveData<Boolean>()
-    val getMarketData = MutableLiveData<MutableList<String>>()
+    private val registerMarket = MutableLiveData<Boolean>()
+    private val getMarketData = MutableLiveData<MutableList<String>>()
 
     fun insertMarket(marketFE: MarketFE){
         disposable.add(
@@ -38,10 +38,10 @@ class MarketRegisterViewModel @Inject constructor(
         )
     }
 
-    fun updateMarket(idFirestore: String, name: String, address: String, latitude: Double,
+    fun updateMarket(idFirestore: String, name: String, address: String, marketMeters: Double, latitude: Double,
                      longitude: Double){
         disposable.add(
-            mMarketRegisterInteractor.updateMarket(idFirestore, name, address, latitude, longitude).applySchedulers()
+            mMarketRegisterInteractor.updateMarket(idFirestore, name, address, marketMeters, latitude, longitude).applySchedulers()
                 .subscribe(
                     {
                         registerMarket.value = it

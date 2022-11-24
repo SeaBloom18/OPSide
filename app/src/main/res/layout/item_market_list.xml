@@ -83,5 +83,16 @@
             app:layout_constraintStart_toStartOf="@+id/ivDelete"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvMarketMeters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="200.5"
+            android:fontFamily="@font/montserrat_medium"
+            app:layout_constraintEnd_toEndOf="@+id/tvItemAddress"
+            app:layout_constraintStart_toStartOf="@+id/tvItemAddress"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemAddress" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
