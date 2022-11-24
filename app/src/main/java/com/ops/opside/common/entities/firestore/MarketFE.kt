@@ -7,6 +7,7 @@ data class MarketFE(
     var idFirebase: String = "",
     var name: String = "",
     var address: String = "",
+    var marketMeters: Double = 0.0,
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
     var concessionaires: MutableList<String> = mutableListOf(),
@@ -17,6 +18,7 @@ data class MarketFE(
 
         map["name"] = name
         map["address"] = address
+        map["marketMeters"] = marketMeters
         map["latitude"] = latitude
         map["longitude"] = longitude
         map["concessionaires"] = concessionaires
@@ -30,6 +32,7 @@ data class MarketFE(
             idFirebase,
             name,
             address,
+            marketMeters,
             latitude.orZero(),
             longitude.orZero(),
             concessionaires.toString(),

@@ -29,6 +29,7 @@ class PickMarketInteractor @Inject constructor(
                                     document.id,
                                     document.get("name").toString(),
                                     document.get("address").toString(),
+                                    document.get("marketMeters").toString().toDouble(),
                                     document.get("latitude").toString().toDouble(),
                                     document.get("longitude").toString().toDouble(),
                                     document.get("concessionaires") as MutableList<String>

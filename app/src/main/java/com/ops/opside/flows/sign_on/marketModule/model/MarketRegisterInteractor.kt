@@ -33,7 +33,7 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
         }
     }
 
-    fun updateMarket(idFirestore: String, name: String, address: String, latitude: Double,
+    fun updateMarket(idFirestore: String, name: String, address: String, marketMeters: Double, latitude: Double,
                      longitude: Double): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             tryOrPrintException {
@@ -41,6 +41,7 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
                     .update(mapOf(
                         "name" to name,
                         "address" to address,
+                        "marketMeters" to marketMeters,
                         "latitude" to latitude,
                         "longitude" to longitude
                     ))

@@ -25,6 +25,7 @@ class MarketInteractor @Inject constructor(
                                 idFirebase = document.id,
                                 name = document.get("name").toString(),
                                 address = document.get("address").toString(),
+                                marketMeters = document.get("marketMeters") as Double,
                                 latitude = document.get("latitude") as Double,
                                 longitude = document.get("longitude") as Double,
                                 numberConcessionaires = listOf(document.get("concessionaires")).toString()))

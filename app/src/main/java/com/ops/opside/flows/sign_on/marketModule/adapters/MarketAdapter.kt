@@ -32,6 +32,8 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
         with(holder){
             binding.tvMarketName.text = market.name
             binding.tvItemAddress.text = market.address
+            //TODO agregar string ${getString(R.string.tv_linear_meter)}:
+            binding.tvMarketMeters.text = "Metros Lineales: ${market.marketMeters}"
             binding.ivDelete.setOnClickListener {
                 listener.onDeleteMarket(market.idFirebase, position)
             }
