@@ -85,7 +85,6 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         bindViewModel()
         bsdPickMarket()
         getPriceLinearMeter()
-        setUpPieChart()
     }
 
     private fun bindViewModel() {
@@ -187,6 +186,8 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             taxCollector = mCollectorName
         )
 
+        setUpPieChart()
+
         mViewModel.initTaxCollection(mOpenedTaxCollection)
     }
 
@@ -211,6 +212,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             buttonYesText = getString(R.string.common_accept),
             buttonNoText = getString(R.string.common_cancel),
             yesAction = {
+                setUpPieChart()
                 mOpenedTaxCollection = taxCollection
                 mTotalAmount = mOpenedTaxCollection.totalAmount
                 updateProgress()
@@ -252,7 +254,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
 
     private fun setUpPieChart() {
         mBinding.chartTaxMoney.apply {
-            progressMax = 100f
+            progressMax = mSelectedMarket.marketMeters.toFloat()
             setProgressWithAnimation(0f, 4000) // =1s
 
             progressBarColor = Color.BLACK
@@ -273,7 +275,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
     }
 
     private fun updateProgress() {
-        mBinding.chartTaxMoney.setProgressWithAnimation((mTotalAmount).toFloat(), 4000)
+        mBinding.chartTaxMoney.setProgressWithAnimation((mTotalAmount / mPriceLinearMeter).toFloat(), 4000)
         mBinding.tvTotalAmount.text = "$ $mTotalAmount"
     }
 

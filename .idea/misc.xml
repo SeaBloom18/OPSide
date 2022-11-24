@@ -6,13 +6,8 @@
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.129" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.33" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/activity_registration.xml" value="0.5" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_global_common.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_show_global_info.xml" value="0.25" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_success_registration.xml" value="0.18704710144927536" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_user_profile.xml" value="0.2" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/fragment_login.xml" value="0.22" />
-        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/fragment_market.xml" value="0.18704710144927536" />
+        <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/bottom_sheet_user_profile.xml" value="0.33" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/frame_error.xml" value="0.1" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market.xml" value="0.22" />
         <entry key="..\:/Users/MX49876/Documents/GitHub/OPSide/app/src/main/res/layout/item_market_list.xml" value="0.1" />
@@ -23,11 +18,13 @@
         <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.15897435897435896" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/activity_market_register.xml" value="0.26403985507246375" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.2722222222222222" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.20811965811965813" />
         <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.20811965811965813" />
         <entry key="app/src/main/res/layout/activity_tax_collection_crud.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/bottom_sheet_foreigner_attendance.xml" value="0.34720001220703123" />
+        <entry key="app/src/main/res/layout/bottom_sheet_confirm_password.xml" value="0.26403985507246375" />
+        <entry key="app/src/main/res/layout/bottom_sheet_foreigner_attendance.xml" value="0.22" />
         <entry key="app/src/main/res/layout/bottom_sheet_pick_market.xml" value="0.2722222222222222" />
         <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.15897435897435896" />
         <entry key="app/src/main/res/layout/bottom_sheet_relate_concess_market.xml" value="0.25" />
@@ -42,7 +39,7 @@
         <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.15897435897435896" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.28518524169921877" />
         <entry key="app/src/main/res/layout/item_absence_tax_collection.xml" value="0.2722222222222222" />
-        <entry key="app/src/main/res/layout/item_crud_tax_collection.xml" value="0.1594017094017094" />
+        <entry key="app/src/main/res/layout/item_crud_tax_collection.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.20811965811965813" />
       </map>
     </option>

@@ -1,11 +1,13 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -210,26 +212,35 @@ class LoginFragment : BaseFragment() {
 
 
     private fun showBiometricsPermission() {
-        val dialog = BaseDialog(
-            imageResource = R.drawable.ic_ops_warning,
-            context = mActivity,
-            mTitle = getString(R.string.common_atention),
-            mDescription = "¿Deseas usar tus datos biometricos para acceder al sistema?",
-            buttonYesText = getString(R.string.common_accept),
-            buttonNoText = getString(R.string.common_cancel),
-            yesAction = {
-                mViewModel.saveCredentials(
-                    credentials = "${
-                        mBinding.teLoginEmail.text.toString().trim()
-                    }:${mBinding.tePassword.text.toString().trim()}"
-                )
-            },
-            noAction = {
-                initSharedPreferences(useBiometrics = false)
-            }
-        )
+        if (isAvailable(requireContext())) {
+            val dialog = BaseDialog(
+                imageResource = R.drawable.ic_ops_warning,
+                context = mActivity,
+                mTitle = getString(R.string.common_atention),
+                mDescription = "¿Deseas usar tus datos biometricos para acceder al sistema?",
+                buttonYesText = getString(R.string.common_accept),
+                buttonNoText = getString(R.string.common_cancel),
+                yesAction = {
+                    mViewModel.saveCredentials(
+                        credentials = "${
+                            mBinding.teLoginEmail.text.toString().trim()
+                        }:${mBinding.tePassword.text.toString().trim()}"
+                    )
+                },
+                noAction = {
+                    initSharedPreferences(useBiometrics = false)
+                }
+            )
 
-        dialog.show()
+            dialog.show()
+        } else{
+            initSharedPreferences(useBiometrics = false)
+        }
+    }
+
+    private fun isAvailable(context: Context): Boolean {
+        val fingerprintManager = FingerprintManagerCompat.from(context)
+        return fingerprintManager.isHardwareDetected && fingerprintManager.hasEnrolledFingerprints()
     }
 
     private fun showErrorOnCredentials(errorMessage: String) {
