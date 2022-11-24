@@ -18,8 +18,8 @@ import javax.inject.Inject
 class MarketRegisterViewModel @Inject constructor(
     private val mMarketRegisterInteractor: MarketRegisterInteractor): CommonViewModel() {
 
-    val registerMarket = MutableLiveData<Boolean>()
-    val getMarketData = MutableLiveData<MutableList<String>>()
+    private val registerMarket = MutableLiveData<Boolean>()
+    private val getMarketData = MutableLiveData<MutableList<String>>()
 
     fun insertMarket(marketFE: MarketFE){
         disposable.add(

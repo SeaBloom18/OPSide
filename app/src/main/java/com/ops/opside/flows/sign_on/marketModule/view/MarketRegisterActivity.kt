@@ -84,7 +84,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     /** ForActivityResult **/
-    private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+    private val mapResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             it.data?.apply {
                 latitudeMaps = getStringExtra(PUT_EXTRA_LATITUDE)?.toDouble().orZero()

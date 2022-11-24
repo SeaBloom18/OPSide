@@ -133,6 +133,7 @@
     <string name="btn_text_edit">Editar Dirección</string>
     <string name="toast_market_name_validation">Debes de seleccionar una ubicación antes</string>
     <string name="toast_market_location_validation">Debes de escribir un nombre para el tianguis</string>
+    <string name="tv_linear_meter">Metros Lineales</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Precio lineal</string>

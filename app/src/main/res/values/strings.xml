@@ -134,6 +134,7 @@
     <string name="btn_text_edit">Edit Location</string>
     <string name="toast_market_name_validation">You must select a location first</string>
     <string name="toast_market_location_validation">You must write a name for the market</string>
+    <string name="tv_linear_meter">Linear Meters</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>
