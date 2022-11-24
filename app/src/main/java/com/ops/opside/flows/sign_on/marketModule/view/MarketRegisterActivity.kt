@@ -123,6 +123,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
                             idFirestore = mMarketSE!!.idFirebase,
                             name = mMarketFE.name,
                             address = mMarketFE.address,
+                            marketMeters = mMarketFE.marketMeters,
                             latitude = latitudeMaps,
                             longitude = longitudeMaps)
                         finish()
@@ -186,13 +187,15 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     /** Other Methods **/
     private fun saveMarket(): Boolean {
         var isValid = false
-        if (mBinding.teMarketName.text.toString().trim().isNotEmpty()){
+        if (mBinding.teMarketName.text.toString().trim().isNotEmpty() &&
+            mBinding.teMarketMeters.text.toString().trim().isNotEmpty()){
             if (mBinding.tvAddressSelection.text.isEmpty()){
                 Toast.makeText(this, R.string.toast_market_name_validation, Toast.LENGTH_SHORT).show()
             } else {
                 with(mMarketFE){
                     name = mBinding.teMarketName.text.toString().trim()
                     address = addressSelected
+                    marketMeters = mBinding.teMarketMeters.text.toString().trim().toDouble()
                     latitude = latitudeMaps
                     longitude = longitudeMaps
                     concessionaires = mutableListOf()
@@ -208,6 +211,8 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.d("marketSerializable", marketSE.toString())
         mBinding.teMarketName.setText(marketSE.name)
         mBinding.tvAddressSelection.text = marketSE.address
+        Log.d("marketMeters", marketSE.marketMeters.toString())
+        mBinding.teMarketMeters.setText("${marketSE.marketMeters}")
         mBinding.btnSelectLocation.text = getString(R.string.btn_text_edit)
         latitudeMaps = marketSE.latitude
         longitudeMaps = marketSE.longitude

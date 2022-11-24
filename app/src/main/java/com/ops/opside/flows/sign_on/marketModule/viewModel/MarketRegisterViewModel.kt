@@ -38,10 +38,10 @@ class MarketRegisterViewModel @Inject constructor(
         )
     }
 
-    fun updateMarket(idFirestore: String, name: String, address: String, latitude: Double,
+    fun updateMarket(idFirestore: String, name: String, address: String, marketMeters: Double, latitude: Double,
                      longitude: Double){
         disposable.add(
-            mMarketRegisterInteractor.updateMarket(idFirestore, name, address, latitude, longitude).applySchedulers()
+            mMarketRegisterInteractor.updateMarket(idFirestore, name, address, marketMeters, latitude, longitude).applySchedulers()
                 .subscribe(
                     {
                         registerMarket.value = it
