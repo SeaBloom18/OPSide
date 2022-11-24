@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,70 +8,56 @@
     android:background="@color/primaryColor"
     tools:context=".flows.sign_on.concessionaireModule.view.ConcessionaireFragment">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/WhiteTextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_padding_default"
-        android:layout_marginTop="@dimen/common_padding_default"
-        android:text="@string/concessionaire"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imgFilter"
-        android:layout_width="@dimen/common_icon_size"
-        android:layout_height="@dimen/common_icon_size"
-        android:layout_marginStart="@dimen/common_padding_default"
-        android:layout_marginTop="@dimen/common_padding_middle"
-        android:backgroundTint="@color/fui_transparent"
-        android:contentDescription="@string/dashboard_user_profile"
-        android:src="@drawable/ic_filter"
-        app:layout_constraintStart_toEndOf="@id/tvTitle"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider"
-        android:layout_marginTop="@dimen/common_padding_default"
+    <include
+        layout="@layout/toolbar_layout"
+        android:id="@+id/toolbarFragConce"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSearch"
         style="@style/TextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:hint="Search"
+        android:hint="@string/common_til_search"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:startIconDrawable="@drawable/ic_market_search"
-        app:startIconTint="@color/primaryTextColor">
+        app:layout_constraintEnd_toEndOf="@+id/toolbarFragConce"
+        app:layout_constraintStart_toStartOf="@+id/toolbarFragConce"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFragConce"
+        app:startIconDrawable="@drawable/ic_ops_search">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teSearch"
             style="@style/TextInputEditTextStyle"
-            android:inputType="textPersonName" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvConcessionaires"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/common_padding_default"
+        android:padding="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tilSearch"
         tools:listitem="@layout/item_crud_concessionaire" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilSearch"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lottie_ops_search_conce_v2"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

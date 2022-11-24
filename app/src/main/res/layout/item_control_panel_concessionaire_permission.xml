@@ -13,8 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:background="@color/primaryColor">
+        android:background="@color/primaryLightColor">
 
         <ImageView
             android:id="@+id/ivMarketItem"
@@ -23,39 +22,36 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_profile"
+            android:src="@drawable/ic_ops_user"
+            android:contentDescription="@string/common_content_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/secondaryColor" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvConcessionaireName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            style="@style/textViewBodyStyle"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
             android:maxLines="2"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/common_text_size"
-            app:layout_anchorGravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/ivMarketItem"
-            app:layout_constraintEnd_toStartOf="@+id/ibArrow"
+            app:layout_constraintEnd_toStartOf="@+id/switchHasAccess"
             app:layout_constraintStart_toEndOf="@+id/ivMarketItem"
             app:layout_constraintTop_toTopOf="@+id/ivMarketItem"
-            tools:text="David Alejandro Gonzalez Quezada"
-            style="@style/textViewBodyStyle"/>
+            tools:text="David Alejandro Gonzalez Quezada" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/ibArrow"
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchHasAccess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_item_arrow_down"
+            android:checked="false"
             app:layout_constraintBottom_toBottomOf="@+id/tvConcessionaireName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvConcessionaireName" />
+            app:layout_constraintTop_toTopOf="@+id/tvConcessionaireName"
+            style="@style/CommonSwitchStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

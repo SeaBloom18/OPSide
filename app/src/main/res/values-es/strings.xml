@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--General Strings-->
-    <string name="app_name">OPSide</string>
-
     <!-- Common -->
     <string name="common_accept">Aceptar</string>
-    <string name="common_delete">Delete</string>
+    <string name="common_delete">Borrar</string>
+    <string name="common_content_description">Common Content Image Description</string>
+    <string name="common_til_search">Buscar</string>
 
-    <!-- Tax Collection Module Strins -->
+    <!--Dealer Strings-->
+    <string name="tv_dealer_title">Tu Perfil</string>
+    <string name="tv_prices_info_linear">metros lineales</string>
+    <string name="tv_prices_info_absence">faltas</string>
+    <string name="dialog_dealer_info_title">¿Estas seguro de que quieres cerrar sesión?</string>
+    <string name="dialog_dealer_info_message">Tendrás que iniciar sesión de nuevo</string>
+
+    <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>
     <string name="tax_collection_linear_meters">Metros Lineales</string>
@@ -16,23 +22,25 @@
     <string name="tax_collection_total_amount">Monto Total</string>
     <string name="tax_collection_finalize">Finalizar</string>
     <string name="tax_collection_record">Historial</string>
+    <!-- Finalize Tax Collection -->
+    <string name="tax_collection_absence_email">Buenas tardes, %1$s \n\nTe hacemos llegar tu informe de inasistencia donde recaudamos la siguiente información:\n\nTianguis: %2$s \nReporta: %3$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>
     <string name="dashboard_weekly" >Semanal</string>
     <string name="dashboard_monthly" >Mensual</string>
-    <string name="dashboard_all_time" >Todo Tiempo</string>
     <string name="dashboard_daily" >Diario</string>
     <string name="dashboard_user_profile" >Perfil de usuario</string>
-    <string name="dashboard_notifications" >Notificaciones</string>
     <string name="dashboard_arrow" >Flecha</string>
     <string name="dashboard_chart" >Grafico Estadístico</string>
     <string name="dashboard_penalty_fee" >Multas</string>
     <string name="dashboard_absences" >Inasistencias</string>
     <string name="dashboard_active_dealers">Concesionarios activos</string>
     <string name="dashboard_tax_collections">Recaudaciones</string>
+    <string name="btn_print_qr_code">Imprimir mi código QR</string>
 
     <!--Login Module Strings-->
+    <string name="login_welcome">¡Bienvenido!</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Contraseña</string>
     <string name="login_til_required">Requerido</string>
@@ -45,7 +53,9 @@
     <string name="login_tv_about_app">Información</string>
     <string name="login_tv_policies">Políticas</string>
     <string name="login_toast_empy_text">Los campos no pueden estar vacíos</string>
-    <string name="login_toast_credentials_error">Error en credenciales</string>
+    <string name="login_tv_forget_password">He olvidado mi contraseña</string>
+    <string name="login_toast_credentials_validation">La contraseña o el correo esta incorrecto, verificalo!</string>
+    <string name="login_tv_remember_name">Bienvenido de vuelta, %1$s!</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>
@@ -53,64 +63,85 @@
     <string name="registration_hint_address">Direccion</string>
     <string name="registration_hint_phone">Telefono</string>
     <string name="registration_hint_email">Correo electronico</string>
-    <string name="registration_hint_market">Tinaguis participante</string>
     <string name="registration_hint_pass_confirm">Confirmar contrseña</string>
-    <string name="registration_tv_title">Crear Cuenta</string>
+    <string name="registration_hint_origin">Municipio recidencia</string>
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
-    <string name="registration_btn_register">Registrarse!</string>
     <string name="registration_btn_bs_close">Salir</string>
     <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
     <string name="dealer_show_qr">Mostrar código QR</string>
     <string name="description_record_icon">Icono del Evento</string>
     <string name="registration_alert_dialog_title">¿Como te quieres registrar?</string>
     <string name="registration_alert_dialog_negative_button">Regresar al inicio</string>
-    <string name="registration_toast_option_validation">Debes de elegir una opcion!</string>
+    <string name="registration_btn_complete_register">Completar registro!</string>
+    <string name="registration_tv_steps_title">Completa todos los pasos para completar tu registro para ser un !</string>
+    <string name="registration_array_foreign_conce">Concesionario foráneo</string>
+    <string name="registration_array_conce">Concesionario</string>
+    <string name="registration_array_collector">Collector</string>
+    <string name="registration_toast_fields_validation">Debes de llenar todos los campos!</string>
+    <string name="registration_toast_password_validation">Las contraseñas no coinciden, verifica que sean iguales!</string>
+    <string name="registration_toast_email_validation">Correo invalido!</string>
+    <string name="registration_toast_password_exist_validation">Oops, parece que ya tenemos este correo registrado. Intenta con otro!</string>
+    <string name="registration_til_password_validation">La contraseña debe tener al menos 8 caracteres incluyendo una letra mayúscula, un número y un carácter especial</string>
+    <string name="registration_checkbox_accept_policies">Aceptar Politicas de privacidad</string>
+    <string name="registration_toast_password_regex_validation">Oops, parece que la contraseña no cumple con los requisitos!</string>
+    <string name="registration_toast_policies_validation">Antes debes de aceptar nuestras politicas de privacidad!</string>
+    <string name="registration_see_policies_validation">Toca para ver las Políticas de Privacidad</string>
+
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
-    <string name="bn_menu_concessionaire_opc2">Concesi</string>
+    <string name="bn_menu_concessionaire_opc2">Concesionarios</string>
     <string name="bn_menu_tax_collection_opc3">Cobranza</string>
     <string name="bn_menu_control_panel_opc4">Panel de Conttrol</string>
     <string name="bn_menu_incidents_opc5">Incidencias</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
-    <string name="tax_collection_tianguis">Tianguis</string>
+    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
+    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
+    <string name="tax_collection_market">Tianguis</string>
     <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
     <string name="tax_collection_sent">Envía</string>
     <string name="tax_collection_absence">Inasistencias</string>
     <string name="tax_collection_send">Enviar</string>
     <string name="tax_collection_crud_collections">Recaudaciones</string>
+    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
 
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Nombre del tianguis</string>
-    <string name="registration_hint_market_address">Direccion</string>
-    <string name="registration_market_tv_title">Editar / Crear Tianguis</string>
+    <string name="registration_market_create_toolbar_title">Crear Tianguis</string>
+    <string name="registration_market_edit_toolbar_title">Editar Tianguis</string>
     <string name="registration_btn_select_location">Seleccionar Ubicación</string>
     <string name="registration_btn_view_concessionaires">Ver Concesionarios</string>
-    <string name="registration_market_btn_save">Guardar</string>
-    <string name="registration_market_tv_location">Ubicación sin seleccionar</string>
-    <string name="registration_market_tv_concessionaires">Número de concesionarios: 90</string>
-
+    <string name="registration_market_btn_save">Guardar Tianguis</string>
+    <string name="registration_market_tv_concessionaires">Número de concesionarios: 0</string>
     <string name="select_location_btn_save_address">Aceptar ubicación</string>
-
-    <string name="bottom_sheet_conce_tv_title">Concesionarios del tianguis X</string>
+    <string name="bottom_sheet_conce_tv_title">Lista de Concesionarios</string>
     <string name="bottom_sheet_conce_tv_all">Ver lista completa</string>
     <string name="bottom_sheet_conce_btn_delete">Eliminar concesionario</string>
     <string name="bottom_sheet_conce_btn_see">Ver Concesionario</string>
     <string name="bottom_sheet_conce_hint_til">Nombre del concesionario</string>
-
     <string name="alert_dialog_delete_title">Eliminar Tianguis</string>
     <string name="alert_dialog_delete_message">¿Estás seguro de que quieres eliminar este tianguis?</string>
-    <string name="toast_delete_message_success">Market deleted</string>
+    <string name="toast_delete_message_success">Tianguis eliminado</string>
+    <string name="dialog_title_confirm_location">Confirmar ubicación</string>
+    <string name="dialog_message_confirm_location">¿Estás seguro de que esta ubicación es correcta?</string>
+    <string name="google_maps_market_title">Estás aquí!</string>
+    <string name="dialog_title_before_select_location">Seleccionar una ubicación para el tianguis</string>
+    <string name="dialog_message_before_select_location">Recuerde que tomamos su ubicación actual, si desea ajustar, haga clic y arrastre en la ubicación actual.</string>
+    <string name="toast_location_not_selected">Dirección no seleccionada</string>
+    <string name="btn_text_edit">Editar Dirección</string>
+    <string name="toast_market_name_validation">Debes de seleccionar una ubicación antes</string>
+    <string name="toast_market_location_validation">Debes de escribir un nombre para el tianguis</string>
+    <string name="tv_linear_meter">Metros Lineales</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Precio lineal</string>
-    <string name="cp_btn_save">Guardar cambios</string>
+    <string name="cp_btn_save">Guardar precio lineal</string>
     <string name="cp_alertdialog_title">Aceptar cambios</string>
     <string name="cp_alertdialog_message">¿Estás seguro de actualizar los cambios?</string>
     <string name="cp_toast_success">Cambio realizado con éxito</string>
-    <string name="filter_tax_collection_tianguis">Tianguis</string>
+    <string name="filter_tax_collection_market">Tianguis</string>
     <string name="filter_tax_collection_collector">Recuadador</string>
     <string name="common_date">Fecha</string>
     <string name="filter_tax_collection_start_date">Fecha Inicio</string>
@@ -119,6 +150,14 @@
     <string name="concessionaire">Consecionario</string>
     <string name="tax_collection_update_title">Actualizar Recaudación</string>
     <string name="concessionaire_address">Dirección</string>
+    <string name="control_panel_alert_dialog_title">¿Estás seguro de que quieres cambiar acceso a %1$s?</string>
+    <string name="control_panel_toast_lineal_price_update_success">Precio lineal actualizado correctamente</string>
+    <string name="control_panel_toast_lineal_price_update_error">Error al actualizar el precio de líneal</string>
+    <string name="control_panel_dialog_title">Actualizar Precio Lineal</string>
+    <string name="control_panel_dialog_message">¿Estas seguro que de quieres actualizar el precio lineal?</string>
+    <string name="control_panel_dialog_yes_action_message">El precio lineal ha sido actualizado con exito</string>
+    <string name="control_panel_dialog_no_action_message">Error al actualizar el precio lineal</string>
+
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>
@@ -126,6 +165,101 @@
     <string name="bottom_sheet_btn_create_inc">Crear Incidencia</string>
     <string name="bottom_sheet_til_hint_inc_name">Nombre de incidencia</string>
     <string name="bottom_sheet_til_hint_inc_price">Precio de incidencia</string>
-    <string name="tax_collection_choose_tianguis">Elige un Tianguis</string>
+    <string name="tax_collection_choose_market">Elige un Tianguis</string>
+    <string name="tax_collection_on_line">On Line</string>
+    <string name="tax_collection_off_line">Off Line</string>
+
+    <!--BottomSheet UserProfile String-->
+    <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>
+    <string name="bottom_sheet_btn_save_changes">Guardar cambios</string>
+    <string name="bottom_sheet_tv_about_you">Más información sobre ti</string>
+
+    <!--Policies Strings-->
+    <string name="tv_title_policies">Política de privacidad para OPS</string>
+    <string name="tv_title_policies_privacy">Política de privacidad</string>
+    <string name="tv1_body_policies_privacy">Última actualización: 08 de noviembre de 2022</string>
+    <string name="tv2_body_policies_privacy">Esta Política de privacidad describe Nuestras políticas y procedimientos sobre la recopilación, el uso y la divulgación de Su información cuando utiliza el Servicio y le informa sobre Sus derechos de privacidad y cómo la ley lo protege.</string>
+    <string name="tv3_body_policies_privacy">Usamos sus datos personales para proporcionar y mejorar el Servicio. Al usar el Servicio, acepta la recopilación y el uso de información de acuerdo con esta Política de privacidad.</string>
+
+    <string name="tv1_title_policies_interpretation_definition">Interpretación y Definiciones</string>
+    <string name="tv2_title_policies_interpretation_definition">Interpretation</string>
+    <string name="tv1_body_policies_interpretation_definition">Las palabras cuya letra inicial está en mayúscula tienen significados definidos bajo las siguientes condiciones. Las siguientes definiciones tendrán el mismo significado independientemente de que aparezcan en singular o en plural.</string>
+
+    <string name="tv3_title_policies_interpretation_definition">Definiciones</string>
+    <string name="tv2_body_policies_interpretation_definition">A los efectos de esta Política de Privacidad:</string>
+    <string name="tv3_body_policies_interpretation_definition">Cuenta significa una cuenta única creada para que Usted acceda a nuestro Servicio o partes de nuestro Servicio.</string>
+    <string name="tv4_body_policies_interpretation_definition">Afiliado significa una entidad que controla, es controlada o está bajo control común con una parte, donde "control" significa la propiedad del 50% o más de las acciones, participación accionaria u otros valores con derecho a voto para la elección de directores u otra autoridad administrativa.</string>
+    <string name="tv5_body_policies_interpretation_definition">Aplicación significa el programa de software proporcionado por la Compañía descargado por Usted en cualquier dispositivo electrónico, denominado OPS</string>
+    <string name="tv6_body_policies_interpretation_definition">Empresa (referida como "la Empresa", "Nosotros", "Nos" o "Nuestro" en este Acuerdo) se refiere a OPSide.</string>
+    <string name="tv7_body_policies_interpretation_definition">Cuenta significa una cuenta única creada para que Usted acceda a nuestro Servicio o partes de nuestro Servicio.</string>
+    <string name="tv8_body_policies_interpretation_definition">País se refiere a: México.</string>
+    <string name="tv9_body_policies_interpretation_definition">Dispositivo significa cualquier dispositivo que pueda acceder al Servicio, como una computadora, un teléfono celular o una tableta digital.</string>
+    <string name="tv10_body_policies_interpretation_definition">Los datos personales son cualquier información que se relaciona con un individuo identificado o identificable.</string>
+    <string name="tv11_body_policies_interpretation_definition">Servicio se refiere a la Aplicación.</string>
+    <string name="tv12_body_policies_interpretation_definition">Proveedor de servicios significa cualquier persona física o jurídica que procesa los datos en nombre de la Compañía. Se refiere a empresas de terceros o personas empleadas por la Empresa para facilitar el Servicio, proporcionar el Servicio en nombre de la Empresa, realizar servicios relacionados con el Servicio o ayudar a la Empresa a analizar cómo se utiliza el Servicio.</string>
+    <string name="tv13_body_policies_interpretation_definition">Los Datos de uso se refieren a los datos recopilados automáticamente, ya sea generados por el uso del Servicio o por la propia infraestructura del Servicio (por ejemplo, la duración de una visita a la página).</string>
+    <string name="tv14_body_policies_interpretation_definition">Usted se refiere a la persona que accede o utiliza el Servicio, o la empresa u otra entidad legal en nombre de la cual dicha persona accede o utiliza el Servicio, según corresponda.</string>
+
+    <string name="tv1_title_policies_collecting">Recopilación y uso de sus datos personales</string>
+    <string name="tv2_title_policies_collecting">Tipos de datos recopilados</string>
+    <string name="tv3_title_policies_collecting">Información personal</string>
+    <string name="tv1_body_policies_collecting">Mientras usa Nuestro Servicio, podemos pedirle que nos proporcione cierta información de identificación personal que se puede usar para contactarlo o identificarlo. La información de identificación personal puede incluir, entre otros:</string>
+    <string name="tv2_body_policies_collecting">Email address</string>
+    <string name="tv3_body_policies_collecting">Nombre y apellido</string>
+    <string name="tv4_body_policies_collecting">Número de teléfono</string>
+    <string name="tv5_body_policies_collecting">Dirección, estado, provincia, código postal, ciudad</string>
+
+    <string name="tv6_body_policies_collecting">Datos de uso</string>
+    <string name="tv7_body_policies_collecting">Los Datos de uso se recopilan automáticamente cuando se utiliza el Servicio.</string>
+    <string name="tv8_body_policies_collecting">Los datos de uso pueden incluir información como la dirección del protocolo de Internet de su dispositivo (por ejemplo, la dirección IP), el tipo de navegador, la versión del navegador, las páginas de nuestro Servicio que visita, la hora y la fecha de su visita, el tiempo que pasa en esas páginas. , identificadores únicos de dispositivos y otros datos de diagnóstico.</string>
+    <string name="tv9_body_policies_collecting">Cuando accede al Servicio a través de un dispositivo móvil, podemos recopilar cierta información automáticamente, que incluye, entre otros, el tipo de dispositivo móvil que utiliza, la identificación única de su dispositivo móvil, la dirección IP de su dispositivo móvil, su sistema operativo, el tipo de navegador de Internet móvil que utiliza, identificadores únicos de dispositivos y otros datos de diagnóstico.</string>
+    <string name="tv10_body_policies_collecting">También podemos recopilar información que su navegador envía cada vez que visita nuestro Servicio o cuando accede al Servicio a través de un dispositivo móvil.</string>
+
+    <string name="tv1_title_policies_information_collected">Información recopilada durante el uso de la aplicación</string>
+    <string name="tv1_body_policies_information_collected">Al utilizar Nuestra Aplicación, con el fin de proporcionar características de Nuestra Aplicación, podemos recopilar, con Su permiso previo:</string>
+    <string name="tv2_body_policies_information_collected">Información sobre su ubicación</string>
+    <string name="tv3_body_policies_information_collected">Imágenes y otra información de la cámara y la biblioteca de fotos de su dispositivo</string>
+    <string name="tv4_body_policies_information_collected">Usamos esta información para proporcionar características de Nuestro Servicio, para mejorar y personalizar Nuestro Servicio. La información se puede cargar en los servidores de la Compañía y/o en el servidor de un Proveedor de servicios o simplemente se puede almacenar en Su dispositivo.</string>
+    <string name="tv5_body_policies_information_collected">Puede habilitar o deshabilitar el acceso a esta información en cualquier momento, a través de la configuración de Su dispositivo.</string>
+
+    <string name="tv1_title_policies_personal_data">Uso de sus datos personales</string>
+    <string name="tv1_body_policies_personal_data">La Compañía puede utilizar los Datos Personales para los siguientes propósitos:</string>
+    <string name="tv2_body_policies_personal_data">Para proporcionar y mantener nuestro Servicio, incluso para monitorear el uso de nuestro Servicio.</string>
+    <string name="tv3_body_policies_personal_data">Para gestionar Su Cuenta: para gestionar Su registro como usuario del Servicio. Los Datos Personales que proporcione pueden darle acceso a diferentes funcionalidades del Servicio que están disponibles para Usted como usuario registrado.</string>
+    <string name="tv4_body_policies_personal_data">Para la ejecución de un contrato: el desarrollo, cumplimiento y realización del contrato de compra de los productos, artículos o servicios que haya adquirido o de cualquier otro contrato con Nosotros a través del Servicio.</string>
+    <string name="tv5_body_policies_personal_data">Para contactarlo: Para contactarlo por correo electrónico, llamadas telefónicas, SMS u otras formas equivalentes de comunicación electrónica, como notificaciones automáticas de una aplicación móvil sobre actualizaciones o comunicaciones informativas relacionadas con las funcionalidades, productos o servicios contratados, incluidos los actualizaciones de seguridad, cuando sea necesario o razonable para su implementación.</string>
+    <string name="tv6_body_policies_personal_data">Para proporcionarle noticias, ofertas especiales e información general sobre otros bienes, servicios y eventos que ofrecemos que son similares a los que ya compró o preguntó, a menos que haya optado por no recibir dicha información.</string>
+    <string name="tv7_body_policies_personal_data">Para gestionar Sus solicitudes: Para atender y gestionar Sus solicitudes hacia Nosotros.</string>
+    <string name="tv8_body_policies_personal_data">Para transferencias comerciales: podemos usar su información para evaluar o realizar una fusión, venta, reestructuración, reorganización, disolución u otra venta o transferencia de algunos o todos nuestros activos, ya sea como una empresa en marcha o como parte de una quiebra, liquidación, o procedimiento similar, en el que los Datos personales que tenemos sobre los usuarios de nuestro Servicio se encuentran entre los activos transferidos.</string>
+    <string name="tv9_body_policies_personal_data">Para otros fines: podemos utilizar su información para otros fines, como el análisis de datos, la identificación de tendencias de uso, la determinación de la eficacia de nuestras campañas promocionales y para evaluar y mejorar nuestro Servicio, productos, servicios, marketing y su experiencia.</string>
+
+    <string name="tv10_body_policies_personal_data">Podemos compartir su información personal en las siguientes situaciones:</string>
+    <string name="tv11_body_policies_personal_data">Con Proveedores de Servicios: Podemos compartir Su información personal con Proveedores de Servicios para monitorear y analizar el uso de nuestro Servicio, para contactarlo.</string>
+    <string name="tv12_body_policies_personal_data">Para transferencias comerciales: Podemos compartir o transferir Su información personal en relación con, o durante las negociaciones de, cualquier fusión, venta de activos de la Compañía, financiamiento o adquisición de todo o una parte de Nuestro negocio a otra compañía.</string>
+    <string name="tv13_body_policies_personal_data">Con afiliados: podemos compartir su información con nuestros afiliados, en cuyo caso exigiremos que dichos afiliados respeten esta Política de privacidad. Los afiliados incluyen nuestra empresa matriz y cualquier otra subsidiaria, socios de empresas conjuntas u otras empresas que controlamos o que están bajo control común con nosotros.</string>    <string name="tv14_body_policies_personal_data">With business partners: We may share Your information with Our business partners to offer You certain products, services or promotions.</string>
+    <string name="tv15_body_policies_personal_data">Con otros usuarios: cuando comparte información personal o interactúa en las áreas públicas con otros usuarios, dicha información puede ser vista por todos los usuarios y puede distribuirse públicamente al exterior.</string>    <string name="tv16_body_policies_personal_data">With Your consent: We may disclose Your personal information for any other purpose with Your consent.</string>
+
+    <string name="tv1_title_policies_retention_personal_data">Retención de sus datos personales</string>
+    <string name="tv1_body_policies_retention_personal_data">La Compañía conservará sus Datos personales solo durante el tiempo que sea necesario para los fines establecidos en esta Política de privacidad. Conservaremos y utilizaremos sus datos personales en la medida necesaria para cumplir con nuestras obligaciones legales (por ejemplo, si estamos obligados a conservar sus datos para cumplir con las leyes aplicables), resolver disputas y hacer cumplir nuestros acuerdos y políticas legales.</string>
+    <string name="tv2_body_policies_retention_personal_data">La Empresa también conservará los Datos de uso para fines de análisis interno. Los Datos de uso generalmente se retienen por un período de tiempo más corto, excepto cuando estos datos se utilizan para fortalecer la seguridad o mejorar la funcionalidad de Nuestro Servicio, o cuando estamos legalmente obligados a retener estos datos por períodos de tiempo más largos.</string>
+    <string name="tv1_title_policies_transfer_personal_data">Retención de sus datos personales</string>
+    <string name="tv1_body_policies_transfer_personal_data">Su información, incluidos los Datos personales, se procesa en las oficinas operativas de la Compañía y en cualquier otro lugar donde se encuentren las partes involucradas en el procesamiento. Significa que esta información puede transferirse y mantenerse en computadoras ubicadas fuera de Su estado, provincia, país u otra jurisdicción gubernamental donde las leyes de protección de datos pueden diferir de las de Su jurisdicción.</string>    <string name="tv2_body_policies_transfer_personal_data">Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.</string>
+    <string name="tv3_body_policies_transfer_personal_data">La Compañía tomará todas las medidas razonablemente necesarias para garantizar que Sus datos se traten de forma segura y de acuerdo con esta Política de privacidad y no se realizará ninguna transferencia de Sus Datos personales a una organización o país a menos que existan controles adecuados implementados, incluida la seguridad de Sus datos y otra información personal.</string>
+    <string name="tv1_title_policies_security_personal_data">Seguridad de sus datos personales</string>
+    <string name="tv1_body_policies_security_personal_data">La seguridad de sus datos personales es importante para nosotros, pero recuerde que ningún método de transmisión por Internet o método de almacenamiento electrónico es 100 % seguro. Si bien nos esforzamos por utilizar medios comercialmente aceptables para proteger sus datos personales, no podemos garantizar su seguridad absoluta.</string>
+    <string name="tv1_title_policies_detailed_information">Información detallada sobre el procesamiento de sus datos personales</string>
+    <string name="tv1_body_policies_detailed_information">Los proveedores de servicios que utilizamos pueden tener acceso a sus datos personales. Estos proveedores externos recopilan, almacenan, usan, procesan y transfieren información sobre Su actividad en Nuestro Servicio de acuerdo con sus Políticas de Privacidad.</string>
+    <string name="tv2_title_policies_detailed_information">Uso, rendimiento y varios</string>
+    <string name="tv2_body_policies_detailed_information">Podemos utilizar proveedores de servicios de terceros para mejorar mejor nuestro servicio.</string>
+    <string name="tv3_body_policies_detailed_information">Google Places</string>
+    <string name="tv4_body_policies_detailed_information">Google Places es un servicio que devuelve información sobre lugares mediante solicitudes HTTP. Es operado por Google</string>
+    <string name="tv5_body_policies_detailed_information">El servicio de Google Places puede recopilar información de usted y de su dispositivo por motivos de seguridad.</string>
+
+    <string name="tv1_title_policies_changes_privacy">Cambios a esta Política de privacidad</string>
+    <string name="tv1_body_policies_changes_privacy">Podemos actualizar Nuestra Política de privacidad de vez en cuando. Le notificaremos cualquier cambio publicando la nueva Política de Privacidad en esta página.</string>
+    <string name="tv2_body_policies_changes_privacy">Le informaremos por correo electrónico y/o mediante un aviso destacado en Nuestro Servicio, antes de que el cambio entre en vigencia y actualizaremos la fecha de "Última actualización" en la parte superior de esta Política de privacidad.</string >
+    <string name="tv3_body_policies_changes_privacy">Se le recomienda revisar esta Política de privacidad periódicamente para ver si hay cambios. Los cambios a esta Política de privacidad son efectivos cuando se publican en esta página.</string>
+    <string name="tv1_title_policies_contact_us">Contáctenos</string>
+    <string name="tv1_body_policies_contact_us">Si tiene alguna pregunta sobre esta Política de privacidad, puede contactarnos.</string>
 
 </resources>

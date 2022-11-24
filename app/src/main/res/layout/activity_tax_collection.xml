@@ -9,6 +9,17 @@
     android:id="@+id/containerTaxCollection"
     tools:context=".flows.sign_on.taxCollectionModule.view.TaxCollectionActivity">
 
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_ops_arrow_back"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginStart="@dimen/common_padding_default"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/chartTaxMoney"
         android:layout_width="wrap_content"
@@ -31,26 +42,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="$ 2680.00"
+        android:text="$ 0.00"
         app:layout_constraintBottom_toBottomOf="@+id/chartTaxMoney"
         app:layout_constraintEnd_toEndOf="@+id/chartTaxMoney"
         app:layout_constraintStart_toStartOf="@+id/chartTaxMoney"
         app:layout_constraintTop_toTopOf="@+id/chartTaxMoney" />
 
     <TextView
-        android:id="@+id/tvTianguis"
+        android:id="@+id/tvMarket"
         style="@style/WhiteTextBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Sabinos 1"
+        tools:text="Sabinos 1"
         app:layout_constraintEnd_toEndOf="@+id/tvTotalAmount"
         app:layout_constraintStart_toStartOf="@+id/tvTotalAmount"
         app:layout_constraintTop_toBottomOf="@+id/tvTotalAmount" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnScan"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonSolidStyle"
         android:layout_width="0dp"
         android:layout_marginHorizontal="@dimen/common_padding_large"
         android:layout_marginStart="16dp"
@@ -83,7 +94,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
-            android:text="Mario Armando Razo Valenzuela"
+            tools:text="Mario Armando Razo Valenzuela"
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +120,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
-            android:text="5 Metros"
+            tools:text="5 Metros"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -135,7 +146,7 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="textPersonName"
-            android:text="Verdulería"
+            tools:text="Verdulería"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -160,7 +171,34 @@
             android:enabled="false"
             android:fontFamily="@font/montserrat_semibold"
             android:inputType="textPersonName"
-            android:text="$42"
+            tools:text="$42"
+            android:textAlignment="center"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/title" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilStatus"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginTop="@dimen/common_padding_default"
+        android:hint="Estatus"
+
+        app:layout_constraintEnd_toEndOf="@+id/tilLineOfBusiness"
+        app:layout_constraintStart_toStartOf="@+id/tilLinearMeters"
+        app:layout_constraintTop_toBottomOf="@id/tilTotalAmount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etStatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
+            android:fontFamily="@font/montserrat_semibold"
+            android:inputType="textPersonName"
+            tools:text="Registro Completado"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/title" />
@@ -168,7 +206,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFinalize"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonSolidStyle"
         android:layout_width="160dp"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_default"
@@ -184,9 +222,11 @@
         android:layout_marginStart="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_default"
         android:contentDescription="@string/tax_collection_record"
+        app:backgroundTint="@color/secondaryColor"
+        android:outlineSpotShadowColor="@color/info"
         android:src="@drawable/ic_record"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

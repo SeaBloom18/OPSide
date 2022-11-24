@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/primaryColor">
 
     <include
         android:id="@+id/toolbarRegister"
@@ -26,186 +28,209 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tvFormTitle"
                 style="@style/textViewBodyStyle"
-                android:id="@+id/textView8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:text="Complete all steps to complete your register!"
+                android:layout_marginEnd="16dp"
+                tools:text="@string/registration_tv_steps_title"
                 android:textSize="18sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilUserName"
-              style="@style/TextInputLayoutStyle"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="24dp"
-              android:layout_marginTop="16dp"
-              android:layout_marginEnd="24dp"
-              android:hint="@string/registration_hint_username"
-              app:boxStrokeColor="@drawable/states_colors_text_field"
-              app:endIconMode="clear_text"
-              app:counterEnabled="true"
-              app:counterMaxLength="10"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/textView8">
-              <com.google.android.material.textfield.TextInputEditText
-                  style="@style/TextInputEditTextStyle"
-                  android:id="@+id/teUserName"
-                  android:inputType="textPersonName" />
-          </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUserName"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/registration_hint_username"
+                android:visibility="gone"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvFormTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvFormTitle"
+                app:startIconDrawable="@drawable/ic_ops_user">
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextStyle"
+                    android:id="@+id/teUserName"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilLastName"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="24dp"
-              android:layout_marginTop="16dp"
-              android:layout_marginEnd="24dp"
-              android:hint="@string/registration_hint_lastname"
-              android:visibility="gone"
-              app:endIconMode="clear_text"
-              app:counterEnabled="true"
-              app:counterMaxLength="10"
-              app:layout_constraintEnd_toEndOf="@+id/tilUserName"
-              app:layout_constraintStart_toStartOf="@+id/tilUserName"
-              app:layout_constraintTop_toBottomOf="@+id/tilUserName"
-              app:boxStrokeColor="@drawable/states_colors_text_field"
-              style="@style/TextInputLayoutStyle">
-              <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/teLastName"
-                  android:inputType="textPersonName"
-                  android:visibility="gone"
-                  style="@style/TextInputEditTextStyle" />
-          </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutStyle"
+                android:id="@+id/tilLastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/registration_hint_lastname"
+                android:visibility="gone"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/tilUserName"
+                app:layout_constraintStart_toStartOf="@+id/tilUserName"
+                app:layout_constraintTop_toBottomOf="@+id/tilUserName">
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilAddress"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="24dp"
-              android:layout_marginTop="16dp"
-              android:layout_marginEnd="24dp"
-              android:hint="@string/registration_hint_address"
-              android:visibility="gone"
-              app:endIconMode="clear_text"
-              app:counterEnabled="true"
-              app:counterMaxLength="10"
-              app:layout_constraintEnd_toEndOf="@+id/tilLastName"
-              app:layout_constraintStart_toStartOf="@+id/tilLastName"
-              app:layout_constraintTop_toBottomOf="@+id/tilLastName"
-              app:boxStrokeColor="@drawable/states_colors_text_field"
-              style="@style/TextInputLayoutStyle">
-              <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/teAddress"
-                  android:inputType="textPersonName"
-                  android:visibility="gone"
-                  style="@style/TextInputEditTextStyle"/>
-          </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextStyle"
+                    android:id="@+id/teLastName"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilPhone"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="24dp"
-              android:layout_marginTop="16dp"
-              android:layout_marginEnd="24dp"
-              android:hint="@string/registration_hint_phone"
-              android:visibility="gone"
-              app:endIconMode="clear_text"
-              app:counterEnabled="true"
-              app:counterMaxLength="10"
-              app:layout_constraintEnd_toEndOf="@+id/tilAddress"
-              app:layout_constraintStart_toStartOf="@+id/tilAddress"
-              app:layout_constraintTop_toBottomOf="@+id/tilAddress"
-              app:boxStrokeColor="@drawable/states_colors_text_field"
-              style="@style/TextInputLayoutStyle">
-              <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/tePhone"
-                  android:inputType="phone"
-                  android:visibility="gone"
-                  style="@style/TextInputEditTextStyle"/>
-          </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputDropDownLayoutStyle"
+                android:id="@+id/tilOrigin"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:hint="@string/registration_hint_origin"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:layout_constraintEnd_toEndOf="@+id/tilLastName"
+                app:layout_constraintStart_toStartOf="@+id/tilLastName"
+                app:layout_constraintTop_toBottomOf="@+id/tilLastName">
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilEmail"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="24dp"
-              android:layout_marginTop="16dp"
-              android:layout_marginEnd="24dp"
-              android:hint="@string/registration_hint_email"
-              android:visibility="gone"
-              app:endIconMode="clear_text"
-              app:counterEnabled="true"
-              app:counterMaxLength="10"
-              app:layout_constraintEnd_toEndOf="@+id/tilPhone"
-              app:layout_constraintStart_toStartOf="@+id/tilPhone"
-              app:layout_constraintTop_toBottomOf="@+id/tilPhone"
-              app:boxStrokeColor="@drawable/states_colors_text_field"
-              style="@style/TextInputLayoutStyle">
-              <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/teEmail"
-                  android:inputType="textEmailAddress"
-                  android:visibility="gone"
-                  style="@style/TextInputEditTextStyle"/>
-          </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/teOrigin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:visibility="gone"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-          <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/tilPassword"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="24dp"
-              android:layout_marginTop="16dp"
-              android:layout_marginEnd="24dp"
-              android:hint="@string/login_hint_password"
-              android:visibility="gone"
-              app:endIconMode="password_toggle"
-              app:counterEnabled="true"
-              app:counterMaxLength="8"
-              app:layout_constraintEnd_toEndOf="@+id/tilEmail"
-              app:layout_constraintStart_toStartOf="@+id/tilEmail"
-              app:layout_constraintTop_toBottomOf="@+id/tilEmail"
-              app:boxStrokeColor="@drawable/states_colors_text_field"
-              style="@style/TextInputLayoutStyle">
-              <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/tePassword"
-                  android:inputType="textPassword"
-                  android:visibility="gone"
-                  style="@style/TextInputEditTextStyle"/>
-          </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAddress"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/registration_hint_address"
+                android:visibility="gone"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/tilLastName"
+                app:layout_constraintStart_toStartOf="@+id/tilLastName"
+                app:layout_constraintTop_toBottomOf="@+id/tilOrigin"
+                app:startIconDrawable="@drawable/ic_ops_home">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teAddress"
+                    style="@style/TextInputEditTextStyle"
+                    android:inputType="textPostalAddress"
+                    android:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPhone"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/registration_hint_phone"
+                android:visibility="gone"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:startIconDrawable="@drawable/ic_ops_phone"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/tilAddress"
+                app:layout_constraintStart_toStartOf="@+id/tilAddress"
+                app:layout_constraintTop_toBottomOf="@+id/tilAddress">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextStyle"
+                    android:id="@+id/tePhone"
+                    android:inputType="phone"
+                    android:visibility="gone"
+                    android:maxLength="10"
+                    android:digits="0123456789"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/registration_hint_email"
+                android:visibility="gone"
+                app:startIconDrawable="@drawable/ic_ops_mail"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@+id/tilLastName"
+                app:layout_constraintStart_toStartOf="@+id/tilLastName"
+                app:layout_constraintTop_toBottomOf="@+id/tilPhone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teEmail"
+                    style="@style/TextInputEditTextStyle"
+                    android:inputType="textEmailAddress"
+                    android:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/login_hint_password"
+                android:visibility="gone"
+                app:helperText="@string/registration_til_password_validation"
+                app:startIconDrawable="@drawable/ic_ops_password"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="password_toggle"
+                app:layout_constraintEnd_toEndOf="@+id/tilEmail"
+                app:layout_constraintStart_toStartOf="@+id/tilEmail"
+                app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextInputEditTextStyle"
+                    android:id="@+id/tePassword"
+                    android:inputType="textPassword"
+                    android:digits="0123456789qwertyuioplkjhgfasdzxcvbnmñÑQWERTYUOIPLKJHGFDASZXCVBNM!@#$%*"
+                    android:visibility="gone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPasswordConfirm"
                 style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
                 android:hint="@string/registration_hint_pass_confirm"
                 android:visibility="gone"
                 app:boxStrokeColor="@drawable/states_colors_text_field"
                 app:endIconMode="password_toggle"
-                app:helperText="@string/login_til_required"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tilPassword"
                 app:layout_constraintStart_toStartOf="@+id/tilPassword"
                 app:layout_constraintTop_toBottomOf="@+id/tilPassword">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextInputEditTextStyle"
                     android:id="@+id/tePasswordConfirm"
+                    style="@style/TextInputEditTextStyle"
                     android:inputType="textPassword"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/checkBoxPolicies"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/registration_checkbox_accept_policies"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tilPasswordConfirm"
+                app:layout_constraintStart_toStartOf="@+id/tilPasswordConfirm"
+                app:layout_constraintTop_toBottomOf="@+id/tilPasswordConfirm"
+                style="@style/CheckBoxStyle"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -213,7 +238,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:background="#C9000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -221,23 +246,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CommonButtonStyle"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Complete Sign In"
-            android:textColor="@color/secondaryColor"
-            app:cornerRadius="@dimen/button_corner_radius"
+            android:text="@string/registration_btn_complete_register"
             app:icon="@drawable/ic_login"
-            app:iconTint="@color/secondaryColor"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/secondaryColor"
-            app:strokeColor="@color/secondaryColor" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/textViewBodyStyle"
+            android:id="@+id/tvSeePolicies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/registration_see_policies_validation"
+            android:textColor="@color/primaryLightColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnRegister"
+            app:layout_constraintStart_toStartOf="@+id/btnRegister"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

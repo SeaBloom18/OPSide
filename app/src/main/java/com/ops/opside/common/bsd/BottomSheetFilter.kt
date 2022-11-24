@@ -22,7 +22,7 @@ import java.util.Calendar
 class BottomSheetFilter: BottomSheetDialogFragment() {
 
     private lateinit var mBinding: BottomSheetFilterBinding
-    private lateinit var mTianguisList: MutableList<String>
+    private lateinit var mMarketList: MutableList<String>
     private lateinit var mCollectorsList: MutableList<String>
 
     override fun onCreateView(
@@ -39,16 +39,16 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
 
         mBinding.apply {
 
-            // *********** Tianguis ***********
-            val hTianguis: ArrayAdapter<String> =
+            // *********** Market ***********
+            val hMarket: ArrayAdapter<String> =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item
-                    , getTianguisRegistered())
+                    , getMarketRegistered())
 
-            teSearchTianguis.setAdapter(hTianguis)
+            teSearchMarket.setAdapter(hMarket)
 
-            teSearchTianguis.setOnItemClickListener { _, _, position, _ ->
-                createChip(mTianguisList[position], cgChipsTianguis)
-                teSearchTianguis.clearFocus()
+            teSearchMarket.setOnItemClickListener { _, _, position, _ ->
+                createChip(mMarketList[position], cgChipsMarket)
+                teSearchMarket.clearFocus()
             }
 
             // *********** Collectors ***********
@@ -82,12 +82,12 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
         }
     }
 
-    private fun getTianguisRegistered(): MutableList<String> {
-         mTianguisList = mutableListOf()
+    private fun getMarketRegistered(): MutableList<String> {
+         mMarketList = mutableListOf()
         for (i in 1..10){
-            mTianguisList.add("Tianguis $i")
+            mMarketList.add("Market $i")
         }
-        return mTianguisList
+        return mMarketList
     }
 
     private fun getCollectorsRegistered(): MutableList<String> {
@@ -98,7 +98,7 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
         return mCollectorsList
     }
 
-    private fun createChip(title: String, cgChipsTianguis: ChipGroup){
+    private fun createChip(title: String, cgChipsMarket: ChipGroup){
         tryOrPrintException {
             val chip = Chip(context)
             chip.apply {
@@ -110,10 +110,10 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
             }
 
             chip.setOnCloseIconClickListener{
-                cgChipsTianguis.removeView(chip as View)
+                cgChipsMarket.removeView(chip as View)
             }
 
-            cgChipsTianguis.addView(chip as View)
+            cgChipsMarket.addView(chip as View)
         }
     }
 

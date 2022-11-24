@@ -2,55 +2,47 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="25dp"
-    android:background="@color/primaryLightColor">
+    android:paddingTop="@dimen/common_padding_min">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUserName"
+        android:id="@+id/tilLoginEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="@string/bottom_sheet_conce_hint_til"
-        android:textColorHint="@color/primaryTextColor"
-        app:startIconDrawable="@drawable/ic_profile"
-        app:startIconTint="@color/primaryTextColor"
-        app:hintTextColor="@color/primaryTextColor"
-        app:endIconTint="@color/primaryTextColor"
+        app:startIconDrawable="@drawable/ic_ops_user"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/btnDeleteConcess"
         app:layout_constraintEnd_toEndOf="@+id/btnDeleteConcess"
         app:layout_constraintStart_toStartOf="@+id/btnDeleteConcess"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        style="@style/TextInputDropDownLayoutStyle">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/acUserName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPersonName"
-            android:textColor="@color/primaryTextColor" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvBSTitle"
+        style="@style/textViewTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/bottom_sheet_conce_tv_title"
-        app:layout_constraintBottom_toTopOf="@+id/tilUserName"
-        app:layout_constraintEnd_toEndOf="@+id/tilUserName"
-        app:layout_constraintStart_toStartOf="@+id/tilUserName"
-        style="@style/textViewTitleStyle"/>
+        app:layout_constraintBottom_toTopOf="@+id/tilLoginEmail"
+        app:layout_constraintEnd_toEndOf="@+id/tilLoginEmail"
+        app:layout_constraintStart_toStartOf="@+id/tilLoginEmail" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDeleteConcess"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/bottom_sheet_conce_btn_delete"
-        app:iconTint="@color/primaryTextColor"
         app:icon="@drawable/ic_absence"
         app:layout_constraintBottom_toTopOf="@+id/btnGoConcess"
         app:layout_constraintEnd_toEndOf="@+id/btnGoConcess"
@@ -58,73 +50,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGoConcess"
-        style="@style/ButtonStyle"
+        style="@style/CommonButtonStyle"
         android:layout_width="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        app:iconTint="@color/primaryTextColor"
-        app:icon="@drawable/ic_profile"
         android:text="@string/bottom_sheet_conce_btn_see"
-        app:layout_constraintBottom_toTopOf="@+id/tvViewAllConcess"
-        app:layout_constraintEnd_toEndOf="@+id/tvViewAllConcess"
-        app:layout_constraintStart_toStartOf="@+id/tvViewAllConcess" />
-
-    <TextView
-        android:id="@+id/tvViewAllConcess"
-        style="@style/textViewBodyStyle"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="@string/bottom_sheet_conce_tv_all"
-        app:drawableEndCompat="@drawable/ic_item_arrow_down"
-        app:layout_constraintBottom_toTopOf="@+id/conce2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/Conce1"
-        style="@style/textViewBodyStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Mario"
+        app:icon="@drawable/ic_ops_user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/conce2"
-        style="@style/textViewBodyStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="David"
-        app:layout_constraintBottom_toTopOf="@+id/conce3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/conce3"
-        style="@style/textViewBodyStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Alejandro"
-        app:layout_constraintBottom_toTopOf="@+id/Conce1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/groupConce"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="Conce1, conce2, conce3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

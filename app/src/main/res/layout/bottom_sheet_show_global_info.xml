@@ -1,45 +1,758 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor">
+    android:paddingTop="@dimen/common_padding_min">
 
-    <TextView
-        style="@style/textViewTitleStyle"
-        android:id="@+id/tvBottomTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        tools:text="@tools:sample/lorem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="@dimen/button_corner_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBottomTitle">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/common_padding_min">
 
         <TextView
-            android:id="@+id/tvBottomLargeMessage"
-            style="@style/textViewBodyStyle"
+            android:id="@+id/tvBottomTitle"
+            style="@style/textViewTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            tools:text="@tools:sample/lorem/random" />
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/tv_title_policies" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="@dimen/button_corner_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText1"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="@dimen/common_padding_min"
+                    android:text="@string/tv1_body_policies_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLar"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText2"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargePoliciesTitle1"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargePoliciesTitle2"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_title_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText3"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargePoliciesTitle3"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_title_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText4"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText5"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText6"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv4_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText7"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv5_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText8"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv6_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText9"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv7_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText10"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv8_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText11"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv9_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText12"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv10_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText13"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv11_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText14"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv12_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText15"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv13_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText16"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv14_body_policies_interpretation_definition" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText17"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText18"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_title_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText19"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_title_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText20"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText21"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText22"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText23"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv4_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText24"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv5_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText25"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv6_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText26"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv6_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText27"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv7_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText28"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv8_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText29"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv9_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText30"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv10_body_policies_collecting" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText31"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_information_collected" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText32"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_information_collected" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText33"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_information_collected" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText34"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_information_collected" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText35"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv4_body_policies_information_collected" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText36"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv5_body_policies_information_collected" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText37"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText38"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText39"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText40"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText41"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv4_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText42"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv5_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText43"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv6_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText44"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv7_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText45"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv8_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText46"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv9_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText47"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv10_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText48"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv11_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText49"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv12_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText50"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv13_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText51"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv14_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText52"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv15_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText53"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv16_body_policies_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText54"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_retention_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText55"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_retention_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText56"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_retention_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText57"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_transfer_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText58"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_transfer_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText59"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_transfer_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText60"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_transfer_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText61"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_security_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText62"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_security_personal_data" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText63"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText64"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText65"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_title_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText66"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText67"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText68"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv4_body_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText69"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv5_body_policies_detailed_information" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText70"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_changes_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText71"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_changes_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText72"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv2_body_policies_changes_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText73"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv3_body_policies_changes_privacy" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText74"
+                    style="@style/textViewTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_title_policies_contact_us" />
+
+                <TextView
+                    android:id="@+id/tvBottomLargeText75"
+                    style="@style/textViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tv1_body_policies_contact_us" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

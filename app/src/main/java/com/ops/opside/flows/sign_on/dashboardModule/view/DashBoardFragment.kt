@@ -10,12 +10,14 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.ops.opside.R
+import com.ops.opside.common.dialogs.InDevelopmentFragment
+import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentDashBoardBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 
-class DashBoardFragment : Fragment() {
+class DashBoardFragment : BaseFragment() {
 
     private var mBinding: FragmentDashBoardBinding? = null
     private val binding get() = mBinding!!
@@ -33,23 +35,29 @@ class DashBoardFragment : Fragment() {
         mActivity = activity as MainActivity
 
         setToolbar()
-        binding.fabMenu.setOnClickListener {
-            OnAddButtonClick()
+        binding.apply {
+
+            fabMenu.setOnClickListener {
+                onAddButtonClick()
+            }
+
+            fabInitTaxCollection.setOnClickListener {
+                val intent = Intent(activity, TaxCollectionActivity::class.java)
+                activity!!.startActivity(intent)
+            }
+
+            fabTaxCollectionCrud.setOnClickListener {
+                val intent = Intent(activity, TaxCollectionCrudActivity::class.java)
+                activity!!.startActivity(intent)
+            }
         }
 
-        binding.fabInitTaxCollection.setOnClickListener {
-            val intent = Intent(activity, TaxCollectionActivity::class.java)
-            activity!!.startActivity(intent)
-        }
-
-        binding.fabTaxCollectionCrud.setOnClickListener {
-            val intent = Intent(activity, TaxCollectionCrudActivity::class.java)
-            activity!!.startActivity(intent)
-        }
+        mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_container, InDevelopmentFragment()).commit()
 
         return binding.root
     }
 
+    /** Toolbar SetUp**/
     private fun setToolbar(){
         with(binding.toolbarTaxDashboard.commonToolbar) {
             this.title = getString(R.string.dashboard_analytics)
@@ -65,12 +73,13 @@ class DashBoardFragment : Fragment() {
                             startActivity(Intent(activity, ControlPanelActivity::class.java))
                             true
                         }
-                        R.id.taxNotification -> {
+                        /*R.id.taxNotification -> {
                             Toast.makeText(mActivity, "Notification", Toast.LENGTH_SHORT).show()
                             true
-                        }
+                        }*/
                         R.id.taxProfile -> {
-                            Toast.makeText(mActivity, "Profile", Toast.LENGTH_SHORT).show()
+                            val dialog = BottomSheetUserProfile()
+                            dialog.show(mActivity.supportFragmentManager, dialog.tag)
                             true
                         }
                         else -> false
@@ -80,13 +89,13 @@ class DashBoardFragment : Fragment() {
         }
     }
 
-    private fun OnAddButtonClick() {
+    private fun onAddButtonClick() {
         setVisibility(closed)
         setAnimation(closed)
         closed = !closed;
     }
 
-    // A Function used to set the Animation effect
+    /** Floating Button Animation**/
     private fun setAnimation(closed:Boolean) {
         if(!closed){
             binding.fabTaxCollectionCrud.startAnimation(fromBottom)
@@ -98,7 +107,7 @@ class DashBoardFragment : Fragment() {
             binding.fabMenu.startAnimation(rotateClose)
         }
     }
-    // used to set visibility to VISIBLE / INVISIBLE
+
     private fun setVisibility(closed:Boolean) {
         if(!closed)
         {
@@ -110,6 +119,7 @@ class DashBoardFragment : Fragment() {
         }
     }
 
+    /** Override Methods **/
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null

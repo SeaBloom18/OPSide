@@ -12,10 +12,9 @@
         android:layout_height="40dp"
         android:layout_marginEnd="@dimen/common_padding_min"
         android:backgroundTint="@color/fui_transparent"
-        android:checked="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_arrow_forward"
-        android:text=""
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/common_padding_default"
+        android:layout_marginHorizontal="@dimen/common_padding_min"
         android:layout_marginEnd="@dimen/common_padding_default"
         android:src="@drawable/ic_shop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/common_padding_default"
         android:layout_marginEnd="@dimen/common_padding_default"
+        android:layout_marginStart="@dimen/common_padding_min"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/imgAbsence"
         app:layout_constraintEnd_toStartOf="@id/imgShowMore"
@@ -45,11 +46,11 @@
         app:layout_constraintTop_toTopOf="@id/imgAbsence">
 
         <TextView
-            android:id="@+id/txtTianguisName"
+            android:id="@+id/txtMarketName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/montserrat_semibold"
             android:maxLength="@integer/max_characteres"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             android:textColor="@color/primaryTextColor"
@@ -83,7 +84,7 @@
 
 
     <View
-        style="@style/Divider"
+        style="@style/dividerStyle1"
         android:layout_width="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

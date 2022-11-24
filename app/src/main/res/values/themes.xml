@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.OPSide" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.OPSide" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryLightColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
@@ -20,6 +20,28 @@
         <item name="endIconTint">@color/primaryTextColor</item>
         <item name="hintTextColor">@color/primaryTextColor</item>
         <item name="helperTextTextColor">@color/primaryTextColor</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusTopStart">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/common_padding_min</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <!--TextInputLayout DropDown Style-->
+    <style name="TextInputDropDownLayoutStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="endIconTint">@color/primaryTextColor</item>
+        <item name="hintTextColor">@color/primaryTextColor</item>
+        <item name="helperTextTextColor">@color/primaryTextColor</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusTopStart">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/common_padding_min</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/common_padding_min</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <!--TextInputEditText Style-->
@@ -28,24 +50,74 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
 
-    <style name="TextInputLayoutStyleAuto" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="android:textColorHint">@color/primaryTextColor</item>
-        <item name="endIconTint">@color/primaryTextColor</item>
-        <item name="hintTextColor">@color/primaryTextColor</item>
-        <item name="helperTextTextColor">@color/primaryTextColor</item>
-        <item name="fontFamily">@font/montserrat_medium</item>
-    </style>
+    <!--CheckBox Style-->
+    <!--<style name="CheckBoxStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>-->
+
 
     <!--Button Style-->
-    <style name="ButtonStyle">
-        <item name="cornerRadius">@dimen/button_corner_radius</item>
-        <item name="backgroundTint">@color/secondaryColor</item>
-        <item name="iconSize">@dimen/common_icon_size</item>
-        <item name="android:layout_height">@dimen/common_height_default</item>
+    <style name="CommonButtonStyle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">@color/secondaryColor</item>
+        <item name="cornerRadius">@dimen/common_padding_corners_btn</item>
+        <item name="android:textColor">@color/secondaryColor</item>
+        <item name="strokeColor">@color/secondaryColor</item>
+        <item name="rippleColor">@color/secondaryColor</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="iconGravity">end</item>
+        <item name="iconPadding">@dimen/common_padding_min</item>
+    </style>
+
+    <style name="CommonButtonSolidStyle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">@color/primaryTextColor</item>
+        <item name="cornerRadius">@dimen/common_padding_corners_btn</item>
         <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="strokeColor">@color/secondaryColor</item>
+        <item name="android:backgroundTint">@color/secondaryColor</item>
         <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="iconGravity">end</item>
+        <item name="iconPadding">@dimen/common_padding_min</item>
+    </style>
+
+    <style name="CommonButtonErrorStyle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconTint">@color/error</item>
+        <item name="cornerRadius">@dimen/common_padding_corners_btn</item>
+        <item name="android:textColor">@color/error</item>
+        <item name="strokeColor">@color/error</item>
+        <item name="rippleColor">@color/error</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="iconGravity">end</item>
+        <item name="iconPadding">@dimen/common_padding_min</item>
+    </style>
+
+    <!-- CheckBox Style -->
+    <style name="CheckBoxStyle">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <!--Switch Style-->
+    <style name="CommonSwitchStyle" >
+        <!--<item name="thumbIcon">@drawable/ic_ops_close_switch</item>-->
+        <item name="trackDecorationTint">@color/secondaryColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="thumbTint">@color/primaryDarkColor</item>
+        <item name="trackTint">#6D04BF7B</item>
     </style>
 
     <style name="textViewTitleStyle">
@@ -64,6 +136,14 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="textViewSubtitleStyle">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/subtitle</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="toolbarStyle" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:textStyle">normal</item>
@@ -71,4 +151,21 @@
         <item name="android:textSize">20sp</item>
         <item name="android:letterSpacing">0</item>
     </style>
+
+    <style name="radioButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="buttonTint">@color/secondaryColor</item>
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/secondaryColor</item>
+    </style>
+
+    <style name="dialogTransparent" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

@@ -1,63 +1,61 @@
 package com.ops.opside.flows.sign_on.marketModule.adapters
 
 import android.content.Context
-import android.transition.TransitionManager
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.entities.share.TianguisSE
+import com.ops.opside.common.entities.PUT_EXTRA_MARKET
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.ItemMarketListBinding
+import com.ops.opside.flows.sign_on.marketModule.view.MarketRegisterActivity
 
-class MarketAdapter(private var tianguis: MutableList<TianguisSE>, private var listener: OnClickListener):
+class MarketAdapter(private var markets: MutableList<MarketSE>, private var listener: OnClickListener):
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
+
+    /** ADAPTER SETUP **/
+    /** CreateViewHolder **/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
         val view = LayoutInflater.from(context).inflate(R.layout.item_market_list, parent, false)
         return ViewHolder(view)
     }
 
+    /** BindViewHolder **/
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val market = tianguis.get(position)
+        val market = markets[position]
         with(holder){
             binding.tvMarketName.text = market.name
-            binding.group.visibility = View.GONE
-
-            binding.ivDelete.setOnClickListener { listener.onDeleteMarket(market)}
-            binding.ivEdit.setOnClickListener { listener.onEditMarket(market) }
+            binding.tvItemAddress.text = market.address
+            //TODO agregar string ${getString(R.string.tv_linear_meter)}:
+            binding.tvMarketMeters.text = "Metros Lineales: ${market.marketMeters}"
+            binding.ivDelete.setOnClickListener {
+                listener.onDeleteMarket(market.idFirebase, position)
+            }
+            binding.ivEdit.setOnClickListener {
+                val intent = Intent(context, MarketRegisterActivity::class.java)
+                intent.putExtra(PUT_EXTRA_MARKET, market)
+                context.startActivity(intent)
+                notifyItemChanged(position)
+            }
         }
-
-        setUpItem(holder)
     }
 
-    override fun getItemCount(): Int = tianguis.size
+    /** ItemCount **/
+    override fun getItemCount(): Int = markets.size
 
-    //Inner class
+    /** Inner Class **/
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemMarketListBinding.bind(view)
     }
 
-    //Functions
-    fun setStores(tianguis: List<TianguisSE>){
-        this.tianguis = tianguis as MutableList<TianguisSE>
-        notifyDataSetChanged()
-    }
-
-    private fun setUpItem(holder: ViewHolder){
-        holder.binding.ibArrow.setOnClickListener {
-            if (holder.binding.group.visibility == View.GONE){ //Si la vista esta oculta
-                TransitionManager.beginDelayedTransition(holder.binding.container)
-                holder.binding.group.visibility = View.VISIBLE
-                holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_up)
-            } else{ //Si la vista esta expuesta
-                TransitionManager.endTransitions(holder.binding.container)
-                holder.binding.group.visibility = View.GONE
-                holder.binding.ibArrow.setImageResource(R.drawable.ic_item_arrow_down)
-            }
-        }
+    fun updateListPostDelete(position: Int) {
+        markets.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

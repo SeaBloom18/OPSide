@@ -4,54 +4,85 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
-import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
-import java.lang.reflect.Array.newInstance
+import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
-import javax.xml.datatype.DatatypeFactory.newInstance
+import java.util.*
 
-class ControlPanelActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class ControlPanelActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
-    private lateinit var linearLayoutManager: RecyclerView.LayoutManager
     private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
+    private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
+    private lateinit var mCollectorList: MutableList<CollectorSE>
+    private var mPriceLinearMeter: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityControlPanelBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.btnSaveChanges.setOnClickListener { confirmChanges() }
+        mBinding.apply {
+            btnSaveChanges.setOnClickListener { confirmUpdateLinearPrice() }
+        }
 
         setToolbar()
-        setUpRecyclerView()
+        bindViewModel()
+        loadCollectorList()
+        loadPriceLinearMeter()
         setUpStartTime()
         setUpEndTime()
         updateDuration()
     }
 
+    /** ViewModel and Methods SetUp**/
+    private fun bindViewModel() {
+        mControlPanelViewModel.getCollectorList.observe(this, Observer(this::getCollectors))
+        mControlPanelViewModel.priceLinearMeter.observe(this, Observer(this::getPriceLinearMeter))
+    }
+
+    private fun loadCollectorList() {
+        mControlPanelViewModel.getCollectorList()
+    }
+
+    private fun getCollectors(collectorList: MutableList<CollectorSE>) {
+        mCollectorList = collectorList
+        setUpRecyclerView()
+    }
+
+    private fun getPriceLinearMeter(priceLinearMeter: String) {
+        mPriceLinearMeter = priceLinearMeter
+        mBinding.teLinealPrice.setText(mPriceLinearMeter)
+    }
+
+    private fun loadPriceLinearMeter() {
+        mControlPanelViewModel.getPriceLinearMeter()
+    }
+
+    /** Other Methods**/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setToolbar(){
+    private fun setToolbar() {
         with(mBinding.toolbarControlP.commonToolbar) {
             this.title = getString(R.string.bn_menu_control_panel_opc4)
             setSupportActionBar(this)
@@ -97,7 +128,11 @@ class ControlPanelActivity : AppCompatActivity() {
         return time < mBinding.tvHasta.getTime()
     }
 
-    private fun showDialog(initialHour: Int, initialMinute: Int, observer: TimePickerDialog.OnTimeSetListener) {
+    private fun showDialog(
+        initialHour: Int,
+        initialMinute: Int,
+        observer: TimePickerDialog.OnTimeSetListener
+    ) {
         newInstance(initialHour, initialMinute, observer)
             .show(supportFragmentManager, "time-picker")
     }
@@ -121,51 +156,28 @@ class ControlPanelActivity : AppCompatActivity() {
         return time > mBinding.tvDesde.getTime()
     }
 
-    private fun confirmChanges() {
-        val dialog = BaseDialog(
-            this,
-            getString(R.string.cp_alertdialog_title),
-            getString(R.string.cp_alertdialog_message),
-            getString(R.string.common_accept),
-            "",
-            { Toast.makeText(this, R.string.cp_toast_success, Toast.LENGTH_SHORT).show() },
-            { Toast.makeText(this, "onCancel()", Toast.LENGTH_SHORT).show() },
-        )
-
-        dialog.show()
-    }
 
     private fun setUpRecyclerView() {
-        controlPanelAdapter = ControlPanelAdapter(getConcessionaires())
+        val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
+        controlPanelAdapter = ControlPanelAdapter(mCollectorList, mControlPanelViewModel)
 
-        val recycler = mBinding.recycler.apply {
+        mBinding.recyclerControlPanel.apply {
+            setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = controlPanelAdapter
         }
 
         //Swipe to Delete
-        val swipeHandler = object : SwipeToDeleteCallback(this) {
+        /*val swipeHandler = object : SwipeToDeleteCallback(this) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                controlPanelAdapter.concessionaireRE.removeAt(viewHolder.adapterPosition)
+                controlPanelAdapter.collectorsList.removeAt(viewHolder.adapterPosition)
                 controlPanelAdapter.notifyItemRemoved(viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(recycler)
-    }
-
-    private fun getConcessionaires(): MutableList<ConcessionaireSE> {
-        val concessionaires = mutableListOf<ConcessionaireSE>()
-
-        val concessionaireRE1 = ConcessionaireSE(id = (1).toLong(), idFirebase = "", name = "David Gonzalez")
-        val concessionaireRE2 = ConcessionaireSE(id = (1).toLong(), idFirebase = "", name = "Mario Razo")
-
-        concessionaires.add(concessionaireRE1)
-        concessionaires.add(concessionaireRE2)
-
-        return concessionaires
+        itemTouchHelper.attachToRecyclerView(mBinding.recycler)*/
     }
 
     fun TextView.getTime(): LocalTime {
@@ -182,5 +194,28 @@ class ControlPanelActivity : AppCompatActivity() {
 
     infix fun LocalTime.hoursBetween(end: LocalTime): Double {
         return Duration.between(this, end).toMinutes() / 60.0
+    }
+
+    private fun confirmUpdateLinearPrice() {
+        val dialog = BaseDialog(
+            context = this,
+            imageResource = R.drawable.ic_ops_btn_confirm,
+            mTitle = getString(R.string.control_panel_dialog_title),
+            mDescription = getString(R.string.control_panel_dialog_message),
+            buttonNoText = getString(R.string.common_cancel),
+            buttonYesText = getString(R.string.common_accept),
+            yesAction = {
+                mControlPanelViewModel.updateLinealPriceMeter(
+                    "Ulmp4yMD4noSlOE6IwpX",
+                    mBinding.teLinealPrice.text.toString().trim()
+                )
+                toast(getString(R.string.control_panel_dialog_yes_action_message))
+            },
+            noAction = {
+                toast(getString(R.string.control_panel_dialog_no_action_message))
+            },
+        )
+        dialog.setCancelable(false)
+        dialog.show()
     }
 }

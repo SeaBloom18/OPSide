@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--General Strings-->
-    <string name="app_name">OPSide</string>
-
     <!-- Common -->
     <string name="common_accept">Accept</string>
     <string name="common_delete">Delete</string>
+    <string name="common_content_description">Common Content Image Description</string>
+    <string name="common_til_search">Search</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_atention">Atención</string>
+
+    <!--Dealer Strings-->
+    <string name="tv_dealer_title">Your Profile</string>
+    <string name="tv_prices_info_linear">linear meters</string>
+    <string name="tv_prices_info_absence">absences</string>
+    <string name="dialog_dealer_info_title">Are you sure you want to log out?</string>
+    <string name="dialog_dealer_info_message">You will have to log in again</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Escanear</string>
@@ -16,23 +24,36 @@
     <string name="tax_collection_total_amount">Monto Total</string>
     <string name="tax_collection_finalize">Finalizar</string>
     <string name="tax_collection_record">Historial</string>
+    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
+    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
+    <string name="tax_collection_market">Tianguis</string>
+    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
+    <string name="tax_collection_sent">Envía</string>
+    <string name="tax_collection_absence">Inasistencias</string>
+    <string name="tax_collection_send">Enviar</string>
+    <string name="tax_collection_crud_collections">Recaudaciones</string>
+    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
+    <!-- Finalize Tax Collection -->
+    <string name="tax_collection_absence_email">Buenas tardes, %1$s \n\nTe hacemos llegar tu informe de inasistencia donde recaudamos la siguiente información:\n\nTianguis: %2$s \nReporta: %3$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
+
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics">Analytics</string>
     <string name="dashboard_weekly">Weekly</string>
     <string name="dashboard_monthly">Monthly</string>
-    <string name="dashboard_all_time">all time</string>
     <string name="dashboard_daily">Daily</string>
     <string name="dashboard_user_profile">User profile</string>
-    <string name="dashboard_notifications">Notifications</string>
     <string name="dashboard_arrow">Arrow</string>
     <string name="dashboard_chart">Statistical Graph</string>
     <string name="dashboard_penalty_fee">Fines</string>
     <string name="dashboard_absences">Absences</string>
     <string name="dashboard_active_dealers">Active dealers</string>
     <string name="dashboard_tax_collections">Collections</string>
+    <string name="btn_print_qr_code">Print my QR code</string>
+
 
     <!--Login Module Strings-->
+    <string name="login_welcome">Welcome!</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
     <string name="login_til_required">Required</string>
@@ -45,7 +66,9 @@
     <string name="login_tv_about_app">About App</string>
     <string name="login_tv_policies">Policies</string>
     <string name="login_toast_empy_text">Fields cannot be empty</string>
-    <string name="login_toast_credentials_error">Credentials Error</string>
+    <string name="login_tv_forget_password">I forgot my password</string>
+    <string name="login_toast_credentials_validation">The password or the email is incorrect, check it!</string>
+    <string name="login_tv_remember_name">Welcome Back, %1$s!</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>
@@ -53,20 +76,30 @@
     <string name="registration_hint_address">Address</string>
     <string name="registration_hint_phone">Phone</string>
     <string name="registration_hint_email">Email</string>
-    <string name="registration_hint_market">Participating market</string>
     <string name="registration_hint_pass_confirm">Confirm password</string>
-    <string name="registration_tv_title">Sign Up</string>
+    <string name="registration_hint_origin">Municipio recidencia</string>
     <string name="registration_btn_exit">Go Login</string>
     <string name="registration_tv_success">You have successfully registered!</string>
-    <string name="registration_btn_register">Register!</string>
     <string name="registration_btn_bs_close">Exit</string>
     <string name="registration_tv_bs_close">Are you sure you want to exit this screen?</string>
     <string name="dealer_show_qr">Show QR Code</string>
     <string name="description_record_icon">Event Icon</string>
-    <string name="registration_alert_dialog_title">Chose a register?</string>
+    <string name="registration_alert_dialog_title">How do you want to register?</string>
     <string name="registration_alert_dialog_negative_button">Return to Login</string>
-    <string name="registration_toast_option_validation">Chose an option!</string>
-
+    <string name="registration_btn_complete_register">Complete Sign In</string>
+    <string name="registration_tv_steps_title">Complete all steps to complete your register to become a %1$s!</string>
+    <string name="registration_array_foreign_conce">Foreign dealer</string>
+    <string name="registration_array_conce">Concessionaire</string>
+    <string name="registration_array_collector">Collector</string>
+    <string name="registration_toast_fields_validation">You must fill in all the fields!</string>
+    <string name="registration_toast_password_validation">Passwords do not match, verify that they are the same!</string>
+    <string name="registration_toast_email_validation">Invalid email!</string>
+    <string name="registration_toast_password_exist_validation">Oops, looks like we already have this email registered. Try another one!</string>
+    <string name="registration_til_password_validation">The password must be at least 8 characters including an uppercase letter, a number and a special character</string>
+    <string name="registration_checkbox_accept_policies">Accept privacy policies</string>
+    <string name="registration_toast_password_regex_validation">Oops, it looks like the password doesn\'t meet the requirements!</string>
+    <string name="registration_toast_policies_validation">Before you must accept our privacy policies!</string>
+    <string name="registration_see_policies_validation">Tap to see Privacy Policies!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>
@@ -75,47 +108,41 @@
     <string name="bn_menu_control_panel_opc4">Control Panel</string>
     <string name="bn_menu_incidents_opc5">Incidents</string>
 
-
-    <string name="tax_collection_pick_tianguis">Elige el tianguis a recaudar</string>
-    <string name="common_cancel">Cancelar</string>
-    <string name="common_atention">Atención</string>
-    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
-    <string name="tax_collection_tianguis">Tianguis</string>
-    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
-    <string name="tax_collection_sent">Envía</string>
-    <string name="tax_collection_absence">Inasistencias</string>
-    <string name="tax_collection_send">Enviar</string>
-    <string name="tax_collection_crud_collections">Recaudaciones</string>
-
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Market Name</string>
-    <string name="registration_hint_market_address">Address</string>
-    <string name="registration_market_tv_title">Edit / Create Market</string>
+    <string name="registration_market_create_toolbar_title">Create Market</string>
+    <string name="registration_market_edit_toolbar_title">Edit Market</string>
     <string name="registration_btn_select_location">Select Location</string>
     <string name="registration_btn_view_concessionaires">See Concessionaires</string>
-    <string name="registration_market_btn_save">Save</string>
-    <string name="registration_market_tv_location">Unselected location</string>
-    <string name="registration_market_tv_concessionaires">Concessionaires counter: 90</string>
-
+    <string name="registration_market_btn_save">Save Market</string>
+    <string name="registration_market_tv_concessionaires">Concessionaires counter: 0</string>
     <string name="select_location_btn_save_address">Save location</string>
-
-    <string name="bottom_sheet_conce_tv_title">Market Concessionaires X</string>
+    <string name="bottom_sheet_conce_tv_title">Concessionaires List</string>
     <string name="bottom_sheet_conce_tv_all">Watch complete list</string>
     <string name="bottom_sheet_conce_btn_delete">Delete concessionaire</string>
     <string name="bottom_sheet_conce_btn_see">See concessionaire</string>
     <string name="bottom_sheet_conce_hint_til">Concessionaire Name</string>
-
     <string name="alert_dialog_delete_title">Delete Market</string>
     <string name="alert_dialog_delete_message">Are you sure to delete market?</string>
-    <string name="toast_delete_message_success">Tianguis eliminado</string>
+    <string name="toast_delete_message_success">Market deleted</string>
+    <string name="dialog_title_confirm_location">Confirm location</string>
+    <string name="dialog_message_confirm_location">Are you sure this location is correct?</string>
+    <string name="google_maps_market_title">You are here!</string>
+    <string name="dialog_title_before_select_location">Select a location for the swap meet</string>
+    <string name="dialog_message_before_select_location">Remember that we take your current location, if you want to adjust click and drag on the current location.</string>
+    <string name="toast_location_not_selected">Location not selected</string>
+    <string name="btn_text_edit">Edit Location</string>
+    <string name="toast_market_name_validation">You must select a location first</string>
+    <string name="toast_market_location_validation">You must write a name for the market</string>
+    <string name="tv_linear_meter">Linear Meters</string>
 
     <!--Control Panel Strings-->
     <string name="cp_hint_linear_price">Linear price</string>
-    <string name="cp_btn_save">Save changes</string>
+    <string name="cp_btn_save">Save Lineal Price</string>
     <string name="cp_alertdialog_title">Accept Changes</string>
     <string name="cp_alertdialog_message">Are you sure to update the changes?</string>
     <string name="cp_toast_success">Change made successfully</string>
-    <string name="filter_tax_collection_tianguis">Tianguis</string>
+    <string name="filter_tax_collection_market">Tianguis</string>
     <string name="filter_tax_collection_collector">Recuadador</string>
     <string name="common_date">Fecha</string>
     <string name="filter_tax_collection_start_date">Fecha Inicio</string>
@@ -124,6 +151,13 @@
     <string name="concessionaire">Consecionario</string>
     <string name="tax_collection_update_title">Actualizar Recaudación</string>
     <string name="concessionaire_address">Dirección</string>
+    <string name="control_panel_alert_dialog_title">Are you sure you want to change access to %1$s?</string>
+    <string name="control_panel_toast_lineal_price_update_success">Linear price updated successfully</string>
+    <string name="control_panel_toast_lineal_price_update_error">Error updating line price</string>
+    <string name="control_panel_dialog_title">Update Meter Price</string>
+    <string name="control_panel_dialog_message">Are you sure to update the Meter Price?</string>
+    <string name="control_panel_dialog_yes_action_message">The Price Meter has been updated</string>
+    <string name="control_panel_dialog_no_action_message">The Price Meter not has been updated</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Create new Incident</string>
@@ -131,5 +165,109 @@
     <string name="bottom_sheet_btn_create_inc">Create Incident</string>
     <string name="bottom_sheet_til_hint_inc_name">Name Incident</string>
     <string name="bottom_sheet_til_hint_inc_price">Price Incident</string>
-    <string name="tax_collection_choose_tianguis">Elige un Tianguis</string>
+    <string name="tax_collection_choose_market">Elige un Tianguis</string>
+    <string name="tax_collection_on_line">On Line</string>
+    <string name="tax_collection_off_line">Off Line</string>
+
+    <!--BottomSheet UserProfile String-->
+    <string name="bottom_sheet_tv_logout_session">Log Out</string>
+    <string name="bottom_sheet_btn_save_changes">Save Changes</string>
+    <string name="bottom_sheet_tv_about_you">More information about you</string>
+
+    <!--Policies Strings-->
+    <string name="tv_title_policies">Privacy Policy for OPS</string>
+    <string name="tv_title_policies_privacy">Privacy Policy</string>
+    <string name="tv1_body_policies_privacy">Last updated: November 08, 2022</string>
+    <string name="tv2_body_policies_privacy">This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</string>
+    <string name="tv3_body_policies_privacy">We use Your Personal data to provide and improve theService. By using the Service, You agree to the collection and use of information in accordancewith this Privacy Policy.</string>
+
+    <string name="tv1_title_policies_interpretation_definition">Interpretation and Definitions</string>
+    <string name="tv2_title_policies_interpretation_definition">Interpretation</string>
+    <string name="tv1_body_policies_interpretation_definition">The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</string>
+
+    <string name="tv3_title_policies_interpretation_definition">Definitions</string>
+    <string name="tv2_body_policies_interpretation_definition">For the purposes of this Privacy Policy:</string>
+    <string name="tv3_body_policies_interpretation_definition">Account means a unique account created for You to access our Service or parts of our Service.</string>
+    <string name="tv4_body_policies_interpretation_definition">Affiliate means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</string>
+    <string name="tv5_body_policies_interpretation_definition">Application means the software program provided by the Company downloaded by You on any electronic device, named OPS</string>
+    <string name="tv6_body_policies_interpretation_definition">Company (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to OPSide.</string>
+    <string name="tv7_body_policies_interpretation_definition">Account means a unique account created for You to access our Service or parts of our Service.</string>
+    <string name="tv8_body_policies_interpretation_definition">Country refers to: Mexico.</string>
+    <string name="tv9_body_policies_interpretation_definition">Device means any device that can access the Service such as a computer, a cellphone or a digital tablet.</string>
+    <string name="tv10_body_policies_interpretation_definition">Personal Data is any information that relates to an identified or identifiable individual.</string>
+    <string name="tv11_body_policies_interpretation_definition">Service refers to the Application.</string>
+    <string name="tv12_body_policies_interpretation_definition">Service Provider means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</string>
+    <string name="tv13_body_policies_interpretation_definition">Usage Data refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</string>
+    <string name="tv14_body_policies_interpretation_definition">You means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</string>
+
+    <string name="tv1_title_policies_collecting">Collecting and Using Your Personal Data</string>
+    <string name="tv2_title_policies_collecting">Types of Data Collected</string>
+    <string name="tv3_title_policies_collecting">Personal Data</string>
+    <string name="tv1_body_policies_collecting">While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</string>
+    <string name="tv2_body_policies_collecting">Email address</string>
+    <string name="tv3_body_policies_collecting">First name and last name</string>
+    <string name="tv4_body_policies_collecting">Phone number</string>
+    <string name="tv5_body_policies_collecting">Address, State, Province, ZIP/Postal code, City</string>
+
+    <string name="tv6_body_policies_collecting">Usage Data</string>
+    <string name="tv7_body_policies_collecting">Usage Data is collected automatically when using the Service.</string>
+    <string name="tv8_body_policies_collecting">Usage Data may include information such as Your Device\'s Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</string>
+    <string name="tv9_body_policies_collecting">When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.</string>
+    <string name="tv10_body_policies_collecting">We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.</string>
+
+    <string name="tv1_title_policies_information_collected">Information Collected while Using the Application</string>
+    <string name="tv1_body_policies_information_collected">While using Our Application, in order to provide features of Our Application, We may collect, with Your prior permission:</string>
+    <string name="tv2_body_policies_information_collected">Information regarding your location</string>
+    <string name="tv3_body_policies_information_collected">Pictures and other information from your Device\'s camera and photo library</string>
+    <string name="tv4_body_policies_information_collected">We use this information to provide features of Our Service, to improve and customize Our Service. The information may be uploaded to the Company\'s servers and/or a Service Provider\'s server or it may be simply stored on Your device.</string>
+    <string name="tv5_body_policies_information_collected">You can enable or disable access to this information at any time, through Your Device settings.</string>
+
+    <string name="tv1_title_policies_personal_data">Use of Your Personal Data</string>
+    <string name="tv1_body_policies_personal_data">The Company may use Personal Data for the following purposes:</string>
+    <string name="tv2_body_policies_personal_data">To provide and maintain our Service, including to monitor the usage of our Service.</string>
+    <string name="tv3_body_policies_personal_data">To manage Your Account: to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</string>
+    <string name="tv4_body_policies_personal_data">For the performance of a contract: the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</string>
+    <string name="tv5_body_policies_personal_data">To contact You: To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application\'s push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</string>
+    <string name="tv6_body_policies_personal_data">To provide You with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</string>
+    <string name="tv7_body_policies_personal_data">To manage Your requests: To attend and manage Your requests to Us.</string>
+    <string name="tv8_body_policies_personal_data">For business transfers: We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</string>
+    <string name="tv9_body_policies_personal_data">For other purposes: We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</string>
+    <string name="tv10_body_policies_personal_data">We may share Your personal information in the following situations:</string>
+    <string name="tv11_body_policies_personal_data">With Service Providers: We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.</string>
+    <string name="tv12_body_policies_personal_data">For business transfers: We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</string>
+    <string name="tv13_body_policies_personal_data">With Affiliates: We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</string>
+    <string name="tv14_body_policies_personal_data">With business partners: We may share Your information with Our business partners to offer You certain products, services or promotions.</string>
+    <string name="tv15_body_policies_personal_data">With other users: when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.</string>
+    <string name="tv16_body_policies_personal_data">With Your consent: We may disclose Your personal information for any other purpose with Your consent.</string>
+
+    <string name="tv1_title_policies_retention_personal_data">Retention of Your Personal Data</string>
+    <string name="tv1_body_policies_retention_personal_data">The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</string>
+    <string name="tv2_body_policies_retention_personal_data">The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</string>
+
+    <string name="tv1_title_policies_transfer_personal_data">Retention of Your Personal Data</string>
+    <string name="tv1_body_policies_transfer_personal_data">Your information, including Personal Data, is processed at the Company\'s operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.</string>
+    <string name="tv2_body_policies_transfer_personal_data">Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.</string>
+    <string name="tv3_body_policies_transfer_personal_data">The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.</string>
+
+    <string name="tv1_title_policies_security_personal_data">Security of Your Personal Data</string>
+    <string name="tv1_body_policies_security_personal_data">The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.</string>
+
+    <string name="tv1_title_policies_detailed_information">Detailed Information on the Processing of Your Personal Data</string>
+    <string name="tv1_body_policies_detailed_information">The Service Providers We use may have access to Your Personal Data. These third-party vendors collect, store, use, process and transfer information about Your activity on Our Service in accordance with their Privacy Policies.</string>
+
+    <string name="tv2_title_policies_detailed_information">Usage, Performance and Miscellaneous</string>
+    <string name="tv2_body_policies_detailed_information">We may use third-party Service Providers to provide better improvement of our Service.</string>
+    <string name="tv3_body_policies_detailed_information">Google Places</string>
+    <string name="tv4_body_policies_detailed_information">Google Places is a service that returns information about places using HTTP requests. It is operated by Google</string>
+    <string name="tv5_body_policies_detailed_information">Google Places service may collect information from You and from Your Device for security purposes.</string>
+
+    <string name="tv1_title_policies_changes_privacy">Changes to this Privacy Policy</string>
+    <string name="tv1_body_policies_changes_privacy">We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.</string>
+    <string name="tv2_body_policies_changes_privacy">We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the "Last updated" date at the top of this Privacy Policy.</string>
+    <string name="tv3_body_policies_changes_privacy">You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</string>
+
+    <string name="tv1_title_policies_contact_us">Contact Us</string>
+    <string name="tv1_body_policies_contact_us">If you have any questions about this Privacy Policy, You can contact us.</string>
+
+
 </resources>

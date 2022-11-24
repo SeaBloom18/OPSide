@@ -5,63 +5,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
+    android:background="@color/primaryColor"
     tools:context=".flows.sign_on.marketModule.view.MarketFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryLightColor">
-
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSearch"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Search"
-            app:boxStrokeColor="@drawable/states_colors_text_field"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_market_search"
-            app:startIconTint="@color/primaryTextColor">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/teSearch"
-                android:inputType="textPersonName"
-                style="@style/TextInputEditTextStyle" />
-        </com.google.android.material.textfield.TextInputLayout>-->
+        android:background="@color/primaryColor">
 
         <include
-            android:id="@+id/toolbarMarket"
+            android:id="@+id/toolbarFrgMarket"
             layout="@layout/toolbar_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearch"
+            style="@style/TextInputLayoutStyle"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/common_til_search"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="@+id/toolbarFrgMarket"
+            app:layout_constraintStart_toStartOf="@+id/toolbarFrgMarket"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarFrgMarket"
+            app:startIconDrawable="@drawable/ic_ops_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/teSearch"
+                style="@style/TextInputEditTextStyle"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="5dp"
             android:padding="@dimen/common_padding_min"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarMarket"
+            app:layout_constraintTop_toBottomOf="@+id/tilSearch"
             tools:listitem="@layout/item_market_list" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddMarket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_bn_market"
-            app:tint="@color/primaryTextColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_min">
+
+    <ImageButton
+        android:id="@+id/ibClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/fui_transparent"
+        android:contentDescription="@string/registration_btn_bs_close"
+        android:src="@drawable/ic_close_reg_screen"
+        app:layout_constraintBottom_toTopOf="@+id/tilPickMarket"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/WhiteTextTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Recolección Fiscal"
+        android:gravity="center"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="@id/ibClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPickMarket"
+        style="@style/TextInputDropDownLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_padding_default"
+        android:hint="Tianguis"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:helperText="@string/tax_collection_pick_market"
+        app:layout_constraintBottom_toTopOf="@+id/rbOnLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/spPickMarket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rbOnLine"
+        style="@style/radioButtonStyle"
+        android:layout_marginBottom="8dp"
+        android:text="@string/tax_collection_on_line"
+        app:layout_constraintBottom_toBottomOf="@+id/rbOffLine"
+        app:layout_constraintEnd_toStartOf="@+id/rbOffLine"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rbOffLine" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/rbOffLine"
+        style="@style/radioButtonStyle"
+        android:layout_marginBottom="16dp"
+        android:text="@string/tax_collection_off_line"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rbOnLine" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#C9000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPickMarket"
+            style="@style/CommonButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/common_padding_default"
+            android:text="@string/common_accept"
+            app:icon="@drawable/ic_shop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

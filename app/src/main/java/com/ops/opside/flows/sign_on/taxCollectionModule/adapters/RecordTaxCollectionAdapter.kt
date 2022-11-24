@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
+import com.ops.opside.common.entities.room.EventRE
+import com.ops.opside.common.utils.FORMAT_TIME
+import com.ops.opside.common.utils.FORMAT_TIMESTAMP
+import com.ops.opside.common.utils.Formaters
 import com.ops.opside.databinding.ItemRecordTaxCollectionBinding
-import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemRecord
 
-class RecordTaxCollectionAdapter(var events: MutableList<ItemRecord>, ) :
+class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
     RecyclerView.Adapter<RecordTaxCollectionAdapter.ViewHolder>() {
 
     private lateinit var mContext: Context
@@ -33,14 +36,17 @@ class RecordTaxCollectionAdapter(var events: MutableList<ItemRecord>, ) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemRecordTaxCollectionBinding.bind(view)
 
-        fun bind(item : ItemRecord){
+        fun bind(item : EventRE){
             binding.apply {
-                tvName.text = item.name
-                tvHour.text = item.hour
-                tvAction.text = item.action
+                tvName.text = item.nameConcessionaire
+                tvHour.text = Formaters.parseFormat(item.timeStamp, FORMAT_TIMESTAMP, FORMAT_TIME)
+                tvAction.text = item.status
                 tvAmount.text = "$ ${item.amount}"
 
-                when(item.action){
+                if (adapterPosition == itemCount - 1)
+                    divider.isVisible = false
+
+                when(item.status){
                     FLOOR_COLLECTION -> {
                         tvAction.setTextColor(mContext.getColor(R.color.secondaryLightColor))
                         imgIcon.setImageDrawable(mContext.getDrawable(R.drawable.ic_money))
@@ -59,6 +65,7 @@ class RecordTaxCollectionAdapter(var events: MutableList<ItemRecord>, ) :
             }
         }
     }
+
 }
 
 const val FLOOR_COLLECTION = "Cobro de Piso"

@@ -65,7 +65,7 @@
         tools:text="Precio: $12.00" />
 
     <View
-        style="@style/Divider"
+        style="@style/dividerStyle1"
         android:layout_width="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="5dp"

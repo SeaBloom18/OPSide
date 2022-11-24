@@ -1,32 +1,47 @@
 package com.ops.opside.flows.sign_on.marketModule.viewModel
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.ops.opside.common.entities.share.TianguisSE
-import com.ops.opside.flows.sign_on.marketModule.marketModel.MarketInteractor
+import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.utils.applySchedulers
+import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_on.marketModule.model.MarketInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MarketViewModel: ViewModel() {
+@HiltViewModel
+class MarketViewModel @Inject constructor(
+    private val mMarketInteractor: MarketInteractor
+): CommonViewModel() {
 
-    private var tianguisList: MutableList<TianguisSE>
-    private var interactor: MarketInteractor
+    val getMarketList = MutableLiveData<MutableList<MarketSE>>()
+    private val deleteMarket = MutableLiveData<Boolean>()
 
-    init {
-        interactor = MarketInteractor()
-        tianguisList = mutableListOf()
+    fun getMarketList(){
+        disposable.add(
+            mMarketInteractor.getMarkets().applySchedulers()
+                .subscribe(
+                    {
+                        getMarketList.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
     }
 
-    private val markets: MutableLiveData<List<TianguisSE>> by lazy {
-        MutableLiveData<List<TianguisSE>>().also {
-            loadMarkets()
-        }
-    }
-
-    fun getMarkets(): LiveData<List<TianguisSE>>{
-        return markets
-    }
-
-    private fun loadMarkets(){
-        interactor.getMarkets()
+    fun deleteMarket(idFirestore: String){
+        disposable.add(
+            mMarketInteractor.deleteMarket(idFirestore).applySchedulers()
+                .subscribe(
+                    {
+                        deleteMarket.value = it
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
     }
 }

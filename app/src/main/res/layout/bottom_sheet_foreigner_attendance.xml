@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_min">
+
+
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_close_reg_screen"
+        app:layout_constraintBottom_toTopOf="@+id/tilEmail"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/WhiteTextTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Registro Manual"
+        android:gravity="center"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="@id/btnClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_min"
+        android:hint="@string/registration_hint_email"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconDrawable="@drawable/ic_ops_search"
+        app:endIconMode="custom"
+        app:helperText="Ingresa un correo para buscar al concesionario"
+        app:helperTextTextColor="@color/secondaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/ic_ops_mail">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teEmail"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_height="2dp"
+        style="@style/dividerStyle1"
+        android:visibility="invisible"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_min"
+        app:layout_constraintStart_toStartOf="@id/tilName"
+        app:layout_constraintEnd_toEndOf="@id/tilName"
+        app:layout_constraintBottom_toTopOf="@id/tilName"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilName"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_padding_min"
+        android:hint="@string/registration_hint_username"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconMode="clear_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tilOrigin"
+        app:layout_constraintEnd_toEndOf="@id/tilEmail"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
+        app:startIconDrawable="@drawable/ic_ops_user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teName"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilOrigin"
+        style="@style/TextInputDropDownLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_marginBottom="@dimen/common_padding_min"
+        android:hint="@string/registration_hint_origin"
+        android:visibility="gone"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/tilLinearMeters"
+        app:layout_constraintEnd_toEndOf="@+id/tilEmail"
+        app:layout_constraintStart_toStartOf="@+id/tilEmail">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/teOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilLinearMeters"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:hint="@string/tax_collection_linear_meters"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconMode="clear_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cbConcess"
+        app:layout_constraintEnd_toEndOf="@id/tilEmail"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
+        app:startIconDrawable="@drawable/ic_shop">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/teLinearMeters"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbConcess"
+        style="@style/CheckBoxStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_large"
+        android:buttonTint="@color/secondaryColor"
+        android:text="Concesionario"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout3"
+        app:layout_constraintEnd_toStartOf="@id/cbConcessForeigner"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbConcessForeigner"
+        style="@style/CheckBoxStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_large"
+        android:buttonTint="@color/secondaryColor"
+        android:text="Concesionario Foraneo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cbConcess" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#C9000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            style="@style/CommonButtonStyle"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Completar Registro"
+            app:icon="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

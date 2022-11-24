@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/common_padding_default"
-    android:background="@color/primaryLightColor">
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_min">
+
 
     <TextView
+        style="@style/textViewBodyStyle"
         android:id="@+id/textView5"
-        style="@style/textViewTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -19,8 +19,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilIncidentName"
         style="@style/TextInputLayoutStyle"
+        android:id="@+id/tilIncidentName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -30,12 +30,10 @@
         app:layout_constraintBottom_toTopOf="@+id/tilIncidentPrice"
         app:layout_constraintEnd_toEndOf="@+id/tilIncidentPrice"
         app:layout_constraintStart_toStartOf="@+id/tilIncidentPrice"
-        app:startIconDrawable="@drawable/ic_bn_exclamation_mark"
-        app:startIconTint="@color/primaryTextColor">
-
+        app:startIconDrawable="@drawable/ic_bn_exclamation_mark">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/teIncidentName"
             style="@style/TextInputEditTextStyle"
+            android:id="@+id/teIncidentName"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,15 +42,16 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/bottom_sheet_til_hint_inc_price"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateIncident"
-        app:layout_constraintEnd_toEndOf="@+id/btnCreateIncident"
-        app:layout_constraintStart_toStartOf="@+id/btnCreateIncident"
-        app:startIconDrawable="@drawable/ic_bn_dollar"
-        app:startIconTint="@color/primaryTextColor">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/ic_bn_dollar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teIncidentPrice"
@@ -61,9 +60,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        style="@style/CommonButtonStyle"
         android:id="@+id/btnCreateIncident"
-        style="@style/ButtonStyle"
-        android:layout_width="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"

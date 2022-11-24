@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryLightColor"
+    android:background="@color/primaryColor"
     tools:context=".flows.sign_on.dashboardModule.view.ControlPanelActivity">
 
     <include
@@ -40,37 +40,50 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teLinealPrice"
             style="@style/TextInputEditTextStyle"
-            android:inputType="textPersonName" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+        android:id="@+id/recyclerControlPanel"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveChanges"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDesde"
-        tools:listitem="@layout/item_control_panel_concessionaire_permission" />
+        tools:listitem="@layout/item_control_panel_concessionaire_permission">
 
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:id="@+id/btnSaveChanges"
-        android:layout_width="wrap_content"
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/cp_btn_save"
-        android:textColor="@color/secondaryColor"
-        app:icon="@drawable/ic_save_register"
-        app:iconTint="@color/secondaryColor"
+        android:background="#C9000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@color/secondaryColor"
-        app:strokeColor="@color/secondaryColor" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveChanges"
+            style="@style/CommonButtonStyle"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/cp_btn_save"
+            android:textColor="@color/secondaryColor"
+            app:icon="@drawable/ic_ops_upgrade"
+            app:iconTint="@color/secondaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@color/secondaryColor"
+            app:strokeColor="@color/secondaryColor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView9"
@@ -79,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Desde"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tvDesde"
         app:layout_constraintEnd_toEndOf="@+id/tvDesde"
         app:layout_constraintHorizontal_bias="0.5"
@@ -89,6 +103,7 @@
         android:id="@+id/tvDesde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/tvHasta"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +115,7 @@
         android:id="@+id/tvHasta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvDesde"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -114,6 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Hasta"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tvHasta"
         app:layout_constraintEnd_toEndOf="@+id/tvHasta"
         app:layout_constraintStart_toStartOf="@+id/tvHasta"

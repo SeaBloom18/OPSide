@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_min">
+
+    <ImageButton
+        android:id="@+id/ibClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/fui_transparent"
+        android:contentDescription="@string/registration_btn_bs_close"
+        android:src="@drawable/ic_close_reg_screen"
+        app:layout_constraintBottom_toTopOf="@+id/tilDealerName"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/WhiteTextTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Agregar al Tianguis"
+        android:gravity="center"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="@id/ibClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDealerName"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/tax_collection_dealer_name"
+        app:layout_constraintBottom_toTopOf="@+id/tilMarketName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDealerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="textPersonName"
+            android:textColor="@color/primaryTextColor"
+            tools:text="Mario Armando Razo Valenzuela" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMarketName"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:layout_marginBottom="8dp"
+        android:hint="Tianguis"
+        app:layout_constraintBottom_toTopOf="@+id/tilLinearMeters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMarketName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryLightColor"
+            android:enabled="false"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="textPersonName"
+            android:textColor="@color/primaryTextColor"
+            tools:text="Tianguis Municipal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilLinearMeters"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/common_padding_default"
+        android:layout_marginStart="@dimen/common_padding_default"
+        android:layout_marginEnd="@dimen/common_padding_min"
+        android:hint="@string/tax_collection_linear_meters"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toStartOf="@+id/tilLineOfBusiness"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLinearMeters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/primaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilLineOfBusiness"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_padding_min"
+        android:layout_marginEnd="@dimen/common_padding_default"
+        android:hint="@string/tax_collection_line_of_business"
+        app:layout_constraintBottom_toBottomOf="@+id/tilLinearMeters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tilLinearMeters"
+        app:layout_constraintTop_toTopOf="@+id/tilLinearMeters">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLineOfBusiness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/primaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#C9000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRelate"
+            style="@style/CommonButtonStyle"
+            android:text="Registrar"
+            app:icon="@drawable/ic_bn_market"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

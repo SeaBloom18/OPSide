@@ -8,6 +8,7 @@
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/cbAbsence"
+        style="@style/CheckBoxStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/common_padding_default"
@@ -46,7 +47,7 @@
 
     <View
         android:layout_width="0dp"
-        style="@style/Divider"
+        style="@style/dividerStyle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/txtName"/>

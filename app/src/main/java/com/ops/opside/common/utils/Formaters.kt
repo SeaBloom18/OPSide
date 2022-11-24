@@ -1,9 +1,10 @@
 package com.ops.opside.common.utils
 
-import java.text.DecimalFormat
+import android.annotation.SuppressLint
+import java.text.NumberFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
+import java.util.*
 
 object Formaters {
 
@@ -20,12 +21,13 @@ object Formaters {
     fun Boolean?.orFalse(): Boolean = this ?: false
 
     fun Double?.formatCurrency(): String {
-        val formatter = DecimalFormat("MXN/ #,##0.00")
-        return formatter.format(this.orZero())
+        val format = NumberFormat.getCurrencyInstance(Locale.getDefault())
+        format.currency = Currency.getInstance("USD")
+        return format.format(this.toString().toDouble())
     }
 
     fun formatDate(strDate: String?): String {
-        val formatIn = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formatIn = SimpleDateFormat(FORMAT_SQL_DATE, Locale.getDefault())
         formatIn.timeZone = TimeZone.getTimeZone("UTC")
         val formatter = SimpleDateFormat(FORMAT_DATE, Locale.getDefault())
         val date = strDate?.let { formatIn.parse(it) }
@@ -38,6 +40,22 @@ object Formaters {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun parseFormat(strDate: String?, previousFormat: String, newFormat: String): String {
+        val input = SimpleDateFormat(previousFormat)
+        val output = SimpleDateFormat(newFormat)
+
+        try {
+            val getAbbreviate = strDate?.let { input.parse(it) }
+            return output.format(getAbbreviate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return ""
+    }
+
+    @SuppressLint("SimpleDateFormat")
     fun formatDateMillis(millis: Long?): String {
         return if (millis == null) {
             ""
@@ -46,6 +64,9 @@ object Formaters {
             simpleDateFormat.format(millis)
         }
     }
-
-    const val FORMAT_DATE = "dd MMMM, yyyy"
 }
+
+const val FORMAT_DATE = "dd MMMM, yyyy"
+const val FORMAT_SQL_DATE = "yyyy-MM-dd"
+const val FORMAT_TIME = "hh:mm a"
+const val FORMAT_TIMESTAMP = "yyyy-MM-dd HH:mm:ss"
