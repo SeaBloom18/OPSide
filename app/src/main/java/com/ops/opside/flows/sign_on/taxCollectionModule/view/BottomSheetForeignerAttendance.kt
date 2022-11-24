@@ -55,7 +55,7 @@ class BottomSheetForeignerAttendance(
             btnClose.setOnClickListener { dismiss() }
 
             tilEmail.setEndIconOnClickListener {
-                val email = teEmail.text.toString()
+                val email = teEmail.text.toString().trim()
                 if (isValidEmail(email))
                     mViewModel.getEmailInformation(email)
                 else

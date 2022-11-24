@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.FORMAT_DATE
+import com.ops.opside.common.utils.FORMAT_SQL_DATE
 import com.ops.opside.common.utils.Formaters
 import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.common.utils.animateOnPress
@@ -47,7 +49,7 @@ class TaxCollectionsCrudAdapter(
         fun bind(item: TaxCollectionSE) {
             binding.apply {
                 txtMarketName.text = item.marketName
-                txtDate.text = Formaters.formatDate(item.startDate)
+                txtDate.text = Formaters.parseFormat(item.startDate, FORMAT_SQL_DATE, FORMAT_DATE)
                 txtTotalAmount.text = item.totalAmount.formatCurrency()
 
                 imgShowMore.animateOnPress()

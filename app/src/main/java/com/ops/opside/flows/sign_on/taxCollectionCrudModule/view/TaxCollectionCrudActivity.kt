@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.FORMAT_SQL_DATE
 import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.common.utils.launchActivity
 import com.ops.opside.common.utils.startActivity
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityTaxCollectionCrudBinding
@@ -17,6 +17,8 @@ import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollec
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.viewModel.TaxCollectionCrudViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class TaxCollectionCrudActivity : BaseActivity(), TaxCollectionCrudAux {
@@ -87,6 +89,15 @@ class TaxCollectionCrudActivity : BaseActivity(), TaxCollectionCrudAux {
 
     private fun getCollectionsList(collectionList: MutableList<TaxCollectionSE>) {
         mCollectionList = collectionList
+
+        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(FORMAT_SQL_DATE)
+        mCollectionList = mCollectionList.sortedByDescending {
+            LocalDate.parse(
+                it.startDate,
+                dateTimeFormatter
+            )
+        } as MutableList<TaxCollectionSE>
+
         initRecyclerView()
     }
 

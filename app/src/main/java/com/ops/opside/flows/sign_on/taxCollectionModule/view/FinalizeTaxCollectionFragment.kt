@@ -1,13 +1,13 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +54,17 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
             }
 
             btnSend.setOnClickListener {
-                mViewModel.checkBiometrics(this@FinalizeTaxCollectionFragment)
+                if (isAvailable(requireContext())) {
+                    mViewModel.checkBiometrics(this@FinalizeTaxCollectionFragment)
+                } else {
+                    val dialog = BottomSheetConfirmPassword { passwordSuccess ->
+                        if (passwordSuccess) insertTaxCollection()
+                    }
+
+                    dialog.isCancelable = false
+                    dialog.show(requireActivity().supportFragmentManager, dialog.tag)
+                }
+
             }
         }
 
@@ -198,6 +208,11 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
             layoutManager = linearLayoutManager
             adapter = mAdapter
         }
+    }
+
+    private fun isAvailable(context: Context): Boolean {
+        val fingerprintManager = FingerprintManagerCompat.from(context)
+        return fingerprintManager.isHardwareDetected && fingerprintManager.hasEnrolledFingerprints()
     }
 
     override fun onPause() {
