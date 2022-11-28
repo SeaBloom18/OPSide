@@ -12,11 +12,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.ops.opside.R
-import com.ops.opside.common.utils.Formaters
-import com.ops.opside.common.utils.animateOnPress
-import com.ops.opside.common.utils.tryOrPrintException
+import com.ops.opside.common.utils.*
 import com.ops.opside.databinding.BottomSheetFilterBinding
-import java.util.Calendar
+import java.util.*
 
 
 class BottomSheetFilter: BottomSheetDialogFragment() {
@@ -39,6 +37,27 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
 
         mBinding.apply {
 
+            btnClose.animateOnPress()
+            btnClose.setOnClickListener {
+                dismiss()
+            }
+
+            btnCalendar.animateOnPress()
+            btnCalendar.setOnClickListener {
+                openCalendar{
+                    etStartDate.setText(Formaters.formatDateMillis(it.first + DAY_IN_MILLIS))
+                    etEndDate.setText(Formaters.formatDateMillis(it.second + DAY_IN_MILLIS))
+                }
+            }
+
+            btnConfirmFilter.setOnClickListener { dismiss() }
+        }
+        
+        setUpEditeText()
+    }
+
+    private fun setUpEditeText() {
+        mBinding.apply {
             // *********** Market ***********
             val hMarket: ArrayAdapter<String> =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item
@@ -62,23 +81,6 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
                 createChip(mCollectorsList[position], cgChipsCollector)
                 teSearchCollector.clearFocus()
             }
-
-
-            // *********** Buttons ***********
-            btnClose.animateOnPress()
-            btnClose.setOnClickListener {
-                dismiss()
-            }
-
-            btnCalendar.animateOnPress()
-            btnCalendar.setOnClickListener {
-                openCalendar{
-                    etStartDate.setText(Formaters.formatDateMillis(it.first))
-                    etEndDate.setText(Formaters.formatDateMillis(it.second))
-                }
-            }
-
-            btnConfirmFilter.setOnClickListener { dismiss() }
         }
     }
 
@@ -120,8 +122,9 @@ class BottomSheetFilter: BottomSheetDialogFragment() {
     private fun openCalendar(response: (androidx.core.util.Pair<Long,Long>) -> Unit ){
         tryOrPrintException {
             val builder = MaterialDatePicker.Builder.dateRangePicker()
-            val now = Calendar.getInstance()
-            builder.setSelection(androidx.core.util.Pair(now.timeInMillis, now.timeInMillis))
+            builder.setTheme(R.style.MaterialCalendarTheme)
+            val now = CalendarUtils.getCurrentTimeInMillis()
+            builder.setSelection(androidx.core.util.Pair(now,now))
 
             val picker = builder.build()
             picker.show((context as FragmentActivity).supportFragmentManager, picker.toString())

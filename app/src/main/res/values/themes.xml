@@ -168,4 +168,9 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorOnPrimary">@color/secondaryColor</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+    </style>
+
 </resources>

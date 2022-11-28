@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
+import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
@@ -30,7 +31,7 @@ class ControlPanelActivity : BaseActivity() {
     private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
-    private var mPriceLinearMeter: String = ""
+    private var mPriceLinearMeter: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +66,9 @@ class ControlPanelActivity : BaseActivity() {
         setUpRecyclerView()
     }
 
-    private fun getPriceLinearMeter(priceLinearMeter: String) {
+    private fun getPriceLinearMeter(priceLinearMeter: Double) {
         mPriceLinearMeter = priceLinearMeter
-        mBinding.teLinealPrice.setText(mPriceLinearMeter)
+        mBinding.teLinealPrice.setText(mPriceLinearMeter.toString())
     }
 
     private fun loadPriceLinearMeter() {
