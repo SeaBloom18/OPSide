@@ -18,8 +18,8 @@ class ControlPanelViewModel @Inject constructor(
     private val mControlPanelInteractor: ControlPanelInteractor): CommonViewModel(){
 
     val getCollectorList = MutableLiveData<MutableList<CollectorSE>>()
-    private val _getPriceLinearMeter = MutableLiveData<String>()
-    val priceLinearMeter: LiveData<String> = _getPriceLinearMeter
+    private val _getPriceLinearMeter = MutableLiveData<Double>()
+    val priceLinearMeter: LiveData<Double> = _getPriceLinearMeter
     private val updatePrice = MutableLiveData<Boolean>()
     private val updateHasAccess = MutableLiveData<Boolean>()
 
