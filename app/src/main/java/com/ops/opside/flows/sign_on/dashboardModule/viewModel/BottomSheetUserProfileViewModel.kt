@@ -23,7 +23,20 @@ class BottomSheetUserProfileViewModel @Inject constructor(
         mBottomSheetUserProfileInteractor.showAboutInfo()
 
     fun uploadUserImage(uri: Uri) {
-        mBottomSheetUserProfileInteractor.uploadUserImage(uri)
+        disposable.add(
+            mBottomSheetUserProfileInteractor.uploadUserImage(uri).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        //updateImageURL(uri.toString())
+                    },
+                    {
+                        showProgress.value = false
+                    }
+                )
+        )
+        //mBottomSheetUserProfileInteractor.uploadUserImage(uri)
     }
 
     fun updateImageURL(imageURL: String) {

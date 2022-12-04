@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
@@ -99,11 +100,11 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
             btnSaveProfile.setOnClickListener {
                 latestTmpUri?.let { it1 ->
                     //TODO refactorizar para un futuro al viewModel e Interactor (ya existen los metodos :D)
-                    //mViewModel.uploadUserImage(it1)
-                    mStorageReference =
-                        FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference
+                    mViewModel.uploadUserImage(it1)
+                    /*mStorageReference =
+                        FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference*/
 
-                    val uploadTask =
+                    /*val uploadTask =
                         mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${it1}}").putFile(it1)
 
                     uploadTask.addOnSuccessListener {
@@ -117,13 +118,19 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
                         }.addOnFailureListener {
                             toast("Error al actualizar tu foto de perfil, intentalo de nuevo!")
                         }
-                    }
+                    }*/
                 }
             }
         }
 
         /** Methods Calls **/
         showPersonalUserInfo()
+        bindViewModel()
+    }
+
+    /** ViewModel SetUp **/
+    private fun bindViewModel() {
+        mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
     }
 
     /** Take Photo **/
