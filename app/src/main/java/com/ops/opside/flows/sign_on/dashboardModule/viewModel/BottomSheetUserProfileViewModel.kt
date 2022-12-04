@@ -19,7 +19,7 @@ class BottomSheetUserProfileViewModel @Inject constructor(
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         mBottomSheetUserProfileInteractor.showPersonalInfo()
 
-    fun showAboutInfo(): Triple<String?, Boolean?, String?> =
+    fun showAboutInfo(): Pair<String?, String?> =
         mBottomSheetUserProfileInteractor.showAboutInfo()
 
     fun uploadUserImage(uri: Uri) {

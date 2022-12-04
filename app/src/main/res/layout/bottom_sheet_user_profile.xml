@@ -107,56 +107,21 @@
         style="@style/dividerStyle1"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvAboutYouSubtitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvAboutYouSubtitle"
-        style="@style/textViewSubtitleStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/bottom_sheet_tv_about_you"
         app:layout_constraintBottom_toTopOf="@+id/tvUserProfileAdress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUserProfileAdress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserProfileAccess"
-        app:layout_constraintEnd_toEndOf="@+id/tvAboutYouSubtitle"
-        app:layout_constraintStart_toStartOf="@+id/tvAboutYouSubtitle"
-        tools:text="Address"
-        style="@style/textViewBodyStyle" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvUserProfileAccess"
         style="@style/textViewBodyStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toEndOf="@+id/tvUserProfileAdress"
-        app:layout_constraintStart_toStartOf="@+id/tvUserProfileAdress"
-        tools:text="Access" />
-
-    <View
-        android:id="@+id/divider2"
-        style="@style/dividerStyle1"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        tools:text="Address" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"

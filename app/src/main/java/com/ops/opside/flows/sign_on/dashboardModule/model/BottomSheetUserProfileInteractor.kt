@@ -25,13 +25,12 @@ class BottomSheetUserProfileInteractor @Inject constructor(
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         Triple(sp.getString(SP_NAME), sp.getString(SP_EMAIL), sp.getString(SP_PHONE))
 
-    fun showAboutInfo(): Triple<String?, Boolean?, String?> =
-        Triple(sp.getString(SP_ADDRESS), sp.getBoolean(SP_HAS_ACCESS), sp.getString(SP_USER_URL_PHOTO))
+    fun showAboutInfo(): Pair<String?, String?> =
+        Pair(sp.getString(SP_ADDRESS), sp.getString(SP_USER_URL_PHOTO))
 
     fun uploadUserImage(uri: Uri) {
         mStorageReference = FirebaseStorage.getInstance(LINK_CONCESSIONAIRES_STORAGE).reference
         val uploadTask = mStorageReference.child("$LINK_COLLECTOR_FOLDER/{$uri.conce}").putFile(uri)
-
 
         uploadTask.addOnSuccessListener {
             mStorageReference.child("opsUserProfile/CollectorUserPhotos/{$uri}").downloadUrl.addOnSuccessListener {
@@ -40,6 +39,11 @@ class BottomSheetUserProfileInteractor @Inject constructor(
                 //toast("no")
             }
         }
+    }
+
+    fun deleteUserImage(userImageURL: String) {
+
+
     }
 
     fun updateImageURL(url: String) {

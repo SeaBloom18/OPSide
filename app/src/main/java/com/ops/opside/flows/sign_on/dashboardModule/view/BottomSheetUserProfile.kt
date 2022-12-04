@@ -159,12 +159,11 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
             tvUserPhone.text = userPersonalInfo.third
 
             tvUserProfileAdress.text = userAboutInfo.first.orEmpty()
-            tvUserProfileAccess.text = userAboutInfo.second.toString()
-            if (userAboutInfo.third.toString().isNotEmpty()) {
+            if (userAboutInfo.second.toString().isNotEmpty()) {
                 mBinding.ivProfilePicture.visibility = View.VISIBLE
                 mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
                 Glide.with(mActivity)
-                    .load(userAboutInfo.third).circleCrop().into(mBinding.ivProfilePicture)
+                    .load(userAboutInfo.second).circleCrop().into(mBinding.ivProfilePicture)
             }
         }
     }
