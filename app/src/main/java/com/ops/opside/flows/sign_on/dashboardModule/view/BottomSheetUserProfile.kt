@@ -100,7 +100,6 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
             ivShareProfile.setOnClickListener { shareUserProfile() }
             btnSaveProfile.setOnClickListener {
                 latestTmpUri?.let { it1 ->
-                    //TODO refactorizar para un futuro al viewModel e Interactor (ya existen los metodos :D)
                     mViewModel.uploadUserImage(it1)
                 }
             }
@@ -114,12 +113,18 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
     /** ViewModel SetUp **/
     private fun bindViewModel() {
         mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
-        //mViewModel.updateImage.observe(mActivity, Observer(this::getImageUserUrl))
+        mViewModel.updateImage.observe(mActivity, Observer(this::getImageUserUrl))
     }
 
-    private fun getImageUserUrl(imageUserUrl: Uri) {
-        Log.d("imageUrl", imageUserUrl.toString())
-        toast(imageUserUrl.toString())
+    private fun getImageUserUrl(imageUserUrlSuccess: Boolean) {
+        Log.d("imageUrl", imageUserUrlSuccess.toString())
+        if (imageUserUrlSuccess){
+            toast(getString(R.string.bottom_sheet_image_upload_success))
+            mBinding.btnSaveProfile.apply {
+                isEnabled = false
+                alpha = 0.5F
+            }
+        } else toast(getString(R.string.bottom_sheet_image_upload_error))
     }
 
     /** Take Photo **/

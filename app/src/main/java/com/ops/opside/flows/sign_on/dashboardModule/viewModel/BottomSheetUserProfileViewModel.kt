@@ -15,8 +15,8 @@ class BottomSheetUserProfileViewModel @Inject constructor(
     private val mBottomSheetUserProfileInteractor: BottomSheetUserProfileInteractor):
     CommonViewModel(){
 
-    private val updateImageURL = MutableLiveData<Uri>()
-    var updateImage: LiveData<Uri> = updateImageURL
+    private val updateImageURL = MutableLiveData<Boolean>()
+    var updateImage: LiveData<Boolean> = updateImageURL
 
 
     fun showPersonalInfo(): Triple<String?, String?, String?> =
@@ -32,7 +32,7 @@ class BottomSheetUserProfileViewModel @Inject constructor(
                 .subscribe(
                     {
                         showProgress.value = false
-                        updateImageURL.value = it
+                        updateImageURL.value = true
                         Log.d("imageUrl", it.toString())
                         mBottomSheetUserProfileInteractor.apply {
                             updateImageURL(it.toString())

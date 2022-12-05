@@ -172,7 +172,9 @@
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Log Out</string>
     <string name="bottom_sheet_btn_save_changes">Save Changes</string>
-    <string name="bottom_sheet_tv_about_you">More information about you</string>
+    <string name="bottom_sheet_image_upload_success">Image updated successfully!</string>
+    <string name="bottom_sheet_image_upload_error">Oops it looks like there was an error updating your photo, please try again!</string>
+
 
     <!--Policies Strings-->
     <string name="tv_title_policies">Privacy Policy for OPS</string>

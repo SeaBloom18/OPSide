@@ -88,7 +88,6 @@
     <string name="registration_toast_policies_validation">Antes debes de aceptar nuestras politicas de privacidad!</string>
     <string name="registration_see_policies_validation">Toca para ver las Políticas de Privacidad</string>
 
-
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
     <string name="bn_menu_concessionaire_opc2">Concesionarios</string>
@@ -172,7 +171,8 @@
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>
     <string name="bottom_sheet_btn_save_changes">Guardar cambios</string>
-    <string name="bottom_sheet_tv_about_you">Más información sobre ti</string>
+    <string name="bottom_sheet_image_upload_success">Imagen actualizada con éxito!</string>
+    <string name="bottom_sheet_image_upload_error">Oops parece que hubo un error al actualizar tu foto, inténtalo de nuevo!</string>
 
     <!--Policies Strings-->
     <string name="tv_title_policies">Política de privacidad para OPS</string>
