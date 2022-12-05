@@ -34,6 +34,7 @@ class BottomSheetUserProfileViewModel @Inject constructor(
                         showProgress.value = false
                         updateImageURL.value = it
                         Log.d("imageUrl", it.toString())
+                        mBottomSheetUserProfileInteractor.updateImageURL(it.toString())
                         //updateImageURL(it)
                     },
                     {

@@ -37,9 +37,8 @@ class BottomSheetUserProfileInteractor @Inject constructor(
                     mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${uri}}").putFile(uri)
 
                 uploadTask.addOnSuccessListener {
-                    mStorageReference.child("opsUserProfile/CollectorUserPhotos/{$uri}").downloadUrl.addOnSuccessListener { uriURL ->
-                        subscriber.onNext(uriURL)
-                        updateImageURL(uriURL.toString())
+                    mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$uri}").downloadUrl.addOnSuccessListener { itURL ->
+                        subscriber.onNext(itURL)
                     }.addOnFailureListener {
                         subscriber.onError(it)
                     }
