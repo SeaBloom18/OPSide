@@ -37,32 +37,39 @@ class BottomSheetUserProfileInteractor @Inject constructor(
                     mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${uri}}").putFile(uri)
 
                 uploadTask.addOnSuccessListener {
-                    mStorageReference.child("opsUserProfile/CollectorUserPhotos/{$uri}").downloadUrl.addOnSuccessListener {
-                        subscriber.onNext(it)
-                        updateImageURL(it.toString())
-                        //toast("si")
+                    mStorageReference.child("opsUserProfile/CollectorUserPhotos/{$uri}").downloadUrl.addOnSuccessListener { uriURL ->
+                        subscriber.onNext(uriURL)
+                        updateImageURL(uriURL.toString())
                     }.addOnFailureListener {
                         subscriber.onError(it)
-                        //toast("no")
                     }
                 }
             }
         }
     }
 
-    fun deleteUserImage(userImageURL: String) {
-
+    private fun deleteUserImage() {
+        tryOrPrintException {
+            val deleteFile = FirebaseStorage.getInstance().getReferenceFromUrl(sp.getString(
+                SP_USER_URL_PHOTO).toString())
+            deleteFile.delete().addOnSuccessListener {
+                Log.d("StorageUserProfilePhotoDeletedSuccess", "DocumentSnapshot successfully deleted!")
+            }.addOnFailureListener {
+                Log.w("StorageUserProfilePhotoDeletedError", "Error deleting document", it)
+            }
+        }
     }
 
-    fun updateImageURL(url: String) {
+    fun updateImageURL(url: String){
         tryOrPrintException {
             firestore.collection(DB_TABLE_COLLECTOR).document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
                     sp.putValue(SP_USER_URL_PHOTO, url)
-                    Log.d("StorageUserProfilePhotoSuccess", "DocumentSnapshot successfully updated!")
+                    //deleteUserImage()
+                    Log.d("StorageUserProfilePhotoUpdatedSuccess", "DocumentSnapshot successfully updated!")
                 }
                 .addOnFailureListener {
-                    Log.w("StorageUserProfilePhotoError", "Error updating document", it)
+                    Log.w("StorageUserProfilePhotoUpdatedError", "Error updating document", it)
                 }
         }
     }

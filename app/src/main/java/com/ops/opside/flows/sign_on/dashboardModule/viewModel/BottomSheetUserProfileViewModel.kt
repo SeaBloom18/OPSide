@@ -2,6 +2,7 @@ package com.ops.opside.flows.sign_on.dashboardModule.viewModel
 
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.storage.FirebaseStorage
 import com.ops.opside.common.utils.applySchedulers
@@ -14,7 +15,9 @@ class BottomSheetUserProfileViewModel @Inject constructor(
     private val mBottomSheetUserProfileInteractor: BottomSheetUserProfileInteractor):
     CommonViewModel(){
 
-    private val updateImageURL = MutableLiveData<Boolean>()
+    private val updateImageURL = MutableLiveData<Uri>()
+    var updateImage: LiveData<Uri> = updateImageURL
+
 
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         mBottomSheetUserProfileInteractor.showPersonalInfo()
@@ -29,9 +32,12 @@ class BottomSheetUserProfileViewModel @Inject constructor(
                 .subscribe(
                     {
                         showProgress.value = false
-                        //updateImageURL(uri.toString())
+                        updateImageURL.value = it
+                        Log.d("imageUrl", it.toString())
+                        //updateImageURL(it)
                     },
                     {
+                        Log.e("Error", it.toString())
                         showProgress.value = false
                     }
                 )
@@ -39,8 +45,20 @@ class BottomSheetUserProfileViewModel @Inject constructor(
         //mBottomSheetUserProfileInteractor.uploadUserImage(uri)
     }
 
-    fun updateImageURL(imageURL: String) {
-        mBottomSheetUserProfileInteractor.updateImageURL(imageURL)
+    fun updateImageURL() {
+        /*disposable.add(
+            mBottomSheetUserProfileInteractor.updateImageURL(imageUrl.toString()).applySchedulers()
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        //updateImageURL(updateImage.toString())
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                        showProgress.value = false
+                    }
+                )
+        )*/
+        //mBottomSheetUserProfileInteractor.updateImageURL()
     }
 }
-

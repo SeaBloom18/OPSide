@@ -162,6 +162,7 @@ class LoginInteractor @Inject constructor(
 
     fun getLinearMetersPrice(): Observable<Double> {
         return Observable.unsafeCreate{ subscriber ->
+            //TODO refact referencia a la coleccion
             firestore.collection(DB_TABLE_RESOURCES).document("Ulmp4yMD4noSlOE6IwpX")
                 .get()
                 .addOnSuccessListener { response ->
