@@ -34,8 +34,11 @@ class BottomSheetUserProfileViewModel @Inject constructor(
                         showProgress.value = false
                         updateImageURL.value = it
                         Log.d("imageUrl", it.toString())
-                        mBottomSheetUserProfileInteractor.updateImageURL(it.toString())
-                        //updateImageURL(it)
+                        mBottomSheetUserProfileInteractor.apply {
+                            updateImageURL(it.toString())
+                            deleteUserImage()
+                        }
+
                     },
                     {
                         Log.e("Error", it.toString())
@@ -43,23 +46,5 @@ class BottomSheetUserProfileViewModel @Inject constructor(
                     }
                 )
         )
-        //mBottomSheetUserProfileInteractor.uploadUserImage(uri)
-    }
-
-    fun updateImageURL() {
-        /*disposable.add(
-            mBottomSheetUserProfileInteractor.updateImageURL(imageUrl.toString()).applySchedulers()
-                .subscribe(
-                    {
-                        showProgress.value = false
-                        //updateImageURL(updateImage.toString())
-                    },
-                    {
-                        Log.e("Error", it.toString())
-                        showProgress.value = false
-                    }
-                )
-        )*/
-        //mBottomSheetUserProfileInteractor.updateImageURL()
     }
 }

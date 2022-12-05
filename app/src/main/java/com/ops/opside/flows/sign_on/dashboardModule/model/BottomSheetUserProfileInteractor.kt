@@ -47,7 +47,7 @@ class BottomSheetUserProfileInteractor @Inject constructor(
         }
     }
 
-    private fun deleteUserImage() {
+    fun deleteUserImage() {
         tryOrPrintException {
             val deleteFile = FirebaseStorage.getInstance().getReferenceFromUrl(sp.getString(
                 SP_USER_URL_PHOTO).toString())

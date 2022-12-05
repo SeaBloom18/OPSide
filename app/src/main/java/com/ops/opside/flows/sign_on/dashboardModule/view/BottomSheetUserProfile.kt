@@ -102,25 +102,6 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
                 latestTmpUri?.let { it1 ->
                     //TODO refactorizar para un futuro al viewModel e Interactor (ya existen los metodos :D)
                     mViewModel.uploadUserImage(it1)
-                    /*mStorageReference =
-                        FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference
-
-                    val uploadTask =
-                        mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${it1}}").putFile(it1)
-
-                    uploadTask.addOnSuccessListener {
-                        mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$it1}").downloadUrl.addOnSuccessListener { itURL ->
-                            toast("Imagen actualizada con exito!")
-                            mBinding.btnSaveProfile.apply {
-                                isEnabled = false
-                                alpha = 0.5F
-                            }
-                            mViewModel.updateImageURL(itURL.toString())
-
-                        }.addOnFailureListener {
-                            toast("Error al actualizar tu foto de perfil, intentalo de nuevo!")
-                        }
-                    }*/
                 }
             }
         }
@@ -133,12 +114,11 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
     /** ViewModel SetUp **/
     private fun bindViewModel() {
         mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
-        mViewModel.updateImage.observe(mActivity, Observer(this::getImageUserUrl))
+        //mViewModel.updateImage.observe(mActivity, Observer(this::getImageUserUrl))
     }
 
     private fun getImageUserUrl(imageUserUrl: Uri) {
         Log.d("imageUrl", imageUserUrl.toString())
-        mViewModel.updateImageURL()
         toast(imageUserUrl.toString())
     }
 
