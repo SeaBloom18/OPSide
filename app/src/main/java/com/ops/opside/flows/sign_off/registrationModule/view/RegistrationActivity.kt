@@ -122,7 +122,8 @@ class RegistrationActivity : BaseActivity() {
     private fun handleAction(action: RegistrationAction) {
         when(action) {
             is RegistrationAction.ShowMessageSuccess -> {
-                toast("success")
+                bsRegisterSuccess()
+                cleanEditText()
             }
             is RegistrationAction.ShowMessageError -> {
                 toast("error")

@@ -18,7 +18,6 @@ class BottomSheetUserProfileViewModel @Inject constructor(
     private val updateImageURL = MutableLiveData<Boolean>()
     var updateImage: LiveData<Boolean> = updateImageURL
 
-
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         mBottomSheetUserProfileInteractor.showPersonalInfo()
 

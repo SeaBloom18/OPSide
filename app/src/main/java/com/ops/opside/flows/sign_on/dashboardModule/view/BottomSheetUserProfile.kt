@@ -16,13 +16,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.LINK_FIRESTORE_REFERENCE
-import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
@@ -43,7 +40,8 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
 
     private val mViewModel: BottomSheetUserProfileViewModel by viewModels()
     private val mActivity: MainActivity by lazy { activity as MainActivity }
-    private lateinit var mStorageReference: StorageReference
+
+    /** Camera setUp **/
     private var latestTmpUri: Uri? = null
 
     private val cameraPermission = registerForActivityResult(
@@ -94,9 +92,7 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         mBinding.apply {
             ivBack.setOnClickListener { dismiss() }
             tvLogOut.setOnClickListener { logOut() }
-            ivChangePhoto.setOnClickListener {
-                takeImage()
-            }
+            ivChangePhoto.setOnClickListener { takeImage() }
             ivShareProfile.setOnClickListener { shareUserProfile() }
             btnSaveProfile.setOnClickListener {
                 latestTmpUri?.let { it1 ->
