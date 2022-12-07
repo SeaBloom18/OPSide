@@ -29,11 +29,8 @@ const val PUT_EXTRA_MARKET = "market"
 
 /** Firebase Storage **/
 const val PATH_COLLECTOR_REFERENCE = "opsUserProfile/CollectorsUserPhotos/"
-
-const val LINK_CONCESSIONAIRES_STORAGE = "gs://opss-fbd9e.appspot.com/"
-const val LINK_COLLECTOR_FOLDER = "opsUserProfile/CollectorsUserPhotos/"
-const val LINK_COLLECTOR_STORAGE = "gs://opss-fbd9e.appspot.com/"
-const val LINK_CONCESSIONAIRES_FOLDER = "opsUserProfile/ConcessionairesUserPhotos/"
+const val PATH_CONCESSIONAIRE_REFERENCE = "opsUserProfile/CollectorsUserPhotos/"
+const val LINK_FIREBASE_STORAGE = "gs://opss-fbd9e.appspot.com/"
 
 
 

@@ -1,14 +1,12 @@
 package com.ops.opside.flows.sign_on.dashboardModule.model
 
 import android.net.Uri
-import android.os.Build
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
-import com.ops.opside.common.entities.LINK_COLLECTOR_FOLDER
-import com.ops.opside.common.entities.LINK_CONCESSIONAIRES_STORAGE
+import com.ops.opside.common.entities.LINK_FIREBASE_STORAGE
 import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
 import com.ops.opside.common.utils.*
 import io.reactivex.Observable
@@ -32,7 +30,7 @@ class BottomSheetUserProfileInteractor @Inject constructor(
     fun uploadUserImage(uri: Uri): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
-                mStorageReference = FirebaseStorage.getInstance(LINK_CONCESSIONAIRES_STORAGE).reference
+                mStorageReference = FirebaseStorage.getInstance(LINK_FIREBASE_STORAGE).reference
                 val uploadTask =
                     mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${uri}}").putFile(uri)
 

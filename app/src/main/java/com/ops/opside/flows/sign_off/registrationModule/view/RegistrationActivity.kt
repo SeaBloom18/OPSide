@@ -114,6 +114,7 @@ class RegistrationActivity : BaseActivity() {
 
     /** ViewModel Conf**/
     private fun bindViewModel(){
+        mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
         mViewModel.getAction().observe(this, Observer(this::handleAction))
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
         mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))

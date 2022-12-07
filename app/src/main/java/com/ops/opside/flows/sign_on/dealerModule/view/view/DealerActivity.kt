@@ -1,20 +1,20 @@
 package com.ops.opside.flows.sign_on.dealerModule.view.view
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
-import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityDealerBinding
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.DealerViewModel
@@ -63,6 +63,13 @@ class DealerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityDealerBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        cameraPermission.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA
+            )
+        )
+        takeUserPhoto()
 
         mBinding.apply {
             ivShowQrCode.setOnClickListener { showQr() }
@@ -168,5 +175,14 @@ class DealerActivity : BaseActivity() {
             "${BuildConfig.APPLICATION_ID}.provider",
             tmpFile
         )
+    }
+
+    private fun takeUserPhoto() {
+        checkCameraHardware(this)
+    }
+
+    /** Check if this device has a camera */
+    private fun checkCameraHardware(context: Context): Boolean {
+        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
     }
 }

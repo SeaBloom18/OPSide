@@ -6,8 +6,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
-import com.ops.opside.common.entities.LINK_CONCESSIONAIRES_STORAGE
-import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
+import com.ops.opside.common.entities.LINK_FIREBASE_STORAGE
+import com.ops.opside.common.entities.PATH_CONCESSIONAIRE_REFERENCE
 import com.ops.opside.common.utils.*
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -31,12 +31,12 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
     fun uploadUserImage(uri: Uri): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
-                mStorageReference = FirebaseStorage.getInstance(LINK_CONCESSIONAIRES_STORAGE).reference
+                mStorageReference = FirebaseStorage.getInstance(LINK_FIREBASE_STORAGE).reference
                 val uploadTask =
-                    mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${uri}}").putFile(uri)
+                    mStorageReference.child("$PATH_CONCESSIONAIRE_REFERENCE{${uri}}").putFile(uri)
 
                 uploadTask.addOnSuccessListener {
-                    mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$uri}").downloadUrl.addOnSuccessListener { itURL ->
+                    mStorageReference.child("$PATH_CONCESSIONAIRE_REFERENCE{$uri}").downloadUrl.addOnSuccessListener {
                         subscriber.onNext(true)
                     }.addOnFailureListener {
                         subscriber.onError(it)

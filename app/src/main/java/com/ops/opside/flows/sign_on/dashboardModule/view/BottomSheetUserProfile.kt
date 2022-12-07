@@ -146,6 +146,10 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         )
     }
 
+    private fun takeUserPhoto() {
+        checkCameraHardware(mActivity)
+    }
+
     /** Other Methods**/
     private fun showPersonalUserInfo() {
         val userPersonalInfo = mViewModel.showPersonalInfo()
@@ -182,10 +186,6 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         }
         val shareIntent = Intent.createChooser(intent, null)
         startActivity(shareIntent)
-    }
-
-    private fun takeUserPhoto() {
-        checkCameraHardware(mActivity)
     }
 
     private fun logOut() {
