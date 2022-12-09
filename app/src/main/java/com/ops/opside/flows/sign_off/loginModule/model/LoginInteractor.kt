@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_RESOURCES
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
@@ -120,14 +121,13 @@ class LoginInteractor @Inject constructor(
     fun getConcessionaireByEmail(email: String): Observable<ConcessionaireFE> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_COLLECTOR)
+                firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { response ->
                         if (response.documents.size == 0) {
                             subscriber.onNext(ConcessionaireFE())
                         } else {
-
                             val document = response.documents[0]
                             subscriber.onNext(
                                 ConcessionaireFE(
@@ -147,7 +147,6 @@ class LoginInteractor @Inject constructor(
                                     password = document.data!!["password"].toString()
                                 )
                             )
-
                         }
                     }
                     .addOnFailureListener { exception ->

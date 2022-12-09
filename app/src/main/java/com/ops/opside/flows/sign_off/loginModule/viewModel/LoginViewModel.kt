@@ -93,7 +93,7 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-    private fun searchForConcessionaire(email: String) {
+    fun searchForConcessionaire(email: String) {
         disposable.add(
             mLoginInteractor.getConcessionaireByEmail(email).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
@@ -103,6 +103,7 @@ class LoginViewModel @Inject constructor(
                         if (it.idFirebase.isNotEmpty()) {
                             _action.value = LoginAction.SetUserData(concessionaire = it)
                         } else {
+                            showProgress.value = false
                             _action.value =
                                 LoginAction.ShowMessageError(
                                     application.getString(R.string.login_toast_credentials_validation)
