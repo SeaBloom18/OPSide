@@ -29,7 +29,7 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
     fun showPricesInfo(): Pair<String?, String?> =
         Pair(sp.getString(SP_ABSENCE), sp.getString(SP_LINEAR_METERS))
 
-    fun uploadUserImage(uri: Uri): Observable<Boolean> {
+    fun uploadUserImage(uri: Uri): Observable<Uri> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
                 mStorageReference = FirebaseStorage.getInstance(LINK_FIREBASE_STORAGE).reference
@@ -37,7 +37,7 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
                     mStorageReference.child("$PATH_CONCESSIONAIRE_REFERENCE{${uri}}").putFile(uri)
                 uploadTask.addOnSuccessListener {
                     mStorageReference.child("$PATH_CONCESSIONAIRE_REFERENCE{$uri}").downloadUrl.addOnSuccessListener {
-                        subscriber.onNext(true)
+                        subscriber.onNext(it)
                     }.addOnFailureListener {
                         subscriber.onError(it)
                     }

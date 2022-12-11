@@ -37,7 +37,6 @@ class BottomSheetUserProfileViewModel @Inject constructor(
                             updateImageURL(it.toString())
                             deleteUserImage()
                         }
-
                     },
                     {
                         Log.e("Error", it.toString())

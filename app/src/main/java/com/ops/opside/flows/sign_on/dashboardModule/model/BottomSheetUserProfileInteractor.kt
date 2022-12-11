@@ -27,7 +27,7 @@ class BottomSheetUserProfileInteractor @Inject constructor(
     fun showAboutInfo(): Pair<String?, String?> =
         Pair(sp.getString(SP_ADDRESS), sp.getString(SP_USER_URL_PHOTO))
 
-    fun uploadUserImage(uri: Uri): Observable<Boolean> {
+    fun uploadUserImage(uri: Uri): Observable<Uri> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
                 mStorageReference = FirebaseStorage.getInstance(LINK_FIREBASE_STORAGE).reference
@@ -35,8 +35,8 @@ class BottomSheetUserProfileInteractor @Inject constructor(
                     mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${uri}}").putFile(uri)
 
                 uploadTask.addOnSuccessListener {
-                    mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$uri}").downloadUrl.addOnSuccessListener { itURL ->
-                        subscriber.onNext(true)
+                    mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$uri}").downloadUrl.addOnSuccessListener {
+                        subscriber.onNext(it)
                     }.addOnFailureListener {
                         subscriber.onError(it)
                     }

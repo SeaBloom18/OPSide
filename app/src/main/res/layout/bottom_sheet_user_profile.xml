@@ -48,8 +48,6 @@
         android:layout_height="110dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/common_content_description"
-        android:visibility="invisible"
-        android:src="@drawable/ic_ops_user"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toStartOf="@+id/ivBack" />
 

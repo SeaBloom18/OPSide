@@ -39,8 +39,8 @@ class DealerViewModel @Inject constructor(
                         updateImageURL.value = true
                         Log.d("imageUrl", it.toString())
                         mDealerInteractor.apply {
-                            //updateImageURL(it.toString())
-                            //deleteUserImage()
+                            updateImageURL(it.toString())
+                            deleteUserImage()
                         }
                     },
                     {
