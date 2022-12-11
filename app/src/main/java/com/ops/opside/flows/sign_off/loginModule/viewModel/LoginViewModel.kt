@@ -93,7 +93,7 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-    fun searchForConcessionaire(email: String) {
+    private fun searchForConcessionaire(email: String) {
         disposable.add(
             mLoginInteractor.getConcessionaireByEmail(email).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }

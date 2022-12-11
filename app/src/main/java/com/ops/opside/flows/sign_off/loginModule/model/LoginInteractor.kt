@@ -63,6 +63,7 @@ class LoginInteractor @Inject constructor(
             sp.initPreferences(
                 id = concessionaire.idFirebase,
                 name =  concessionaire.name,
+                urlPhoto = concessionaire.imageURL,
                 address = concessionaire.address,
                 origin = concessionaire.origin,
                 phone =  concessionaire.phone,
@@ -133,6 +134,7 @@ class LoginInteractor @Inject constructor(
                                 ConcessionaireFE(
                                     idFirebase = document.id,
                                     name = document.data!!["name"].toString(),
+                                    imageURL = document.data!!["imageURL"].toString(),
                                     address = document.data!!["address"].toString(),
                                     origin = document.data!!["origin"].toString(),
                                     phone = document.data!!["phone"].toString(),

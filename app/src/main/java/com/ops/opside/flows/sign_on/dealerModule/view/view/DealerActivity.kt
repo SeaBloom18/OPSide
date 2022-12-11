@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.views.BaseActivity
@@ -118,6 +119,14 @@ class DealerActivity : BaseActivity() {
                 "${userPricesInfo.second} ${getString(R.string.tv_prices_info_linear)}, " +
                         "${userPricesInfo.first} ${getString(R.string.tv_prices_info_absence)}"
             ivShareConceProfile.setOnClickListener { shareUserProfile() }
+            Log.d("userURLPhoto", userAboutInfo.third.toString())
+            if (userAboutInfo.third.toString().isNotEmpty()) {
+                mBinding.ivProfilePictureConce.visibility = View.VISIBLE
+                mBinding.lavUserProfileAnimConce.visibility = View.INVISIBLE
+                Glide.with(this@DealerActivity)
+                    .load(userAboutInfo.third).circleCrop().into(mBinding.ivProfilePictureConce)
+            }
+
         }
     }
 

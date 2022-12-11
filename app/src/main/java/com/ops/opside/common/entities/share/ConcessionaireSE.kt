@@ -12,26 +12,17 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = DB_TABLE_CONCESSIONAIRE)
 data class ConcessionaireSE(
-    @PrimaryKey(autoGenerate = false)
-    var idFirebase: String = "",
-    @ColumnInfo(name = "name")
-    var name: String = "",
-    @ColumnInfo(name = "address")
-    var address: String = "",
-    @ColumnInfo(name = "phone")
-    var phone: String = "",
-    @ColumnInfo(name = "email")
-    var email: String = "",
-    @ColumnInfo(name = "role")
-    var role: Int = 0,
-    @ColumnInfo(name = "lineBusiness")
-    var lineBusiness: String = "",
-    @ColumnInfo(name = "absence")
-    var absence: Int = 0,
-    @ColumnInfo(name = "isForeigner")
-    var isForeigner: Boolean = false,
-    @ColumnInfo(name = "origin")
-    var origin: String = "",
+    @PrimaryKey(autoGenerate = false) var idFirebase: String = "",
+    @ColumnInfo(name = "name") var name: String = "",
+    @ColumnInfo(name = "imageURL") var imageURL: String = "",
+    @ColumnInfo(name = "address") var address: String = "",
+    @ColumnInfo(name = "phone") var phone: String = "",
+    @ColumnInfo(name = "email") var email: String = "",
+    @ColumnInfo(name = "role") var role: Int = 0,
+    @ColumnInfo(name = "lineBusiness") var lineBusiness: String = "",
+    @ColumnInfo(name = "absence") var absence: Int = 0,
+    @ColumnInfo(name = "isForeigner") var isForeigner: Boolean = false,
+    @ColumnInfo(name = "origin") var origin: String = "",
     @Ignore var wasPaid: Boolean = false
 ): Parcelable {
     constructor() : this(
@@ -51,6 +42,7 @@ data class ConcessionaireSE(
         return ConcessionaireFE(
             idFirebase,
             name,
+            imageURL,
             address,
             origin,
             phone,

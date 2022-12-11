@@ -5,6 +5,7 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 data class ConcessionaireFE(
     var idFirebase: String = "",
     var name: String = "",
+    var imageURL: String = "",
     var address: String = "",
     var origin: String = "",
     var phone: String = "",
@@ -21,6 +22,7 @@ data class ConcessionaireFE(
         val map: MutableMap<String, Any> = mutableMapOf()
 
         map["name"] = name
+        map["imageURL"] = imageURL
         map["address"] = address
         map["origin"] = origin
         map["phone"] = phone
@@ -40,6 +42,7 @@ data class ConcessionaireFE(
         return ConcessionaireSE(
             idFirebase,
             name,
+            imageURL,
             address,
             phone,
             email,

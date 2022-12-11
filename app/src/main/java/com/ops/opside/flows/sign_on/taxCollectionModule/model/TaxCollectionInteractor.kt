@@ -35,6 +35,7 @@ class TaxCollectionInteractor @Inject constructor(
                             ConcessionaireFE(
                                 document.id,
                                 document.get("name").toString(),
+                                document.get("imageURL").toString(),
                                 document.get("address").toString(),
                                 document.get("origin").toString(),
                                 document.get("phone").toString(),

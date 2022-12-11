@@ -23,7 +23,7 @@ class DealerViewModel @Inject constructor(
     fun showPersonalInfo(): Triple<String?, String?, String?> =
         mDealerInteractor.showPersonalInfo()
 
-    fun showAboutInfo(): Pair<String?, String?> =
+    fun showAboutInfo(): Triple<String?, String?, String?> =
         mDealerInteractor.showAboutInfo()
 
     fun showPricesInfo(): Pair<String?, String?> =
