@@ -70,12 +70,18 @@ class DealerActivity : BaseActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA
             )
         )
+
         takeUserPhoto()
 
         mBinding.apply {
             ivShowQrCode.setOnClickListener { showQr() }
             tvLogOutConce.setOnClickListener { logOut() }
             ivChangePhotoConce.setOnClickListener { takeImage() }
+            btnSaveProfile.setOnClickListener {
+                latestTmpUri?.let { it1 ->
+                    mDealerViewModel.uploadUserImage(it1)
+                }
+            }
         }
         /** Calling Methods **/
         showPersonalInfo()

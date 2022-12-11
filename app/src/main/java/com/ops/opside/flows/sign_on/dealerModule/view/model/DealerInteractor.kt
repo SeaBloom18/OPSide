@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.LINK_FIREBASE_STORAGE
 import com.ops.opside.common.entities.PATH_CONCESSIONAIRE_REFERENCE
@@ -36,7 +35,6 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
                 mStorageReference = FirebaseStorage.getInstance(LINK_FIREBASE_STORAGE).reference
                 val uploadTask =
                     mStorageReference.child("$PATH_CONCESSIONAIRE_REFERENCE{${uri}}").putFile(uri)
-
                 uploadTask.addOnSuccessListener {
                     mStorageReference.child("$PATH_CONCESSIONAIRE_REFERENCE{$uri}").downloadUrl.addOnSuccessListener {
                         subscriber.onNext(true)
