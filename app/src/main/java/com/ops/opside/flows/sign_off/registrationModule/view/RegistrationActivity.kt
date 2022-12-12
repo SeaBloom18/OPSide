@@ -309,29 +309,9 @@ class RegistrationActivity : BaseActivity() {
                 mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
             } else {
                 when(checkedItem){
-                    0 -> {
-                        if (concessionaireViewModel()){
-                            mViewModel.insertConcessionaire(mConcessionaireFE)
-                            /*bsRegisterSuccess()
-                            cleanEditText()*/
-                        }
-                    }
-
-                    1 -> {
-                        if (foreignConcessionaireViewModel()){
-                            mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                            bsRegisterSuccess()
-                            cleanEditText()
-                        }
-                    }
-
-                    2 -> {
-                        if (collectorViewModel()){
-                            mViewModel.insertCollector(mCollectorFE)
-                            bsRegisterSuccess()
-                            cleanEditText()
-                        }
-                    }
+                    0 -> if (concessionaireViewModel()) mViewModel.insertConcessionaire(mConcessionaireFE)
+                    1 -> if (foreignConcessionaireViewModel()) mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                    2 -> if (collectorViewModel()) mViewModel.insertCollector(mCollectorFE)
                 }
             }
         }
