@@ -13,9 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
@@ -25,11 +23,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
-import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.MD5
+import com.ops.opside.common.utils.clear
+import com.ops.opside.common.utils.error
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
@@ -127,7 +128,7 @@ class RegistrationActivity : BaseActivity() {
                 cleanEditText()
             }
             is RegistrationAction.ShowMessageError -> {
-                toast("error")
+                bsRegisterError()
             }
         }
     }
@@ -437,6 +438,8 @@ class RegistrationActivity : BaseActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
         val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
+        tvBSTitle.text = getString(R.string.registration_tv_success)
         anim.setAnimation(R.raw.success_lottie_anim)
         btnFinish.setOnClickListener { finish() }
         dialog.setCancelable(false)
@@ -449,7 +452,9 @@ class RegistrationActivity : BaseActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
         val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
-        anim.setAnimation(R.raw.loading_lottie_anim)
+        val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
+        tvBSTitle.text = getString(R.string.registration_tv_error)
+        anim.setAnimation(R.raw.error_lottie_anim)
         btnFinish.setOnClickListener { finish() }
         dialog.setCancelable(false)
         dialog.setContentView(view)
@@ -486,20 +491,18 @@ class RegistrationActivity : BaseActivity() {
     private fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager != null) {
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
-                }
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
             }
         }
         return false

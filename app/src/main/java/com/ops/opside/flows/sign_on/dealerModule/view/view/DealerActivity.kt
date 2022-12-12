@@ -7,10 +7,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.FileProvider
+import androidx.core.view.MenuProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -18,6 +22,7 @@ import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityDealerBinding
+import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.DealerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -74,8 +79,6 @@ class DealerActivity : BaseActivity() {
         takeUserPhoto()
 
         mBinding.apply {
-            ivShowQrCode.setOnClickListener { showQr() }
-            tvLogOutConce.setOnClickListener { logOut() }
             ivChangePhotoConce.setOnClickListener { takeImage() }
             btnSaveProfile.setOnClickListener {
                 latestTmpUri?.let { it1 ->
@@ -84,6 +87,7 @@ class DealerActivity : BaseActivity() {
             }
         }
         /** Calling Methods **/
+        setToolbar()
         showPersonalInfo()
         bindViewModel()
     }
@@ -124,7 +128,7 @@ class DealerActivity : BaseActivity() {
             tvAbsenceAndMeters.text =
                 "${userPricesInfo.second} ${getString(R.string.tv_prices_info_linear)}, " +
                         "${userPricesInfo.first} ${getString(R.string.tv_prices_info_absence)}"
-            ivShareConceProfile.setOnClickListener { shareUserProfile() }
+            //ivShareConceProfile.setOnClickListener { shareUserProfile() }
             Log.d("userURLPhoto", userAboutInfo.third.toString())
             if (userAboutInfo.third.toString().isNotEmpty()) {
                 mBinding.ivProfilePictureConce.visibility = View.VISIBLE
@@ -199,5 +203,44 @@ class DealerActivity : BaseActivity() {
     /** Check if this device has a camera */
     private fun checkCameraHardware(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+    }
+
+    /** Toolbar MenuOptions and BackPressed**/
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> logOut()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_dealer_activity, menu)
+        return true
+    }
+
+    private fun setToolbar(){
+        with(mBinding.toolbarDealer.commonToolbar) {
+            this.title = getString(R.string.tv_dealer_title)
+            setSupportActionBar(this)
+            (context as DealerActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            this.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.showQR -> {
+                            showQr()
+                            true
+                        }
+                        R.id.shareProfile -> {
+                            shareUserProfile()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            })
+        }
     }
 }

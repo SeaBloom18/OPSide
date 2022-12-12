@@ -6,6 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbarDealer"
+        layout="@layout/toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/ivProfilePictureConce"
         android:layout_width="120dp"
@@ -30,9 +37,10 @@
         android:id="@+id/lavUserProfileAnimConce"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/tvUserInfoTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserInfoTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDealer"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/avatar_user_profile" />
@@ -86,7 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivProfilePictureConce"
         tools:text="David Alejandro Gonzalez Quezada" />
 
-    <ImageButton
+    <!--<ImageButton
         android:id="@+id/ivShareConceProfile"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -107,16 +115,15 @@
         android:contentDescription="@string/common_content_description"
         android:src="@drawable/ic_ops_qr_code"
         app:layout_constraintEnd_toStartOf="@+id/ivShareConceProfile"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <com.google.android.material.textview.MaterialTextView
+    <!--<com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUserInfoTitle"
+        style="@style/textViewTitleStyle"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:text="@string/tv_dealer_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/textViewTitleStyle" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDealer" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"

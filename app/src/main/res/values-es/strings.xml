@@ -67,6 +67,7 @@
     <string name="registration_hint_origin">Municipio recidencia</string>
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
+    <string name="registration_tv_error">oops parece que hubo un error al hacer tu registro!</string>
     <string name="registration_btn_bs_close">Salir</string>
     <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
     <string name="dealer_show_qr">Mostrar código QR</string>
