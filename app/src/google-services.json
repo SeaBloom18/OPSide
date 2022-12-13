@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "137609533452",
+    "firebase_url": "https://opss-fbd9e-default-rtdb.firebaseio.com",
     "project_id": "opss-fbd9e",
     "storage_bucket": "opss-fbd9e.appspot.com"
   },
@@ -14,10 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "137609533452-0pc168v53ad7dc2facb67j46pkueen9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ops.opside.debug",
+            "certificate_hash": "8a0b474edbf32c8c4c51eb3161a6b2843c2162e6"
+          }
+        },
+        {
           "client_id": "137609533452-51og9sck1c4nbalhbigf30big6l7s6oi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ops.opside",
+            "package_name": "com.ops.opside.debug",
             "certificate_hash": "3aeb0eff46512303bc0a14e5e9568137da7eb928"
           }
         },
