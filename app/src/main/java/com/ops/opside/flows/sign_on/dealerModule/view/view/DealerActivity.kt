@@ -128,7 +128,6 @@ class DealerActivity : BaseActivity() {
             tvAbsenceAndMeters.text =
                 "${userPricesInfo.second} ${getString(R.string.tv_prices_info_linear)}, " +
                         "${userPricesInfo.first} ${getString(R.string.tv_prices_info_absence)}"
-            //ivShareConceProfile.setOnClickListener { shareUserProfile() }
             Log.d("userURLPhoto", userAboutInfo.third.toString())
             if (userAboutInfo.third.toString().isNotEmpty()) {
                 mBinding.ivProfilePictureConce.visibility = View.VISIBLE
@@ -146,7 +145,7 @@ class DealerActivity : BaseActivity() {
         val userAboutInfo = mDealerViewModel.showAboutInfo()
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
+            putExtra(Intent.EXTRA_TEXT, "${R.string.bottom_sheet_share_profile_title}" + "\n" +
                     "${userPersonalInfo.first}\n" +
                     "${userPersonalInfo.second}\n" +
                     "${userPersonalInfo.third}\n" +

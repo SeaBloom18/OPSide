@@ -175,7 +175,7 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
-                Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
+                Intent.EXTRA_TEXT, getString(R.string.bottom_sheet_share_profile_title) + "\n" +
                         "${userPersonalInfo.first}\n" +
                         "${userPersonalInfo.second}\n" +
                         "${userPersonalInfo.third}\n" +

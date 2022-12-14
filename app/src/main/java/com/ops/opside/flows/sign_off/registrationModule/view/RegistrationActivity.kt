@@ -67,6 +67,7 @@ class RegistrationActivity : BaseActivity() {
             tvSeePolicies.setOnClickListener { showPolicies() }
         }
 
+        /** Calls Methods **/
         bindViewModel()
         loadOriginList()
         setToolbar()
@@ -382,9 +383,7 @@ class RegistrationActivity : BaseActivity() {
 
     private fun registerFormSetUP(formOption: Int){
         when (formOption) {
-            0 -> { // Concessionaire
-                registerGeneralSetUp()
-            }
+            0 -> registerGeneralSetUp() //Concessionaire
             1 -> { // Foreign Concessionaire
                 registerGeneralSetUp()
                 with(mBinding){

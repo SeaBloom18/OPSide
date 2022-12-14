@@ -1,6 +1,5 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.view
 
-import android.R
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -8,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputLayout
+import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
@@ -56,10 +55,8 @@ class BottomSheetForeignerAttendance(
 
             tilEmail.setEndIconOnClickListener {
                 val email = teEmail.text.toString().trim()
-                if (isValidEmail(email))
-                    mViewModel.getEmailInformation(email)
-                else
-                    toast("Correo invalido")
+                if (isValidEmail(email)) mViewModel.getEmailInformation(email)
+                else toast(getString(R.string.bottom_sheet_toast_invalid_email))
             }
 
             teEmail.doAfterTextChanged {
@@ -87,7 +84,7 @@ class BottomSheetForeignerAttendance(
         if ((mBinding.cbConcess.isChecked.not() && mBinding.cbConcessForeigner.isChecked.not())
             && existConcessionaire.not()
         ) {
-            toast("Elige un tipo de registro")
+            toast(getString(R.string.bottom_sheet_toast_chose_register))
             return false
         }
 
@@ -121,7 +118,6 @@ class BottomSheetForeignerAttendance(
                         linearMeters = teLinearMeters.text.toString().toDouble(),
                         role = if (cbConcessForeigner.isChecked) 1 else 2,
                         idFirebase = ID.getTemporalId(),
-
                         address = "",
                         phone = "",
                         lineBusiness = "",
@@ -140,9 +136,9 @@ class BottomSheetForeignerAttendance(
         var isValid = true
         for (textField in textFields) {
             if (textField.editText?.text.toString().trim().isEmpty() ||
-                textField.editText?.text.toString() == "Municipio recidencia"
+                textField.editText?.text.toString() == getString(R.string.bottom_sheet_tie_title)
             ) {
-                textField.error = getString(com.ops.opside.R.string.login_til_required)
+                textField.error = getString(R.string.login_til_required)
                 isValid = false
             } else {
                 textField.error = null
@@ -152,7 +148,7 @@ class BottomSheetForeignerAttendance(
     }
 
     private fun wasRegistered(idFirebase: String) {
-        toast("Concesionario Registrado")
+        toast(getString(R.string.bottom_sheet_toast_register_success))
 
         mForeignerConcessionaire.idFirebase = idFirebase
         registration.invoke(mForeignerConcessionaire)
@@ -168,7 +164,7 @@ class BottomSheetForeignerAttendance(
     private fun getOriginList(origins: MutableList<OriginFE>) {
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(
-                requireContext(), R.layout.simple_list_item_1,
+                requireContext(), android.R.layout.simple_list_item_1,
                 origins.map { it.originName }.toMutableList()
             )
 
@@ -179,7 +175,7 @@ class BottomSheetForeignerAttendance(
         showForm(true)
 
         if (concessionaire == null) {
-            toast("El concesionario no existe\nLlena los demás campos solicitados")
+            toast(getString(R.string.bottom_sheet_toast_concessionaire_doesnt_exist))
             existConcessionaire = false
             return
         }
@@ -223,7 +219,7 @@ class BottomSheetForeignerAttendance(
             cbConcess.isChecked = false
             cbConcessForeigner.isChecked = false
 
-            if (show.not()) tilEmail.helperText = "Ingresa un correo para buscar al concesionario"
+            if (show.not()) tilEmail.helperText = getString(R.string.bottom_sheet_til_email_validation)
 
             divider.visibility = if (show) View.VISIBLE else View.INVISIBLE
         }
