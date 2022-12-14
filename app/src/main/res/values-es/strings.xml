@@ -203,6 +203,14 @@
     <string name="bottom_sheet_til_email_validation">Ingresa un correo para buscar al concesionario</string>
     <string name="bottom_sheet_tie_title">Municipio residencia</string>
 
+    <!--BottomSheet RecordTaxCollection-->
+    <string name="bottom_sheet_record_showerror_validation">Existe un cobro de piso existente.
+        Primero debes eliminar el cobro para poder remover al concesionario de este tianguis.</string>
+
+    <!--BottomSheet RelateConcessMarket-->
+    <string name="bottom_sheet_relateconcessmarket_toast_linear_meter_validation">Los metros lineales deben ser mayores que 0</string>
+    <string name="bottom_sheet_relateconcessmarket_toast_line_business_validation">La línea de negocio no puede estar vacía</string>
+
     <!--Policies Strings-->
     <string name="tv_title_policies">Política de privacidad para OPS</string>
     <string name="tv_title_policies_privacy">Política de privacidad</string>

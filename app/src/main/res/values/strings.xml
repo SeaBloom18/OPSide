@@ -203,6 +203,14 @@
     <string name="bottom_sheet_til_email_validation">Enter an email to find the dealer</string>
     <string name="bottom_sheet_tie_title">Residence Municipality</string>
 
+    <!--BottomSheet RecordTaxCollection-->
+    <string name="bottom_sheet_record_showerror_validation">There is an existing floor charge.
+        First you must eliminate the charge to be able to remove the dealer from this flea market.</string>
+
+    <!--BottomSheet RelateConcessMarket-->
+    <string name="bottom_sheet_relateconcessmarket_toast_linear_meter_validation">Linear meters must be greater than 0</string>
+    <string name="bottom_sheet_relateconcessmarket_toast_line_business_validation">Business line cannot be empty</string>
+
     <!--Policies Strings-->
     <string name="tv_title_policies">Privacy Policy for OPS</string>
     <string name="tv_title_policies_privacy">Privacy Policy</string>
