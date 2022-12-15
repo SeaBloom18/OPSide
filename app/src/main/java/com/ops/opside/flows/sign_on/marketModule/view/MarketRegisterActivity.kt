@@ -51,7 +51,8 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
     private val mBinding: ActivityMarketRegisterBinding by lazy {
         ActivityMarketRegisterBinding.inflate(layoutInflater)
     }
-    lateinit var latLng: LatLng
+    private lateinit var latLng: LatLng
+    private var mGoogleMap: GoogleMap? = null
 
     private lateinit var mActivity: MainActivity
     private var concessionaires = listOf("David", "Alejandro")
@@ -145,12 +146,10 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         fetchLocation()
     }
 
-
     /** ViewModel SetUp **/
     private fun bindViewModel() {
 
     }
-
 
     /** Override Methods **/
     /** Toolbar Menu and backPressed **/
@@ -160,6 +159,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onBackPressed() {
         val dialog = BottomSheetDialog(this)
@@ -255,6 +255,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     /** GoogleMaps SetUp**/
     override fun onMapReady(googleMap: GoogleMap) {
+        mGoogleMap = googleMap
         if (mMarketSE != null) latLng = LatLng(latitudeMaps, longitudeMaps)
         else latLng = LatLng(20.348917, -103.194615)
         val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
@@ -262,6 +263,19 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.setMinZoomPreference(15.5F)
         googleMap.setMaxZoomPreference(15.5F)
         googleMap.addMarker(markerOptions)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mGoogleMap != null) {
+            mGoogleMap?.clear()
+            latLng = LatLng(latitudeMaps, longitudeMaps)
+            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            val markerOptions =
+                MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
+            mGoogleMap?.addMarker(markerOptions)
+            Toast.makeText(this, "resume", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun fetchLocation() {

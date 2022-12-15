@@ -85,6 +85,7 @@ class DealerActivity : BaseActivity() {
                     mDealerViewModel.uploadUserImage(it1)
                 }
             }
+            tvLogOutConce.setOnClickListener { logOut() }
         }
         /** Calling Methods **/
         setToolbar()
@@ -165,7 +166,6 @@ class DealerActivity : BaseActivity() {
             buttonYesTitle = getString(R.string.common_accept),
             funButtonYes = { finish() }
         )
-
     }
 
     override fun onBackPressed() {

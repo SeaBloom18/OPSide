@@ -94,37 +94,6 @@
         app:layout_constraintTop_toTopOf="@+id/ivProfilePictureConce"
         tools:text="David Alejandro Gonzalez Quezada" />
 
-    <!--<ImageButton
-        android:id="@+id/ivShareConceProfile"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/common_content_description"
-        android:src="@drawable/ic_ops_share"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/ivShowQrCode"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/common_content_description"
-        android:src="@drawable/ic_ops_qr_code"
-        app:layout_constraintEnd_toStartOf="@+id/ivShareConceProfile"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvUserInfoTitle"
-        style="@style/textViewTitleStyle"
-        android:layout_marginStart="8dp"
-        android:text="@string/tv_dealer_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarDealer" />-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
