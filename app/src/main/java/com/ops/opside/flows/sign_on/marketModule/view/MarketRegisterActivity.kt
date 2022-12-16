@@ -108,7 +108,6 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //mBinding = ActivityMarketRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {

@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -38,6 +39,7 @@ import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewMo
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
+const val RESULTCODE_RETURNEMAIL = 100
 @AndroidEntryPoint
 class RegistrationActivity : BaseActivity() {
 
@@ -49,6 +51,7 @@ class RegistrationActivity : BaseActivity() {
     private val mCollectorFE: CollectorFE = CollectorFE()
     private var checkedItem = 0
     private var isValidPassword = false
+    private var emailReturnIntent: String = ""
 
     private lateinit var mOriginList: MutableList<OriginFE>
 
@@ -125,6 +128,7 @@ class RegistrationActivity : BaseActivity() {
     private fun handleAction(action: RegistrationAction) {
         when(action) {
             is RegistrationAction.ShowMessageSuccess -> {
+                emailReturnIntent = mBinding.teEmail.text.toString().trim()
                 bsRegisterSuccess()
                 cleanEditText()
             }
@@ -440,7 +444,12 @@ class RegistrationActivity : BaseActivity() {
         val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
         tvBSTitle.text = getString(R.string.registration_tv_success)
         anim.setAnimation(R.raw.success_lottie_anim)
-        btnFinish.setOnClickListener { finish() }
+        btnFinish.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("emailReturn", emailReturnIntent)
+            setResult(RESULTCODE_RETURNEMAIL, intent)
+            finish()
+        }
         dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
