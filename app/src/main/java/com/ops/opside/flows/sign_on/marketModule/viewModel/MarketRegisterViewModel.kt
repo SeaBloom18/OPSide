@@ -42,11 +42,14 @@ class MarketRegisterViewModel @Inject constructor(
                      longitude: Double){
         disposable.add(
             mMarketRegisterInteractor.updateMarket(idFirestore, name, address, marketMeters, latitude, longitude).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         registerMarket.value = it
+                        showProgress.value = false
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )
@@ -56,6 +59,7 @@ class MarketRegisterViewModel @Inject constructor(
     fun getConcessionairesForMarket(idMarketFirestore: String){
         disposable.add(
             mMarketRegisterInteractor.getConcessionairesForMarket(idMarketFirestore).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         getMarketData.value = it

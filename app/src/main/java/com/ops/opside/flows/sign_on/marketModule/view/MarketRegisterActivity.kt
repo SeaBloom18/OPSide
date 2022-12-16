@@ -31,12 +31,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
+import androidx.lifecycle.Observer
 import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_MARKET
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Formaters.orZero
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
@@ -46,15 +48,13 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
+class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
 
     private val mBinding: ActivityMarketRegisterBinding by lazy {
         ActivityMarketRegisterBinding.inflate(layoutInflater)
     }
     private lateinit var latLng: LatLng
     private var mGoogleMap: GoogleMap? = null
-
-    private lateinit var mActivity: MainActivity
     private var concessionaires = listOf("David", "Alejandro")
 
     private val mMarketRegViewModel: MarketRegisterViewModel by viewModels()
@@ -148,7 +148,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     /** ViewModel SetUp **/
     private fun bindViewModel() {
-
+        mMarketRegViewModel.getShowProgress().observe(this, Observer(this@MarketRegisterActivity::showLoading))
     }
 
     /** Override Methods **/
