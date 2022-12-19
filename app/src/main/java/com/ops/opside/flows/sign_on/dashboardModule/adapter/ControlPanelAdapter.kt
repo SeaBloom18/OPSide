@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ops.opside.R
-import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
@@ -52,7 +52,7 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                 .setIcon(R.drawable.ic_ops_warning)
                 .setTitle(R.string.cp_alertdialog_title)
                 .setMessage(context.getString(R.string.control_panel_alert_dialog_title, collectorName))
-                .setPositiveButton(context.getString(R.string.common_accept)) { dialog, which ->
+                .setPositiveButton(context.getString(R.string.common_accept)) { _, _ ->
                     mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
                 }
                 .setNegativeButton(context.getString(R.string.common_cancel)) { dialog, which ->
