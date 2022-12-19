@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
-import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
@@ -42,6 +41,7 @@ class ControlPanelActivity : BaseActivity() {
             btnSaveChanges.setOnClickListener { confirmUpdateLinearPrice() }
         }
 
+        /** Methods call's **/
         setToolbar()
         bindViewModel()
         loadCollectorList()
@@ -181,11 +181,11 @@ class ControlPanelActivity : BaseActivity() {
         itemTouchHelper.attachToRecyclerView(mBinding.recycler)*/
     }
 
-    fun TextView.getTime(): LocalTime {
+    private fun TextView.getTime(): LocalTime {
         return LocalTime.parse(text, formatter)
     }
 
-    fun TextView.setTime(time: LocalTime) {
+    private fun TextView.setTime(time: LocalTime) {
         text = time.toTimeText()
     }
 
@@ -193,7 +193,7 @@ class ControlPanelActivity : BaseActivity() {
         return format(formatter)
     }
 
-    infix fun LocalTime.hoursBetween(end: LocalTime): Double {
+    private infix fun LocalTime.hoursBetween(end: LocalTime): Double {
         return Duration.between(this, end).toMinutes() / 60.0
     }
 

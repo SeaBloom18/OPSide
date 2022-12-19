@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ops.opside.R
 import com.ops.opside.common.adapters.SwipeToDeleteCallback
 import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.views.BaseBottomSheetFragment
@@ -99,7 +100,7 @@ class BottomSheetRecordTaxCollection(private val idTaxCollection: String) :
                     mAdapter.events.removeAt(position)
                     mAdapter.notifyItemRemoved(position)
                 } else {
-                    showError("Existe un cobro de piso existente.\n\nPrimero debes eliminar el cobro para poder remover al concesionario de este tianguis.")
+                    showError(getString(R.string.bottom_sheet_record_showerror_validation))
                     mAdapter.notifyDataSetChanged()
                 }
             }

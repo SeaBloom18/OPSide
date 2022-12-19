@@ -6,21 +6,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
-import com.ops.opside.common.entities.LINK_FIRESTORE_REFERENCE
-import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
@@ -41,7 +40,8 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
 
     private val mViewModel: BottomSheetUserProfileViewModel by viewModels()
     private val mActivity: MainActivity by lazy { activity as MainActivity }
-    private lateinit var mStorageReference: StorageReference
+
+    /** Camera setUp **/
     private var latestTmpUri: Uri? = null
 
     private val cameraPermission = registerForActivityResult(
@@ -92,38 +92,35 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         mBinding.apply {
             ivBack.setOnClickListener { dismiss() }
             tvLogOut.setOnClickListener { logOut() }
-            ivChangePhoto.setOnClickListener {
-                takeImage()
-            }
+            ivChangePhoto.setOnClickListener { takeImage() }
             ivShareProfile.setOnClickListener { shareUserProfile() }
             btnSaveProfile.setOnClickListener {
                 latestTmpUri?.let { it1 ->
-                    //TODO refactorizar para un futuro al viewModel e Interactor (ya existen los metodos :D)
-                    //mViewModel.uploadUserImage(it1)
-                    mStorageReference =
-                        FirebaseStorage.getInstance(LINK_FIRESTORE_REFERENCE).reference
-
-                    val uploadTask =
-                        mStorageReference.child("$PATH_COLLECTOR_REFERENCE{${it1}}").putFile(it1)
-
-                    uploadTask.addOnSuccessListener {
-                        mStorageReference.child("$PATH_COLLECTOR_REFERENCE{$it1}").downloadUrl.addOnSuccessListener {
-                            toast("Imagen actualizada con exito!")
-                            mBinding.btnSaveProfile.apply {
-                                isEnabled = false
-                                alpha = 0.5F
-                            }
-                            mViewModel.updateImageURL(it.toString())
-                        }.addOnFailureListener {
-                            toast("Error al actualizar tu foto de perfil, intentalo de nuevo!")
-                        }
-                    }
+                    mViewModel.uploadUserImage(it1)
                 }
             }
         }
 
         /** Methods Calls **/
         showPersonalUserInfo()
+        bindViewModel()
+    }
+
+    /** ViewModel SetUp **/
+    private fun bindViewModel() {
+        mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
+        mViewModel.updateImage.observe(mActivity, Observer(this::getImageUserUrl))
+    }
+
+    private fun getImageUserUrl(imageUserUrlSuccess: Boolean) {
+        Log.d("imageUrl", imageUserUrlSuccess.toString())
+        if (imageUserUrlSuccess){
+            toast(getString(R.string.bottom_sheet_image_upload_success))
+            mBinding.btnSaveProfile.apply {
+                isEnabled = false
+                alpha = 0.5F
+            }
+        } else toast(getString(R.string.bottom_sheet_image_upload_error))
     }
 
     /** Take Photo **/
@@ -149,6 +146,10 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         )
     }
 
+    private fun takeUserPhoto() {
+        checkCameraHardware(mActivity)
+    }
+
     /** Other Methods**/
     private fun showPersonalUserInfo() {
         val userPersonalInfo = mViewModel.showPersonalInfo()
@@ -159,12 +160,11 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
             tvUserPhone.text = userPersonalInfo.third
 
             tvUserProfileAdress.text = userAboutInfo.first.orEmpty()
-            tvUserProfileAccess.text = userAboutInfo.second.toString()
-            if (userAboutInfo.third.toString().isNotEmpty()) {
+            if (userAboutInfo.second.toString().isNotEmpty()) {
                 mBinding.ivProfilePicture.visibility = View.VISIBLE
                 mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
                 Glide.with(mActivity)
-                    .load(userAboutInfo.third).circleCrop().into(mBinding.ivProfilePicture)
+                    .load(userAboutInfo.second).circleCrop().into(mBinding.ivProfilePicture)
             }
         }
     }
@@ -175,7 +175,7 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
-                Intent.EXTRA_TEXT, "Hola te comparto mi perfil...\n" +
+                Intent.EXTRA_TEXT, getString(R.string.bottom_sheet_share_profile_title) + "\n" +
                         "${userPersonalInfo.first}\n" +
                         "${userPersonalInfo.second}\n" +
                         "${userPersonalInfo.third}\n" +
@@ -186,10 +186,6 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
         }
         val shareIntent = Intent.createChooser(intent, null)
         startActivity(shareIntent)
-    }
-
-    private fun takeUserPhoto() {
-        checkCameraHardware(mActivity)
     }
 
     private fun logOut() {

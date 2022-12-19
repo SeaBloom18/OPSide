@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/showQR"
+        android:title="showQR"
+        android:icon="@drawable/ic_ops_qr_code"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/shareProfile"
+        android:title="shareProfile"
+        android:icon="@drawable/ic_ops_share"
+        app:showAsAction="ifRoom"/>
+</menu>

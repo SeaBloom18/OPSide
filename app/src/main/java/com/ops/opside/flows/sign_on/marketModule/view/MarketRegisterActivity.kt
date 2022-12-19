@@ -31,12 +31,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
+import androidx.lifecycle.Observer
 import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_MARKET
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Formaters.orZero
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
@@ -46,14 +48,13 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
+class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
 
     private val mBinding: ActivityMarketRegisterBinding by lazy {
         ActivityMarketRegisterBinding.inflate(layoutInflater)
     }
-    lateinit var latLng: LatLng
-
-    private lateinit var mActivity: MainActivity
+    private lateinit var latLng: LatLng
+    private var mGoogleMap: GoogleMap? = null
     private var concessionaires = listOf("David", "Alejandro")
 
     private val mMarketRegViewModel: MarketRegisterViewModel by viewModels()
@@ -107,7 +108,6 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //mBinding = ActivityMarketRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
         mBinding.apply {
@@ -145,12 +145,10 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         fetchLocation()
     }
 
-
     /** ViewModel SetUp **/
     private fun bindViewModel() {
-
+        mMarketRegViewModel.getShowProgress().observe(this, Observer(this@MarketRegisterActivity::showLoading))
     }
-
 
     /** Override Methods **/
     /** Toolbar Menu and backPressed **/
@@ -160,6 +158,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onBackPressed() {
         val dialog = BottomSheetDialog(this)
@@ -255,6 +254,7 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
 
     /** GoogleMaps SetUp**/
     override fun onMapReady(googleMap: GoogleMap) {
+        mGoogleMap = googleMap
         if (mMarketSE != null) latLng = LatLng(latitudeMaps, longitudeMaps)
         else latLng = LatLng(20.348917, -103.194615)
         val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
@@ -262,6 +262,19 @@ class MarketRegisterActivity : AppCompatActivity(), OnMapReadyCallback {
         googleMap.setMinZoomPreference(15.5F)
         googleMap.setMaxZoomPreference(15.5F)
         googleMap.addMarker(markerOptions)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mGoogleMap != null) {
+            mGoogleMap?.clear()
+            latLng = LatLng(latitudeMaps, longitudeMaps)
+            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            val markerOptions =
+                MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title))
+            mGoogleMap?.addMarker(markerOptions)
+            Toast.makeText(this, "resume", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun fetchLocation() {

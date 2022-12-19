@@ -59,10 +59,12 @@ class RegisterViewModel @Inject constructor(
                     {
                         _registerConcessionaire.value = it
                         showProgress.value = false
+                        _action.value = RegistrationAction.ShowMessageSuccess
                     },
                     {
                         Log.e("Error", it.toString())
                         showProgress.value = false
+                        _action.value = RegistrationAction.ShowMessageError
                     }
                 )
         )
@@ -76,10 +78,12 @@ class RegisterViewModel @Inject constructor(
                     {
                         _registerConcessionaire.value = it
                         showProgress.value = false
+                        _action.value = RegistrationAction.ShowMessageSuccess
                     },
                     {
                         Log.e("Error", it.toString())
                         showProgress.value = false
+                        _action.value = RegistrationAction.ShowMessageError
                     }
                 )
         )

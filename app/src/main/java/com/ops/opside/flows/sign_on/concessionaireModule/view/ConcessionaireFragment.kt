@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -46,7 +45,7 @@ class ConcessionaireFragment : BaseFragment() {
 
         bindViewModel()
         setToolbar()
-        loadConcessionaresList()
+        loadConcessionairesList()
         return mBinding.root
     }
 
@@ -96,13 +95,13 @@ class ConcessionaireFragment : BaseFragment() {
         }
     }
 
-    private fun getAbsencesList(concessionaresList: MutableList<ConcessionaireSE>){
-        mConcessionairesList = concessionaresList
+    private fun getAbsencesList(concessionairesList: MutableList<ConcessionaireSE>){
+        mConcessionairesList = concessionairesList
 
         initRecyclerView()
     }
 
-    private fun loadConcessionaresList(){
+    private fun loadConcessionairesList(){
         mViewModel.getConcessionairesList()
     }
 

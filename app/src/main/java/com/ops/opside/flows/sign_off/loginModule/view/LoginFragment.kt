@@ -1,12 +1,16 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -34,6 +38,13 @@ class LoginFragment : BaseFragment() {
 
     private val mBinding: FragmentLoginBinding by lazy {
         FragmentLoginBinding.inflate(layoutInflater)
+    }
+
+    private val resultActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == 100){
+            if (mBinding.teLoginEmail.text?.isEmpty() == true)
+                mBinding.teLoginEmail.setText(it.data?.getStringExtra("emailReturn").toString())
+        }
     }
 
     private val mViewModel: LoginViewModel by viewModels()
@@ -74,7 +85,12 @@ class LoginFragment : BaseFragment() {
                 )
             }
 
-            tvSignUp.setOnClickListener { mActivity.startActivity<RegistrationActivity>() }
+            tvSignUp.setOnClickListener {
+                /*val intent = Intent(mActivity, RegistrationActivity::class.java)
+                startActivity(intent)*/
+                resultActivity.launch(Intent(mActivity, RegistrationActivity::class.java))
+                //mActivity.startActivity<RegistrationActivity>()
+            }
         }
 
         bindViewModel()

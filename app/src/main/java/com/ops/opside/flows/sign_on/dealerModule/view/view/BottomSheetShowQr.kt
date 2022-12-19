@@ -1,7 +1,6 @@
 package com.ops.opside.flows.sign_on.dealerModule.view.view
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
@@ -11,9 +10,7 @@ import android.text.TextPaint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -23,8 +20,10 @@ import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetShowQrBinding
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.BottomSheetShowQrViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.*
-import java.lang.Exception
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 @AndroidEntryPoint
@@ -70,7 +69,8 @@ class BottomSheetShowQr: BaseBottomSheetFragment() {
     }
 
     private fun createDocument(mBitmap: Bitmap) {
-        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "myImageQrCode.png")
+        val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+            "${R.string.bottom_sheet_showqr_image_name}")
         val os: OutputStream = BufferedOutputStream(FileOutputStream(file))
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
         os.close()
@@ -83,11 +83,11 @@ class BottomSheetShowQr: BaseBottomSheetFragment() {
         val paint = Paint()
         val textUseConditions = TextPaint()
         val textOpsDescription = TextPaint()
-        val useConditionTextLine1 = "Este tipo de documentos es exclusivo para usuarios de OPS. \n"
-        val useConditionTextLine2 = "Favor de hacer uso exclusivo en recaudacion."
-        val useConditionTextLine3 = "Cualquier duda contactar con administracion. \n"
-        val opsDescriptionTextLine1 = "Propiedad de OPSide®"
-        val opsDescriptionTextLine2 = "Ixtlahuacan de los Membrillos"
+        val useConditionTextLine1 = "${R.string.bottom_sheet_showqr_condition1} \n"
+        val useConditionTextLine2 = "${R.string.bottom_sheet_showqr_condition2}"
+        val useConditionTextLine3 = "${R.string.bottom_sheet_showqr_condition3} \n"
+        val opsDescriptionTextLine1 = "${R.string.bottom_sheet_showqr_description1}"
+        val opsDescriptionTextLine2 = "${R.string.bottom_sheet_showqr_description2}"
 
         val paginaInfo = PdfDocument.PageInfo.Builder(200, 270, 1).create()
         val pagina1 = pdfDocument.startPage(paginaInfo)
@@ -118,16 +118,15 @@ class BottomSheetShowQr: BaseBottomSheetFragment() {
         pdfDocument.finishPage(pagina1)
 
         val file = File(
-            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MyLetterQrCode.pdf")
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+            getString(R.string.bottom_sheet_showqr_pdf_name))
         try {
             pdfDocument.writeTo(FileOutputStream(file))
-            Toast.makeText(requireContext(), "Se creo el PDF correctamente", Toast.LENGTH_LONG).show()
+            toast(getString(R.string.bottom_sheet_showqr_toast_create_success))
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
         pdfDocument.close()
-
     }
 
     /** PDF TAMAÑO GAFETE **/
@@ -137,11 +136,11 @@ class BottomSheetShowQr: BaseBottomSheetFragment() {
         val paint = Paint()
         val textUseConditions = TextPaint()
         val textOpsDescription = TextPaint()
-        val useConditionTextLine1 = "Este tipo de documentos es exclusivo para usuarios de OPS. \n"
-        val useConditionTextLine2 = "Favor de hacer uso exclusivo en recaudacion."
-        val useConditionTextLine3 = "Cualquier duda contactar con administracion. \n"
-        val opsDescriptionTextLine1 = "Propiedad de OPSide®"
-        val opsDescriptionTextLine2 = "Ixtlahuacan de los Membrillos"
+        val useConditionTextLine1 = "${R.string.bottom_sheet_showqr_condition1} \n"
+        val useConditionTextLine2 = "${R.string.bottom_sheet_showqr_condition2}"
+        val useConditionTextLine3 = "${R.string.bottom_sheet_showqr_condition3} \n"
+        val opsDescriptionTextLine1 = "${R.string.bottom_sheet_showqr_description1}"
+        val opsDescriptionTextLine2 = "${R.string.bottom_sheet_showqr_description2}"
 
         val pageInfo = PdfDocument.PageInfo.Builder(76, 102, 1).create()
         val page1 = pdfDocument.startPage(pageInfo)
@@ -174,10 +173,11 @@ class BottomSheetShowQr: BaseBottomSheetFragment() {
         pdfDocument.finishPage(page1)
 
         val file = File(
-            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MyBadgeQrCode.pdf")
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+            getString(R.string.bottom_sheet_showqr_pdf_name))
         try {
             pdfDocument.writeTo(FileOutputStream(file))
-            Toast.makeText(requireContext(), "Se creo el PDF correctamente", Toast.LENGTH_LONG).show()
+            toast(getString(R.string.bottom_sheet_showqr_toast_create_success))
         } catch (e: Exception) {
             e.printStackTrace()
         }

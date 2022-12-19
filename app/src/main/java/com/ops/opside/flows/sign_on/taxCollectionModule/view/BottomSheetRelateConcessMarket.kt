@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ops.opside.R
 import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.room.ParticipatingConcessRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
@@ -82,20 +83,12 @@ class BottomSheetRelateConcessMarket(
 
     private fun relate(linearMeters: Double, lineBusiness: String) {
         if (linearMeters <= 0) {
-            Toast.makeText(
-                requireContext(),
-                "Los metros lineales deben ser mayor a 0",
-                Toast.LENGTH_SHORT
-            ).show()
+            toast(getString(R.string.bottom_sheet_relateconcessmarket_toast_linear_meter_validation))
             return
         }
 
         if (lineBusiness.isEmpty()) {
-            Toast.makeText(
-                requireContext(),
-                "El giro de negocio no puede estar vacío",
-                Toast.LENGTH_SHORT
-            ).show()
+            toast(getString(R.string.bottom_sheet_relateconcessmarket_toast_line_business_validation))
             return
         }
 
