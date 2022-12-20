@@ -172,6 +172,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="control_panel_dialog_message">¿Estas seguro que de quieres actualizar el precio lineal?</string>
     <string name="control_panel_dialog_yes_action_message">El precio lineal ha sido actualizado con éxito</string>
     <string name="control_panel_dialog_no_action_message">Error al actualizar el precio lineal</string>
+    <string name="control_panel_hasaccess_updated_success">El acceso ha sido actualizado correctamente</string>
+    <string name="control_panel_hasaccess_updated_error">Oops Error al actualizar el acceso!</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>

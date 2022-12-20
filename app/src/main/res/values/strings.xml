@@ -173,6 +173,8 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="control_panel_dialog_message">Are you sure to update the Meter Price?</string>
     <string name="control_panel_dialog_yes_action_message">The Price Meter has been updated</string>
     <string name="control_panel_dialog_no_action_message">The Price Meter not has been updated</string>
+    <string name="control_panel_hasaccess_updated_success">The Access has been updated</string>
+    <string name="control_panel_hasaccess_updated_error">The Access not has been updated</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Create new Incident</string>

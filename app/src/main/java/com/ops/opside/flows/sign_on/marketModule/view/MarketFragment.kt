@@ -17,7 +17,7 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
-import com.ops.opside.flows.sign_on.marketModule.adapters.OnClickListener
+import com.ops.opside.flows.sign_on.marketModule.interfaces.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

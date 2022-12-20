@@ -14,7 +14,10 @@ import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
+import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
+import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
+import com.ops.opside.flows.sign_on.dashboardModule.interfaces.ControlPanelInterface
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
@@ -23,7 +26,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
-class ControlPanelActivity : BaseActivity() {
+class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
@@ -56,6 +59,8 @@ class ControlPanelActivity : BaseActivity() {
         mControlPanelViewModel.getShowProgress().observe(this, Observer(this::showLoading))
         mControlPanelViewModel.getCollectorList.observe(this, Observer(this::getCollectors))
         mControlPanelViewModel.priceLinearMeter.observe(this, Observer(this::getPriceLinearMeter))
+        mControlPanelViewModel.getAction().observe(this, Observer(this::handleAction))
+
     }
 
     private fun loadCollectorList() {
@@ -74,6 +79,18 @@ class ControlPanelActivity : BaseActivity() {
 
     private fun loadPriceLinearMeter() {
         mControlPanelViewModel.getPriceLinearMeter()
+    }
+
+    /** Sealed Class handleAction**/
+    private fun handleAction(action: ControlPanelAction) {
+        when(action) {
+            is ControlPanelAction.ShowMessageSuccess -> {
+                toast(getString(R.string.control_panel_hasaccess_updated_success))
+            }
+            is ControlPanelAction.ShowMessageError -> {
+                toast(getString(R.string.control_panel_hasaccess_updated_error))
+            }
+        }
     }
 
     /** Other Methods**/
@@ -162,7 +179,7 @@ class ControlPanelActivity : BaseActivity() {
     private fun setUpRecyclerView() {
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
-        controlPanelAdapter = ControlPanelAdapter(mCollectorList, mControlPanelViewModel)
+        controlPanelAdapter = ControlPanelAdapter(mCollectorList, this, mControlPanelViewModel)
 
         mBinding.recyclerControlPanel.apply {
             setHasFixedSize(true)
@@ -220,5 +237,10 @@ class ControlPanelActivity : BaseActivity() {
         )
         dialog.setCancelable(false)
         dialog.show()
+    }
+
+    /** Interface Methods **/
+    override fun switchHasAccess(idFirestore: String, hasAccess: Boolean) {
+        mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
     }
 }

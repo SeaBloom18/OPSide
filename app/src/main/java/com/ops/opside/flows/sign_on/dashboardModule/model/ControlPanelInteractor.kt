@@ -85,9 +85,11 @@ data class ControlPanelInteractor @Inject constructor(
             tryOrPrintException {
                 firestore.collection(DB_TABLE_COLLECTOR).document(idFirestore).update("hasAccess", hasAccess)
                     .addOnSuccessListener {
+                        subscriber.onNext(true)
                         Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
                     }
                     .addOnFailureListener {
+                        subscriber.onError(it)
                         Log.w("FireStoreDelete", "Error deleting document", it)
                     }
             }
