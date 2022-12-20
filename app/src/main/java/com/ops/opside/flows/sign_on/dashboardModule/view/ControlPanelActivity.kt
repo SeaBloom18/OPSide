@@ -30,7 +30,7 @@ class ControlPanelActivity : BaseActivity() {
     private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
-    private var mPriceLinearMeter: Double = 0.0
+    private var mPriceLinearMeter: Float = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class ControlPanelActivity : BaseActivity() {
         setUpRecyclerView()
     }
 
-    private fun getPriceLinearMeter(priceLinearMeter: Double) {
+    private fun getPriceLinearMeter(priceLinearMeter: Float) {
         mPriceLinearMeter = priceLinearMeter
         mBinding.teLinealPrice.setText(mPriceLinearMeter.toString())
     }

@@ -45,7 +45,7 @@ data class ControlPanelInteractor @Inject constructor(
         }
     }
 
-    fun getLinealPriceMeter(): Observable<Double> {
+    fun getLinealPriceMeter(): Observable<Float> {
         return Observable.unsafeCreate{ subscriber ->
             var priceLinealMeter = 0.0f
             firestore.collection(DB_TABLE_RESOURCES)
@@ -55,7 +55,7 @@ data class ControlPanelInteractor @Inject constructor(
                         priceLinealMeter = document.get("priceLinealMeter").toString().toFloat().orZero()
                         sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter)
                     }
-                    subscriber.onNext(priceLinealMeter.toDouble())
+                    subscriber.onNext(priceLinealMeter)
                 }
                 .addOnFailureListener {
                     subscriber.onError(it)
