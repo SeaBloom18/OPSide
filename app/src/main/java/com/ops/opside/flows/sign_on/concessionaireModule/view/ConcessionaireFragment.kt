@@ -1,13 +1,11 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.view
 
 import android.os.Bundle
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import androidx.core.view.MenuProvider
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -15,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.bsd.BottomSheetFilter
+import com.ops.opside.common.bsd.KEY_FILTER_REQUEST
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.common.views.BaseFragment
@@ -42,19 +41,33 @@ class ConcessionaireFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentConcessionaireBinding.inflate(inflater, container, false)
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mBinding.apply {
+            teSearch.doAfterTextChanged {
+                mAdapter.filter(it.toString())
+            }
+        }
 
         bindViewModel()
         setToolbar()
         loadConcessionairesList()
-        return mBinding.root
     }
 
     private fun bindViewModel() {
-        mViewModel.getConcessionairesList.observe(requireActivity(), Observer(this::getAbsencesList))
+        mViewModel.getShowProgress().observe(requireActivity(), Observer(this::showLoading))
+        mViewModel.getConcessionairesList.observe(
+            requireActivity(),
+            Observer(this::getConcessList)
+        )
     }
 
-    private fun setToolbar(){
-        with(mBinding.toolbarFragConce.commonToolbar){
+    private fun setToolbar() {
+        with(mBinding.toolbarFragConce.commonToolbar) {
             this.title = getString(R.string.bn_menu_concessionaire_opc2)
 
             this.addMenuProvider(object : MenuProvider {
@@ -63,7 +76,7 @@ class ConcessionaireFragment : BaseFragment() {
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when(menuItem.itemId){
+                    return when (menuItem.itemId) {
                         R.id.menu_concessionaire_filter -> {
                             initBsd()
                             true
@@ -77,7 +90,18 @@ class ConcessionaireFragment : BaseFragment() {
 
     private fun initBsd() {
         tryOrPrintException {
-            val bottomSheetFilter = BottomSheetFilter()
+            val bottomSheetFilter = BottomSheetFilter(
+                showMarket = true,
+                showCollector = false,
+                showDate = false
+            )
+
+            parentFragment?.setFragmentResultListener(KEY_FILTER_REQUEST) { _, bundle ->
+                mViewModel.getConcessByMarketList(
+                    bundle.getStringArrayList("market") as MutableList<String>
+                )
+            }
+
             bottomSheetFilter.show(mActivity.supportFragmentManager, bottomSheetFilter.tag)
         }
     }
@@ -93,15 +117,16 @@ class ConcessionaireFragment : BaseFragment() {
             layoutManager = linearLayoutManager
             adapter = mAdapter
         }
+
+        mAdapter.notifyDataSetChanged()
     }
 
-    private fun getAbsencesList(concessionairesList: MutableList<ConcessionaireSE>){
+    private fun getConcessList(concessionairesList: MutableList<ConcessionaireSE>) {
         mConcessionairesList = concessionairesList
-
         initRecyclerView()
     }
 
-    private fun loadConcessionairesList(){
+    private fun loadConcessionairesList() {
         mViewModel.getConcessionairesList()
     }
 

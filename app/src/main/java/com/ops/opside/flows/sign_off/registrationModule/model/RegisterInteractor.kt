@@ -12,70 +12,69 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class RegisterInteractor @Inject constructor(
-    private val firestore: FirebaseFirestore){
+    private val firestore: FirebaseFirestore
+) {
 
-    fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
-        return Observable.unsafeCreate{ subscriber ->
+    fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { _ ->
                         subscriber.onNext(true)
                     }
-                    .addOnFailureListener {
-                            e -> Log.d("Firebase", "Error adding document", e)
+                    .addOnFailureListener { e ->
+                        Log.d("Firebase", "Error adding document", e)
                         subscriber.onNext(false)
                     }
 
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }
     }
 
-    fun registerForeignConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean>{
+    fun registerForeignConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                         subscriber.onNext(true)
                     }
-                    .addOnFailureListener {
-                            e -> Log.w("Firebase", "Error adding document", e)
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase", "Error adding document", e)
                         subscriber.onNext(false)
                     }
 
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }
     }
 
-    fun registerCollector(collectorFE: CollectorFE): Observable<Boolean>{
+    fun registerCollector(collectorFE: CollectorFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                    firestore.collection(DB_TABLE_COLLECTOR)
+                firestore.collection(DB_TABLE_COLLECTOR)
                     .add(collectorFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
-                        Log.d("Firebase", "DocumentSnapshot added with ID: " + documentReference.id)
                         subscriber.onNext(true)
                     }
-                    .addOnFailureListener {
-                            e -> Log.w("Firebase", "Error adding document", e)
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase", "Error adding document", e)
                         subscriber.onNext(false)
 
                     }
 
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }
     }
 
 
-    fun getOriginList(): Observable<MutableList<OriginFE>>{
+    fun getOriginList(): Observable<MutableList<OriginFE>> {
         return Observable.unsafeCreate { subscriber ->
             try {
                 val originList: MutableList<OriginFE> = mutableListOf()
@@ -91,32 +90,32 @@ class RegisterInteractor @Inject constructor(
                                 )
                             )
                         }
-                        val sortedByName = originList.sortedBy { myObject -> myObject.originName}
+                        val sortedByName = originList.sortedBy { myObject -> myObject.originName }
                         subscriber.onNext(sortedByName as MutableList<OriginFE>?)
                     }.addOnFailureListener {
                         subscriber.onError(it)
                     }
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }
     }
 
-    fun getIsEmailExist(email: String): Observable<Boolean>{
+    fun getIsEmailExist(email: String): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener {
-                        if (it.documents.size > 0){
+                        if (it.documents.size > 0) {
                             subscriber.onNext(true)
                         } else {
                             firestore.collection(DB_TABLE_COLLECTOR)
                                 .whereEqualTo("email", email)
                                 .get()
                                 .addOnSuccessListener {
-                                    if (it.documents.size > 0){
+                                    if (it.documents.size > 0) {
                                         subscriber.onNext(true)
                                     } else {
                                         subscriber.onNext(false)
@@ -132,7 +131,7 @@ class RegisterInteractor @Inject constructor(
                         Log.w("loginFirestore", "Error getting documents: ", exception)
                         subscriber.onError(exception)
                     }
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }

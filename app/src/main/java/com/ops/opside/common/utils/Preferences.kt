@@ -77,6 +77,8 @@ class Preferences @Inject constructor(
         sp.edit().remove(SP_ROLL              ).apply()
         sp.edit().remove(SP_HAS_ACCESS        ).apply()
         sp.edit().remove(SP_IS_ON_LINE_MODE   ).apply()
+        sp.edit().remove(SP_USE_BIOMETRICS    ).apply()
+        sp.edit().remove(SP_IS_INITIALIZED    ).apply()
     }
 
 }
