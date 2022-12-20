@@ -21,11 +21,31 @@ class ConcessionaireViewModel @Inject constructor(
     fun getConcessionairesList(){
         disposable.add(
             mConcessionaireInteractor.getConcessionairesList().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
+                        showProgress.value = false
                         _getConcessionairesList.value = it
                     },
                     {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun getConcessByMarketList(markets: MutableList<String>){
+        disposable.add(
+            mConcessionaireInteractor.getConcessByMarketList(markets).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        _getConcessionairesList.value = it
+                    },
+                    {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )

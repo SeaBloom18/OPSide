@@ -64,7 +64,8 @@ class TaxCollectionCrudActivity : BaseActivity(), TaxCollectionCrudAux {
     }
 
     private fun initBsd() {
-        val bottomSheetFilter = BottomSheetFilter()
+        val bottomSheetFilter =
+            BottomSheetFilter(showMarket = true, showCollector = true, showDate = true)
         bottomSheetFilter.show(supportFragmentManager, bottomSheetFilter.tag)
     }
 
