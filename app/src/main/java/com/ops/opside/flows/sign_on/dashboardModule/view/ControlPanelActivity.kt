@@ -53,6 +53,7 @@ class ControlPanelActivity : BaseActivity() {
 
     /** ViewModel and Methods SetUp**/
     private fun bindViewModel() {
+        mControlPanelViewModel.getShowProgress().observe(this, Observer(this::showLoading))
         mControlPanelViewModel.getCollectorList.observe(this, Observer(this::getCollectors))
         mControlPanelViewModel.priceLinearMeter.observe(this, Observer(this::getPriceLinearMeter))
     }
@@ -206,6 +207,7 @@ class ControlPanelActivity : BaseActivity() {
             buttonNoText = getString(R.string.common_cancel),
             buttonYesText = getString(R.string.common_accept),
             yesAction = {
+                //TODO Refact
                 mControlPanelViewModel.updateLinealPriceMeter(
                     "Ulmp4yMD4noSlOE6IwpX",
                     mBinding.teLinealPrice.text.toString().trim()

@@ -9,6 +9,12 @@
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
 
+    <!--About App Strings-->
+    <string name="ops_about_app_title">Sobre OPS</string>
+    <string name="ops_about_app_body">OPS es una aplicación para la administración de mercadillos y las actividades que conllevan como son los cobros, incidencias, creación de mercadillos, alta de usuarios, etc.
+La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a todos los usuarios a la hora de realizar el cobro de impuestos.</string>
+    <string name="ops_about_app_last_update">Última actualización: 19 de Diciembre del 2022</string>
+
     <!--Dealer Strings-->
     <string name="tv_dealer_title">Tu Perfil</string>
     <string name="tv_prices_info_linear">metros lineales</string>
