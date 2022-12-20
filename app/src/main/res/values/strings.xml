@@ -9,6 +9,12 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_atention">Attention</string>
 
+    <!--About App-->
+    <string name="ops_about_app_title">About OPS</string>
+    <string name="ops_about_app_body">OPS is an application for the administration of markets and the activities that they entail such as collections, incidents, creation of markets, user registration, etc.
+The OPS application is willing to help and provide a better experience to all users when it comes to collecting taxes.</string>
+    <string name="ops_about_app_last_update">Last Update: December 19, 2022</string>
+
     <!--Dealer Strings-->
     <string name="tv_dealer_title">Your Profile</string>
     <string name="tv_prices_info_linear">linear meters</string>
