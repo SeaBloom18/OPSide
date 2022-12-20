@@ -63,7 +63,6 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
             firestore.collection(DB_TABLE_CONCESSIONAIRE).document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
                     sp.putValue(SP_USER_URL_PHOTO, url)
-                    //deleteUserImage()
                     Log.d("StorageUserProfilePhotoUpdatedSuccess", "DocumentSnapshot successfully updated!")
                 }
                 .addOnFailureListener {

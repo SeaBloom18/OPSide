@@ -283,10 +283,10 @@ class LoginFragment : BaseFragment() {
     @SuppressLint("InflateParams")
     private fun showAboutApp() {
         val dialog = BottomSheetDialog(mActivity)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_global_info, null)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_about_app, null)
 
         val tvTitle = view.findViewById<TextView>(R.id.tvBottomTitle)
-        tvTitle.text = getString(R.string.login_tv_about_app)
+        tvTitle.text = getString(R.string.ops_about_app_title)
 
         dialog.setContentView(view)
         dialog.show()

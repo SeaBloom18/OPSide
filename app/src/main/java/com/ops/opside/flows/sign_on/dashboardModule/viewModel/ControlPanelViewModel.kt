@@ -27,11 +27,14 @@ class ControlPanelViewModel @Inject constructor(
     fun getCollectorList() {
         disposable.add(
             mControlPanelInteractor.getCollectors().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         getCollectorList.value = it
+                        showProgress.value = false
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )
@@ -41,11 +44,14 @@ class ControlPanelViewModel @Inject constructor(
     fun getPriceLinearMeter(){
         disposable.add(
             mControlPanelInteractor.getLinealPriceMeter().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         _getPriceLinearMeter.value = it
+                        showProgress.value = false
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )
@@ -55,11 +61,14 @@ class ControlPanelViewModel @Inject constructor(
     fun updateLinealPriceMeter(idFirestore: String, price: String) {
         disposable.add(
             mControlPanelInteractor.updateLinealPriceMeter(idFirestore, price).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         updatePrice.value = it
+                        showProgress.value = false
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )
@@ -69,11 +78,14 @@ class ControlPanelViewModel @Inject constructor(
     fun updateHasAccess(idFirestore: String, hasAccess: Boolean){
         disposable.add(
             mControlPanelInteractor.updateHasAccess(idFirestore, hasAccess).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
+                        showProgress.value = false
                         updateHasAccess.value = it
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )
