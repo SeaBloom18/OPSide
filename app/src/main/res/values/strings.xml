@@ -114,6 +114,8 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="registration_toast_password_regex_validation">Oops, it looks like the password doesn\'t meet the requirements!</string>
     <string name="registration_toast_policies_validation">Before you must accept our privacy policies!</string>
     <string name="registration_see_policies_validation">Tap to see Privacy Policies!</string>
+    <string name="registration_updated_market_success">The Market list has been updated!</string>
+    <string name="registration_updated_market_error">Oops, the Market list not has been updated!</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>

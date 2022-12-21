@@ -31,7 +31,6 @@ class ControlPanelViewModel @Inject constructor(
     private val _action: SingleLiveEvent<ControlPanelAction> = SingleLiveEvent()
     fun getAction(): LiveData<ControlPanelAction> = _action
 
-
     fun getCollectorList() {
         disposable.add(
             mControlPanelInteractor.getCollectors().applySchedulers()
