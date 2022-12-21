@@ -116,6 +116,7 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="registration_see_policies_validation">Tap to see Privacy Policies!</string>
     <string name="registration_updated_market_success">The Market list has been updated!</string>
     <string name="registration_updated_market_error">Oops, the Market list not has been updated!</string>
+    <string name="registration_til_linear_meter">Market Meters</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>

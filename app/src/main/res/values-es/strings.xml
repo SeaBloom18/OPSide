@@ -116,6 +116,7 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="registration_see_policies_validation">Toca para ver las Políticas de Privacidad</string>
     <string name="registration_updated_market_success">La lista de tianguis se ha actualizado con éxito!</string>
     <string name="registration_updated_market_error">Oops, hubo un error al actualiazar la lista de tianguis!</string>
+    <string name="registration_til_linear_meter">Metros del tianguis</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
