@@ -119,11 +119,10 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
     override fun onMapReady(googleMap: GoogleMap) {
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
         val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title)).draggable(true)
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-        googleMap.setMaxZoomPreference(17.5F)
-        googleMap.setMinZoomPreference(17.5F)
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.5f))
+        //googleMap.setMaxZoomPreference(17.5F)
+        //googleMap.setMinZoomPreference(17.5F)
         googleMap.addMarker(markerOptions)
-
         googleMap.setOnMarkerDragListener(object: OnMarkerDragListener{
             override fun onMarkerDrag(p0: Marker) {
 
