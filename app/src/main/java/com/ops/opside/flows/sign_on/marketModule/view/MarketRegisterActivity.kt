@@ -17,8 +17,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,7 +31,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
-import androidx.lifecycle.Observer
 import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_MARKET
@@ -40,8 +39,6 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
-import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
-import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel

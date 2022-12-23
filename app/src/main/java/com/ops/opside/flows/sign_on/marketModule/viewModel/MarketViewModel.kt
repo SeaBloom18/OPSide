@@ -50,9 +50,8 @@ class MarketViewModel @Inject constructor(
                     },
                     {
                         showProgress.value = false
-                        Log.e("Error", it.toString())
                         _action.value = MarketAction.ShowMessageError
-
+                        Log.e("Error", it.toString())
                     }
                 )
         )

@@ -16,6 +16,7 @@ import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.FragmentMarketBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.marketModule.interfaces.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketViewModel
@@ -44,7 +45,9 @@ class MarketFragment : Fragment(), OnClickListener {
 
     /** ViewModel and Methods SetUp **/
     private fun bindViewModel() {
+        mMarketViewModel.getShowProgress().observe(mActivity, Observer(mActivity::showLoading))
         mMarketViewModel.getMarketList.observe(mActivity, Observer(this::getMarketList))
+        mMarketViewModel.getAction().observe(mActivity, Observer(this::handleAction))
     }
 
     private fun loadMarketsList() {
@@ -54,6 +57,20 @@ class MarketFragment : Fragment(), OnClickListener {
     private fun getMarketList(marketList: MutableList<MarketSE>){
         mMarketList = marketList
         setUpRecyclerView()
+    }
+
+    /** Sealed Class handleAction**/
+    private fun handleAction(action: MarketAction) {
+        when(action) {
+            is MarketAction.ShowMessageSuccess -> {
+                Toast.makeText(mActivity, getString(R.string.registration_updated_market_success),
+                    Toast.LENGTH_SHORT).show()
+            }
+            is MarketAction.ShowMessageError -> {
+                Toast.makeText(mActivity, getString(R.string.registration_updated_market_error),
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     /** Toolbar SetUp **/
@@ -104,8 +121,8 @@ class MarketFragment : Fragment(), OnClickListener {
             "",
             {
                 mMarketViewModel.deleteMarket(marketId)
-                Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
                 mMarketAdapter.updateListPostDelete(position)
+                Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
             },
             { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
         )
