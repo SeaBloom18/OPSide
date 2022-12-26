@@ -6,7 +6,7 @@ import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
@@ -61,23 +61,24 @@ class TaxCollectionInteractor @Inject constructor(
         }
     }
 
-    fun getParticipatingConcessList(idMarket: String): Observable<MutableList<ParticipatingConcessRE>> {
+    fun getParticipatingConcessList(idMarket: String): Observable<MutableList<ParticipatingConcessSE>> {
         return Observable.unsafeCreate { subscriber ->
-            val participatingConcess: MutableList<ParticipatingConcessRE> = mutableListOf()
+            val participatingConcess: MutableList<ParticipatingConcessSE> = mutableListOf()
 
             firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
                 .whereEqualTo("idMarket", idMarket)
                 .get()
-                .addOnSuccessListener { it ->
+                .addOnSuccessListener {
 
                     for (document in it.documents) {
                         participatingConcess.add(
-                            ParticipatingConcessRE(
+                            ParticipatingConcessSE(
                                 idMarket,
                                 document.get("idConcessionaire").toString(),
                                 document.id,
                                 document.get("linearMeters").toString().toDouble(),
                                 document.get("lineBusiness").toString(),
+                                document.get("marketName").toString()
                             )
                         )
                     }
@@ -89,7 +90,7 @@ class TaxCollectionInteractor @Inject constructor(
         }
     }
 
-    fun getPersistedParticipatingConcessList(idMarket: String): Observable<MutableList<ParticipatingConcessRE>> {
+    fun getPersistedParticipatingConcessList(idMarket: String): Observable<MutableList<ParticipatingConcessSE>> {
         return Observable.unsafeCreate { subscriber ->
             try {
                 val participatingConcessList =
@@ -104,7 +105,7 @@ class TaxCollectionInteractor @Inject constructor(
     fun persistConcessionairesSEList(
         idMarket: String,
         concessionaires: MutableList<ConcessionaireFE>,
-        participatingConcessRE: MutableList<ParticipatingConcessRE>
+        participatingConcessSE: MutableList<ParticipatingConcessSE>
     )
             : Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
@@ -127,7 +128,7 @@ class TaxCollectionInteractor @Inject constructor(
                     .addConcessionairesList(concessionaires.map { it.parseToSE() }.toMutableList())
 
                 // Volvemos a crear las relaciones
-                room.concessionaireDao().addConcessPartipating(participatingConcessRE)
+                room.concessionaireDao().addConcessPartipating(participatingConcessSE)
 
                 subscriber.onNext(true)
             } catch (e: Exception) {

@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class ConcessionaireInteractor @Inject constructor(
     private val firestore: FirebaseFirestore
-){
+) {
     fun getConcessionairesList(): Observable<MutableList<ConcessionaireSE>> {
-        return Observable.unsafeCreate{ subscriber ->
+        return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
                 firestore.collection(DB_TABLE_CONCESSIONAIRE)
@@ -31,7 +31,8 @@ class ConcessionaireInteractor @Inject constructor(
                                         SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE,
                                     lineBusiness = document.get("lineBusiness").toString(),
                                     absence = document.get("absence").toString().toInt(),
-                                    isForeigner = document.get("isForeigner").toString().toBoolean(),
+                                    isForeigner = document.get("isForeigner").toString()
+                                        .toBoolean(),
                                     origin = document.get("origin").toString()
                                 )
                             )
@@ -39,23 +40,19 @@ class ConcessionaireInteractor @Inject constructor(
                         subscriber.onNext(concessionaires)
                     }
                     .addOnFailureListener { subscriber.onNext(concessionaires) }
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }
     }
 
     fun getConcessByMarketList(markets: MutableList<String>): Observable<MutableList<ConcessionaireSE>> {
-        return Observable.unsafeCreate{ subscriber ->
+        return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
-                val query = firestore.collection(DB_TABLE_CONCESSIONAIRE)
-
-                    markets.forEach {
-                        query.whereArrayContains("participatingMarkets", it)
-                    }
-
-                    query.get()
+                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                    .whereArrayContainsAny("participatingMarkets", markets.map { it }.toList())
+                    .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
                             concessionaires.add(
@@ -70,7 +67,8 @@ class ConcessionaireInteractor @Inject constructor(
                                         SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE,
                                     lineBusiness = document.get("lineBusiness").toString(),
                                     absence = document.get("absence").toString().toInt(),
-                                    isForeigner = document.get("isForeigner").toString().toBoolean(),
+                                    isForeigner = document.get("isForeigner").toString()
+                                        .toBoolean(),
                                     origin = document.get("origin").toString()
                                 )
                             )
@@ -78,7 +76,7 @@ class ConcessionaireInteractor @Inject constructor(
                         subscriber.onNext(concessionaires)
                     }
                     .addOnFailureListener { subscriber.onNext(concessionaires) }
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }

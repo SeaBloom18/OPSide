@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.ColorRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.zxing.integration.android.IntentIntegrator
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -17,7 +16,7 @@ import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
@@ -53,7 +52,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
     private var mTotalAmount: Double = 0.0
 
     private lateinit var mConcessionairesMap: MutableMap<String, ConcessionaireSE>
-    private lateinit var mParticipatingConcessMap: MutableMap<String, ParticipatingConcessRE>
+    private lateinit var mParticipatingConcessMap: MutableMap<String, ParticipatingConcessSE>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -154,12 +153,13 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 showError("No se puede cobrar 2 veces al mismo concesionario")
             } else {
                 if (it.isForeigner) {
-                    mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessRE(
+                    mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessSE(
                         idMarket = mSelectedMarket.idFirebase,
                         idConcessionaire = it.idFirebase,
                         idFirebase = ID.getTemporalId(),
                         linearMeters = it.linearMeters,
-                        lineBusiness = it.lineBusiness
+                        lineBusiness = it.lineBusiness,
+                        marketName = mSelectedMarket.name
                     )
 
                     chargeDay(FLOOR_COLLECTION, it.idFirebase)
@@ -279,14 +279,14 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         mBinding.tvTotalAmount.text = "$ $mTotalAmount"
     }
 
-    private fun getPersistedParticipatingConcessList(participatingConcess: MutableList<ParticipatingConcessRE>) {
+    private fun getPersistedParticipatingConcessList(participatingConcess: MutableList<ParticipatingConcessSE>) {
         mParticipatingConcessMap = mutableMapOf()
         participatingConcess.map {
             mParticipatingConcessMap.put(it.idConcessionaire, it)
         }
     }
 
-    private fun getParticipatingConcessList(participatingConcess: MutableList<ParticipatingConcessRE>) {
+    private fun getParticipatingConcessList(participatingConcess: MutableList<ParticipatingConcessSE>) {
         mParticipatingConcessMap = mutableMapOf()
         participatingConcess.map {
             mParticipatingConcessMap.put(it.idConcessionaire, it)

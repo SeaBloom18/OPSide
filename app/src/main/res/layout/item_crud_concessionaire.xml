@@ -22,9 +22,9 @@
             android:layout_marginEnd="@dimen/common_padding_min"
             android:backgroundTint="@color/fui_transparent"
             android:checked="true"
+            android:contentDescription="@string/common_content_description"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_arrow_forward"
-            android:contentDescription="@string/common_content_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

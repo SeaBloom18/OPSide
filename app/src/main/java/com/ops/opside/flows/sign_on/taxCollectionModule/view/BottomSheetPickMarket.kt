@@ -67,6 +67,10 @@ class BottomSheetPickMarket(
         loadMarketsList()
     }
 
+    private fun bindViewModel(){
+        mViewModel.getMarketsList.observe(this, Observer(this::getMarketsList))
+    }
+
     private fun changeLineMode(isOnLineMode: Boolean) {
         mBinding.rbOnLine.isChecked = isOnLineMode
         mBinding.rbOffLine.isChecked = isOnLineMode.not()
@@ -93,10 +97,6 @@ class BottomSheetPickMarket(
             }
         }
         return null
-    }
-
-    private fun bindViewModel(){
-        mViewModel.getMarketsList.observe(this, Observer(this::getMarketsList))
     }
 
     private fun loadMarketsList(){

@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ops.opside.R
-import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.views.BaseBottomSheetFragment
@@ -22,14 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class BottomSheetRelateConcessMarket(
     val concessionaire: ConcessionaireSE,
     val market: MarketSE,
-    private val status: (Pair<Boolean, ParticipatingConcessRE>) -> Unit = {}
+    private val status: (Pair<Boolean, ParticipatingConcessSE>) -> Unit = {}
 ) : BaseBottomSheetFragment() {
 
     private val mBinding: BottomSheetRelateConcessMarketBinding by lazy {
         BottomSheetRelateConcessMarketBinding.inflate(layoutInflater)
     }
 
-    private lateinit var participatingConcess: ParticipatingConcessRE
+    private lateinit var participatingConcess: ParticipatingConcessSE
 
     private val mViewModel: BottomSheetRelateConcessMarketViewModel by viewModels()
 
@@ -73,11 +70,12 @@ class BottomSheetRelateConcessMarket(
     private fun isRelated(idFirebase: String) {
         participatingConcess.idFirebase = idFirebase
         mViewModel.persistParticipatingConcess(participatingConcess)
+        status.invoke(Pair(true, participatingConcess))
+        dismiss()
     }
 
     private fun isPersisted(isPersisted: Boolean) {
-        status.invoke(Pair(isPersisted, participatingConcess))
-        dismiss()
+
     }
 
 
@@ -92,12 +90,13 @@ class BottomSheetRelateConcessMarket(
             return
         }
 
-        participatingConcess = ParticipatingConcessRE(
+        participatingConcess = ParticipatingConcessSE(
             market.idFirebase,
             concessionaire.idFirebase,
             idFirebase = "",
             linearMeters,
-            lineBusiness
+            lineBusiness,
+            market.name
         )
 
         mViewModel.relateConcessWithMarket(participatingConcess)

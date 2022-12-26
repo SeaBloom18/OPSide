@@ -1,7 +1,6 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
@@ -15,12 +14,17 @@ import com.ops.opside.R
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.bsd.KEY_FILTER_REQUEST
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
+import com.ops.opside.common.utils.ID
+import com.ops.opside.common.utils.PDFUtils
 import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.ConcessionaireAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
+import com.ops.opside.flows.sign_on.taxCollectionModule.view.BottomSheetForeignerAttendance
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -81,11 +85,42 @@ class ConcessionaireFragment : BaseFragment() {
                             initBsd()
                             true
                         }
+                        R.id.menu_concessionaire_add -> {
+                            registConcessionaire()
+                            true
+                        }
+                        R.id.menu_concessionaire_print -> {
+                            createPdf()
+                            true
+                        }
                         else -> false
                     }
                 }
             }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         }
+    }
+
+    private fun createPdf(){
+        if (mConcessionairesList.isEmpty()){
+            toast(getString(R.string.concessionaire_no_concess))
+            return
+        }
+
+        PDFUtils.generatePDFBadgeSize(
+            requireContext(),
+            mConcessionairesList.map {
+                PDFUtils.qrModel(it.name,it.idFirebase)
+            }.toMutableList()
+        )
+    }
+
+    private fun registConcessionaire(){
+        val dialog = BottomSheetForeignerAttendance {
+            mConcessionairesList.add(it.parseToSE())
+            initRecyclerView()
+        }
+
+        dialog.show(requireActivity().supportFragmentManager, dialog.tag)
     }
 
     private fun initBsd() {
@@ -129,6 +164,5 @@ class ConcessionaireFragment : BaseFragment() {
     private fun loadConcessionairesList() {
         mViewModel.getConcessionairesList()
     }
-
 
 }

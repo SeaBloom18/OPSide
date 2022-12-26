@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.ops.opside.common.entities.room.EmailSentRE
 import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.*
 import com.ops.opside.common.room.daos.*
 
@@ -16,7 +16,7 @@ import com.ops.opside.common.room.daos.*
         ResourcesSE::class,
         MarketSE::class,
         EmailSentRE::class,
-        ParticipatingConcessRE::class,
+        ParticipatingConcessSE::class,
         EventRE::class,
         PendingEmailSE::class], version = 1
 )

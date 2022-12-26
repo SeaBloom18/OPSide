@@ -22,6 +22,9 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="dialog_dealer_info_title">¿Estas seguro de que quieres cerrar sesión?</string>
     <string name="dialog_dealer_info_message">Tendrás que iniciar sesión de nuevo</string>
 
+    <!-- Concessionaire Strings -->
+    <string name="concessionaire_no_concess">No hay concesionarios enlistados</string>
+
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
     <string name="tax_collection_dealer_name">Nombre del Concesionario</string>

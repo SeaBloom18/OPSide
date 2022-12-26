@@ -13,17 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/btnClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:layout_marginEnd="@dimen/common_padding_default"
-            android:src="@drawable/ic_close_reg_screen"
-            android:backgroundTint="@color/fui_transparent"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+        <include
+            layout="@layout/toolbar_layout"
+            android:id="@+id/toolbarCrudConce"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilConcessionaireName"
@@ -31,10 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
             android:hint="@string/concessionaire"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnClose">
+            app:layout_constraintTop_toBottomOf="@id/toolbarCrudConce">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etConcessionaireName"
@@ -44,7 +40,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/montserrat_regular"
                 android:inputType="textPersonName"
-                android:text="Mario Armando Razo Valenzuela"
+                tools:text="Mario Armando Razo Valenzuela"
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +64,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/montserrat_regular"
                 android:inputType="textPostalAddress"
-                android:text="Priv. Tepeyac #17, Barrio Nuevo, Tonalá"
+                tools:text="Priv. Tepeyac #17, Barrio Nuevo, Tonalá"
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +88,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/montserrat_regular"
                 android:inputType="phone"
-                android:text="3321837561"
+                tools:text="3321837561"
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,32 +112,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/montserrat_regular"
                 android:inputType="textEmailAddress"
-                android:text="mario.v.r404@gmail.com"
-                android:textColor="@color/primaryTextColor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLinearMeters"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_padding_default"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:layout_marginEnd="@dimen/common_padding_min"
-            android:hint="@string/tax_collection_linear_meters"
-            app:layout_constraintEnd_toStartOf="@+id/tilAbsences"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilEmail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLinearMeters"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
-                android:enabled="false"
-                android:fontFamily="@font/montserrat_regular"
-                android:inputType="numberDecimal"
-                android:text="4.5"
+                tools:text="mario.v.r404@gmail.com"
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,12 +121,11 @@
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_padding_min"
+            android:layout_marginHorizontal="@dimen/common_padding_default"
             android:layout_marginTop="@dimen/common_padding_default"
-            android:layout_marginEnd="@dimen/common_padding_default"
             android:hint="@string/tax_collection_absence"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tilLinearMeters"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilEmail">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -170,29 +140,41 @@
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLineOfBusiness"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/common_padding_default"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/tax_collection_line_of_business"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilLinearMeters">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLineOfBusiness"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPickMarket"
+            style="@style/TextInputDropDownLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_padding_default"
+            android:hint="Tianguis"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+            app:layout_constraintTop_toBottomOf="@+id/tilAbsences"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnAddMarket">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/spPickMarket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
-                android:enabled="false"
                 android:fontFamily="@font/montserrat_regular"
-                android:inputType="numberDecimal"
-                android:text="Pollo Crudo"
-                android:textColor="@color/primaryTextColor" />
+                android:inputType="none" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddMarket"
+            style="@style/CommonButtonSolidStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:iconGravity="start"
+            app:icon="@drawable/ic_ops_create_market"
+            android:text="Add"
+            android:layout_marginEnd="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tilPickMarket"
+            app:layout_constraintBottom_toBottomOf="@+id/tilPickMarket"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvParticipatingMarket"
@@ -203,7 +185,7 @@
             tools:listitem="@layout/item_market"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilLineOfBusiness" />
+            app:layout_constraintTop_toBottomOf="@+id/btnAddMarket" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
