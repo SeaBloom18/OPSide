@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ops.opside.R
 import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
@@ -27,7 +28,7 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
 
         mBinding.apply {
             btnCreateIncident.setOnClickListener {
-                Toast.makeText(activity, "Incident created", Toast.LENGTH_SHORT).show()
+                toast(getString(R.string.tax_collection_toast_incident_success))
             }
         }
 

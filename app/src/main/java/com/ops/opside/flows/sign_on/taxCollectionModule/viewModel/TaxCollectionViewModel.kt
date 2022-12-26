@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.SingleLiveEvent
@@ -36,7 +36,7 @@ class TaxCollectionViewModel @Inject constructor(
     private val _getConcessionairesFEList = MutableLiveData<MutableList<ConcessionaireFE>>()
     private val _getConcessionairesSEList = MutableLiveData<MutableList<ConcessionaireSE>>()
     private val _getParticipatingConcessList =
-        MutableLiveData<MutableList<ParticipatingConcessRE>>()
+        MutableLiveData<MutableList<ParticipatingConcessSE>>()
     private val _persistConcessionairesSEList = MutableLiveData<Boolean>()
     private val _persistMarketSE = MutableLiveData<Boolean>()
     private val _participatingConcess = MutableLiveData<Boolean>()
@@ -50,7 +50,7 @@ class TaxCollectionViewModel @Inject constructor(
     val hasOpenedTaxCollection: LiveData<TaxCollectionSE?> = _hasOpenedTaxCollection
     val getConcessionairesFEList: LiveData<MutableList<ConcessionaireFE>> =
         _getConcessionairesFEList
-    val getParticipatingConcessList: LiveData<MutableList<ParticipatingConcessRE>> =
+    val getParticipatingConcessList: LiveData<MutableList<ParticipatingConcessSE>> =
         _getParticipatingConcessList
     val getConcessionairesSEList: LiveData<MutableList<ConcessionaireSE>> =
         _getConcessionairesSEList
@@ -165,7 +165,7 @@ class TaxCollectionViewModel @Inject constructor(
     fun persistConcessionairesSEList(
         idMarket: String,
         concessionaires: MutableList<ConcessionaireFE>,
-        participatingConcess: MutableList<ParticipatingConcessRE>
+        participatingConcess: MutableList<ParticipatingConcessSE>
     ) {
         disposable.add(
             mTaxCollectionInteractor.persistConcessionairesSEList(

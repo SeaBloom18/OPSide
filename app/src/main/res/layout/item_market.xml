@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:clickable="true"
     android:focusable="true"
-    android:layout_margin="5dp"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,13 +14,13 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/imgShowMore"
+            android:id="@+id/imgDeleteRelation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/common_padding_min"
-            android:src="@drawable/ic_arrow_forward"
+            android:layout_marginEnd="@dimen/common_padding_default"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/common_content_description"
+            android:src="@drawable/ic_ops_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,84 +32,58 @@
             android:layout_marginVertical="@dimen/common_padding_default"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="@dimen/common_padding_default"
-            android:src="@drawable/ic_ops_store"
             android:contentDescription="@string/common_content_description"
+            android:src="@drawable/ic_ops_store"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtMarketName"
+            app:layout_constraintEnd_toStartOf="@+id/linear_data"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtMarketName"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linear_data"
             android:layout_width="0dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:textAppearance="?attr/textAppearanceSubtitle2"
-            android:textColor="@color/primaryTextColor"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="@dimen/common_padding_default"
             app:layout_constraintBottom_toBottomOf="@id/imgMarket"
-            app:layout_constraintEnd_toStartOf="@id/imgShowMore"
+            app:layout_constraintEnd_toStartOf="@id/imgDeleteRelation"
             app:layout_constraintStart_toEndOf="@id/imgMarket"
-            app:layout_constraintTop_toTopOf="@id/imgMarket"
-            tools:text="Nombre del Market"
-            style="@style/textViewBodyStyle" />
+            app:layout_constraintTop_toTopOf="@id/imgMarket">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtMarketName"
+                style="@style/textViewBodyStyle"
+                android:fontFamily="@font/montserrat_semibold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textColor="@color/primaryTextColor"
+                tools:text="Nombre del Market" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtLineBusiness"
+                style="@style/textViewBodyStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textColor="@color/primaryTextColor"
+                tools:text="Giro del negocio" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtLinearMeters"
+                style="@style/textViewBodyStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textColor="@color/primaryTextColor"
+                tools:text="Metros lineales" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
-<!--
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/primaryColor">
-
-    <ImageButton
-        android:id="@+id/imgShowMore"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="@dimen/common_padding_min"
-        android:backgroundTint="@color/fui_transparent"
-        android:checked="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_arrow_forward"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imgMarket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/common_padding_default"
-        android:layout_marginEnd="@dimen/common_padding_default"
-        android:src="@drawable/ic_shop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtMarketName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtMarketName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:fontFamily="@font/montserrat_regular"
-        android:maxLength="@integer/max_characteres"
-        android:textAppearance="?attr/textAppearanceSubtitle2"
-        android:textColor="@color/primaryTextColor"
-        tools:text="Nombre del Market"
-        app:layout_constraintBottom_toBottomOf="@id/imgMarket"
-        app:layout_constraintEnd_toStartOf="@id/imgShowMore"
-        app:layout_constraintStart_toEndOf="@id/imgMarket"
-        app:layout_constraintTop_toTopOf="@id/imgMarket"/>
-
-
-    <View
-        style="@style/dividerStyle1"
-        android:layout_width="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/imgMarket" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>-->

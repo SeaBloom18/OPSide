@@ -1,6 +1,7 @@
 package com.ops.opside.di.providers
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import dagger.Module
 import dagger.Provides
@@ -18,10 +19,10 @@ object FirestoreModule {
         return FirebaseFirestore.getInstance()
     }
 
-    /*@Singleton
+    @Singleton
     @Provides
-    fun provideFirebaseStorage(): StorageReference {
-        return StorageReference
-    }*/
+    fun provideFirebaseStorage(): FirebaseStorage {
+        return FirebaseStorage.getInstance()
+    }
     
 }

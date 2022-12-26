@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.databinding.ItemMarketBinding
 
 class MarketParticipatingAdapter (
-    var markets: MutableList<MarketSE>,
+    var markets: MutableList<ParticipatingConcessSE>,
+    private var deleteRelation: (ParticipatingConcessSE) -> Unit = {}
 ) :
     RecyclerView.Adapter<MarketParticipatingAdapter.ViewHolder>() {
 
@@ -32,19 +34,20 @@ class MarketParticipatingAdapter (
 
     override fun getItemCount(): Int = markets.size
 
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemMarketBinding.bind(view)
 
-        fun bind(item : MarketSE){
+        fun bind(item : ParticipatingConcessSE){
 
             binding.apply {
-                imgShowMore.animateOnPress()
-                imgShowMore.setOnClickListener {
-                    Toast.makeText(mContext, "Mostrar Tianguis", Toast.LENGTH_SHORT).show()
+                imgDeleteRelation.animateOnPress()
+                imgDeleteRelation.setOnClickListener {
+                    deleteRelation.invoke(item)
                 }
 
-                txtMarketName.text = item.name
+                txtMarketName.text = item.marketName
+                txtLineBusiness.text = item.lineBusiness
+                txtLinearMeters.text = item.linearMeters.toString()
             }
 
         }

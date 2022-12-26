@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/drawable/ic_close_reg_screen.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/ic_ops_add_a_photo.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/ic_ops_warning.xml" value="0.156" />
+        <entry key="app/src/main/res/drawable/states_colors_text_field.xml" value="0.2705" />
         <entry key="app/src/main/res/layout/activity_concessionaire_crud.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/activity_dealer.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.15897435897435896" />
@@ -24,6 +25,7 @@
         <entry key="app/src/main/res/layout/activity_tax_collection.xml" value="0.20811965811965813" />
         <entry key="app/src/main/res/layout/activity_tax_collection_crud.xml" value="0.25" />
         <entry key="app/src/main/res/layout/bottom_sheet_confirm_password.xml" value="0.26403985507246375" />
+        <entry key="app/src/main/res/layout/bottom_sheet_filter.xml" value="0.25" />
         <entry key="app/src/main/res/layout/bottom_sheet_foreigner_attendance.xml" value="0.22" />
         <entry key="app/src/main/res/layout/bottom_sheet_pick_market.xml" value="0.2722222222222222" />
         <entry key="app/src/main/res/layout/bottom_sheet_record_tax_collection.xml" value="0.15897435897435896" />
@@ -38,9 +40,22 @@
         <entry key="app/src/main/res/layout/fragment_in_development.xml" value="0.20726495726495728" />
         <entry key="app/src/main/res/layout/fragment_incidents.xml" value="0.15897435897435896" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.28518524169921877" />
+        <entry key="app/src/main/res/layout/frame_card_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/frame_error.xml" value="0.16709401709401708" />
+        <entry key="app/src/main/res/layout/frame_search.xml" value="0.16709401709401708" />
         <entry key="app/src/main/res/layout/item_absence_tax_collection.xml" value="0.2722222222222222" />
+        <entry key="app/src/main/res/layout/item_crud_concessionaire.xml" value="0.2141025641025641" />
         <entry key="app/src/main/res/layout/item_crud_tax_collection.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_market.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_record_tax_collection.xml" value="0.20811965811965813" />
+        <entry key="app/src/main/res/menu/incidents_toolbar_menu.xml" value="0.16880341880341881" />
+        <entry key="app/src/main/res/menu/menu_common_fragment_toolbar.xml" value="0.16880341880341881" />
+        <entry key="app/src/main/res/menu/menu_concessionaire_toolbar.xml" value="0.16324786324786325" />
+        <entry key="app/src/main/res/menu/menu_dealer_activity.xml" value="0.16880341880341881" />
+        <entry key="app/src/main/res/menu/menu_market_toolbar.xml" value="0.16880341880341881" />
+        <entry key="app/src/main/res/menu/menu_tax_collection_crud.xml" value="0.21025641025641026" />
+        <entry key="app/src/main/res/menu/menu_tax_collection_toolbar.xml" value="0.21025641025641026" />
+        <entry key="app/src/main/res/menu/menu_user_register.xml" value="0.16880341880341881" />
       </map>
     </option>
   </component>

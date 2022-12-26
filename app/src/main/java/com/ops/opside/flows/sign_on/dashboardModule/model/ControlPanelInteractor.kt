@@ -45,14 +45,14 @@ data class ControlPanelInteractor @Inject constructor(
         }
     }
 
-    fun getLinealPriceMeter(): Observable<String> {
+    fun getLinealPriceMeter(): Observable<Float> {
         return Observable.unsafeCreate{ subscriber ->
-            var priceLinealMeter = ""
+            var priceLinealMeter = 0.0f
             firestore.collection(DB_TABLE_RESOURCES)
                 .get()
                 .addOnSuccessListener {
                     for (document in it.documents) {
-                        priceLinealMeter = document.get("priceLinealMeter").toString()
+                        priceLinealMeter = document.get("priceLinealMeter").toString().toFloat().orZero()
                         sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter)
                     }
                     subscriber.onNext(priceLinealMeter)
@@ -85,9 +85,11 @@ data class ControlPanelInteractor @Inject constructor(
             tryOrPrintException {
                 firestore.collection(DB_TABLE_COLLECTOR).document(idFirestore).update("hasAccess", hasAccess)
                     .addOnSuccessListener {
+                        subscriber.onNext(true)
                         Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")
                     }
                     .addOnFailureListener {
+                        subscriber.onError(it)
                         Log.w("FireStoreDelete", "Error deleting document", it)
                     }
             }

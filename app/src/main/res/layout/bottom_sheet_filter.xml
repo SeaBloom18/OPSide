@@ -10,12 +10,26 @@
         android:id="@+id/btnClose"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="@dimen/common_padding_min"
+        android:layout_marginBottom="@dimen/common_padding_min"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/ic_close_reg_screen"
         app:layout_constraintBottom_toTopOf="@+id/txtTanguis"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/WhiteTextTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Filtrar"
+        android:gravity="center"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="@id/btnClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtTanguis"
@@ -33,20 +47,23 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSearchMarket"
-        style="@style/TextInputLayoutStyle"
+        style="@style/TextInputDropDownLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
-        android:hint="@string/filter_tax_collection_market"
-        app:endIconDrawable="@drawable/ic_arrow_drop_down"
-        app:layout_constraintBottom_toTopOf="@+id/txtCollector"
+        android:hint="Tianguis"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/cgChipsMarket"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_market_search">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teSearchMarket"
-            style="@style/TextInputEditTextStyle"
-            android:inputType="text" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="none" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.chip.ChipGroup
@@ -54,10 +71,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/common_padding_default"
-        android:layout_marginTop="@dimen/common_padding_default"
+        android:layout_marginBottom="@dimen/common_padding_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilSearchMarket" />
+        app:layout_constraintBottom_toTopOf="@+id/txtCollector" />
 
     <TextView
         android:id="@+id/txtCollector"
@@ -75,20 +92,23 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSearchCollector"
-        style="@style/TextInputLayoutStyle"
+        style="@style/TextInputDropDownLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
-        android:hint="@string/filter_tax_collection_collector"
-        app:endIconDrawable="@drawable/ic_arrow_drop_down"
+        android:hint="Recaudador"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/cgChipsCollector"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_market_search">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teSearchCollector"
-            style="@style/TextInputEditTextStyle"
-            android:inputType="text" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:inputType="none" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.chip.ChipGroup
@@ -96,7 +116,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/common_padding_default"
         app:layout_constraintBottom_toTopOf="@+id/txtDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -106,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/common_padding_min"
         android:fontFamily="@font/montserrat_semibold"
         android:text="@string/common_date"
         android:textColor="@color/primaryTextColor"
@@ -157,9 +177,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_padding_min"
         android:layout_marginEnd="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/common_padding_default"
         android:hint="@string/filter_tax_collection_end_date"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirmFilter"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tilStartDate">
 
@@ -176,15 +196,28 @@
             android:textColor="@color/primaryTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnConfirmFilter"
-        style="@style/CommonButtonStyle"
-        android:layout_width="0dp"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginVertical="@dimen/common_padding_large"
-        android:text="@string/common_apply"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#C9000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmFilter"
+            style="@style/CommonButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/common_padding_default"
+            android:text="@string/common_accept"
+            app:icon="@drawable/ic_shop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

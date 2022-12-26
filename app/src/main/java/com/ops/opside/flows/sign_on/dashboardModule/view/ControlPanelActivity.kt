@@ -14,7 +14,10 @@ import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
+import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
+import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
+import com.ops.opside.flows.sign_on.dashboardModule.interfaces.ControlPanelInterface
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
@@ -23,14 +26,14 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @AndroidEntryPoint
-class ControlPanelActivity : BaseActivity() {
+class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
     private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
-    private var mPriceLinearMeter: String = ""
+    private var mPriceLinearMeter: Float = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,7 @@ class ControlPanelActivity : BaseActivity() {
             btnSaveChanges.setOnClickListener { confirmUpdateLinearPrice() }
         }
 
+        /** Methods call's **/
         setToolbar()
         bindViewModel()
         loadCollectorList()
@@ -52,8 +56,11 @@ class ControlPanelActivity : BaseActivity() {
 
     /** ViewModel and Methods SetUp**/
     private fun bindViewModel() {
+        mControlPanelViewModel.getShowProgress().observe(this, Observer(this::showLoading))
         mControlPanelViewModel.getCollectorList.observe(this, Observer(this::getCollectors))
         mControlPanelViewModel.priceLinearMeter.observe(this, Observer(this::getPriceLinearMeter))
+        mControlPanelViewModel.getAction().observe(this, Observer(this::handleAction))
+
     }
 
     private fun loadCollectorList() {
@@ -65,13 +72,25 @@ class ControlPanelActivity : BaseActivity() {
         setUpRecyclerView()
     }
 
-    private fun getPriceLinearMeter(priceLinearMeter: String) {
+    private fun getPriceLinearMeter(priceLinearMeter: Float) {
         mPriceLinearMeter = priceLinearMeter
-        mBinding.teLinealPrice.setText(mPriceLinearMeter)
+        mBinding.teLinealPrice.setText(mPriceLinearMeter.toString())
     }
 
     private fun loadPriceLinearMeter() {
         mControlPanelViewModel.getPriceLinearMeter()
+    }
+
+    /** Sealed Class handleAction**/
+    private fun handleAction(action: ControlPanelAction) {
+        when(action) {
+            is ControlPanelAction.ShowMessageSuccess -> {
+                toast(getString(R.string.control_panel_hasaccess_updated_success))
+            }
+            is ControlPanelAction.ShowMessageError -> {
+                toast(getString(R.string.control_panel_hasaccess_updated_error))
+            }
+        }
     }
 
     /** Other Methods**/
@@ -160,7 +179,7 @@ class ControlPanelActivity : BaseActivity() {
     private fun setUpRecyclerView() {
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(this)
-        controlPanelAdapter = ControlPanelAdapter(mCollectorList, mControlPanelViewModel)
+        controlPanelAdapter = ControlPanelAdapter(mCollectorList, this, mControlPanelViewModel)
 
         mBinding.recyclerControlPanel.apply {
             setHasFixedSize(true)
@@ -180,11 +199,11 @@ class ControlPanelActivity : BaseActivity() {
         itemTouchHelper.attachToRecyclerView(mBinding.recycler)*/
     }
 
-    fun TextView.getTime(): LocalTime {
+    private fun TextView.getTime(): LocalTime {
         return LocalTime.parse(text, formatter)
     }
 
-    fun TextView.setTime(time: LocalTime) {
+    private fun TextView.setTime(time: LocalTime) {
         text = time.toTimeText()
     }
 
@@ -192,7 +211,7 @@ class ControlPanelActivity : BaseActivity() {
         return format(formatter)
     }
 
-    infix fun LocalTime.hoursBetween(end: LocalTime): Double {
+    private infix fun LocalTime.hoursBetween(end: LocalTime): Double {
         return Duration.between(this, end).toMinutes() / 60.0
     }
 
@@ -205,6 +224,7 @@ class ControlPanelActivity : BaseActivity() {
             buttonNoText = getString(R.string.common_cancel),
             buttonYesText = getString(R.string.common_accept),
             yesAction = {
+                //TODO Refact
                 mControlPanelViewModel.updateLinealPriceMeter(
                     "Ulmp4yMD4noSlOE6IwpX",
                     mBinding.teLinealPrice.text.toString().trim()
@@ -217,5 +237,10 @@ class ControlPanelActivity : BaseActivity() {
         )
         dialog.setCancelable(false)
         dialog.show()
+    }
+
+    /** Interface Methods **/
+    override fun switchHasAccess(idFirestore: String, hasAccess: Boolean) {
+        mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
     }
 }

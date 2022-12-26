@@ -1,9 +1,11 @@
 package com.ops.opside.flows.sign_on.dashboardModule.adapter
 
 import android.content.Context
+import android.provider.Settings.System.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -11,9 +13,10 @@ import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.databinding.ItemControlPanelConcessionairePermissionBinding
+import com.ops.opside.flows.sign_on.dashboardModule.interfaces.ControlPanelInterface
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
 
-class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>,
+class ControlPanelAdapter(var collectorsList: MutableList<CollectorSE>, private var listener: ControlPanelInterface,
                           var mControlPanelViewModel: ControlPanelViewModel):
 RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
 
@@ -31,16 +34,10 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
         val collectors = collectorsList[position]
         holder.apply {
             binding.tvConcessionaireName.text = collectors.name
-            if (collectors.hasAccess) binding.switchHasAccess.isChecked = true
-            binding.switchHasAccess.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
+            binding.switchHasAccess.isChecked = collectors.hasAccess
+            binding.switchHasAccess.setOnClickListener {
                     changeHasAccess(collectors.name, collectors.idFirebase,
                         binding.switchHasAccess.isChecked)
-                }
-                if (!isChecked) {
-                    changeHasAccess(collectors.name, collectors.idFirebase,
-                        binding.switchHasAccess.isChecked)
-                }
             }
         }
     }
@@ -53,6 +50,24 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
 
         /** Other Methods**/
         fun changeHasAccess(collectorName: String, idFirestore: String, hasAccess: Boolean) {
+            /*MaterialAlertDialogBuilder(context)
+                .setIcon(R.drawable.ic_ops_warning)
+                .setTitle(R.string.cp_alertdialog_title)
+                .setMessage(context.getString(R.string.control_panel_alert_dialog_title, collectorName))
+                .setPositiveButton(context.getString(R.string.common_accept)) { _, _ ->
+                    listener.switchHasAccess(idFirestore, hasAccess)
+                    //mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
+                }
+                .setNegativeButton(context.getString(R.string.common_cancel)) { dialog, which ->
+                    // Respond to positive button press
+                    binding.apply {
+                        switchHasAccess.isChecked = !switchHasAccess.isChecked
+                        dialog.dismiss()
+                    }
+                }
+                .setCancelable(false)
+                .show()*/
+
             val dialog = BaseDialog(
                 context,
                 imageResource = R.drawable.ic_ops_warning,
@@ -60,13 +75,8 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
                 mDescription = context.getString(R.string.control_panel_alert_dialog_title, collectorName),
                 buttonYesText = context.getString(R.string.common_accept),
                 buttonNoText = context.getString(R.string.common_cancel),
-                yesAction = {
-                    mControlPanelViewModel.updateHasAccess(idFirestore, hasAccess)
-                },
-                noAction = {
-                    binding.apply {
-                        switchHasAccess.isChecked = !hasAccess
-                    }
+                yesAction = { listener.switchHasAccess(idFirestore, hasAccess) },
+                noAction = { binding.apply { switchHasAccess.isChecked = !switchHasAccess.isChecked }
                 }
             )
             dialog.setCancelable(false)

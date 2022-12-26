@@ -53,7 +53,7 @@
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_marginTop="16dp"
-            android:hint="Metros del tianguis"
+            android:hint="@string/registration_til_linear_meter"
             app:boxStrokeColor="@drawable/states_colors_text_field"
             app:endIconMode="clear_text"
             app:helperText="@string/login_til_required"
@@ -71,7 +71,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/mapPreview"
+        android:id="@+id/mapPreview"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
             android:layout_height="300dp"
@@ -90,7 +90,6 @@
             android:layout_marginEnd="16dp"
             android:text="@string/registration_btn_select_location"
             app:icon="@drawable/ic_ops_select_location"
-            app:layout_constraintBottom_toTopOf="@+id/tvAddressSelection"
             app:layout_constraintEnd_toEndOf="@+id/mapPreview"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/mapPreview"
@@ -102,7 +101,6 @@
             android:layout_marginTop="16dp"
             android:text="@string/registration_btn_view_concessionaires"
             app:icon="@drawable/ic_ops_see_concessionaires"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="@+id/tvAddressSelection"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/tvAddressSelection"
@@ -117,7 +115,6 @@
             android:layout_marginEnd="32dp"
 
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/btnViewConce"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

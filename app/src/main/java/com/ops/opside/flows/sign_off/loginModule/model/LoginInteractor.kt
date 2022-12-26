@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
+import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_RESOURCES
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
@@ -62,6 +63,7 @@ class LoginInteractor @Inject constructor(
             sp.initPreferences(
                 id = concessionaire.idFirebase,
                 name =  concessionaire.name,
+                urlPhoto = concessionaire.imageURL,
                 address = concessionaire.address,
                 origin = concessionaire.origin,
                 phone =  concessionaire.phone,
@@ -120,19 +122,19 @@ class LoginInteractor @Inject constructor(
     fun getConcessionaireByEmail(email: String): Observable<ConcessionaireFE> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_COLLECTOR)
+                firestore.collection(DB_TABLE_CONCESSIONAIRE)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { response ->
                         if (response.documents.size == 0) {
                             subscriber.onNext(ConcessionaireFE())
                         } else {
-
                             val document = response.documents[0]
                             subscriber.onNext(
                                 ConcessionaireFE(
                                     idFirebase = document.id,
                                     name = document.data!!["name"].toString(),
+                                    imageURL = document.data!!["imageURL"].toString(),
                                     address = document.data!!["address"].toString(),
                                     origin = document.data!!["origin"].toString(),
                                     phone = document.data!!["phone"].toString(),
@@ -147,7 +149,6 @@ class LoginInteractor @Inject constructor(
                                     password = document.data!!["password"].toString()
                                 )
                             )
-
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -162,6 +163,7 @@ class LoginInteractor @Inject constructor(
 
     fun getLinearMetersPrice(): Observable<Double> {
         return Observable.unsafeCreate{ subscriber ->
+            //TODO refact referencia a la coleccion
             firestore.collection(DB_TABLE_RESOURCES).document("Ulmp4yMD4noSlOE6IwpX")
                 .get()
                 .addOnSuccessListener { response ->

@@ -17,15 +17,17 @@ android {
         minSdk 24
         targetSdk 32
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            applicationIdSuffix ".prod"
             debuggable false
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue 'string', 'app_name', '"OPS"'
         }
@@ -35,13 +37,6 @@ android {
             debuggable true
             versionNameSuffix ".debug"
             resValue 'string', 'app_name', '"OPS (Debug)"'
-        }
-
-        qa {
-            applicationIdSuffix ".qa"
-            debuggable true
-            versionNameSuffix ".qa"
-            resValue 'string', 'app_name', '"OPS (QA)"'
         }
     }
 

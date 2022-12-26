@@ -6,6 +6,14 @@
     <string name="common_delete">Borrar</string>
     <string name="common_content_description">Common Content Image Description</string>
     <string name="common_til_search">Buscar</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_atention">Atención</string>
+
+    <!--About App Strings-->
+    <string name="ops_about_app_title">Sobre OPS</string>
+    <string name="ops_about_app_body">OPS es una aplicación para la administración de tianguis y las actividades que conllevan como son los cobros, incidencias, creación de tianguis, alta de usuarios, etc.
+La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a todos los usuarios a la hora de realizar el cobro de impuestos.</string>
+    <string name="ops_about_app_last_update">Última actualización: 19 de Diciembre del 2022</string>
 
     <!--Dealer Strings-->
     <string name="tv_dealer_title">Tu Perfil</string>
@@ -13,6 +21,9 @@
     <string name="tv_prices_info_absence">faltas</string>
     <string name="dialog_dealer_info_title">¿Estas seguro de que quieres cerrar sesión?</string>
     <string name="dialog_dealer_info_message">Tendrás que iniciar sesión de nuevo</string>
+
+    <!-- Concessionaire Strings -->
+    <string name="concessionaire_no_concess">No hay concesionarios enlistados</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan" translatable="false">Escanear</string>
@@ -22,8 +33,26 @@
     <string name="tax_collection_total_amount">Monto Total</string>
     <string name="tax_collection_finalize">Finalizar</string>
     <string name="tax_collection_record">Historial</string>
+    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
+    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
+    <string name="tax_collection_market">Tianguis</string>
+    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
+    <string name="tax_collection_sent">Envía</string>
+    <string name="tax_collection_absence">Inasistencias</string>
+    <string name="tax_collection_send">Enviar</string>
+    <string name="tax_collection_crud_collections">Recaudaciones</string>
+    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago
+        donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s
+        \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de
+        reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía
+        recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma
+        dirección</string>
     <!-- Finalize Tax Collection -->
-    <string name="tax_collection_absence_email">Buenas tardes, %1$s \n\nTe hacemos llegar tu informe de inasistencia donde recaudamos la siguiente información:\n\nTianguis: %2$s \nReporta: %3$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
+    <string name="tax_collection_absence_email">Buenas tardes, %1$s \n\nTe hacemos llegar tu informe
+        de inasistencia donde recaudamos la siguiente información:\n\nTianguis: %2$s \nReporta: %3$s
+        \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más
+        pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se
+        responderá ningún correo que sea enviado a esta misma dirección</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>
@@ -67,6 +96,7 @@
     <string name="registration_hint_origin">Municipio recidencia</string>
     <string name="registration_btn_exit">Iniciar Sesión</string>
     <string name="registration_tv_success">Te has registrado con éxito!</string>
+    <string name="registration_tv_error">oops parece que hubo un error al hacer tu registro!</string>
     <string name="registration_btn_bs_close">Salir</string>
     <string name="registration_tv_bs_close">¿Estás segura de que quieres salir de esta pantalla?</string>
     <string name="dealer_show_qr">Mostrar código QR</string>
@@ -87,7 +117,9 @@
     <string name="registration_toast_password_regex_validation">Oops, parece que la contraseña no cumple con los requisitos!</string>
     <string name="registration_toast_policies_validation">Antes debes de aceptar nuestras politicas de privacidad!</string>
     <string name="registration_see_policies_validation">Toca para ver las Políticas de Privacidad</string>
-
+    <string name="registration_updated_market_success">La lista de tianguis se ha actualizado con éxito!</string>
+    <string name="registration_updated_market_error">Oops, hubo un error al actualiazar la lista de tianguis!</string>
+    <string name="registration_til_linear_meter">Metros del tianguis</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
@@ -95,17 +127,6 @@
     <string name="bn_menu_tax_collection_opc3">Cobranza</string>
     <string name="bn_menu_control_panel_opc4">Panel de Conttrol</string>
     <string name="bn_menu_incidents_opc5">Incidencias</string>
-    <string name="common_cancel">Cancelar</string>
-    <string name="common_atention">Atención</string>
-    <string name="tax_collection_pick_market">Elige el tianguis a recaudar</string>
-    <string name="tax_collection_finalize_collection">¿Deseas finalizar la recaudación?</string>
-    <string name="tax_collection_market">Tianguis</string>
-    <string name="tax_collection_finalize_collection_title">Finalizando Recaudación</string>
-    <string name="tax_collection_sent">Envía</string>
-    <string name="tax_collection_absence">Inasistencias</string>
-    <string name="tax_collection_send">Enviar</string>
-    <string name="tax_collection_crud_collections">Recaudaciones</string>
-    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma dirección</string>
 
     <!--MarketModule Strings-->
     <string name="registration_hint_market_name">Nombre del tianguis</string>
@@ -155,9 +176,10 @@
     <string name="control_panel_toast_lineal_price_update_error">Error al actualizar el precio de líneal</string>
     <string name="control_panel_dialog_title">Actualizar Precio Lineal</string>
     <string name="control_panel_dialog_message">¿Estas seguro que de quieres actualizar el precio lineal?</string>
-    <string name="control_panel_dialog_yes_action_message">El precio lineal ha sido actualizado con exito</string>
+    <string name="control_panel_dialog_yes_action_message">El precio lineal ha sido actualizado con éxito</string>
     <string name="control_panel_dialog_no_action_message">Error al actualizar el precio lineal</string>
-
+    <string name="control_panel_hasaccess_updated_success">El acceso ha sido actualizado correctamente</string>
+    <string name="control_panel_hasaccess_updated_error">Oops Error al actualizar el acceso!</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>
@@ -168,11 +190,40 @@
     <string name="tax_collection_choose_market">Elige un Tianguis</string>
     <string name="tax_collection_on_line">On Line</string>
     <string name="tax_collection_off_line">Off Line</string>
+    <string name="tax_collection_toast_incident_success">Incidente createdo</string>
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>
     <string name="bottom_sheet_btn_save_changes">Guardar cambios</string>
-    <string name="bottom_sheet_tv_about_you">Más información sobre ti</string>
+    <string name="bottom_sheet_image_upload_success">Imagen actualizada con éxito!</string>
+    <string name="bottom_sheet_image_upload_error">Oops parece que hubo un error al actualizar tu foto, inténtalo de nuevo!</string>
+    <string name="bottom_sheet_share_profile_title">Hola te comparto mi perfil…</string>
+
+    <!--BottomSheet ShowQR Code-->
+    <string name="bottom_sheet_showqr_image_name">myImageQrCode.png</string>
+    <string name="bottom_sheet_showqr_pdf_name">MyLetterQrCode.pdf</string>
+    <string name="bottom_sheet_showqr_condition1">Este tipo de documentos es exclusivo para usuarios de OPS.</string>
+    <string name="bottom_sheet_showqr_condition2">Favor de hacer uso exclusivo en recaudación.</string>
+    <string name="bottom_sheet_showqr_condition3">Cualquier duda contactar con administración.</string>
+    <string name="bottom_sheet_showqr_description1">Propiedad de OPSide®</string>
+    <string name="bottom_sheet_showqr_description2">Ixtlahuacán de los Membrillos</string>
+    <string name="bottom_sheet_showqr_toast_create_success">Se creó el PDF correctamente</string>
+
+    <!--BottomSheet ForeignerAttendance-->
+    <string name="bottom_sheet_toast_invalid_email">Correo inválido</string>
+    <string name="bottom_sheet_toast_chose_register">Elige un tipo de registro</string>
+    <string name="bottom_sheet_toast_register_success">Concesionario Registrado</string>
+    <string name="bottom_sheet_toast_concessionaire_doesnt_exist">El concesionario no existe. Llena los demás campos solicitados</string>
+    <string name="bottom_sheet_til_email_validation">Ingresa un correo para buscar al concesionario</string>
+    <string name="bottom_sheet_tie_title">Municipio residencia</string>
+
+    <!--BottomSheet RecordTaxCollection-->
+    <string name="bottom_sheet_record_showerror_validation">Existe un cobro de piso existente.
+        Primero debes eliminar el cobro para poder remover al concesionario de este tianguis.</string>
+
+    <!--BottomSheet RelateConcessMarket-->
+    <string name="bottom_sheet_relateconcessmarket_toast_linear_meter_validation">Los metros lineales deben ser mayores que 0</string>
+    <string name="bottom_sheet_relateconcessmarket_toast_line_business_validation">La línea de negocio no puede estar vacía</string>
 
     <!--Policies Strings-->
     <string name="tv_title_policies">Política de privacidad para OPS</string>

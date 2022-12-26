@@ -3,7 +3,7 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.RelateConcessMarketInteractor
@@ -21,7 +21,7 @@ class BottomSheetRelateConcessMarketViewModel @Inject constructor(
     private val _persistParticipatingConcess = MutableLiveData<Boolean>()
     val persistParticipatingConcess: LiveData<Boolean> = _persistParticipatingConcess
 
-    fun relateConcessWithMarket(participatingConcess: ParticipatingConcessRE) {
+    fun relateConcessWithMarket(participatingConcess: ParticipatingConcessSE) {
         disposable.add(
             mRelateConcessMarketInteractor.relateConcessWithMarket(participatingConcess)
                 .applySchedulers()
@@ -40,7 +40,7 @@ class BottomSheetRelateConcessMarketViewModel @Inject constructor(
         )
     }
 
-    fun persistParticipatingConcess(participatingConcess: ParticipatingConcessRE) {
+    fun persistParticipatingConcess(participatingConcess: ParticipatingConcessSE) {
         disposable.add(
             mRelateConcessMarketInteractor.persistParticipatingConcess(participatingConcess)
                 .applySchedulers()

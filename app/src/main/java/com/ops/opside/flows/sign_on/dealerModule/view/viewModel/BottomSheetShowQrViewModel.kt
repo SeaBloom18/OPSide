@@ -10,4 +10,5 @@ class BottomSheetShowQrViewModel @Inject constructor(
     private val mShowQrInteractor: ShowQrInteractor
 ): CommonViewModel(){
     fun getFirebaseId() = mShowQrInteractor.getFirebaseId()
+    fun getConcessName() = mShowQrInteractor.getConcesName()
 }

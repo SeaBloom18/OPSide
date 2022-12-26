@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="@dimen/common_padding_default">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -12,20 +12,20 @@
         android:layout_height="114dp"
         android:layout_marginBottom="@dimen/common_padding_default"
         android:background="@color/primaryLightColor"
-        app:layout_constraintBottom_toTopOf="@+id/tvBSTitle"
+        app:layout_constraintBottom_toTopOf="@+id/tvBSRegistTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:lottie_autoPlay="true" />
 
-    <TextView
-        android:id="@+id/tvBSTitle"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvBSRegistTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="@string/registration_tv_success"
         android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/subtitle"
+        tools:text="@string/registration_tv_success"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />

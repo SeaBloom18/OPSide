@@ -10,6 +10,7 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.PUT_EXTRA_MARKET
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.ItemMarketListBinding
+import com.ops.opside.flows.sign_on.marketModule.interfaces.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.view.MarketRegisterActivity
 
 class MarketAdapter(private var markets: MutableList<MarketSE>, private var listener: OnClickListener):

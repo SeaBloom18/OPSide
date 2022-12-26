@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_off.registrationModule.view
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -13,9 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
@@ -25,11 +24,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
-import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.MD5
+import com.ops.opside.common.utils.clear
+import com.ops.opside.common.utils.error
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityRegistrationBinding
 import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
@@ -37,6 +39,7 @@ import com.ops.opside.flows.sign_off.registrationModule.viewModel.RegisterViewMo
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
+const val RESULTCODE_RETURNEMAIL = 100
 @AndroidEntryPoint
 class RegistrationActivity : BaseActivity() {
 
@@ -48,6 +51,7 @@ class RegistrationActivity : BaseActivity() {
     private val mCollectorFE: CollectorFE = CollectorFE()
     private var checkedItem = 0
     private var isValidPassword = false
+    private var emailReturnIntent: String = ""
 
     private lateinit var mOriginList: MutableList<OriginFE>
 
@@ -66,6 +70,7 @@ class RegistrationActivity : BaseActivity() {
             tvSeePolicies.setOnClickListener { showPolicies() }
         }
 
+        /** Calls Methods **/
         bindViewModel()
         loadOriginList()
         setToolbar()
@@ -114,6 +119,7 @@ class RegistrationActivity : BaseActivity() {
 
     /** ViewModel Conf**/
     private fun bindViewModel(){
+        mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
         mViewModel.getAction().observe(this, Observer(this::handleAction))
         mViewModel.getOriginList.observe(this, Observer(this::getOriginList))
         mViewModel.getEmailExists.observe(this, Observer(this::getIsEmailExist))
@@ -122,10 +128,12 @@ class RegistrationActivity : BaseActivity() {
     private fun handleAction(action: RegistrationAction) {
         when(action) {
             is RegistrationAction.ShowMessageSuccess -> {
-                toast("success")
+                emailReturnIntent = mBinding.teEmail.text.toString().trim()
+                bsRegisterSuccess()
+                cleanEditText()
             }
             is RegistrationAction.ShowMessageError -> {
-                toast("error")
+                bsRegisterError()
             }
         }
     }
@@ -307,29 +315,9 @@ class RegistrationActivity : BaseActivity() {
                 mBinding.tilEmail.error = getString(R.string.registration_toast_password_exist_validation)
             } else {
                 when(checkedItem){
-                    0 -> {
-                        if (concessionaireViewModel()){
-                            mViewModel.insertConcessionaire(mConcessionaireFE)
-                            /*bsRegisterSuccess()
-                            cleanEditText()*/
-                        }
-                    }
-
-                    1 -> {
-                        if (foreignConcessionaireViewModel()){
-                            mViewModel.insertForeignConcessionaire(mConcessionaireFE)
-                            bsRegisterSuccess()
-                            cleanEditText()
-                        }
-                    }
-
-                    2 -> {
-                        if (collectorViewModel()){
-                            mViewModel.insertCollector(mCollectorFE)
-                            bsRegisterSuccess()
-                            cleanEditText()
-                        }
-                    }
+                    0 -> if (concessionaireViewModel()) mViewModel.insertConcessionaire(mConcessionaireFE)
+                    1 -> if (foreignConcessionaireViewModel()) mViewModel.insertForeignConcessionaire(mConcessionaireFE)
+                    2 -> if (collectorViewModel()) mViewModel.insertCollector(mCollectorFE)
                 }
             }
         }
@@ -399,9 +387,7 @@ class RegistrationActivity : BaseActivity() {
 
     private fun registerFormSetUP(formOption: Int){
         when (formOption) {
-            0 -> { // Concessionaire
-                registerGeneralSetUp()
-            }
+            0 -> registerGeneralSetUp() //Concessionaire
             1 -> { // Foreign Concessionaire
                 registerGeneralSetUp()
                 with(mBinding){
@@ -455,8 +441,15 @@ class RegistrationActivity : BaseActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
         val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
+        tvBSTitle.text = getString(R.string.registration_tv_success)
         anim.setAnimation(R.raw.success_lottie_anim)
-        btnFinish.setOnClickListener { finish() }
+        btnFinish.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("emailReturn", emailReturnIntent)
+            setResult(RESULTCODE_RETURNEMAIL, intent)
+            finish()
+        }
         dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
@@ -467,7 +460,9 @@ class RegistrationActivity : BaseActivity() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
         val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
-        anim.setAnimation(R.raw.loading_lottie_anim)
+        val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
+        tvBSTitle.text = getString(R.string.registration_tv_error)
+        anim.setAnimation(R.raw.error_lottie_anim)
         btnFinish.setOnClickListener { finish() }
         dialog.setCancelable(false)
         dialog.setContentView(view)
@@ -504,20 +499,18 @@ class RegistrationActivity : BaseActivity() {
     private fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager != null) {
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
-                }
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
             }
         }
         return false

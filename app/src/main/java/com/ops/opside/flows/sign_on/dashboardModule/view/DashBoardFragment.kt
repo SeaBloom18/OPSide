@@ -30,7 +30,7 @@ class DashBoardFragment : BaseFragment() {
     private var closed = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         mBinding = FragmentDashBoardBinding.inflate(inflater, container, false)
         mActivity = activity as MainActivity
 

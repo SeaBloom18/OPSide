@@ -26,6 +26,12 @@ inline fun <reified T : Any> Activity.startActivity(options: Bundle? = null) {
     })
 }
 
+inline fun <reified T : Any> Context.launchActivity(options: Bundle? = null) {
+    startActivity(newIntent<T>(this).apply {
+        options?.let { putExtras(options) }
+    })
+}
+
 inline fun <reified T : Any> Context.launchActivity(
     options: Bundle? = null,
     noinline init: Intent.() -> Unit = {}

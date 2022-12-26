@@ -7,14 +7,19 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
+
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,10 @@ class MainActivity : BaseActivity() {
             getString(R.string.dialog_dealer_info_title),
             getString(R.string.dialog_dealer_info_message),
             getString(R.string.common_accept),
-            yesAction = { finish() }
+            yesAction = {
+                preferences.deletePreferences()
+                finish()
+            }
         )
         dialog.show()
     }

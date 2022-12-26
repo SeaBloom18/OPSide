@@ -7,6 +7,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +15,8 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener
+import com.google.android.gms.maps.GoogleMap.OnCameraMoveListener
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -116,14 +119,49 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
         }
     }
 
+    /*fun mapInit(googleMap: GoogleMap){
+        googleMap.apply {
+            // just a random location our map will point to when its launched
+            val klcc = LatLng(3.1579513, 101.7116233)
+            addMarker(MarkerOptions().apply {
+                position(klcc)
+                title("Marker pointed at klcc")
+                draggable(false)
+            })
+            // setup zoom level
+            animateCamera(CameraUpdateFactory.newLatLngZoom(klcc,18f))
+
+            // maps events we need to respond to
+            setOnCameraMoveListener(this@MapStartedActivity)
+            setOnCameraIdleListener(this@MapStartedActivity)
+
+        }
+    }*/
+
     override fun onMapReady(googleMap: GoogleMap) {
         val latLng = LatLng(currentLocation.latitude, currentLocation.longitude)
         val markerOptions = MarkerOptions().position(latLng).title(getString(R.string.google_maps_market_title)).draggable(true)
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-        googleMap.setMaxZoomPreference(17.5F)
-        googleMap.setMinZoomPreference(17.5F)
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.5f))
+        //googleMap.setMaxZoomPreference(17.5F)
+        //googleMap.setMinZoomPreference(17.5F)
         googleMap.addMarker(markerOptions)
+        /*googleMap.setOnCameraMoveListener(object: OnCameraMoveListener{
+            override fun onCameraMove() {
+                googleMap.clear()
+                // display imageView
+                mBinding.imgPinUp?.visibility = View.VISIBLE
+            }
+        })
 
+        googleMap.setOnCameraIdleListener(object: OnCameraIdleListener{
+            override fun onCameraIdle() {
+
+            }
+
+        })*/
+      /*  googleMap.setOnCameraIdleListener { //get latlng at the center by calling
+            val midLatLng: LatLng = googleMap.cameraPosition.target
+        }*/
         googleMap.setOnMarkerDragListener(object: OnMarkerDragListener{
             override fun onMarkerDrag(p0: Marker) {
 

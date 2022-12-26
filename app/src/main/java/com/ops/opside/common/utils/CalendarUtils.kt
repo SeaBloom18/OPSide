@@ -12,4 +12,9 @@ object CalendarUtils {
         return sdf.format(Date())
     }
 
+    fun getCurrentTimeInMillis(): Long {
+        return Date().time.minus(DAY_IN_MILLIS)
+    }
 }
+
+const val DAY_IN_MILLIS = 86400000
