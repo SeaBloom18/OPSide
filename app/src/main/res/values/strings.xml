@@ -22,6 +22,9 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="dialog_dealer_info_title">Are you sure you want to log out?</string>
     <string name="dialog_dealer_info_message">You will have to log in again</string>
 
+    <!-- Concessionaire Strings -->
+    <string name="concessionaire_no_concess">No dealers listed</string>
+
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Scan</string>
     <string name="tax_collection_dealer_name">Concessionaire Name</string>

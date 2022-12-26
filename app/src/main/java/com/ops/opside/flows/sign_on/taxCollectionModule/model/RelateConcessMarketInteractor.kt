@@ -1,9 +1,8 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.room.TaxCollectionDataBase
 import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable
@@ -15,7 +14,7 @@ class RelateConcessMarketInteractor @Inject constructor(
     private val room: TaxCollectionDataBase
 ) {
 
-    fun relateConcessWithMarket(participatingConcess: ParticipatingConcessRE): Observable<String> {
+    fun relateConcessWithMarket(participatingConcess: ParticipatingConcessSE): Observable<String> {
         return Observable.unsafeCreate { subscriber ->
 
             tryOrPrintException {
@@ -32,7 +31,7 @@ class RelateConcessMarketInteractor @Inject constructor(
         }
     }
 
-    fun persistParticipatingConcess(participatingConcess: ParticipatingConcessRE): Observable<Boolean>{
+    fun persistParticipatingConcess(participatingConcess: ParticipatingConcessSE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
                 room.participatingConcessDao().addConcessionaireToMarket(participatingConcess)

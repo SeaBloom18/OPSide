@@ -1,13 +1,20 @@
 package com.ops.opside.flows.sign_on.taxCollectionCrudModule.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ops.opside.R
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.FORMAT_SQL_DATE
+import com.ops.opside.common.utils.PDFUtils
 import com.ops.opside.common.utils.animateOnPress
 import com.ops.opside.common.utils.startActivity
 import com.ops.opside.common.views.BaseActivity
@@ -38,22 +45,13 @@ class TaxCollectionCrudActivity : BaseActivity(), TaxCollectionCrudAux {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            imgClose.animateOnPress()
-            imgClose.setOnClickListener {
-                onBackPressed()
-            }
-
-            imgFilter.animateOnPress()
-            imgFilter.setOnClickListener {
-                initBsd()
-            }
-
             fabInitTaxCollection.animateOnPress()
             fabInitTaxCollection.setOnClickListener {
                 startActivity<TaxCollectionActivity>()
             }
         }
 
+        setToolbar()
         bindViewModel()
         loadCollectionsList()
     }
@@ -63,6 +61,32 @@ class TaxCollectionCrudActivity : BaseActivity(), TaxCollectionCrudAux {
         mViewModel.getShowProgress().observe(this, Observer(this::showLoading))
     }
 
+    private fun setToolbar() {
+        with(mBinding.toolbarCrudTaxCollection.commonToolbar) {
+            this.title = getString(R.string.bn_menu_tax_collection_opc3)
+
+            this.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.menu_tax_collection_crud, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.menu_cancel -> {
+                            onBackPressed()
+                            true
+                        }
+                        R.id.menu_filter -> {
+                            initBsd()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }, this@TaxCollectionCrudActivity, Lifecycle.State.RESUMED)
+        }
+    }
+    
     private fun initBsd() {
         val bottomSheetFilter =
             BottomSheetFilter(showMarket = true, showCollector = true, showDate = true)

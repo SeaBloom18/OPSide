@@ -1,9 +1,8 @@
 package com.ops.opside.common.room.daos
 
 import androidx.room.*
-import com.ops.opside.common.entities.relationships.ConcessionaireWithMarkets
 import com.ops.opside.common.entities.relationships.MarketWithConcessionaires
-import com.ops.opside.common.entities.room.ParticipatingConcessRE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 
 @Dao
@@ -16,7 +15,7 @@ interface ConcessionaireDao {
     fun addConcessionairesList(concessionaire: MutableList<ConcessionaireSE>): MutableList<Long>
 
     @Insert
-    fun addConcessPartipating(participating: MutableList<ParticipatingConcessRE>)
+    fun addConcessPartipating(participating: MutableList<ParticipatingConcessSE>)
 
     @Query("DELETE FROM concessionaire WHERE idFirebase IN (:concessionaires)")
     fun deleteConcessInMarket(concessionaires: List<String>)
@@ -32,9 +31,9 @@ interface ConcessionaireDao {
     fun getAllConcessionairesByMarket(idMarket: String): MarketWithConcessionaires
 
     @Query("SELECT * FROM participatingConcess")
-    fun getAllParticipatingConcess(): MutableList<ParticipatingConcessRE>
+    fun getAllParticipatingConcess(): MutableList<ParticipatingConcessSE>
 
     @Query("SELECT * FROM participatingConcess WHERE idMarket = :idMarket")
-    fun getAllParticipatingConcessById(idMarket: String): MutableList<ParticipatingConcessRE>
+    fun getAllParticipatingConcessById(idMarket: String): MutableList<ParticipatingConcessSE>
 
 }

@@ -99,6 +99,14 @@ class LoginFragment : BaseFragment() {
         mViewModel.getLinealMeterPrice()
     }
 
+    /**ViewModel SetUp**/
+    private fun bindViewModel() {
+        mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
+        mViewModel.getAction().observe(mActivity, Observer(this::handleAction))
+        mViewModel.getLinealMetersPrice.observe(mActivity, Observer(this::getLinealMeterPrice))
+    }
+
+
     private fun logIn(email: String, password: String) {
         if (email.isEmpty() && password.isEmpty()) {
             showErrorOnCredentials(getString(R.string.login_toast_empy_text))
@@ -107,14 +115,6 @@ class LoginFragment : BaseFragment() {
         hideErrorOnCredentials()
         mBinding.tePassword.setText(password)
         mViewModel.searchForCollector(email)
-    }
-
-
-    /**ViewModel SetUp**/
-    private fun bindViewModel() {
-        mViewModel.getShowProgress().observe(mActivity, Observer(this::showLoading))
-        mViewModel.getAction().observe(mActivity, Observer(this::handleAction))
-        mViewModel.getLinealMetersPrice.observe(mActivity, Observer(this::getLinealMeterPrice))
     }
 
     private fun handleAction(action: LoginAction) {
