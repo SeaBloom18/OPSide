@@ -4,8 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.share.CollectorSE
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
+import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
 import com.ops.opside.flows.sign_on.dashboardModule.model.ControlPanelInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,11 +21,15 @@ class ControlPanelViewModel @Inject constructor(
     private val mControlPanelInteractor: ControlPanelInteractor): CommonViewModel(){
 
     val getCollectorList = MutableLiveData<MutableList<CollectorSE>>()
-    private val _getPriceLinearMeter = MutableLiveData<Double>()
-    val priceLinearMeter: LiveData<Double> = _getPriceLinearMeter
+
+    private val _getPriceLinearMeter = MutableLiveData<Float>()
+    val priceLinearMeter: LiveData<Float> = _getPriceLinearMeter
+
     private val updatePrice = MutableLiveData<Boolean>()
     private val updateHasAccess = MutableLiveData<Boolean>()
 
+    private val _action: SingleLiveEvent<ControlPanelAction> = SingleLiveEvent()
+    fun getAction(): LiveData<ControlPanelAction> = _action
 
     fun getCollectorList() {
         disposable.add(
@@ -82,9 +89,11 @@ class ControlPanelViewModel @Inject constructor(
                 .subscribe(
                     {
                         showProgress.value = false
+                        _action.value = ControlPanelAction.ShowMessageSuccess
                         updateHasAccess.value = it
                     },
                     {
+                        _action.value = ControlPanelAction.ShowMessageError
                         showProgress.value = false
                         Log.e("Error", it.toString())
                     }

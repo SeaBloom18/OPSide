@@ -11,7 +11,7 @@
 
     <!--About App Strings-->
     <string name="ops_about_app_title">Sobre OPS</string>
-    <string name="ops_about_app_body">OPS es una aplicación para la administración de mercadillos y las actividades que conllevan como son los cobros, incidencias, creación de mercadillos, alta de usuarios, etc.
+    <string name="ops_about_app_body">OPS es una aplicación para la administración de tianguis y las actividades que conllevan como son los cobros, incidencias, creación de tianguis, alta de usuarios, etc.
 La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a todos los usuarios a la hora de realizar el cobro de impuestos.</string>
     <string name="ops_about_app_last_update">Última actualización: 19 de Diciembre del 2022</string>
 
@@ -117,6 +117,9 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="registration_toast_password_regex_validation">Oops, parece que la contraseña no cumple con los requisitos!</string>
     <string name="registration_toast_policies_validation">Antes debes de aceptar nuestras politicas de privacidad!</string>
     <string name="registration_see_policies_validation">Toca para ver las Políticas de Privacidad</string>
+    <string name="registration_updated_market_success">La lista de tianguis se ha actualizado con éxito!</string>
+    <string name="registration_updated_market_error">Oops, hubo un error al actualiazar la lista de tianguis!</string>
+    <string name="registration_til_linear_meter">Metros del tianguis</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Tianguis</string>
@@ -175,6 +178,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="control_panel_dialog_message">¿Estas seguro que de quieres actualizar el precio lineal?</string>
     <string name="control_panel_dialog_yes_action_message">El precio lineal ha sido actualizado con éxito</string>
     <string name="control_panel_dialog_no_action_message">Error al actualizar el precio lineal</string>
+    <string name="control_panel_hasaccess_updated_success">El acceso ha sido actualizado correctamente</string>
+    <string name="control_panel_hasaccess_updated_error">Oops Error al actualizar el acceso!</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>

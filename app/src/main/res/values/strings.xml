@@ -117,6 +117,9 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="registration_toast_password_regex_validation">Oops, it looks like the password doesn\'t meet the requirements!</string>
     <string name="registration_toast_policies_validation">Before you must accept our privacy policies!</string>
     <string name="registration_see_policies_validation">Tap to see Privacy Policies!</string>
+    <string name="registration_updated_market_success">The Market list has been updated!</string>
+    <string name="registration_updated_market_error">Oops, the Market list not has been updated!</string>
+    <string name="registration_til_linear_meter">Market Meters</string>
 
     <!--BottomNavigationView menu Strings-->
     <string name="bn_menu_market_opc1">Market</string>
@@ -176,6 +179,8 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="control_panel_dialog_message">Are you sure to update the Meter Price?</string>
     <string name="control_panel_dialog_yes_action_message">The Price Meter has been updated</string>
     <string name="control_panel_dialog_no_action_message">The Price Meter not has been updated</string>
+    <string name="control_panel_hasaccess_updated_success">The Access has been updated</string>
+    <string name="control_panel_hasaccess_updated_error">The Access not has been updated</string>
 
     <!--Incidents String-->
     <string name="bottom_sheet_tv_title">Create new Incident</string>
