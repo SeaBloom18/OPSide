@@ -9,6 +9,17 @@
     android:background="@color/primaryColor"
     tools:context=".flows.sign_on.marketModule.view.MarketLocationActivity">
 
+   <!-- <ImageView
+        android:id="@+id/imgLocationPinUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_ops_select_location"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
@@ -22,13 +33,14 @@
             android:id="@+id/ibLocationClose"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_close_reg_screen"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/common_content_description"
+            android:src="@drawable/ic_ops_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/common_content_description" />
+            app:tint="@color/secondaryLightColor" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveLocation"
@@ -41,9 +53,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+    <!--<ImageView-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:layout_width="0dp"
