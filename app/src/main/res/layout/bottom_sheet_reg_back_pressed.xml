@@ -16,7 +16,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/primaryTextColor"
-        android:text="@string/login_tv_title_bottom_sheet"
+        android:text="@string/registration_btn_exit"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />
@@ -29,7 +29,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/login_btn_close_bottom_sheet"
-        />
+        android:text="@string/registration_btn_bs_close" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

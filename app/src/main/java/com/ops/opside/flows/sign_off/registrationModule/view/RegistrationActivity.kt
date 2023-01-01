@@ -87,7 +87,8 @@ class RegistrationActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        bottomSheet()
+        val dialog = BottomSheetRegBackPressed()
+        dialog.show(this.supportFragmentManager, dialog.tag)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -465,21 +466,6 @@ class RegistrationActivity : BaseActivity() {
         anim.setAnimation(R.raw.error_lottie_anim)
         btnFinish.setOnClickListener { finish() }
         dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
-    private fun bottomSheet(){
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
-
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(R.string.registration_btn_bs_close)
-        btnFinish.setOnClickListener { finish() }
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.text = getString(R.string.registration_btn_exit)
-
         dialog.setContentView(view)
         dialog.show()
     }
