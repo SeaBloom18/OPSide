@@ -16,7 +16,9 @@ import com.ops.opside.databinding.FragmentDashBoardBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashBoardFragment : BaseFragment() {
 
     private var mBinding: FragmentDashBoardBinding? = null
