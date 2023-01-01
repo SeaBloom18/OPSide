@@ -26,6 +26,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
+import com.ops.opside.common.bsd.BottomSheetBackPressed
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
@@ -40,6 +41,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
 const val RESULTCODE_RETURNEMAIL = 100
+
 @AndroidEntryPoint
 class RegistrationActivity : BaseActivity() {
 
@@ -87,7 +89,7 @@ class RegistrationActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        val dialog = BottomSheetRegBackPressed()
+        val dialog = BottomSheetBackPressed()
         dialog.show(this.supportFragmentManager, dialog.tag)
     }
 

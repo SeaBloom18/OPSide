@@ -1,16 +1,16 @@
-package com.ops.opside.flows.sign_off.registrationModule.view
+package com.ops.opside.common.bsd
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ops.opside.common.views.BaseBottomSheetFragment
-import com.ops.opside.databinding.BottomSheetRegBackPressedBinding
+import com.ops.opside.databinding.BottomSheetBackPressedBinding
 
-class BottomSheetRegBackPressed: BaseBottomSheetFragment() {
+class BottomSheetBackPressed: BaseBottomSheetFragment() {
 
-    private val mBinding: BottomSheetRegBackPressedBinding by lazy {
-        BottomSheetRegBackPressedBinding.inflate(layoutInflater)
+    private val mBinding: BottomSheetBackPressedBinding by lazy {
+        BottomSheetBackPressedBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(

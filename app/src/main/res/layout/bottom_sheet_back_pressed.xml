@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,7 +15,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/primaryTextColor"
-        android:text="@string/registration_btn_exit"
+        android:text="@string/registration_tv_bs_close"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="@+id/btnClose"
         app:layout_constraintStart_toStartOf="@+id/btnClose" />
