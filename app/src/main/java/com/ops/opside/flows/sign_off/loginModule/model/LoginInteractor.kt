@@ -24,8 +24,8 @@ class LoginInteractor @Inject constructor(
 
     fun isSPInitialized() = sp.getBoolean(SP_IS_INITIALIZED)
     fun isRememberMe() = sp.getBoolean(SP_REMEMBER_ME)
-    fun updateRememberMe(remember: Boolean) = sp.putValue(SP_REMEMBER_ME,remember)
-    fun getLoginSp() = Pair(sp.getString(SP_EMAIL),sp.getString(SP_NAME)!!.split(" ")[0])
+    fun updateRememberMe(remember: Boolean) = sp.putValue(SP_REMEMBER_ME, remember)
+    fun getLoginSp() = Pair(sp.getString(SP_EMAIL), sp.getString(SP_NAME)!!.split(" ")[0])
 
     fun initSPForCollector(
         collector: CollectorFE,
