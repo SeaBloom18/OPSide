@@ -8,6 +8,7 @@
     <string name="common_til_search">Search</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_atention">Attention</string>
+    <string name="common_close">Close</string>
 
     <!--About App-->
     <string name="ops_about_app_title">About OPS</string>

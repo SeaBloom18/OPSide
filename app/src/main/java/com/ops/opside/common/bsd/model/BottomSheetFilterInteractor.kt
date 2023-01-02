@@ -1,4 +1,4 @@
-package com.ops.opside.common.bsd
+package com.ops.opside.common.bsd.model
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR

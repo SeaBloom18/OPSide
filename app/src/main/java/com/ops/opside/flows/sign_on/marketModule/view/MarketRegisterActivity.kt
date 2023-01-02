@@ -38,7 +38,7 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
-import com.ops.opside.common.bsd.BottomSheetBackPressed
+import com.ops.opside.common.bsd.view.BottomSheetBackPressed
 import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel

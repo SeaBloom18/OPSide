@@ -8,6 +8,7 @@
     <string name="common_til_search">Buscar</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_atention">Atención</string>
+    <string name="common_close">Cerrar</string>
 
     <!--About App Strings-->
     <string name="ops_about_app_title">Sobre OPS</string>
