@@ -4,7 +4,7 @@ import com.ops.opside.BuildConfig
 import com.ops.opside.common.entities.*
 import javax.inject.Inject
 
-fun TablesEnum.name(): String {
+fun TablesEnum.getName(): String {
     val base = if (BuildConfig.DEBUG){ "dev_" } else { "" }
     return when (this) {
         TablesEnum.Concessionaire       -> base.plus(DB_TABLE_CONCESSIONAIRE       )

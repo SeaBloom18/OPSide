@@ -2,13 +2,11 @@ package com.ops.opside.flows.sign_on.concessionaireModule.model
 
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
-import com.ops.opside.common.entities.DB_TABLE_MARKET
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
 import com.ops.opside.common.entities.TablesEnum
-import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.ParticipatingConcessSE
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -20,7 +18,7 @@ class ConcessionaireCrudInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                 val markets = mutableListOf<ParticipatingConcessSE>()
-                firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+                firestore.collection(TablesEnum.ParticipatingConcess.getName())
                     .whereEqualTo("idConcessionaire", idConcessionaire)
                     .get()
                     .addOnSuccessListener {
@@ -31,7 +29,8 @@ class ConcessionaireCrudInteractor @Inject constructor(
                                     idMarket = docuement.get("idMarket").toString(),
                                     idConcessionaire = docuement.get("idConcessionaire").toString(),
                                     lineBusiness = docuement.get("lineBusiness").toString(),
-                                    linearMeters = docuement.get("linearMeters").toString().toDouble(),
+                                    linearMeters = docuement.get("linearMeters").toString()
+                                        .toDouble(),
                                     marketName = docuement.get("marketName").toString()
                                 )
                             )
@@ -47,12 +46,14 @@ class ConcessionaireCrudInteractor @Inject constructor(
         }
     }
 
-    fun deleteRelate(relation: ParticipatingConcessSE): Observable<Boolean>{
+    fun deleteRelate(relation: ParticipatingConcessSE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(TablesEnum.Concessionaire.name).document(relation.idConcessionaire)
+            firestore.collection(TablesEnum.Concessionaire.getName())
+                .document(relation.idConcessionaire)
                 .update("participatingMarkets", FieldValue.arrayRemove(relation.idMarket))
                 .addOnSuccessListener {
-                    firestore.collection(DB_TABLE_PARTICIPATING_CONCESS).document(relation.idFirebase)
+                    firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+                        .document(relation.idFirebase)
                         .delete()
                         .addOnSuccessListener {
                             subscriber.onNext(true)
@@ -72,20 +73,21 @@ class ConcessionaireCrudInteractor @Inject constructor(
             try {
                 val marketsList = mutableListOf<MarketSE>()
 
-                firestore.collection(DB_TABLE_MARKET)
+                firestore.collection(TablesEnum.Market.getName())
                     .whereEqualTo("isDeleted", false)
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
                             marketsList.add(
                                 MarketSE(
-                                idFirebase = document.id,
-                                name = document.get("name").toString(),
-                                address = document.get("address").toString(),
-                                marketMeters = document.get("marketMeters") as Double,
-                                latitude = document.get("latitude") as Double,
-                                longitude = document.get("longitude") as Double,
-                                numberConcessionaires = listOf(document.get("concessionaires")).toString())
+                                    idFirebase = document.id,
+                                    name = document.get("name").toString(),
+                                    address = document.get("address").toString(),
+                                    marketMeters = document.get("marketMeters") as Double,
+                                    latitude = document.get("latitude") as Double,
+                                    longitude = document.get("longitude") as Double,
+                                    numberConcessionaires = listOf(document.get("concessionaires")).toString()
+                                )
                             )
                         }
                         subscriber.onNext(marketsList)
@@ -93,15 +95,15 @@ class ConcessionaireCrudInteractor @Inject constructor(
                     .addOnFailureListener {
                         subscriber.onError(it)
                     }
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
         }
     }
 
-    fun addMarketToConcess(idMarket: String, idConcessionaire: String): Observable<Boolean>{
+    fun addMarketToConcess(idMarket: String, idConcessionaire: String): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(TablesEnum.Concessionaire.name).document(idConcessionaire)
+            firestore.collection(TablesEnum.Concessionaire.getName()).document(idConcessionaire)
                 .update("participatingMarkets", FieldValue.arrayUnion(idMarket))
                 .addOnSuccessListener {
                     subscriber.onNext(true)

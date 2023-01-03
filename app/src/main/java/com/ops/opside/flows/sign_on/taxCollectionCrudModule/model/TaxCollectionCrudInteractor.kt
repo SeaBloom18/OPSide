@@ -2,7 +2,9 @@ package com.ops.opside.flows.sign_on.taxCollectionCrudModule.model
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_TAX_COLLECTION
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -14,7 +16,7 @@ class TaxCollectionCrudInteractor @Inject constructor(
             try {
                 val collections = mutableListOf<TaxCollectionSE>()
 
-                firestore.collection(DB_TABLE_TAX_COLLECTION)
+                firestore.collection(TablesEnum.TaxCollection.getName())
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {

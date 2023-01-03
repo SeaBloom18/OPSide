@@ -1,12 +1,12 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_EVENT
 import com.ops.opside.common.entities.DB_TABLE_TAX_COLLECTION
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class FinalizeTaxCollectionInteractor @Inject constructor(
 
     fun insertTaxCollection(taxCollection: TaxCollectionSE): Observable<String> {
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(DB_TABLE_TAX_COLLECTION)
+            firestore.collection(TablesEnum.TaxCollection.getName())
                 .add(taxCollection.getHashMap())
                 .addOnSuccessListener {
                     subscriber.onNext(it.id)
@@ -34,7 +34,7 @@ class FinalizeTaxCollectionInteractor @Inject constructor(
                 var breakLoop = false
                 events.forEach { event ->
                     event.idTaxCollection = idTaxCollection
-                    firestore.collection(DB_TABLE_EVENT)
+                    firestore.collection(TablesEnum.Event.getName())
                         .add(event.getHashMap())
                         .addOnSuccessListener {
                             room.eventDao().deleteEvent(event)
@@ -54,11 +54,9 @@ class FinalizeTaxCollectionInteractor @Inject constructor(
         }
     }
 
-    fun getEventsList(idTaxCollection: String): MutableList<EventRE> {
-        val events = room.eventDao().getAllEvents()
-        Log.d("Demo",events.toString())
-       return room.eventDao().getAllEventsById(idTaxCollection)
-    }
+    fun getEventsList(idTaxCollection: String): MutableList<EventRE> =
+        room.eventDao().getAllEventsById(idTaxCollection)
+
 
     fun updateEvent(event: EventRE) =
         room.eventDao().updateEvent(event)
@@ -79,7 +77,7 @@ class FinalizeTaxCollectionInteractor @Inject constructor(
 
     fun searchIfExistTaxCollection(idTaxCollection: String): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(DB_TABLE_TAX_COLLECTION).document(idTaxCollection).get()
+            firestore.collection(TablesEnum.TaxCollection.getName()).document(idTaxCollection).get()
                 .addOnSuccessListener {
                     subscriber.onNext(it.exists())
                 }
@@ -89,12 +87,12 @@ class FinalizeTaxCollectionInteractor @Inject constructor(
         }
     }
 
-    fun closeTaxCollection(taxCollection: TaxCollectionSE): Pair<Boolean,String> {
+    fun closeTaxCollection(taxCollection: TaxCollectionSE): Pair<Boolean, String> {
         return try {
             room.taxCollectionDao().deleteTaxCollectionByMarket(taxCollection.idMarket)
-            Pair(true,"Success")
-        } catch (e: Exception){
-            Pair(false,e.message.toString())
+            Pair(true, "Success")
+        } catch (e: Exception) {
+            Pair(false, e.message.toString())
         }
     }
 

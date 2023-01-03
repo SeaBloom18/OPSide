@@ -7,6 +7,7 @@ import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ class BottomSheetForeignerAttendanceInteractor @Inject constructor(
     fun getEmailInformation(email: String): Observable<ConcessionaireSE> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(TablesEnum.Concessionaire.name)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener {
@@ -53,7 +54,7 @@ class BottomSheetForeignerAttendanceInteractor @Inject constructor(
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<String>{
         return Observable.unsafeCreate{ subscriber ->
             try {
-                firestore.collection(TablesEnum.Concessionaire.name)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         subscriber.onNext(documentReference.id)

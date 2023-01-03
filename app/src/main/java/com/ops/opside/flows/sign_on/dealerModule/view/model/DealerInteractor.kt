@@ -61,7 +61,7 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
 
     fun updateImageURL(url: String){
         tryOrPrintException {
-            firestore.collection(TablesEnum.Concessionaire.name).document(sp.getString(SP_ID).toString()).update("imageURL", url)
+            firestore.collection(TablesEnum.Concessionaire.getName()).document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
                     sp.putValue(SP_USER_URL_PHOTO, url)
                     Log.d("StorageUserProfilePhotoUpdatedSuccess", "DocumentSnapshot successfully updated!")

@@ -4,9 +4,11 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_MARKET
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.utils.getName
 import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -19,7 +21,7 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
     fun registerMarket(marketFE: MarketFE): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
-                firestore.collection(DB_TABLE_MARKET)
+                firestore.collection(TablesEnum.Market.getName())
                     .add(marketFE.getHashMap())
                     .addOnSuccessListener {
                         Log.d("Firebase", "DocumentSnapshot added with ID: " + it.id)
@@ -37,7 +39,7 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
                      longitude: Double): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             tryOrPrintException {
-                firestore.collection(DB_TABLE_MARKET).document(idFirestore)
+                firestore.collection(TablesEnum.Market.getName()).document(idFirestore)
                     .update(mapOf(
                         "name" to name,
                         "address" to address,
@@ -60,7 +62,7 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
                 val concessionaireList = mutableListOf<String>()
-                firestore.collection(DB_TABLE_MARKET).document(idMarketFirestore).get()
+                firestore.collection(TablesEnum.Market.getName()).document(idMarketFirestore).get()
                     .addOnSuccessListener {
                         Log.d("marketData",
                             it.data?.get("concessionaires").toString()[0].toString())
