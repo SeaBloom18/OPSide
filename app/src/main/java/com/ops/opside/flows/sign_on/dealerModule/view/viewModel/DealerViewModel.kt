@@ -15,7 +15,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DealerViewModel @Inject constructor(
-    private val mDealerInteractor: DealerInteractor): CommonViewModel(){
+    private val mDealerInteractor: DealerInteractor,
+    ): CommonViewModel(){
 
     private val updateImageURL = MutableLiveData<Boolean>()
     var updateImage: LiveData<Boolean> = updateImageURL

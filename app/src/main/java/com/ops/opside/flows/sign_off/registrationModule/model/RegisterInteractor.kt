@@ -3,11 +3,12 @@ package com.ops.opside.flows.sign_off.registrationModule.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
-import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_ORIGIN
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class RegisterInteractor @Inject constructor(
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { _ ->
                         subscriber.onNext(true)
@@ -37,7 +38,7 @@ class RegisterInteractor @Inject constructor(
     fun registerForeignConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         subscriber.onNext(true)
@@ -56,7 +57,7 @@ class RegisterInteractor @Inject constructor(
     fun registerCollector(collectorFE: CollectorFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_COLLECTOR)
+                firestore.collection(TablesEnum.Collector.getName())
                     .add(collectorFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         subscriber.onNext(true)
@@ -64,9 +65,7 @@ class RegisterInteractor @Inject constructor(
                     .addOnFailureListener { e ->
                         Log.w("Firebase", "Error adding document", e)
                         subscriber.onNext(false)
-
                     }
-
             } catch (exception: Exception) {
                 subscriber.onError(exception)
             }
@@ -104,7 +103,7 @@ class RegisterInteractor @Inject constructor(
     fun getIsEmailExist(email: String): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener {

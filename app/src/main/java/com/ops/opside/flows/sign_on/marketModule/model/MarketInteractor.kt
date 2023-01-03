@@ -3,7 +3,9 @@ package com.ops.opside.flows.sign_on.marketModule.model
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_MARKET
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.MarketSE
+import com.ops.opside.common.utils.getName
 import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -16,7 +18,7 @@ class MarketInteractor @Inject constructor(
             try {
                 val marketsList = mutableListOf<MarketSE>()
 
-                firestore.collection(DB_TABLE_MARKET)
+                firestore.collection(TablesEnum.Market.getName())
                     .whereEqualTo("isDeleted", false)
                     .get()
                     .addOnSuccessListener {
@@ -44,7 +46,7 @@ class MarketInteractor @Inject constructor(
     fun deleteMarket(idFirestore: String): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
         tryOrPrintException {
-            firestore.collection(DB_TABLE_MARKET).document(idFirestore).update("isDeleted", true)
+            firestore.collection(TablesEnum.Market.getName()).document(idFirestore).update("isDeleted", true)
                 .addOnSuccessListener {
                     subscriber.onNext(true)
                     Log.d("FireStoreDelete", "DocumentSnapshot successfully deleted!")

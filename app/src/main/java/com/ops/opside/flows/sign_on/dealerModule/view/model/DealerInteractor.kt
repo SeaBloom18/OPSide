@@ -8,6 +8,7 @@ import com.google.firebase.storage.StorageReference
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.LINK_FIREBASE_STORAGE
 import com.ops.opside.common.entities.PATH_CONCESSIONAIRE_REFERENCE
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.utils.*
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -60,7 +61,7 @@ class DealerInteractor @Inject constructor(private val sp: Preferences, private 
 
     fun updateImageURL(url: String){
         tryOrPrintException {
-            firestore.collection(DB_TABLE_CONCESSIONAIRE).document(sp.getString(SP_ID).toString()).update("imageURL", url)
+            firestore.collection(TablesEnum.Concessionaire.getName()).document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
                     sp.putValue(SP_USER_URL_PHOTO, url)
                     Log.d("StorageUserProfilePhotoUpdatedSuccess", "DocumentSnapshot successfully updated!")

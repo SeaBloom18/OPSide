@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.EventRE
@@ -12,6 +13,7 @@ import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -25,9 +27,9 @@ class TaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             val concessionaires: MutableList<ConcessionaireFE> = mutableListOf()
 
-            firestore.collection(DB_TABLE_CONCESSIONAIRE)
+            firestore.collection(TablesEnum.Concessionaire.getName())
                 .get()
-                .addOnSuccessListener { it ->
+                .addOnSuccessListener {
 
                     for (document in it.documents) {
 
@@ -65,7 +67,7 @@ class TaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             val participatingConcess: MutableList<ParticipatingConcessSE> = mutableListOf()
 
-            firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+            firestore.collection(TablesEnum.ParticipatingConcess.getName())
                 .whereEqualTo("idMarket", idMarket)
                 .get()
                 .addOnSuccessListener {
@@ -170,8 +172,7 @@ class TaxCollectionInteractor @Inject constructor(
     fun createTaxCollection(taxCollection: TaxCollectionSE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                var id = room.taxCollectionDao().addTaxCollection(taxCollection)
-
+                room.taxCollectionDao().addTaxCollection(taxCollection)
                 subscriber.onNext(true)
             } catch (e: Exception) {
                 subscriber.onError(e)
@@ -194,7 +195,6 @@ class TaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                 room.taxCollectionDao().updateTaxCollection(taxCollection)
-
                 subscriber.onNext(true)
             } catch (e: Exception) {
                 subscriber.onError(e)
@@ -215,7 +215,7 @@ class TaxCollectionInteractor @Inject constructor(
     fun revertRelatedConcess(idFirebase: String): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+                firestore.collection(TablesEnum.ParticipatingConcess.getName())
                     .document(idFirebase)
                     .delete()
                     .addOnSuccessListener {

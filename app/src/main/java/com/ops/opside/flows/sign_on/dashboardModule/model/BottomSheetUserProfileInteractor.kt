@@ -5,9 +5,9 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.LINK_FIREBASE_STORAGE
 import com.ops.opside.common.entities.PATH_COLLECTOR_REFERENCE
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.utils.*
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -17,7 +17,8 @@ import javax.inject.Inject
  */
 
 class BottomSheetUserProfileInteractor @Inject constructor(
-    private val sp: Preferences, private val firestore: FirebaseFirestore) {
+    private val sp: Preferences, private val firestore: FirebaseFirestore
+) {
 
     private lateinit var mStorageReference: StorageReference
 
@@ -47,23 +48,32 @@ class BottomSheetUserProfileInteractor @Inject constructor(
 
     fun deleteUserImage() {
         tryOrPrintException {
-            val deleteFile = FirebaseStorage.getInstance().getReferenceFromUrl(sp.getString(
-                SP_USER_URL_PHOTO).toString())
+            val deleteFile = FirebaseStorage.getInstance().getReferenceFromUrl(
+                sp.getString(
+                    SP_USER_URL_PHOTO
+                ).toString()
+            )
             deleteFile.delete().addOnSuccessListener {
-                Log.d("StorageUserProfilePhotoDeletedSuccess", "DocumentSnapshot successfully deleted!")
+                Log.d(
+                    "StorageUserProfilePhotoDeletedSuccess",
+                    "DocumentSnapshot successfully deleted!"
+                )
             }.addOnFailureListener {
                 Log.w("StorageUserProfilePhotoDeletedError", "Error deleting document", it)
             }
         }
     }
 
-    fun updateImageURL(url: String){
+    fun updateImageURL(url: String) {
         tryOrPrintException {
-            firestore.collection(DB_TABLE_COLLECTOR).document(sp.getString(SP_ID).toString()).update("imageURL", url)
+            firestore.collection(TablesEnum.Collector.getName())
+                .document(sp.getString(SP_ID).toString()).update("imageURL", url)
                 .addOnSuccessListener {
                     sp.putValue(SP_USER_URL_PHOTO, url)
-                    //deleteUserImage()
-                    Log.d("StorageUserProfilePhotoUpdatedSuccess", "DocumentSnapshot successfully updated!")
+                    Log.d(
+                        "StorageUserProfilePhotoUpdatedSuccess",
+                        "DocumentSnapshot successfully updated!"
+                    )
                 }
                 .addOnFailureListener {
                     Log.w("StorageUserProfilePhotoUpdatedError", "Error updating document", it)

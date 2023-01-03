@@ -2,8 +2,10 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_ID
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -16,7 +18,7 @@ class ConfirmPasswordInteractor @Inject constructor(
         val userId = preferences.getString(SP_ID).orEmpty()
 
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(DB_TABLE_COLLECTOR).document(userId)
+            firestore.collection(TablesEnum.Collector.getName()).document(userId)
                 .get()
                 .addOnSuccessListener {
                     val serverPassword = it.data!!["password"].toString()
