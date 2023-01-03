@@ -16,14 +16,13 @@ class RecordTaxCollectionInteractor @Inject constructor(
 
     fun hasEvents(idTaxCollection: String): Boolean{
         val events = room.eventDao().getAllEventsById(idTaxCollection)
-        Log.d("event", events.toString())
         return events.size > 0
     }
 
     fun deleteEvent(event: EventRE): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             try {
-                val events = room.eventDao().deleteEvent(event)
+                room.eventDao().deleteEvent(event)
                 subscriber.onNext(true)
             } catch (exception: Exception) {
                 subscriber.onError(exception)

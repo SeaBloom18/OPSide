@@ -1,10 +1,11 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.model
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class ConcessionaireInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
@@ -50,7 +51,7 @@ class ConcessionaireInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .whereArrayContainsAny("participatingMarkets", markets.map { it }.toList())
                     .get()
                     .addOnSuccessListener {

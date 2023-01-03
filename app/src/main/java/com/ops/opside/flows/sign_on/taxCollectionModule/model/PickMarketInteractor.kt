@@ -2,24 +2,26 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_MARKET
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_IS_ON_LINE_MODE
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class PickMarketInteractor @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val sp: Preferences
-){
+) {
 
     fun getMarketsList(): Observable<MutableList<MarketFE>> {
         return Observable.unsafeCreate { subscriber ->
             try {
                 val markets: MutableList<MarketFE> = mutableListOf()
 
-                firestore.collection(DB_TABLE_MARKET)
-                    .whereEqualTo("isDeleted",false)
+                firestore.collection(TablesEnum.Market.getName())
+                    .whereEqualTo("isDeleted", false)
                     .get()
                     .addOnSuccessListener {
 
@@ -47,11 +49,11 @@ class PickMarketInteractor @Inject constructor(
         }
     }
 
-    fun putIsOnLineMode(isOnLineMode: Boolean){
+    fun putIsOnLineMode(isOnLineMode: Boolean) {
         sp.putValue(SP_IS_ON_LINE_MODE, isOnLineMode)
     }
 
-    fun isOnLineMode(): Boolean{
+    fun isOnLineMode(): Boolean {
         return sp.getBoolean(SP_IS_ON_LINE_MODE)
     }
 }

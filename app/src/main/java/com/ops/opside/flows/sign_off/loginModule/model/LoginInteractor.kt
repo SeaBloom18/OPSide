@@ -2,9 +2,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
-import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
-import com.ops.opside.common.entities.DB_TABLE_RESOURCES
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.*
@@ -20,26 +18,27 @@ import javax.inject.Inject
 
 class LoginInteractor @Inject constructor(
     private val sp: Preferences,
-    private val firestore: FirebaseFirestore) {
+    private val firestore: FirebaseFirestore
+) {
 
     fun isSPInitialized() = sp.getBoolean(SP_IS_INITIALIZED)
     fun isRememberMe() = sp.getBoolean(SP_REMEMBER_ME)
-    fun updateRememberMe(remember: Boolean) = sp.putValue(SP_REMEMBER_ME,remember)
-    fun getLoginSp() = Pair(sp.getString(SP_EMAIL),sp.getString(SP_NAME)!!.split(" ")[0])
+    fun updateRememberMe(remember: Boolean) = sp.putValue(SP_REMEMBER_ME, remember)
+    fun getLoginSp() = Pair(sp.getString(SP_EMAIL), sp.getString(SP_NAME)!!.split(" ")[0])
 
     fun initSPForCollector(
         collector: CollectorFE,
         linearMeterPrice: Double,
         rememberMe: Boolean,
         useBiometrics: Boolean
-    ): Pair<Boolean,String> {
+    ): Pair<Boolean, String> {
         return try {
             sp.initPreferences(
                 id = collector.idFirebase,
-                name =  collector.name,
+                name = collector.name,
                 urlPhoto = collector.imageURL,
                 address = collector.address,
-                phone =  collector.phone,
+                phone = collector.phone,
                 email = collector.email,
                 roll = collector.role,
                 linearMeters = linearMeterPrice.toString(),
@@ -48,9 +47,9 @@ class LoginInteractor @Inject constructor(
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
             )
-            Pair(true,"Success")
+            Pair(true, "Success")
         } catch (exception: Exception) {
-            Pair(false,exception.message.toString())
+            Pair(false, exception.message.toString())
         }
     }
 
@@ -58,33 +57,33 @@ class LoginInteractor @Inject constructor(
         concessionaire: ConcessionaireFE,
         rememberMe: Boolean,
         useBiometrics: Boolean
-    ): Pair<Boolean,String> {
+    ): Pair<Boolean, String> {
         return try {
             sp.initPreferences(
                 id = concessionaire.idFirebase,
-                name =  concessionaire.name,
+                name = concessionaire.name,
                 urlPhoto = concessionaire.imageURL,
                 address = concessionaire.address,
                 origin = concessionaire.origin,
-                phone =  concessionaire.phone,
+                phone = concessionaire.phone,
                 email = concessionaire.email,
-                roll = if(concessionaire.isForeigner) 1 else 2,
+                roll = if (concessionaire.isForeigner) 1 else 2,
                 linearMeters = concessionaire.linearMeters.toString(),
                 priceLinearMeter = 0f,
                 lineBusiness = concessionaire.lineBusiness,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics
             )
-            Pair(true,"Success")
+            Pair(true, "Success")
         } catch (exception: Exception) {
-            Pair(false,exception.message.toString())
+            Pair(false, exception.message.toString())
         }
     }
 
     fun getCollectorByEmail(email: String): Observable<CollectorFE> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_COLLECTOR)
+                firestore.collection(TablesEnum.Collector.getName())
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { response ->
@@ -102,7 +101,8 @@ class LoginInteractor @Inject constructor(
                                     phone = document.data!!["phone"].toString(),
                                     email = document.data!!["email"].toString(),
                                     role = document.data!!["role"].toString().toInt().orZero(),
-                                    hasAccess = document.data!!["hasAccess"].toString().toBoolean().orFalse(),
+                                    hasAccess = document.data!!["hasAccess"].toString().toBoolean()
+                                        .orFalse(),
                                     password = document.data!!["password"].toString()
                                 )
                             )
@@ -122,7 +122,7 @@ class LoginInteractor @Inject constructor(
     fun getConcessionaireByEmail(email: String): Observable<ConcessionaireFE> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.getName())
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { response ->
@@ -143,7 +143,8 @@ class LoginInteractor @Inject constructor(
                                     linearMeters = document.data!!["linearMeters"].toString()
                                         .toDouble().orZero(),
                                     lineBusiness = document.data!!["lineBusiness"].toString(),
-                                    absence = document.data!!["absence"].toString().toInt().orZero(),
+                                    absence = document.data!!["absence"].toString().toInt()
+                                        .orZero(),
                                     isForeigner = document.data!!["isForeigner"].toString()
                                         .toBoolean().orTrue(),
                                     password = document.data!!["password"].toString()
@@ -162,9 +163,9 @@ class LoginInteractor @Inject constructor(
     }
 
     fun getLinearMetersPrice(): Observable<Double> {
-        return Observable.unsafeCreate{ subscriber ->
+        return Observable.unsafeCreate { subscriber ->
             //TODO refact referencia a la coleccion
-            firestore.collection(DB_TABLE_RESOURCES).document("Ulmp4yMD4noSlOE6IwpX")
+            firestore.collection(TablesEnum.Resources.getName()).document("Ulmp4yMD4noSlOE6IwpX")
                 .get()
                 .addOnSuccessListener { response ->
                     subscriber.onNext(response.data!!["priceLinealMeter"].toString().toDouble())

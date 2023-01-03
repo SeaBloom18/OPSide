@@ -13,7 +13,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -39,6 +38,7 @@ import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
+import com.ops.opside.common.bsd.view.BottomSheetBackPressed
 import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
@@ -173,7 +173,9 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
 
 
     override fun onBackPressed() {
-        val dialog = BottomSheetDialog(this)
+        val dialog = BottomSheetBackPressed()
+        dialog.show(this.supportFragmentManager, dialog.tag)
+        /*val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
 
         val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
@@ -184,7 +186,7 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
         tvTitle.setText(R.string.registration_tv_bs_close)
 
         dialog.setContentView(view)
-        dialog.show()
+        dialog.show()*/
     }
 
     private fun setToolbar(){

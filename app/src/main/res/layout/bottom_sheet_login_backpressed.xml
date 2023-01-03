@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_default">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/textViewBodyStyle"
+        android:id="@+id/tvBSTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/primaryTextColor"
+        android:text="@string/login_tv_title_bottom_sheet"
+        app:layout_constraintBottom_toTopOf="@+id/btnClose"
+        app:layout_constraintEnd_toEndOf="@+id/btnClose"
+        app:layout_constraintStart_toStartOf="@+id/btnClose" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/CommonButtonStyle"
+        android:id="@+id/btnClose"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        app:icon="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/login_btn_close_bottom_sheet"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
