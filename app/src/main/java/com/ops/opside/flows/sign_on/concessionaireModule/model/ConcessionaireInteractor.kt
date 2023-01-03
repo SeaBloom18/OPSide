@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -15,7 +16,7 @@ class ConcessionaireInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.name)
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
@@ -50,7 +51,7 @@ class ConcessionaireInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.name)
                     .whereArrayContainsAny("participatingMarkets", markets.map { it }.toList())
                     .get()
                     .addOnSuccessListener {

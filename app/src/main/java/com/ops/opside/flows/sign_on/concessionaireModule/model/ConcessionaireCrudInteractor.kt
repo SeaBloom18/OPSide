@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_MARKET
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.ParticipatingConcessSE
@@ -48,7 +49,7 @@ class ConcessionaireCrudInteractor @Inject constructor(
 
     fun deleteRelate(relation: ParticipatingConcessSE): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(DB_TABLE_CONCESSIONAIRE).document(relation.idConcessionaire)
+            firestore.collection(TablesEnum.Concessionaire.name).document(relation.idConcessionaire)
                 .update("participatingMarkets", FieldValue.arrayRemove(relation.idMarket))
                 .addOnSuccessListener {
                     firestore.collection(DB_TABLE_PARTICIPATING_CONCESS).document(relation.idFirebase)
@@ -100,7 +101,7 @@ class ConcessionaireCrudInteractor @Inject constructor(
 
     fun addMarketToConcess(idMarket: String, idConcessionaire: String): Observable<Boolean>{
         return Observable.unsafeCreate { subscriber ->
-            firestore.collection(DB_TABLE_CONCESSIONAIRE).document(idConcessionaire)
+            firestore.collection(TablesEnum.Concessionaire.name).document(idConcessionaire)
                 .update("participatingMarkets", FieldValue.arrayUnion(idMarket))
                 .addOnSuccessListener {
                     subscriber.onNext(true)

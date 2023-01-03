@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.model
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.EventRE
@@ -25,7 +26,7 @@ class TaxCollectionInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             val concessionaires: MutableList<ConcessionaireFE> = mutableListOf()
 
-            firestore.collection(DB_TABLE_CONCESSIONAIRE)
+            firestore.collection(TablesEnum.Concessionaire.name)
                 .get()
                 .addOnSuccessListener { it ->
 

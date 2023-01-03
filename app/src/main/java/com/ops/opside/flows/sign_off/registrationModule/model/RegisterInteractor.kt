@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_ORIGIN
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
@@ -18,7 +19,7 @@ class RegisterInteractor @Inject constructor(
     fun registerConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.name)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { _ ->
                         subscriber.onNext(true)
@@ -37,7 +38,7 @@ class RegisterInteractor @Inject constructor(
     fun registerForeignConcessionaire(concessionaireFE: ConcessionaireFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.name)
                     .add(concessionaireFE.getHashMap())
                     .addOnSuccessListener { documentReference ->
                         subscriber.onNext(true)
@@ -104,7 +105,7 @@ class RegisterInteractor @Inject constructor(
     fun getIsEmailExist(email: String): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.name)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener {

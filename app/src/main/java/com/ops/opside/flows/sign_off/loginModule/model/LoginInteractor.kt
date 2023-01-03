@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_RESOURCES
+import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.utils.*
@@ -122,7 +123,7 @@ class LoginInteractor @Inject constructor(
     fun getConcessionaireByEmail(email: String): Observable<ConcessionaireFE> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_CONCESSIONAIRE)
+                firestore.collection(TablesEnum.Concessionaire.name)
                     .whereEqualTo("email", email)
                     .get()
                     .addOnSuccessListener { response ->
