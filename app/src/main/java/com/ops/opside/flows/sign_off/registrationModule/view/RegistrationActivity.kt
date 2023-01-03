@@ -26,6 +26,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
+import com.ops.opside.common.bsd.view.BottomSheetBackPressed
+import com.ops.opside.common.bsd.view.BottomSheetErrorRegister
+import com.ops.opside.common.bsd.view.BottomSheetSuccessfullyRegister
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.OriginFE
@@ -40,6 +43,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
 const val RESULTCODE_RETURNEMAIL = 100
+
 @AndroidEntryPoint
 class RegistrationActivity : BaseActivity() {
 
@@ -87,7 +91,8 @@ class RegistrationActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        bottomSheet()
+        val dialog = BottomSheetBackPressed()
+        dialog.show(this.supportFragmentManager, dialog.tag)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -437,51 +442,17 @@ class RegistrationActivity : BaseActivity() {
 
     /** BottomSheet **/
     private fun bsRegisterSuccess(){
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
-        val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
-        tvBSTitle.text = getString(R.string.registration_tv_success)
-        anim.setAnimation(R.raw.success_lottie_anim)
-        btnFinish.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("emailReturn", emailReturnIntent)
-            setResult(RESULTCODE_RETURNEMAIL, intent)
-            finish()
-        }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
+        val dialog = BottomSheetSuccessfullyRegister()
+        dialog.isCancelable = false
+        dialog.show(this.supportFragmentManager, dialog.tag)
+        val intent = Intent()
+        intent.putExtra("emailReturn", emailReturnIntent)
+        setResult(RESULTCODE_RETURNEMAIL, intent)
     }
 
     private fun bsRegisterError(){
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_success_registration, null)
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        val anim = view.findViewById<LottieAnimationView>(R.id.lottieAnimationView)
-        val tvBSTitle = view.findViewById<MaterialTextView>(R.id.tvBSRegistTitle)
-        tvBSTitle.text = getString(R.string.registration_tv_error)
-        anim.setAnimation(R.raw.error_lottie_anim)
-        btnFinish.setOnClickListener { finish() }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
-    private fun bottomSheet(){
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
-
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(R.string.registration_btn_bs_close)
-        btnFinish.setOnClickListener { finish() }
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.text = getString(R.string.registration_btn_exit)
-
-        dialog.setContentView(view)
-        dialog.show()
+        val dialog = BottomSheetErrorRegister()
+        dialog.show(this.supportFragmentManager, dialog.tag)
     }
 
     private fun showPolicies() {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/common_padding_default">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginBottom="@dimen/common_padding_default"
+        android:background="@color/primaryLightColor"
+        app:layout_constraintBottom_toTopOf="@+id/tvBSRegistTitle"
+        app:layout_constraintEnd_toEndOf="@+id/tvBSRegistTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvBSRegistTitle"
+        app:lottie_rawRes="@raw/success_lottie_anim"
+        app:lottie_autoPlay="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvBSRegistTitle"
+        style="@style/textViewBodyStyle"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/registration_tv_success"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/btnClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClose"
+        style="@style/CommonButtonStyle"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/common_close"
+        app:icon="@drawable/ic_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
