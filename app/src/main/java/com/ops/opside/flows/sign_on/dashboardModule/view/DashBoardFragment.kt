@@ -1,16 +1,14 @@
 package com.ops.opside.flows.sign_on.dashboardModule.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.InDevelopmentFragment
+import com.ops.opside.common.utils.startActivity
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentDashBoardBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
@@ -44,13 +42,11 @@ class DashBoardFragment : BaseFragment() {
             }
 
             fabInitTaxCollection.setOnClickListener {
-                val intent = Intent(activity, TaxCollectionActivity::class.java)
-                activity!!.startActivity(intent)
+                mActivity.startActivity<TaxCollectionActivity>()
             }
 
             fabTaxCollectionCrud.setOnClickListener {
-                val intent = Intent(activity, TaxCollectionCrudActivity::class.java)
-                activity!!.startActivity(intent)
+                mActivity.startActivity<TaxCollectionCrudActivity>()
             }
         }
 
@@ -72,7 +68,7 @@ class DashBoardFragment : BaseFragment() {
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
                         R.id.taxSettings -> {
-                            startActivity(Intent(activity, ControlPanelActivity::class.java))
+                            mActivity.startActivity<ControlPanelActivity>()
                             true
                         }
                         /*R.id.taxNotification -> {

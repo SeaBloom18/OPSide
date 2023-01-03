@@ -61,7 +61,6 @@ class Preferences @Inject constructor(
 
     fun deletePreferences(){
         sp.edit().remove(SP_PRICE_LINEAR_METER).apply()
-        //sp.edit().remove(SP_NAME              ).apply()
         sp.edit().remove(SP_USER_URL_PHOTO    ).apply()
         sp.edit().remove(SP_ID                ).apply()
         sp.edit().remove(SP_PHONE             ).apply()
@@ -76,10 +75,9 @@ class Preferences @Inject constructor(
         sp.edit().remove(SP_ROLL              ).apply()
         sp.edit().remove(SP_HAS_ACCESS        ).apply()
         sp.edit().remove(SP_IS_ON_LINE_MODE   ).apply()
-        //sp.edit().remove(SP_IS_INITIALIZED    ).apply()
-        //sp.edit().remove(SP_USE_BIOMETRICS    ).apply()
+        sp.edit().remove(SP_IS_INITIALIZED    ).apply()
+        sp.edit().remove(SP_USE_BIOMETRICS    ).apply()
     }
-
 }
 
 const val SP_PRICE_LINEAR_METER = "priceLinealMeter"

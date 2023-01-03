@@ -68,6 +68,8 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="dashboard_active_dealers">Active dealers</string>
     <string name="dashboard_tax_collections">Collections</string>
     <string name="btn_print_qr_code">Print my QR code</string>
+    <string name="dashboard_fab_history">History</string>
+    <string name="dashboard_fab_recollection">Harvest</string>
 
     <!--Login Module Strings-->
     <string name="login_welcome">Welcome!</string>
