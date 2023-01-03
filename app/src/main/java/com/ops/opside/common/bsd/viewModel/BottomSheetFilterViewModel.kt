@@ -1,7 +1,8 @@
-package com.ops.opside.common.bsd
+package com.ops.opside.common.bsd.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ops.opside.common.bsd.model.BottomSheetFilterInteractor
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

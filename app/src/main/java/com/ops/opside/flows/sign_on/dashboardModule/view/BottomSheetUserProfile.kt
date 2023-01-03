@@ -20,12 +20,14 @@ import com.google.firebase.storage.StorageReference
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetUserProfileBinding
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.BottomSheetUserProfileViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import javax.inject.Inject
 
 /**
  * Created by David Alejandro González Quezada on 28/10/22.
@@ -33,6 +35,9 @@ import java.io.File
 
 @AndroidEntryPoint
 class BottomSheetUserProfile : BaseBottomSheetFragment() {
+
+    @Inject
+    lateinit var preferences: Preferences
 
     private val mBinding: BottomSheetUserProfileBinding by lazy {
         BottomSheetUserProfileBinding.inflate(layoutInflater)
@@ -195,7 +200,10 @@ class BottomSheetUserProfile : BaseBottomSheetFragment() {
             getString(R.string.dialog_dealer_info_title),
             getString(R.string.dialog_dealer_info_message),
             getString(R.string.common_accept),
-            yesAction = { mActivity.finish() }
+            yesAction = {
+                preferences.deletePreferences()
+                mActivity.finish()
+            }
         )
         dialog.show()
     }

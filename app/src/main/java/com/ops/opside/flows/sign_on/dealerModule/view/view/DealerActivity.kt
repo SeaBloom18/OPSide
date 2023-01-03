@@ -20,15 +20,20 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.ops.opside.BuildConfig
 import com.ops.opside.R
+import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityDealerBinding
 import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.DealerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DealerActivity : BaseActivity() {
+
+    @Inject
+    lateinit var preferences: Preferences
 
     private lateinit var mBinding: ActivityDealerBinding
     private val mDealerViewModel: DealerViewModel by viewModels()
@@ -164,7 +169,10 @@ class DealerActivity : BaseActivity() {
             title = getString(R.string.dialog_dealer_info_title),
             message = getString(R.string.dialog_dealer_info_message),
             buttonYesTitle = getString(R.string.common_accept),
-            funButtonYes = { finish() }
+            funButtonYes = {
+                preferences.deletePreferences()
+                finish()
+            }
         )
     }
 
