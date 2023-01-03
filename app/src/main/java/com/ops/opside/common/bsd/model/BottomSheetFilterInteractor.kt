@@ -3,6 +3,8 @@ package com.ops.opside.common.bsd.model
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_COLLECTOR
 import com.ops.opside.common.entities.DB_TABLE_MARKET
+import com.ops.opside.common.entities.TablesEnum
+import com.ops.opside.common.utils.getName
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -13,7 +15,7 @@ class BottomSheetFilterInteractor @Inject constructor(
     fun getCollectors(): Observable<MutableMap<String,String>> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_COLLECTOR)
+                firestore.collection(TablesEnum.Collector.getName())
                     .get()
                     .addOnSuccessListener {
                         val collectors = mutableMapOf<String,String>()
@@ -34,7 +36,7 @@ class BottomSheetFilterInteractor @Inject constructor(
     fun getMarkets(): Observable<MutableMap<String,String>> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                firestore.collection(DB_TABLE_MARKET)
+                firestore.collection(TablesEnum.Market.getName())
                     .whereEqualTo("isDeleted",false)
                     .get()
                     .addOnSuccessListener {

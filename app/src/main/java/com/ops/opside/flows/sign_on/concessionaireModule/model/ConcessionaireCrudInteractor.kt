@@ -52,7 +52,7 @@ class ConcessionaireCrudInteractor @Inject constructor(
                 .document(relation.idConcessionaire)
                 .update("participatingMarkets", FieldValue.arrayRemove(relation.idMarket))
                 .addOnSuccessListener {
-                    firestore.collection(DB_TABLE_PARTICIPATING_CONCESS)
+                    firestore.collection(TablesEnum.ParticipatingConcess.getName())
                         .document(relation.idFirebase)
                         .delete()
                         .addOnSuccessListener {

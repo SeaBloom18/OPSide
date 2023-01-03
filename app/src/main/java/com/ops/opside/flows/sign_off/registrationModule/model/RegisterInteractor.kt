@@ -110,7 +110,7 @@ class RegisterInteractor @Inject constructor(
                         if (it.documents.size > 0) {
                             subscriber.onNext(true)
                         } else {
-                            firestore.collection(DB_TABLE_COLLECTOR)
+                            firestore.collection(TablesEnum.Collector.getName())
                                 .whereEqualTo("email", email)
                                 .get()
                                 .addOnSuccessListener {
