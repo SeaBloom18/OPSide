@@ -1,8 +1,6 @@
 package com.ops.opside.flows.sign_off.loginModule.view
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -40,13 +38,6 @@ class LoginFragment : BaseFragment() {
         FragmentLoginBinding.inflate(layoutInflater)
     }
 
-    private val resultActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == 100){
-            if (mBinding.teLoginEmail.text?.isEmpty() == true)
-                mBinding.teLoginEmail.setText(it.data?.getStringExtra("emailReturn").toString())
-        }
-    }
-
     private val mViewModel: LoginViewModel by viewModels()
     private val mActivity: LoginActivity by lazy {
         activity as LoginActivity
@@ -56,6 +47,15 @@ class LoginFragment : BaseFragment() {
     private lateinit var mConcessionaire: ConcessionaireFE
     private var mLinealMeterPrice: Double = 0.0
     private var mIsCollector: Boolean = true
+
+
+    private val resultActivity =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == 100) {
+                if (mBinding.teLoginEmail.text?.isEmpty() == true)
+                    mBinding.teLoginEmail.setText(it.data?.getStringExtra("emailReturn").toString())
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,10 +86,7 @@ class LoginFragment : BaseFragment() {
             }
 
             tvSignUp.setOnClickListener {
-                /*val intent = Intent(mActivity, RegistrationActivity::class.java)
-                startActivity(intent)*/
                 resultActivity.launch(Intent(mActivity, RegistrationActivity::class.java))
-                //mActivity.startActivity<RegistrationActivity>()
             }
         }
 
@@ -128,7 +125,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    private fun getLinealMeterPrice(price: Double){
+    private fun getLinealMeterPrice(price: Double) {
         mLinealMeterPrice = price
         mViewModel.checkBiometrics(this)
     }
@@ -171,7 +168,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    private fun setFinalizedForm(){
+    private fun setFinalizedForm() {
         mViewModel.updateRememberMe(mBinding.swRememberUser.isChecked)
         mBinding.tePassword.setText("")
         if (mViewModel.isRememberMe().not())
@@ -181,15 +178,14 @@ class LoginFragment : BaseFragment() {
     private fun launchHome() {
         setFinalizedForm()
         when (if (mIsCollector) mCollector.role else (if (mConcessionaire.isForeigner)
-            SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE))
-        {
+            SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE)) {
             SP_FOREIGN_CONCE_ROLE, SP_NORMAL_CONCE_ROLE -> {
                 mActivity.startActivity<DealerActivity>()
             }
 
             SP_COLLECTOR_ROLE, SP_TAX_EXECUTOR_ROLE, SP_SUPER_USER_ROLE -> {
                 if (mCollector.hasAccess || mCollector.role > SP_COLLECTOR_ROLE)
-                mActivity.startActivity<MainActivity>()
+                    mActivity.startActivity<MainActivity>()
                 else showError("Actualmente no tienes permitido entrar al sistema")
             }
         }
@@ -197,14 +193,22 @@ class LoginFragment : BaseFragment() {
 
     private fun setFormWhitSharedPreferences() {
         with(mBinding) {
-            if (mViewModel.isSPInitialized() and mViewModel.isRememberMe()) {
+            if (mViewModel.isBiometricsActivated()) {
+                btnBiometricsLogIn.visibility = View.VISIBLE
+                btnBiometricsLogIn.isClickable = true
+            }
+
+            if (mViewModel.isRememberMe()) {
                 swRememberUser.isChecked = true
-                val loginPreferences = mViewModel.getLoginSp()
+            }
+
+            val loginPreferences = mViewModel.getLoginSp()
+            if (loginPreferences.first.orEmpty().isNotEmpty()) {
                 teLoginEmail.setText(loginPreferences.first)
+            }
+            if (loginPreferences.second.isNotEmpty()) {
                 tvNameRemember.text =
                     getString(R.string.login_tv_remember_name, loginPreferences.second)
-            } else {
-                tvNameRemember.text = getString(R.string.login_welcome)
             }
         }
     }
@@ -219,7 +223,15 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun checkIfSharedPreferencesISInit() {
-        if (mViewModel.isSPInitialized().not()) {
+        val emailRegistered = mViewModel.getLoginSp().first.orEmpty()
+        val emailTyped =
+            if (mIsCollector) {
+                mCollector.email
+            } else {
+                mConcessionaire.email
+            }
+
+        if (mViewModel.isSPInitialized().not() || (emailTyped != emailRegistered)) {
             showBiometricsPermission()
         } else {
             launchHome()
@@ -249,7 +261,7 @@ class LoginFragment : BaseFragment() {
             )
 
             dialog.show()
-        } else{
+        } else {
             initSharedPreferences(useBiometrics = false)
         }
     }

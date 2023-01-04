@@ -14,8 +14,6 @@ import com.ops.opside.R
 import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.bsd.KEY_FILTER_REQUEST
 import com.ops.opside.common.entities.share.ConcessionaireSE
-import com.ops.opside.common.entities.share.ParticipatingConcessSE
-import com.ops.opside.common.utils.ID
 import com.ops.opside.common.utils.PDFUtils
 import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.common.views.BaseFragment
@@ -23,7 +21,6 @@ import com.ops.opside.databinding.FragmentConcessionaireBinding
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.ConcessionaireAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.FLOOR_COLLECTION
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.BottomSheetForeignerAttendance
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,12 +47,6 @@ class ConcessionaireFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mBinding.apply {
-            teSearch.doAfterTextChanged {
-                mAdapter.filter(it.toString())
-            }
-        }
 
         bindViewModel()
         setToolbar()
@@ -100,8 +91,8 @@ class ConcessionaireFragment : BaseFragment() {
         }
     }
 
-    private fun createPdf(){
-        if (mConcessionairesList.isEmpty()){
+    private fun createPdf() {
+        if (mConcessionairesList.isEmpty()) {
             toast(getString(R.string.concessionaire_no_concess))
             return
         }
@@ -109,15 +100,15 @@ class ConcessionaireFragment : BaseFragment() {
         PDFUtils.generatePDFBadgeSize(
             requireContext(),
             mConcessionairesList.map {
-                PDFUtils.qrModel(it.name,it.idFirebase)
+                PDFUtils.qrModel(it.name, it.idFirebase)
             }.toMutableList()
         )
     }
 
-    private fun registConcessionaire(){
+    private fun registConcessionaire() {
         val dialog = BottomSheetForeignerAttendance {
             mConcessionairesList.add(it.parseToSE())
-            initRecyclerView()
+            updateDataList()
         }
 
         dialog.show(requireActivity().supportFragmentManager, dialog.tag)
@@ -142,6 +133,14 @@ class ConcessionaireFragment : BaseFragment() {
     }
 
     private fun initRecyclerView() {
+        updateDataList()
+
+        mBinding.teSearch.doAfterTextChanged {
+            mAdapter.filter(it.toString())
+        }
+    }
+
+    private fun updateDataList() {
         mAdapter = ConcessionaireAdapter(mConcessionairesList)
 
         val linearLayoutManager: RecyclerView.LayoutManager

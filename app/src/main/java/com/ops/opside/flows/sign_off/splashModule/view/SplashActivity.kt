@@ -3,6 +3,8 @@ package com.ops.opside.flows.sign_off.splashModule.view
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.ops.opside.common.utils.startActivity
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivitySplashBinding
 import com.ops.opside.flows.sign_off.loginModule.view.LoginActivity
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivitySplashBinding
     private val scope = MainScope()
@@ -31,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(4000L)
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            startActivity<LoginActivity>()
             finish()
         }
     }

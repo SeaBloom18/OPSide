@@ -130,7 +130,7 @@ class LoginViewModel @Inject constructor(
             _action.value = LoginAction.DismissBtnBiometrics
     }
 
-    private fun isBiometricsActivated() = mLoginInteractor.isBiometricsActivated()
+    fun isBiometricsActivated() = mLoginInteractor.isBiometricsActivated()
 
     fun saveCredentials(credentials: String) {
         biometricsManager?.saveCredentials(credentials, this)

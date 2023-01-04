@@ -43,8 +43,6 @@ class TaxCollectionViewModel @Inject constructor(
     private val _updateTaxCollection = MutableLiveData<Boolean>()
     private val _createEvent = MutableLiveData<Boolean>()
     private val _revertEvent = MutableLiveData<Boolean>()
-    private val _getEventList = MutableLiveData<MutableList<EventRE>>()
-    private val _getCollectorName = MutableLiveData<String>()
 
     val initTaxCollection: LiveData<Boolean> = _initTaxCollection
     val hasOpenedTaxCollection: LiveData<TaxCollectionSE?> = _hasOpenedTaxCollection
@@ -58,20 +56,15 @@ class TaxCollectionViewModel @Inject constructor(
     val persistMarketSE: LiveData<Boolean> = _persistMarketSE
     val participatingConcess: LiveData<Boolean> = _participatingConcess
     val updateTaxCollection: LiveData<Boolean> = _updateTaxCollection
-    val createEvent: LiveData<Boolean> = _createEvent
     val revertEvent: LiveData<Boolean> = _revertEvent
-    val getEventList: LiveData<MutableList<EventRE>> = _getEventList
-    val getCollectorName: LiveData<String> = _getCollectorName
 
 
 
     fun initTaxCollection(taxCollection: TaxCollectionSE){
         disposable.add(
             mTaxCollectionInteractor.createTaxCollection(taxCollection).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        showProgress.value = false
                         _initTaxCollection.value = true
                     },
                     {
@@ -117,7 +110,6 @@ class TaxCollectionViewModel @Inject constructor(
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        showProgress.value = false
                         _getConcessionairesFEList.value = it
                     },
                     {
@@ -131,10 +123,8 @@ class TaxCollectionViewModel @Inject constructor(
     fun getParticipatingConcessList(idMarket: String) {
         disposable.add(
             mTaxCollectionInteractor.getParticipatingConcessList(idMarket).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        showProgress.value = false
                         _getParticipatingConcessList.value = it
                     },
                     {
@@ -148,10 +138,8 @@ class TaxCollectionViewModel @Inject constructor(
     fun getPersistedParticipatingConcessList(idMarket: String) {
         disposable.add(
             mTaxCollectionInteractor.getPersistedParticipatingConcessList(idMarket).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        showProgress.value = false
                         _getParticipatingConcessList.value = it
                     },
                     {
@@ -174,7 +162,6 @@ class TaxCollectionViewModel @Inject constructor(
                 participatingConcess
             )
                 .applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         showProgress.value = false
@@ -195,7 +182,6 @@ class TaxCollectionViewModel @Inject constructor(
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        showProgress.value = false
                         _getConcessionairesSEList.value = it
                     },
                     {
@@ -213,10 +199,8 @@ class TaxCollectionViewModel @Inject constructor(
     fun addMarket(market: MarketFE) {
         disposable.add(
             mTaxCollectionInteractor.persistMarket(market).applySchedulers()
-                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
-                        showProgress.value = false
                         _persistMarketSE.value = true
                     },
                     {
