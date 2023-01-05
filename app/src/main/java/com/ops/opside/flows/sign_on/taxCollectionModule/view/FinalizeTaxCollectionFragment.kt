@@ -166,8 +166,6 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
                         mBinding.tvTitle.text = getString(R.string.tax_collection_update_title)
                         mBinding.etTotalAmount.isEnabled = true
                     }
-
-                    Log.d("Demo", mFinalizeCollection.absences.toString())
                 }
             }
         }

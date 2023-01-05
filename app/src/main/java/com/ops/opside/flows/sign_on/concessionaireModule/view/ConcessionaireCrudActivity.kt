@@ -115,7 +115,7 @@ class ConcessionaireCrudActivity : BaseActivity() {
             is ConcessionaireCrudAction.SucessEliminationRelation -> {
                 mRelatesList.remove(action.relation)
                 initRecyclerView()
-                toast("Eliminación correcta")
+                toast(getString(R.string.concessionaire_elimination_success))
             }
         }
     }
@@ -133,12 +133,12 @@ class ConcessionaireCrudActivity : BaseActivity() {
         val marketName = mBinding.spPickMarket.text.toString()
 
         if (marketName == "") {
-            toast("Selecciona un Tianguis")
+            toast(getString(R.string.concessionaire_pick_market))
             return
         }
 
         if (verifyIfExistRelation(marketName)) {
-            toast("Este tianguis ya fue relacionado previamente")
+            toast(getString(R.string.concessionaire_market_was_already_related))
             return
         }
 
@@ -152,7 +152,7 @@ class ConcessionaireCrudActivity : BaseActivity() {
                 )
                 mRelatesList.add(it.second)
             } else {
-                toast("No se pudo agregar al tianguis")
+                toast(getString(R.string.concessionaire_cant_add_market))
             }
         }
 
@@ -164,8 +164,8 @@ class ConcessionaireCrudActivity : BaseActivity() {
             val dialog = BaseDialog(
                 context = this,
                 imageResource = R.drawable.ic_ops_delete,
-                mTitle = "Eliminar Relación",
-                mDescription = "Se eliminará este concesionario del tianguis",
+                mTitle = getString(R.string.concessionaire_delete_relation),
+                mDescription = getString(R.string.concessionaire_market_will_delete),
                 buttonYesText = getString(R.string.common_accept),
                 buttonNoText = getString(R.string.common_cancel),
                 yesAction = {

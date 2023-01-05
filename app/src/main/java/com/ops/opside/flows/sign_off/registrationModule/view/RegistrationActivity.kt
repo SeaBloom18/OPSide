@@ -297,7 +297,7 @@ class RegistrationActivity : BaseActivity() {
     }
 
     private fun CharSequence.isValidPassword(): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
+        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\\S+$).{8,}$"
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(this)
         return matcher.matches()
