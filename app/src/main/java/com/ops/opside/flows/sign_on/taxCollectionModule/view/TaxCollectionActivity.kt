@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.ColorRes
 import androidx.lifecycle.Observer
@@ -16,10 +15,11 @@ import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
 import com.ops.opside.common.entities.firestore.MarketFE
 import com.ops.opside.common.entities.room.EventRE
-import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
@@ -78,7 +78,6 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             }
 
             btnClose.setOnClickListener { onBackPressed() }
-
         }
 
         bindViewModel()
@@ -104,7 +103,6 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 Observer(this::getParticipatingConcessList)
             )
         } else {
-
             mViewModel.getConcessionairesSEList.observe(
                 this,
                 Observer(this::getConcessionairesSEList)
@@ -150,7 +148,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 mConcessionairesMap[it.idFirebase] = it.parseToSE()
 
             if (mConcessionairesMap[it.idFirebase]!!.wasPaid) {
-                showError("No se puede cobrar 2 veces al mismo concesionario")
+                showError(getString(R.string.tax_collection_2_times))
             } else {
                 if (it.isForeigner) {
                     mParticipatingConcessMap[it.idFirebase] = ParticipatingConcessSE(
@@ -208,7 +206,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             imageResource = R.drawable.ic_ops_warning,
             context = this,
             mTitle = getString(R.string.common_atention),
-            mDescription = "Tienes una recolección abierta\n¿Deseas continuarla?\n\nNota:\nNo puedes tener 2 recolecciones abiertas del mismo tianguis",
+            mDescription = getString(R.string.tax_collection_opened_collection),
             buttonYesText = getString(R.string.common_accept),
             buttonNoText = getString(R.string.common_cancel),
             yesAction = {
@@ -219,11 +217,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 mViewModel.addMarket(mSelectedMarket)
             },
             noAction = {
-                Toast.makeText(
-                    this,
-                    "Envía la información actual almacenada o eliminala",
-                    Toast.LENGTH_LONG
-                ).show()
+                toast(getString(R.string.tax_collection_send_the_info))
                 bsdPickMarket()
             }
         )
@@ -275,8 +269,11 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
     }
 
     private fun updateProgress() {
-        mBinding.chartTaxMoney.setProgressWithAnimation((mTotalAmount / mPriceLinearMeter).toFloat(), 4000)
-        mBinding.tvTotalAmount.text = "$ $mTotalAmount"
+        mBinding.chartTaxMoney.setProgressWithAnimation(
+            (mTotalAmount / mPriceLinearMeter).toFloat(),
+            3000
+        )
+        mBinding.tvTotalAmount.text = mTotalAmount.formatCurrency()
     }
 
     private fun getPersistedParticipatingConcessList(participatingConcess: MutableList<ParticipatingConcessSE>) {
@@ -324,7 +321,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
 
     private fun persistConcessionairesSEList(wasAdded: Boolean) {
         if (wasAdded.not()) {
-            showError("Hubo un error al guardar el listado de concesionarios")
+            showError(getString(R.string.tax_collection_error_persisting_concess))
         }
     }
 
@@ -350,12 +347,19 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         }
 
         if (result.contents == null) {
-            Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
+            toast(getString(R.string.common_cancelled))
             return
         }
 
-        if (mConcessionairesMap[result.contents]!!.wasPaid) {
-            showError("No se puede cobrar 2 veces al mismo concesionario")
+        val concess = mConcessionairesMap[result.contents]
+
+        if (concess == null) {
+            showError(getString(R.string.tax_collection_concess_not_found))
+            return
+        }
+
+        if (concess.wasPaid) {
+            showError(getString(R.string.tax_collection_2_times))
             return
         }
 
@@ -374,7 +378,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 context = this,
                 imageResource = R.drawable.ic_store,
                 mTitle = getString(R.string.common_atention),
-                mDescription = "El usuario no está dado de alta en este tianguis.\n¿Deseas agregarlo?",
+                mDescription = getString(R.string.tax_collection_wish_add_concess),
                 buttonYesText = getString(R.string.common_accept),
                 buttonNoText = getString(R.string.common_cancel),
                 {
@@ -396,7 +400,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                             )
 
                         } else {
-                            status = "No se pudo agregar al tianguis"
+                            status = getString(R.string.tax_collection_cant_add_market)
                         }
 
                         mParticipatingConcessMap[idConcessionaire] = it.second
@@ -510,14 +514,14 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
 
     private fun taxCollectionDataUpdated(itWasUpdate: Boolean) {
         if (itWasUpdate.not()) {
-            val error = "No se pudo guardar la información capturada"
+            val error = getString(R.string.tax_collection_cant_save_info)
             showError(error)
         }
     }
 
     private fun eventWasReverted(itWas: Boolean) {
         if (itWas.not()) {
-            Toast.makeText(this, "No se pudo revertir el evento", Toast.LENGTH_SHORT).show()
+            toast(getString(R.string.tax_collection_cant_revert))
         }
     }
 
@@ -549,11 +553,16 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
 
         GlobalScope.launch {
             EmailSender.send(
-                mutableListOf(EmailObject(
-                    subject = "Recibo ${CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)}",
-                    body = body,
-                    recipient = email.emailConcessionaire
-                ))
+                mutableListOf(
+                    EmailObject(
+                        subject = getString(
+                            R.string.tax_collection_receipt_subject,
+                            CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)
+                        ),
+                        body = body,
+                        recipient = email.emailConcessionaire
+                    )
+                )
             ) {
                 if (it.first.not()) {
                     showError(it.second)
@@ -583,7 +592,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 revertCollection(event)
             }
             else -> {
-                Toast.makeText(this, "Evento desconocido", Toast.LENGTH_SHORT).show()
+                toast(getString(R.string.tax_collection_unknow_event))
             }
         }
 
@@ -604,7 +613,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                 populateMaps()
 
         } else {
-            showError("Hubo un error al guardar la información del Tianguis seleccionado")
+            showError(getString(R.string.tax_collection_error_saving_info_market))
         }
     }
 
@@ -619,7 +628,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             imageResource = R.drawable.ic_ops_delete,
             context = this@TaxCollectionActivity,
             mTitle = getString(R.string.common_atention),
-            mDescription = "No hay eventos por procesar.\n¿Deseas eliminar la recolección?",
+            mDescription = getString(R.string.tax_collection_delete_collection),
             buttonYesText = getString(R.string.common_accept),
             buttonNoText = getString(R.string.common_cancel),
             yesAction = { mViewModel.deleteTaxCollection(mOpenedTaxCollection) },
@@ -633,7 +642,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         mConcessionairesMap.clear()
         mParticipatingConcessMap.clear()
 
-        Toast.makeText(this, "Recolección Eliminada", Toast.LENGTH_SHORT).show()
+        toast(getString(R.string.tax_collection_collection_deleted))
 
         bsdPickMarket()
     }

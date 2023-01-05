@@ -85,8 +85,7 @@ class BottomSheetPickMarket(
             selection.invoke(mSelectedMarket!!)
             dismiss()
         } else{
-            Toast.makeText(mActivity, getString(R.string.tax_collection_choose_market),
-                Toast.LENGTH_SHORT).show()
+            toast(getString(R.string.tax_collection_choose_market))
         }
     }
 

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:137609533452:android:8ec1207dea54c29067f629",
         "android_client_info": {
-          "package_name": "com.ops.opside.debug"
+          "package_name": "com.ops.opside"
         }
       },
       "oauth_client": [
