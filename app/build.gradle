@@ -24,7 +24,6 @@ android {
 
     buildTypes {
         release {
-            applicationIdSuffix ".prod"
             debuggable false
             minifyEnabled true
             shrinkResources true

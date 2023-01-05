@@ -10,9 +10,6 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -26,9 +23,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textview.MaterialTextView
 import com.ops.opside.R
 import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
@@ -40,7 +34,6 @@ import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketRegisterBinding
 import com.ops.opside.common.bsd.view.BottomSheetBackPressed
 import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
-import com.ops.opside.flows.sign_on.marketModule.viewModel.ConcessionaireListViewModel
 import com.ops.opside.flows.sign_on.marketModule.viewModel.MarketRegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -54,10 +47,8 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
     }
     private lateinit var latLng: LatLng
     private var mGoogleMap: GoogleMap? = null
-    private var concessionaires = listOf("David", "Alejandro")
 
     private val mMarketRegViewModel: MarketRegisterViewModel by viewModels()
-    private val mConcessionaireListViewModel: ConcessionaireListViewModel by viewModels()
     private var mMarketFE: MarketFE = MarketFE()
     private var mMarketSE: MarketSE? = null
 
@@ -110,7 +101,6 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnViewConce.setOnClickListener { viewConcessionaire() }
             btnSelectLocation.setOnClickListener {
                 val intent = Intent(this@MarketRegisterActivity, MarketLocationActivity::class.java)
                 mapResult.launch(intent)
@@ -175,18 +165,6 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
     override fun onBackPressed() {
         val dialog = BottomSheetBackPressed()
         dialog.show(this.supportFragmentManager, dialog.tag)
-        /*val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_global_common, null)
-
-        val btnFinish = view.findViewById<MaterialButton>(R.id.btnClose)
-        btnFinish.setText(R.string.registration_btn_bs_close)
-        btnFinish.setOnClickListener { finish() }
-
-        val tvTitle = view.findViewById<TextView>(R.id.tvBSTitle)
-        tvTitle.setText(R.string.registration_tv_bs_close)
-
-        dialog.setContentView(view)
-        dialog.show()*/
     }
 
     private fun setToolbar(){
@@ -232,37 +210,11 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
         addressSelected = marketSE.address
     }
 
-    private fun viewConcessionaire() {
-        //mConcessionaireListViewModel.getMarketId(mMarketSE!!.idFirebase)
-        /*val dialog = BottomSheetConcessionaireList {
-            mMarketSE = it
-        }
-        dialog.show(supportFragmentManager, dialog.tag)*/
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_show_concess, null)
-        val btnDelete = view.findViewById<MaterialButton>(R.id.btnDeleteConcess)
-        val btnSeeConce = view.findViewById<MaterialButton>(R.id.btnGoConcess)
-        val tvTitle = view.findViewById<MaterialTextView>(R.id.tvBSTitle)
-
-        //Log.d("conce0", mMarketSE!!.numberConcessionaires[0])
-        mMarketRegViewModel.getConcessionairesForMarket(mMarketSE!!.idFirebase)
-        btnDelete.setOnClickListener {}
-
-        val autoCompUserName = view.findViewById<AutoCompleteTextView>(R.id.acUserName)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, concessionaires)
-        autoCompUserName.setAdapter(adapter)
-
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
     private fun editModeMarketValidation() {
         mMarketSE = intent.getSerializableExtra(PUT_EXTRA_MARKET) as? MarketSE
         if (mMarketSE != null) {
             mBinding.toolbarFragMaket.commonToolbar.title = getString(R.string.registration_market_edit_toolbar_title)
             setFieldsIsEditMode(mMarketSE!!)
-        } else {
-            mBinding.btnViewConce.visibility = View.GONE
         }
     }
 
