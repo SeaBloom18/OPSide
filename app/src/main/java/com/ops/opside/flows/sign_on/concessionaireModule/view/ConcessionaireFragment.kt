@@ -50,7 +50,7 @@ class ConcessionaireFragment : BaseFragment() {
 
         bindViewModel()
         setToolbar()
-        loadConcessionairesList()
+        mViewModel.getConcessionairesList()
     }
 
     private fun bindViewModel() {
@@ -158,10 +158,6 @@ class ConcessionaireFragment : BaseFragment() {
     private fun getConcessList(concessionairesList: MutableList<ConcessionaireSE>) {
         mConcessionairesList = concessionairesList
         initRecyclerView()
-    }
-
-    private fun loadConcessionairesList() {
-        mViewModel.getConcessionairesList()
     }
 
 }

@@ -10,6 +10,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/mariorazo/Documents/Recursos/stp/release-ops.jks')
+            storePassword 'OPSide1234$'
+            keyAlias 'keyops'
+            keyPassword 'OPSide1234$'
+        }
+        release {
+            storeFile file('/Users/mariorazo/Documents/Recursos/stp/release-ops.jks')
+            storePassword 'OPSide1234$'
+            keyAlias 'keyops'
+            keyPassword 'OPSide1234$'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -17,7 +31,7 @@ android {
         minSdk 24
         targetSdk 32
         versionCode 1
-        versionName "1.1.1"
+        versionName "1.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
