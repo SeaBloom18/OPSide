@@ -15,3 +15,5 @@
 /build
 /captures
 .externalNativeBuild
+gradle.properties
+release/

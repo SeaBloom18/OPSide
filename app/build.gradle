@@ -11,17 +11,11 @@ plugins {
 
 android {
     signingConfigs {
-        debug {
-            storeFile file('/Users/mariorazo/Documents/Recursos/stp/release-ops.jks')
-            storePassword 'OPSide1234$'
-            keyAlias 'keyops'
-            keyPassword 'OPSide1234$'
-        }
         release {
-            storeFile file('/Users/mariorazo/Documents/Recursos/stp/release-ops.jks')
-            storePassword 'OPSide1234$'
-            keyAlias 'keyops'
-            keyPassword 'OPSide1234$'
+            storeFile file("${ops_jks_file}")
+            storePassword "${ops_password}"
+            keyAlias "${ops_key}"
+            keyPassword "${ops_password}"
         }
     }
     compileSdk 32
