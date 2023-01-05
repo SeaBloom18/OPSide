@@ -112,14 +112,14 @@ class BottomSheetForeignerAttendance(
                 with(mBinding) {
                     mForeignerConcessionaire = ConcessionaireFE(
                         isForeigner = cbConcessForeigner.isChecked,
-                        email = teEmail.text.toString(),
-                        name = teName.text.toString(),
-                        origin = teOrigin.text.toString(),
+                        email = teEmail.text.toString().trim(),
+                        name = teName.text.toString().trim(),
+                        origin = teOrigin.text.toString().trim(),
                         linearMeters = teLinearMeters.text.toString().toDouble(),
+                        phone = tePhone.text.toString().trim(),
                         role = if (cbConcessForeigner.isChecked) 1 else 2,
                         idFirebase = ID.getTemporalId(),
                         address = "",
-                        phone = "",
                         lineBusiness = "",
                         absence = 0,
                         password = "",
@@ -188,6 +188,7 @@ class BottomSheetForeignerAttendance(
         with(mBinding) {
             teName.setText(concessionaire.name)
             teOrigin.setText(concessionaire.origin)
+            tePhone.setText(concessionaire.phone)
 
             tilLinearMeters.isGone = true
             teLinearMeters.setText("0.0")
@@ -208,9 +209,11 @@ class BottomSheetForeignerAttendance(
             tilOrigin.isGone = show.not()
             tilLinearMeters.isGone = show.not()
             tilEmail.isHelperTextEnabled = show.not()
+            tilPhone.isGone = show.not()
 
             teName.setText("")
             teLinearMeters.setText("")
+            tePhone.setText("")
 
             cbConcess.isGone = show.not()
             cbConcessForeigner.isGone = show.not()

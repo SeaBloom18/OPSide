@@ -16,4 +16,4 @@
 /captures
 .externalNativeBuild
 gradle.properties
-release/
+mapping.txt
