@@ -26,12 +26,12 @@ The OPS application is willing to help and provide a better experience to all us
 
     <!-- Concessionaire Strings -->
     <string name="concessionaire_no_concess">No dealers listed</string>
-    <string name="concessionaire_elimination_success">Eliminación correcta</string>
-    <string name="concessionaire_pick_market">Selecciona un Tianguis</string>
-    <string name="concessionaire_market_was_already_related">Este tianguis ya fue relacionado previamente</string>
-    <string name="concessionaire_cant_add_market">No se pudo agregar al tianguis</string>
-    <string name="concessionaire_delete_relation">Eliminar Relación</string>
-    <string name="concessionaire_market_will_delete">Se eliminará este concesionario del tianguis</string>
+    <string name="concessionaire_elimination_success">Deleted Successfully</string>
+    <string name="concessionaire_pick_market">Select a Market</string>
+    <string name="concessionaire_market_was_already_related">This market was recently related</string>
+    <string name="concessionaire_cant_add_market">As error occurred while trying to add to the market</string>
+    <string name="concessionaire_delete_relation">Delete relation</string>
+    <string name="concessionaire_market_will_delete">The concessionaire will be deleted of this market</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Scan</string>
