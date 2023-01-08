@@ -85,6 +85,7 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
                 val addresses: List<Address>
                 val geocoder = Geocoder(this@MarketRegisterActivity, Locale.getDefault())
 
+                //Refact targetsdk update 32 to 33
                 addresses = geocoder.getFromLocation(latitudeMaps, longitudeMaps, 1) as List<Address>
 
                 addressSelected = addresses[0].getAddressLine(0)
