@@ -12,7 +12,7 @@ import java.util.*
 object Formaters {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
+    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
 
     fun Int?.orZero(): Int = this ?: 0
 

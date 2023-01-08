@@ -28,7 +28,6 @@ class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
-    //private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
     private var mPriceLinearMeter: Float = 0f
