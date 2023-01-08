@@ -23,7 +23,6 @@ import com.ops.opside.R
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityDealerBinding
-import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.dealerModule.view.viewModel.DealerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File

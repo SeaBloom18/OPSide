@@ -95,11 +95,11 @@ class DashBoardFragment : BaseFragment() {
 
     /** Floating Button Animation**/
     private fun setAnimation(closed:Boolean) {
-        if(!closed){
+        if(!closed) {
             binding.fabTaxCollectionCrud.startAnimation(fromBottom)
             binding.fabInitTaxCollection.startAnimation(fromBottom)
             binding.fabMenu.startAnimation(rotateOpen)
-        }else{
+        } else {
             binding.fabTaxCollectionCrud.startAnimation(toBottom)
             binding.fabInitTaxCollection.startAnimation(toBottom)
             binding.fabMenu.startAnimation(rotateClose)
@@ -107,11 +107,10 @@ class DashBoardFragment : BaseFragment() {
     }
 
     private fun setVisibility(closed:Boolean) {
-        if(!closed)
-        {
+        if(!closed) {
             binding.fabTaxCollectionCrud.visibility = View.VISIBLE
             binding.fabInitTaxCollection.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.fabTaxCollectionCrud.visibility = View.INVISIBLE
             binding.fabInitTaxCollection.visibility = View.INVISIBLE
         }

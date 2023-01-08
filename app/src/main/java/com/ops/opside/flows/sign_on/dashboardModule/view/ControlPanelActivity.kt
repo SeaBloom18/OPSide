@@ -14,7 +14,6 @@ import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
-import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
 import com.ops.opside.flows.sign_on.dashboardModule.interfaces.ControlPanelInterface

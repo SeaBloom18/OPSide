@@ -27,11 +27,14 @@ class MarketViewModel @Inject constructor(
     fun getMarketList(){
         disposable.add(
             mMarketInteractor.getMarkets().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
+                        showProgress.value = false
                         getMarketList.value = it
                     },
                     {
+                        showProgress.value = false
                         Log.e("Error", it.toString())
                     }
                 )
