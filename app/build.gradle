@@ -82,7 +82,7 @@ def rxAndroidVersion = "2.1.1"
 def rxJavaVersion = "2.2.14"
 def rxJavaLegacyVersion = "1.0.14"
 def rxAndroidLegacyVersion = "1.2.1"
-def daggerHiltVersion = '2.38.1'
+def daggerHiltVersion = '2.44.2'
 def activityKtxVersion = '1.6.1'
 def smtpVersion = '1.5.5'
 def biometricVersion = '1.1.0'
@@ -170,6 +170,10 @@ dependencies {
 
     //Gson
     api "com.squareup.retrofit2:converter-gson:$gsonVersion"
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 secrets{
