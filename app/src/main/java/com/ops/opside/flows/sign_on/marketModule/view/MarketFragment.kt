@@ -3,7 +3,6 @@ package com.ops.opside.flows.sign_on.marketModule.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -42,7 +41,6 @@ class MarketFragment : BaseFragment(), OnClickListener {
 
         setToolbar()
         bindViewModel()
-        //loadMarketsList()
     }
 
     /** ViewModel and Methods SetUp **/
@@ -122,10 +120,8 @@ class MarketFragment : BaseFragment(), OnClickListener {
             {
                 mMarketViewModel.deleteMarket(marketId)
                 mMarketAdapter.updateListPostDelete(position)
-                Toast.makeText(activity, R.string.toast_delete_message_success, Toast.LENGTH_SHORT).show()
-            },
-            { Toast.makeText(activity, "onCancel()", Toast.LENGTH_SHORT).show() },
-        )
+                toast(getString(R.string.toast_delete_message_success))
+            },)
         dialog.show()
     }
 

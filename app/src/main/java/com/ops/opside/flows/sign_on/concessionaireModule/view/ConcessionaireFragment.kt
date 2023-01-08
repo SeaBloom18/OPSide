@@ -34,8 +34,7 @@ class ConcessionaireFragment : BaseFragment() {
     private val mViewModel: ConcessionaireViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = FragmentConcessionaireBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -143,7 +142,6 @@ class ConcessionaireFragment : BaseFragment() {
             layoutManager = linearLayoutManager
             adapter = mAdapter
         }
-
         mAdapter.notifyDataSetChanged()
     }
 

@@ -16,6 +16,7 @@ import javax.inject.Inject
 /**
  * Created by David Alejandro González Quezada on 04/09/22.
  */
+
 class MarketRegisterInteractor @Inject constructor(private val firestore: FirebaseFirestore) {
 
     fun registerMarket(marketFE: MarketFE): Observable<Boolean>{
@@ -35,8 +36,8 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
         }
     }
 
-    fun updateMarket(idFirestore: String, name: String, address: String, marketMeters: Double, latitude: Double,
-                     longitude: Double): Observable<Boolean>{
+    fun updateMarket(idFirestore: String, name: String, address: String, marketMeters: Double,
+                     latitude: Double, longitude: Double): Observable<Boolean>{
         return Observable.unsafeCreate{ subscriber ->
             tryOrPrintException {
                 firestore.collection(TablesEnum.Market.getName()).document(idFirestore)
@@ -69,14 +70,6 @@ class MarketRegisterInteractor @Inject constructor(private val firestore: Fireba
                         for (document in it.get("concessionaires").toString()){
                             concessionaireList.add(document.toString())
                         }
-                       /* for (document in it.id){
-                            document
-                            *//*val idConce = document.get("concessionaires")
-                            firestore.collection(DB_TABLE_CONCESSIONAIRE)
-                                .document(idConce.toString()).get()
-                            for (){}*//*
-                        }*/
-
                         subscriber.onNext(concessionaireList)
                     }
                     .addOnFailureListener {
