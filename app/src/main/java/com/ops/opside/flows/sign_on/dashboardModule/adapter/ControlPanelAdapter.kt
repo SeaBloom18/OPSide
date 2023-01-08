@@ -1,11 +1,9 @@
 package com.ops.opside.flows.sign_on.dashboardModule.adapter
 
 import android.content.Context
-import android.provider.Settings.System.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

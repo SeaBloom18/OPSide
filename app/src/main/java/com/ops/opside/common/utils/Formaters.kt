@@ -1,12 +1,18 @@
 package com.ops.opside.common.utils
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 object Formaters {
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
 
     fun Int?.orZero(): Int = this ?: 0
 
