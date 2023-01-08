@@ -85,7 +85,7 @@ class MarketRegisterActivity : BaseActivity(), OnMapReadyCallback {
                 val addresses: List<Address>
                 val geocoder = Geocoder(this@MarketRegisterActivity, Locale.getDefault())
 
-                addresses = geocoder.getFromLocation(latitudeMaps, longitudeMaps, 1)
+                addresses = geocoder.getFromLocation(latitudeMaps, longitudeMaps, 1) as List<Address>
 
                 addressSelected = addresses[0].getAddressLine(0)
 
