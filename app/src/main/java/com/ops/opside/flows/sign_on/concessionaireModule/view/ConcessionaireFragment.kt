@@ -29,18 +29,12 @@ class ConcessionaireFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentConcessionaireBinding
     private lateinit var mAdapter: ConcessionaireAdapter
-
-    private val mActivity: MainActivity by lazy {
-        activity as MainActivity
-    }
-
+    private lateinit var mConcessionairesList: MutableList<ConcessionaireSE>
+    private val mActivity: MainActivity by lazy { activity as MainActivity }
     private val mViewModel: ConcessionaireViewModel by viewModels()
 
-    private lateinit var mConcessionairesList: MutableList<ConcessionaireSE>
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = FragmentConcessionaireBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -55,10 +49,7 @@ class ConcessionaireFragment : BaseFragment() {
 
     private fun bindViewModel() {
         mViewModel.getShowProgress().observe(requireActivity(), Observer(this::showLoading))
-        mViewModel.getConcessionairesList.observe(
-            requireActivity(),
-            Observer(this::getConcessList)
-        )
+        mViewModel.getConcessionairesList.observe(requireActivity(), Observer(this::getConcessList))
     }
 
     private fun setToolbar() {
@@ -151,7 +142,6 @@ class ConcessionaireFragment : BaseFragment() {
             layoutManager = linearLayoutManager
             adapter = mAdapter
         }
-
         mAdapter.notifyDataSetChanged()
     }
 
