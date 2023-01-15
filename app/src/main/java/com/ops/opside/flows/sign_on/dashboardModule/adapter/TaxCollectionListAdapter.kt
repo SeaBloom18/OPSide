@@ -1,0 +1,59 @@
+package com.ops.opside.flows.sign_on.dashboardModule.adapter
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.ops.opside.R
+import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.FORMAT_DATE
+import com.ops.opside.common.utils.FORMAT_SQL_DATE
+import com.ops.opside.common.utils.Formaters
+import com.ops.opside.common.utils.Formaters.formatCurrency
+import com.ops.opside.common.utils.animateOnPress
+import com.ops.opside.databinding.ItemCrudTaxCollectionBinding
+import com.ops.opside.databinding.ItemMarketListBinding
+
+/**
+ * Created by davidgonzalez on 14/01/23
+ */
+class TaxCollectionListAdapter(
+    private var taxCollectionList: MutableList<TaxCollectionSE>):
+    RecyclerView.Adapter<TaxCollectionListAdapter.ViewHolder>() {
+
+    private lateinit var context: Context
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
+        val view = LayoutInflater.from(context).inflate(R.layout.item_crud_tax_collection, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun getItemCount(): Int = taxCollectionList.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val taxCollection = taxCollectionList[position]
+        with(holder) {
+            bind(taxCollection)
+        }
+    }
+
+    /** View Holder Inner Class **/
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val binding = ItemCrudTaxCollectionBinding.bind(view)
+
+        fun bind(item: TaxCollectionSE) {
+            binding.apply {
+                txtMarketName.text = item.marketName
+                txtDate.text = Formaters.parseFormat(item.startDate, FORMAT_SQL_DATE, FORMAT_DATE)
+                txtTotalAmount.text = item.totalAmount.formatCurrency()
+
+                imgShowMore.animateOnPress()
+                /*imgShowMore.setOnClickListener {
+                    launchFinalizeFragment()
+                }*/
+            }
+        }
+    }
+}
