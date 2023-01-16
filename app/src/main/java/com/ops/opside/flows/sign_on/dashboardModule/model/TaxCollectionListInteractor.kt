@@ -4,15 +4,14 @@ import io.reactivex.Observable
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.TaxCollectionSE
-import com.ops.opside.common.utils.getName
-import com.ops.opside.common.utils.tryOrPrintException
+import com.ops.opside.common.utils.*
 import javax.inject.Inject
 
 /**
  * Created by davidgonzalez on 15/01/23
  */
 class TaxCollectionListInteractor @Inject constructor(
-    private val firestore: FirebaseFirestore){
+    private val firestore: FirebaseFirestore, private val preferences: Preferences){
 
     fun getTaxCollections(): Observable<MutableList<TaxCollectionSE>> {
         return Observable.unsafeCreate { subscriber ->
@@ -20,6 +19,7 @@ class TaxCollectionListInteractor @Inject constructor(
                 val taxCollectionList = mutableListOf<TaxCollectionSE>()
 
                 firestore.collection(TablesEnum.TaxCollection.getName())
+                    .whereEqualTo("taxCollectorEmail", preferences.getString(SP_EMAIL))
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {

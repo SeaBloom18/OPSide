@@ -3,8 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginTop="@dimen/common_padding_min"
+    android:layout_marginHorizontal="@dimen/common_padding_min"
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,53 +28,69 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imgAbsence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/common_padding_min"
-            android:layout_marginVertical="@dimen/common_padding_default"
-            android:src="@drawable/ic_shop"
-            tools:layout_editor_absoluteX="109dp"
-            tools:layout_editor_absoluteY="123dp" />
-
         <com.google.android.material.textview.MaterialTextView
+            style="@style/textViewBodyBlackStyle"
             android:id="@+id/txtMarketName"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_semibold"
             android:maxLength="@integer/max_characteres"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             android:textColor="@color/primaryTextColor"
-            tools:layout_editor_absoluteX="155dp"
-            tools:layout_editor_absoluteY="138dp"
-            tools:text="Nombre Completo" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sabinos 2" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDate"
-            android:layout_width="wrap_content"
+            style="@style/textViewBodyMinStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserrat_regular"
-            android:maxLength="@integer/max_characteres"
-            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:layout_marginTop="8dp"
             android:textColor="@color/primaryTextColor"
-            tools:layout_editor_absoluteX="126dp"
-            tools:layout_editor_absoluteY="217dp"
-            tools:text="25 Noviembre, 2022" />
+            app:layout_constraintEnd_toEndOf="@+id/txtMarketName"
+            app:layout_constraintStart_toStartOf="@+id/txtMarketName"
+            app:layout_constraintTop_toBottomOf="@+id/txtMarketName"
+            tools:text="Fecha de recoleccion: 25 Noviembre, 2022" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C9000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtTotalAmount"
+                style="@style/textViewSubtitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/primaryColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Total recaudado: $ 1,250" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtTotalAmount"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvCollectionTime"
+            style="@style/textViewBodyMinStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserrat_regular"
-            android:maxLength="@integer/max_characteres"
-            android:textAppearance="?attr/textAppearanceSubtitle2"
-            android:textColor="@color/secondaryColor"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="189dp"
-            tools:text="$ 1,250" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/txtDate"
+            app:layout_constraintStart_toStartOf="@+id/txtDate"
+            app:layout_constraintTop_toBottomOf="@+id/txtDate"
+            tools:text="Horario de la recoleccion: 02:18PM a 03:15PM" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

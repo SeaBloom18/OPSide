@@ -42,7 +42,8 @@ class LoginViewModel @Inject constructor(
         linearMeterPrice: Double,
         rememberMe: Boolean,
         useBiometrics: Boolean): Pair<Boolean,String> {
-        return mLoginInteractor.initSPForCollector(collector, linearMeterPrice, rememberMe, useBiometrics)
+        return mLoginInteractor.initSPForCollector(collector, linearMeterPrice, rememberMe,
+            useBiometrics)
     }
 
     fun initSPForConcessionaire(
