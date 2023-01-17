@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.InDevelopmentFragment
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_NAME
 import com.ops.opside.common.utils.startActivity
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentDashBoardBinding
@@ -25,6 +27,7 @@ import com.ops.opside.flows.sign_on.marketModule.adapters.MarketAdapter
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashBoardFragment : BaseFragment() {
@@ -34,6 +37,8 @@ class DashBoardFragment : BaseFragment() {
     private lateinit var mTaxCollectionListAdapter: TaxCollectionListAdapter
     private val mTaxCollectionListViewModel: TaxCollectionListViewModel by viewModels()
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
+    @Inject
+    lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
@@ -49,6 +54,9 @@ class DashBoardFragment : BaseFragment() {
             fabInitTaxCollection.setOnClickListener {
                 mActivity.startActivity<TaxCollectionActivity>()
             }
+
+            tvAnalyticsUserName.text = getString(R.string.dashboard_tv_analytics_name, preferences.getString(
+                SP_NAME))
 
             /*fabTaxCollectionCrud.setOnClickListener {
                 mActivity.startActivity<TaxCollectionCrudActivity>()

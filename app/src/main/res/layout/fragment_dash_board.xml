@@ -33,28 +33,29 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbarTaxDashboard" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView"
             style="@style/textViewTitleStyle"
+            android:id="@+id/tvAnalyticsUserName"
             android:layout_width="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:maxLines="1"
+            tools:text="@string/dashboard_tv_analytics_name"
+            app:layout_constraintEnd_toStartOf="@+id/ibShowAnalytics"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2"
-            android:text="Hi, David!" />
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/materialTextView2"
             style="@style/textViewSubtitleStyle"
             android:layout_width="0dp"
-            android:text="Here are yours analytics!"
+            android:text="@string/dashboard_tv_analytics_second_text"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="@+id/materialTextView"
-            app:layout_constraintStart_toStartOf="@+id/materialTextView"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+            app:layout_constraintEnd_toEndOf="@+id/tvAnalyticsUserName"
+            app:layout_constraintStart_toStartOf="@+id/tvAnalyticsUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnalyticsUserName" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
@@ -64,19 +65,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialTextView2">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTaxCollections"
-                android:layout_width="match_parent"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_crud_tax_collection" />
+                app:layout_constraintTop_toTopOf="parent">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTaxCollections"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    tools:listitem="@layout/item_crud_tax_collection" />
+            </androidx.core.widget.NestedScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -92,6 +97,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/primaryTextColor" />
+
+        <ImageButton
+            android:id="@+id/ibShowAnalytics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_ops_monitoring"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarTaxDashboard" />
 
         <!--<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabTaxCollectionCrud"
