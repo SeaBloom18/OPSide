@@ -110,7 +110,7 @@ class DashBoardFragment : BaseFragment() {
     private fun setUpRecyclerView() {
         val gridLayoutManager: RecyclerView.LayoutManager
         gridLayoutManager = GridLayoutManager(mActivity, 2)
-        mTaxCollectionListAdapter = TaxCollectionListAdapter(mTaxCollectionList)
+        mTaxCollectionListAdapter = TaxCollectionListAdapter(mTaxCollectionList, mActivity)
 
         mBinding.rvTaxCollections.apply {
             setHasFixedSize(true)

@@ -76,6 +76,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/item_crud_tax_collection" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -99,7 +100,7 @@
             android:layout_gravity="right|end"
             android:contentDescription="@string/tax_collection_record"
             android:text="@string/dashboard_fab_history"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:backgroundTint="@color/secondaryColor"
             app:icon="@drawable/ic_filter"
             app:layout_constraintBottom_toTopOf="@+id/fabInitTaxCollection"

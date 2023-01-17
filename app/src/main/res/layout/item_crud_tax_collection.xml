@@ -68,7 +68,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtTotalAmount"
-                style="@style/textViewSubtitleStyle"
+                style="@style/textViewBodyStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -92,5 +92,6 @@
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txtDate"
             tools:text="Horario de la recoleccion: 02:18PM a 03:15PM" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
