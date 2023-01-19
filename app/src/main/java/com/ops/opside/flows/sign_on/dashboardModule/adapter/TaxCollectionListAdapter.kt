@@ -59,8 +59,8 @@ class TaxCollectionListAdapter(
         fun bind(item: TaxCollectionSE) {
             binding.apply {
                 txtMarketName.text = item.marketName
-                tvCollectionTime.text = "Collection time: ${item.startTime}, to ${item.endTime}"
-                txtDate.text = "Collection date: ${Formaters.parseFormat(item.startDate, FORMAT_SQL_DATE, FORMAT_DATE)}"
+                tvCollectionTime.text = "Time\n${item.startTime}, to ${item.endTime}"
+                txtDate.text = "Date\n${Formaters.parseFormat(item.startDate, FORMAT_SQL_DATE, FORMAT_DATE)}"
                 txtTotalAmount.text = "Total: ${item.totalAmount.formatCurrency()}"
             }
         }
