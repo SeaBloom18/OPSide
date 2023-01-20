@@ -184,7 +184,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             endDate = "01-01-2000",
             startTime = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME),
             endTime = "00:00:00",
-            taxCollector = mCollectorName
+            taxCollector = mCollectorName,
         )
 
         setUpPieChart()

@@ -1,94 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginTop="@dimen/common_padding_min"
+    android:layout_marginHorizontal="@dimen/common_padding_min"
     android:clickable="true"
-    android:focusable="true"
-    app:cardCornerRadius="10dp">
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primaryLightColor">
+        android:layout_height="match_parent"
+        android:background="@color/primaryColor">
 
         <ImageButton
             android:id="@+id/imgShowMore"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="@dimen/common_padding_min"
-            android:background="@color/fui_transparent"
-            android:padding="@dimen/common_padding_extra_min"
+            android:backgroundTint="@color/fui_transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_arrow_forward"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imgAbsence"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="@dimen/common_padding_default"
-            android:layout_marginVertical="@dimen/common_padding_default"
-            android:src="@drawable/ic_tax_colletion"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtMarketName"
+            style="@style/textViewBodyBlackStyle"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sabinos 2" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtDate"
+            style="@style/textViewBodyMinStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/common_padding_default"
-            android:layout_marginStart="@dimen/common_padding_min"
-            android:layout_marginEnd="@dimen/common_padding_default"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/imgAbsence"
-            app:layout_constraintEnd_toStartOf="@id/imgShowMore"
-            app:layout_constraintStart_toEndOf="@id/imgAbsence"
-            app:layout_constraintTop_toTopOf="@id/imgAbsence">
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toEndOf="@+id/txtMarketName"
+            app:layout_constraintStart_toStartOf="@+id/txtMarketName"
+            app:layout_constraintTop_toBottomOf="@+id/txtMarketName"
+            tools:text="Fecha de recoleccion: 25 Noviembre, 2022" />
 
-            <TextView
-                android:id="@+id/txtMarketName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_semibold"
-                android:maxLength="@integer/max_characteres"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/primaryTextColor"
-                tools:text="Nombre Completo" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C9000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/txtDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_padding_extra_min"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_regular"
-                android:maxLength="@integer/max_characteres"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/primaryTextColor"
-                tools:text="25 Noviembre, 2022" />
-
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtTotalAmount"
-                android:layout_width="match_parent"
+                style="@style/textViewBodyStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_padding_extra_min"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_regular"
-                android:maxLength="@integer/max_characteres"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/secondaryColor"
-                tools:text="$ 1,250" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/primaryColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Total recaudado: $ 1,250" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCollectionTime"
+            style="@style/textViewBodyMinStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/txtDate"
+            app:layout_constraintStart_toStartOf="@+id/txtDate"
+            app:layout_constraintTop_toBottomOf="@+id/txtDate"
+            tools:text="Horario de la recoleccion: 02:18PM a 03:15PM" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

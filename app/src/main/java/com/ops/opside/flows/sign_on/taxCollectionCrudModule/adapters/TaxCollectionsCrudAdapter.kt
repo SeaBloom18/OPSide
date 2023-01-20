@@ -17,7 +17,6 @@ import com.ops.opside.databinding.ItemCrudTaxCollectionBinding
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.interfaces.TaxCollectionCrudAux
 import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.FinalizeTaxCollectionFragment
-import kotlin.math.abs
 
 
 class TaxCollectionsCrudAdapter(
@@ -52,33 +51,20 @@ class TaxCollectionsCrudAdapter(
                 txtMarketName.text = item.marketName
                 txtDate.text = Formaters.parseFormat(item.startDate, FORMAT_SQL_DATE, FORMAT_DATE)
                 txtTotalAmount.text = item.totalAmount.formatCurrency()
-
-                imgShowMore.animateOnPress()
-                imgShowMore.setOnClickListener {
-                    launchFinalizeFragment(item)
-                }
             }
         }
 
     }
 
-    private fun launchFinalizeFragment(collection: TaxCollectionSE) {
-
-        val arguments = FinalizeTaxCollectionFragment.FinalizeCollection(
-            type = "update",
-            idMarket = collection.idMarket,
-            marketName = collection.marketName,
-            collector = collection.taxCollector,
-            totalAmount = collection.totalAmount,
-            taxCollection = collection,
-            absences = mutableListOf()
-        )
+    private fun launchFinalizeFragment() {
+        val bundle = Bundle()
+        bundle.putString("type", "update")
 
         mActivity.launchFragment(
             FinalizeTaxCollectionFragment(),
             mActivity.supportFragmentManager,
             R.id.container,
-            bundle = Bundle().apply { putParcelable("finalizeCollection", arguments) }
+            bundle
         )
         mListener.hideButtons()
     }

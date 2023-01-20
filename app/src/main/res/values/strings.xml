@@ -26,12 +26,12 @@ The OPS application is willing to help and provide a better experience to all us
 
     <!-- Concessionaire Strings -->
     <string name="concessionaire_no_concess">No dealers listed</string>
-    <string name="concessionaire_elimination_success">Eliminación correcta</string>
-    <string name="concessionaire_pick_market">Selecciona un Tianguis</string>
-    <string name="concessionaire_market_was_already_related">Este tianguis ya fue relacionado previamente</string>
-    <string name="concessionaire_cant_add_market">No se pudo agregar al tianguis</string>
-    <string name="concessionaire_delete_relation">Eliminar Relación</string>
-    <string name="concessionaire_market_will_delete">Se eliminará este concesionario del tianguis</string>
+    <string name="concessionaire_elimination_success">Deleted Successfully</string>
+    <string name="concessionaire_pick_market">Select a Market</string>
+    <string name="concessionaire_market_was_already_related">This market was recently related</string>
+    <string name="concessionaire_cant_add_market">As error occurred while trying to add to the market</string>
+    <string name="concessionaire_delete_relation">Delete relation</string>
+    <string name="concessionaire_market_will_delete">The concessionaire will be deleted of this market</string>
 
     <!-- Tax Collection Module Strings -->
     <string name="tax_collection_scan">Scan</string>
@@ -49,32 +49,25 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="tax_collection_absence">Absences</string>
     <string name="tax_collection_send">Sent</string>
     <string name="tax_collection_crud_collections">collections</string>
-    <string name="tax_collection_2_times">No se puede cobrar 2 veces al mismo concesionario</string>
-    <string name="tax_collection_opened_collection">Tienes una recolección abierta\n¿Deseas continuarla?\n\nNota:\nNo puedes tener 2 recolecciones abiertas del mismo tianguis</string>
-    <string name="tax_collection_error_persisting_concess">Hubo un error al guardar el listado de concesionarios</string>
-    <string name="tax_collection_send_the_info">Envía la información actual almacenada o eliminala</string>
-    <string name="tax_collection_concess_not_found">No se encontró al concesionario en la lista</string>
-    <string name="tax_collection_wish_add_concess">El usuario no está dado de alta en este tianguis.\n¿Deseas agregarlo?</string>
-    <string name="tax_collection_cant_add_market">No se pudo agregar al tianguis</string>
-    <string name="tax_collection_cant_save_info">No se pudo guardar la información capturada</string>
-    <string name="tax_collection_cant_revert">No se pudo revertir el evento</string>
-    <string name="tax_collection_receipt_subject">Recibo %1$s</string>
-    <string name="tax_collection_unknow_event">Evento desconocido</string>
-    <string name="tax_collection_error_saving_info_market">Hubo un error al guardar la información del Tianguis seleccionado</string>
-    <string name="tax_collection_delete_collection">No hay eventos por procesar.\n¿Deseas eliminar la recolección?</string>
-    <string name="tax_collection_collection_deleted">Recolección Eliminada</string>
-    <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago
-        donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s
-        \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de
-        reportarlo a los recaudadores lo más pronto posible\n\nEste correo electronico solo envía
-        recibos de forma automatizada. No se responderá ningún correo que sea enviado a esta misma
-        dirección</string>
+    <string name="tax_collection_2_times">You cannot charge the same dealer twice</string>
+    <string name="tax_collection_opened_collection">Do you have an open pickup\n¿Do you want to continue?\n\Note:\nYou cannot have two recollections open in the same market</string>
+    <string name="tax_collection_error_persisting_concess">An error occurred while trying to save the concessionaires list</string>
+    <string name="tax_collection_send_the_info">Send the actual information or delete it</string>
+    <string name="tax_collection_concess_not_found">No concessionaires found in the list</string>
+    <string name="tax_collection_wish_add_concess">The user is not registered in this flea market.\nDo you want to add it?</string>
+    <string name="tax_collection_cant_add_market">An error occurred while trying to save the market</string>
+    <string name="tax_collection_cant_save_info">An error occurred while trying to save the captured information</string>
+    <string name="tax_collection_cant_revert">It could not revert the event</string>
+    <string name="tax_collection_receipt_subject">Receipt %1$s</string>
+    <string name="tax_collection_unknow_event">Unknown Event</string>
+    <string name="tax_collection_error_saving_info_market">An error occurred while trying to sava the information of the selected market</string>
+    <string name="tax_collection_delete_collection">There aren\'t events for processing.\nDo yo want to delete  the recollection?</string>
+    <string name="tax_collection_collection_deleted">Recollection Deleted</string>
+    <string name="tax_collection_receipt">Good Day, %1$s \n\nWe send you your payment receipt where we remember the following information:\n\nMarket: %2$s \nLinear meters collected: %3$s
+        \nTotal: %4$s \nCharged you: %5$s \n\nIf the information submitted is incorrect, please inform the collectors as soon as possible.\n\nThis email with the invoice has been sent automatically. Any email sent to this same address will not be answered.</string>
     <!-- Finalize Tax Collection -->
-    <string name="tax_collection_absence_email">Buenas tardes, %1$s \n\nTe hacemos llegar tu informe
-        de inasistencia donde recaudamos la siguiente información:\n\nTianguis: %2$s \nReporta: %3$s
-        \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más
-        pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se
-        responderá ningún correo que sea enviado a esta misma dirección</string>
+    <string name="tax_collection_absence_email">Good afternoon, %1$s \n\nWe send you your absence report where we remember the following information:\n\nMarket: %2$s \nReport: %3$s
+        \n\nIf the information submitted is incorrect, please inform the collectors as soon as possible.\n\nThis email with the invoice has been sent automatically. Any email sent to this same address will not be answered.</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics">Analytics</string>
@@ -90,7 +83,9 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="dashboard_tax_collections">Collections</string>
     <string name="btn_print_qr_code">Print my QR code</string>
     <string name="dashboard_fab_history">History</string>
-    <string name="dashboard_fab_recollection">Harvest</string>
+    <string name="dashboard_fab_recollection">New Collection</string>
+    <string name="dashboard_tv_analytics_name">Hi, %1$s</string>
+    <string name="dashboard_tv_analytics_second_text">Here are yours analytics!</string>
 
     <!--Login Module Strings-->
     <string name="login_welcome">Welcome!</string>

@@ -6,27 +6,23 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.PUT_EXTRA_LATITUDE
 import com.ops.opside.common.entities.PUT_EXTRA_LONGITUDE
+import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityMarketLocationBinding
 
-class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
+class MarketLocationActivity : BaseActivity(), OnMapReadyCallback{
 
     private lateinit var mBinding: ActivityMarketLocationBinding
     private lateinit var currentLocation: Location
@@ -76,9 +72,7 @@ class MarketLocationActivity : AppCompatActivity(), OnMapReadyCallback{
                     setResult(RESULT_OK, intent)
                     finish()
                 }
-            },
-            { Toast.makeText(this@MarketLocationActivity, "onCancel()", Toast.LENGTH_SHORT).show() },
-        )
+            },)
         dialog.show()
     }
 

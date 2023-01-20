@@ -2,7 +2,6 @@ package com.ops.opside.flows.sign_on.marketModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_MARKET
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.utils.getName
@@ -30,7 +29,8 @@ class MarketInteractor @Inject constructor(
                                 marketMeters = document.get("marketMeters") as Double,
                                 latitude = document.get("latitude") as Double,
                                 longitude = document.get("longitude") as Double,
-                                numberConcessionaires = listOf(document.get("concessionaires")).toString()))
+                                numberConcessionaires = listOf(document.get("concessionaires"))
+                                    .toString()))
                         }
                         subscriber.onNext(marketsList)
                     }
