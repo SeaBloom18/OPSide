@@ -43,6 +43,7 @@ class TaxCollectionViewModel @Inject constructor(
     private val _updateTaxCollection = MutableLiveData<Boolean>()
     private val _createEvent = MutableLiveData<Boolean>()
     private val _revertEvent = MutableLiveData<Boolean>()
+    private val _getAbsences = MutableLiveData<MutableMap<String,Int>>()
 
     val initTaxCollection: LiveData<Boolean> = _initTaxCollection
     val hasOpenedTaxCollection: LiveData<TaxCollectionSE?> = _hasOpenedTaxCollection
@@ -57,6 +58,7 @@ class TaxCollectionViewModel @Inject constructor(
     val participatingConcess: LiveData<Boolean> = _participatingConcess
     val updateTaxCollection: LiveData<Boolean> = _updateTaxCollection
     val revertEvent: LiveData<Boolean> = _revertEvent
+    val getAbsences: LiveData<MutableMap<String,Int>> = _getAbsences
 
 
 
@@ -126,9 +128,26 @@ class TaxCollectionViewModel @Inject constructor(
                 .subscribe(
                     {
                         _getParticipatingConcessList.value = it
+                        getAbsences(idMarket)
                     },
                     {
                         showProgress.value = false
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    private fun getAbsences(idMarket: String){
+        disposable.add(
+            mTaxCollectionInteractor.getAbsences(idMarket).applySchedulers()
+                .subscribe(
+                    {
+                        _getAbsences.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        _action.value = TaxCollectionAction.ShowMessageError(it.message.toString())
                         Log.e("Error", it.toString())
                     }
                 )
@@ -275,6 +294,7 @@ class TaxCollectionViewModel @Inject constructor(
     }
 
     fun getCollectorName() = mProfileInteractor.getCollectorName()
+    fun getCollectorId() = mProfileInteractor.getCollectorId()
 
 
     fun deleteProfileData(){

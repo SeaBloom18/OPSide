@@ -55,6 +55,7 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="tax_collection_send_the_info">Send the actual information or delete it</string>
     <string name="tax_collection_concess_not_found">No concessionaires found in the list</string>
     <string name="tax_collection_wish_add_concess">The user is not registered in this flea market.\nDo you want to add it?</string>
+    <string name="tax_collection_wish_add_concess_warning">The user is not registered in this flea market.</string>
     <string name="tax_collection_cant_add_market">An error occurred while trying to save the market</string>
     <string name="tax_collection_cant_save_info">An error occurred while trying to save the captured information</string>
     <string name="tax_collection_cant_revert">It could not revert the event</string>

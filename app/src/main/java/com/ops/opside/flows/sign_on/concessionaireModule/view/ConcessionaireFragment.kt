@@ -15,6 +15,7 @@ import com.ops.opside.common.bsd.BottomSheetFilter
 import com.ops.opside.common.bsd.KEY_FILTER_REQUEST
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.utils.PDFUtils
+import com.ops.opside.common.utils.PermissionManagger
 import com.ops.opside.common.utils.tryOrPrintException
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentConcessionaireBinding
@@ -23,6 +24,7 @@ import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.Concessionair
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.BottomSheetForeignerAttendance
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ConcessionaireFragment : BaseFragment() {
@@ -33,6 +35,8 @@ class ConcessionaireFragment : BaseFragment() {
     private val mActivity: MainActivity by lazy { activity as MainActivity }
     private val mViewModel: ConcessionaireViewModel by viewModels()
 
+    @Inject
+    lateinit var permissionManagger: PermissionManagger
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = FragmentConcessionaireBinding.inflate(inflater, container, false)
@@ -97,12 +101,14 @@ class ConcessionaireFragment : BaseFragment() {
     }
 
     private fun registConcessionaire() {
-        val dialog = BottomSheetForeignerAttendance {
-            mConcessionairesList.add(it.parseToSE())
-            updateDataList()
-        }
+        if (permissionManagger.getPermission()) {
+            val dialog = BottomSheetForeignerAttendance {
+                mConcessionairesList.add(it.parseToSE())
+                updateDataList()
+            }
 
-        dialog.show(requireActivity().supportFragmentManager, dialog.tag)
+            dialog.show(requireActivity().supportFragmentManager, dialog.tag)
+        }
     }
 
     private fun initBsd() {

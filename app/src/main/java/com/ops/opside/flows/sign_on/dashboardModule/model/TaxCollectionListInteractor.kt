@@ -11,7 +11,9 @@ import javax.inject.Inject
  * Created by davidgonzalez on 15/01/23
  */
 class TaxCollectionListInteractor @Inject constructor(
-    private val firestore: FirebaseFirestore, private val preferences: Preferences){
+    private val firestore: FirebaseFirestore,
+    private val preferences: Preferences
+) {
 
     fun getTaxCollections(): Observable<MutableList<TaxCollectionSE>> {
         return Observable.unsafeCreate { subscriber ->
@@ -19,22 +21,25 @@ class TaxCollectionListInteractor @Inject constructor(
                 val taxCollectionList = mutableListOf<TaxCollectionSE>()
 
                 firestore.collection(TablesEnum.TaxCollection.getName())
-                    .whereEqualTo("taxCollectorEmail", preferences.getString(SP_EMAIL))
+                    .whereEqualTo("idTaxCollector", preferences.getString(SP_ID))
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
-                            taxCollectionList.add(TaxCollectionSE(
-                                idFirebase = document.id,
-                                idMarket = document.data!!["idMarket"].toString(),
-                                marketName = document.data!!["marketName"].toString(),
-                                totalAmount = document.data!!["totalAmount"].toString()
-                                    .toDouble(),
-                                startDate = document.data!!["startDate"].toString(),
-                                endDate = document.data!!["endDate"].toString(),
-                                startTime = document.data!!["startTime"].toString(),
-                                endTime = document.data!!["endTime"].toString(),
-                                taxCollector = document.data!!["taxCollector"].toString(),
-                            ))
+                            taxCollectionList.add(
+                                TaxCollectionSE(
+                                    idFirebase = document.id,
+                                    idMarket = document.data!!["idMarket"].toString(),
+                                    marketName = document.data!!["marketName"].toString(),
+                                    totalAmount = document.data!!["totalAmount"].toString()
+                                        .toDouble(),
+                                    startDate = document.data!!["startDate"].toString(),
+                                    endDate = document.data!!["endDate"].toString(),
+                                    startTime = document.data!!["startTime"].toString(),
+                                    endTime = document.data!!["endTime"].toString(),
+                                    taxCollector = document.data!!["taxCollector"].toString(),
+                                    idTaxCollector = document.data!!["idTaxCollector"].toString()
+                                )
+                            )
                         }
                         subscriber.onNext(taxCollectionList)
                     }

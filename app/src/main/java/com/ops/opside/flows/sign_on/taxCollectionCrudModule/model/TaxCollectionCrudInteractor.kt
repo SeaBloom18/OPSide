@@ -32,6 +32,7 @@ class TaxCollectionCrudInteractor @Inject constructor(
                                     startTime = document.data!!["startTime"].toString(),
                                     endTime = document.data!!["endTime"].toString(),
                                     taxCollector = document.data!!["taxCollector"].toString(),
+                                    idTaxCollector = document.data!!["idTaxCollector"].toString(),
                                 )
                             )
                         }

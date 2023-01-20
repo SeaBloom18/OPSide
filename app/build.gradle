@@ -28,6 +28,12 @@ android {
         versionName "1.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt{
+            arguments {
+                arg("room.schemaLocation","$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -67,6 +73,7 @@ android {
     }
     buildFeatures{
         viewBinding true
+        dataBinding true
     }
 }
 

@@ -19,7 +19,9 @@ import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.ParticipatingConcessSE
+import com.ops.opside.common.utils.Formaters.orFalse
 import com.ops.opside.common.utils.PDFUtils
+import com.ops.opside.common.utils.PermissionManagger
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityConcessionaireCrudBinding
 import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
@@ -28,6 +30,7 @@ import com.ops.opside.flows.sign_on.concessionaireModule.adapters.MarketParticip
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireCrudViewModel
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.BottomSheetRelateConcessMarket
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ConcessionaireCrudActivity : BaseActivity() {
@@ -39,6 +42,9 @@ class ConcessionaireCrudActivity : BaseActivity() {
     }
 
     private val mViewModel: ConcessionaireCrudViewModel by viewModels()
+
+    @Inject
+    lateinit var permissionManagger: PermissionManagger
 
     private lateinit var mRelatesList: MutableList<ParticipatingConcessSE>
     private lateinit var mConcessionaire: ConcessionaireSE
@@ -61,6 +67,10 @@ class ConcessionaireCrudActivity : BaseActivity() {
             btnAddMarket.setOnClickListener {
                 openRealateConcess()
             }
+
+            tilPickMarket.isGone = permissionManagger.getPermission().not()
+            spPickMarket.isGone = permissionManagger.getPermission().not()
+            btnAddMarket.isGone = permissionManagger.getPermission().not()
         }
 
         setToolbar()
