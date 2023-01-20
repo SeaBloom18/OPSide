@@ -1,0 +1,513 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "daa2d8b9534e1d1d149f5ff89d06b3ba",
+    "entities": [
+      {
+        "tableName": "taxCollection",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `idMarket` TEXT NOT NULL, `marketName` TEXT NOT NULL, `totalAmount` REAL NOT NULL, `startDate` TEXT NOT NULL, `endDate` TEXT NOT NULL, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `taxCollector` TEXT NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "fields": [
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMarket",
+            "columnName": "idMarket",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketName",
+            "columnName": "marketName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalAmount",
+            "columnName": "totalAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "endTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taxCollector",
+            "columnName": "taxCollector",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idFirebase"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "concessionaire",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `name` TEXT NOT NULL, `imageURL` TEXT NOT NULL, `address` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `role` INTEGER NOT NULL, `lineBusiness` TEXT NOT NULL, `absence` INTEGER NOT NULL, `isForeigner` INTEGER NOT NULL, `origin` TEXT NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "fields": [
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageURL",
+            "columnName": "imageURL",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phone",
+            "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "role",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lineBusiness",
+            "columnName": "lineBusiness",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "absence",
+            "columnName": "absence",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isForeigner",
+            "columnName": "isForeigner",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idFirebase"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "incident",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `incidentName` TEXT NOT NULL, `incidentPrice` REAL NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "fields": [
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "incidentName",
+            "columnName": "incidentName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "incidentPrice",
+            "columnName": "incidentPrice",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idFirebase"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "resources",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "fields": [
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idFirebase"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "market",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `name` TEXT NOT NULL, `address` TEXT NOT NULL, `marketMeters` REAL NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `numberConcessionaires` TEXT NOT NULL, `isDeleted` INTEGER NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "fields": [
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketMeters",
+            "columnName": "marketMeters",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numberConcessionaires",
+            "columnName": "numberConcessionaires",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDeleted",
+            "columnName": "isDeleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idFirebase"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "emailSent",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idConcessionaire` TEXT NOT NULL, `status` INTEGER NOT NULL, `emailType` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idConcessionaire",
+            "columnName": "idConcessionaire",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emailType",
+            "columnName": "emailType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "participatingConcess",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMarket` TEXT NOT NULL, `idConcessionaire` TEXT NOT NULL, `idFirebase` TEXT NOT NULL, `linearMeters` REAL NOT NULL, `lineBusiness` TEXT NOT NULL, `marketName` TEXT NOT NULL, PRIMARY KEY(`idMarket`, `idConcessionaire`))",
+        "fields": [
+          {
+            "fieldPath": "idMarket",
+            "columnName": "idMarket",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idConcessionaire",
+            "columnName": "idConcessionaire",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "linearMeters",
+            "columnName": "linearMeters",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lineBusiness",
+            "columnName": "lineBusiness",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketName",
+            "columnName": "marketName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idMarket",
+            "idConcessionaire"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "EventRE",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `idTaxCollection` TEXT NOT NULL, `idConcessionaire` TEXT NOT NULL, `nameConcessionaire` TEXT NOT NULL, `status` TEXT NOT NULL, `timeStamp` TEXT NOT NULL, `amount` REAL NOT NULL, `foreignIdRow` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idTaxCollection",
+            "columnName": "idTaxCollection",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idConcessionaire",
+            "columnName": "idConcessionaire",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameConcessionaire",
+            "columnName": "nameConcessionaire",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeStamp",
+            "columnName": "timeStamp",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foreignIdRow",
+            "columnName": "foreignIdRow",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "pendingEmail",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `idTaxCollection` TEXT NOT NULL, `typeEmail` TEXT NOT NULL, `name` TEXT NOT NULL, `collector` TEXT NOT NULL, `marketName` TEXT NOT NULL, `email` TEXT NOT NULL, `amount` TEXT NOT NULL, `linealMeters` TEXT NOT NULL, `date` TEXT NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "fields": [
+          {
+            "fieldPath": "idFirebase",
+            "columnName": "idFirebase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idTaxCollection",
+            "columnName": "idTaxCollection",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "typeEmail",
+            "columnName": "typeEmail",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "collector",
+            "columnName": "collector",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marketName",
+            "columnName": "marketName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "linealMeters",
+            "columnName": "linealMeters",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idFirebase"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'daa2d8b9534e1d1d149f5ff89d06b3ba')"
+    ]
+  }
+}

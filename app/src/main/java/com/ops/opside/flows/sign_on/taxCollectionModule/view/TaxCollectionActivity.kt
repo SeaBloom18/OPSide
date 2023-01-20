@@ -53,6 +53,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
 
     private lateinit var mConcessionairesMap: MutableMap<String, ConcessionaireSE>
     private lateinit var mParticipatingConcessMap: MutableMap<String, ParticipatingConcessSE>
+    private lateinit var mAbsencesMap: MutableMap<String, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,6 +120,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         mViewModel.persistMarketSE.observe(this, Observer(this::isAddedMarket))
         mViewModel.updateTaxCollection.observe(this, Observer(this::taxCollectionDataUpdated))
         mViewModel.revertEvent.observe(this, Observer(this::eventWasReverted))
+        mViewModel.getAbsences.observe(this, Observer(this::getAbsences))
         mViewModel.getAction().observe(this, Observer(this::handleAction))
     }
 
@@ -175,6 +177,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         mOpenedTaxCollection = TaxCollectionSE(
             idFirebase = ID.getTemporalId(),
             idMarket = mSelectedMarket.idFirebase,
+            idTaxCollector = mViewModel.getCollectorId().orEmpty(),
             marketName = mSelectedMarket.name,
             totalAmount = 0.0,
             startDate = CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE),
@@ -223,6 +226,10 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         )
 
         dialog.show()
+    }
+
+    private fun getAbsences(absences: MutableMap<String,Int>){
+        mAbsencesMap = absences
     }
 
     private fun getAllEvents(events: MutableList<EventRE>) {
@@ -288,6 +295,8 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         participatingConcess.map {
             mParticipatingConcessMap.put(it.idConcessionaire, it)
         }
+
+
 
         mViewModel.persistConcessionairesSEList(
             mSelectedMarket.idFirebase,
@@ -429,6 +438,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             id = null,
             idTaxCollection = mOpenedTaxCollection.idFirebase,
             idConcessionaire = idConcessionaire,
+            idMarket = mOpenedTaxCollection.idMarket,
             nameConcessionaire = nameConcessionaire,
             status = status,
             amount = amount,
@@ -445,6 +455,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         lineBusiness: String,
         amount: String,
         status: String,
+        absences: Int,
         @ColorRes color: Int = getColor(R.color.secondaryColor)
     ) {
         with(mBinding) {
@@ -454,6 +465,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             etTotalAmount.setText(amount)
             etStatus.setText(status)
             etStatus.setTextColor(color)
+            etAbsences.setText(absences.orZero().toString())
         }
     }
 
@@ -472,7 +484,8 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                     linearMeters = participating.linearMeters.toString(),
                     lineBusiness = participating.lineBusiness,
                     amount = amount.toString(),
-                    status
+                    status,
+                    mAbsencesMap[concessionaire.idFirebase].orZero()
                 )
 
                 updateProgress()
@@ -601,7 +614,8 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             linearMeters = "",
             lineBusiness = "",
             amount = "",
-            status = ""
+            status = "",
+            absences = 0
         )
     }
 

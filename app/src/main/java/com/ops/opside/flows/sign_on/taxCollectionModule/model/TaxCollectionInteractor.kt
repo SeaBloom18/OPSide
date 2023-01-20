@@ -1,5 +1,6 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.model
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.DB_TABLE_CONCESSIONAIRE
 import com.ops.opside.common.entities.DB_TABLE_PARTICIPATING_CONCESS
@@ -11,10 +12,12 @@ import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.room.TaxCollectionDataBase
-import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.SP_PRICE_LINEAR_METER
-import com.ops.opside.common.utils.getName
+import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.Formaters.orZero
+import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ABSENCE
 import io.reactivex.Observable
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class TaxCollectionInteractor @Inject constructor(
@@ -236,6 +239,36 @@ class TaxCollectionInteractor @Inject constructor(
             Pair(true, "Success")
         } catch (exception: Exception) {
             Pair(false, exception.message.toString())
+        }
+    }
+
+    fun getAbsences(idMarket: String): Observable<MutableMap<String, Int>> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val month = CalendarUtils.getCurrentMonth()
+                firestore.collection(TablesEnum.Event.getName())
+                    .whereEqualTo("status", ABSENCE)
+                    .whereEqualTo("idMarket", idMarket)
+                    .whereGreaterThanOrEqualTo("timeStamp", month.first)
+                    .whereLessThanOrEqualTo("timeStamp", month.second)
+                    .get()
+                    .addOnSuccessListener {
+                        val absences: MutableMap<String, Int> = mutableMapOf()
+                        for (document in it.documents) {
+                            val idConcessionaire = document.get("idConcessionaire").toString()
+                            absences[idConcessionaire] = absences[idConcessionaire].orZero() + 1
+                        }
+
+                        subscriber.onNext(absences)
+                    }
+                    .addOnFailureListener {
+                        Log.e("Error", it.message.toString())
+                        subscriber.onError(it)
+                    }
+            } catch (e: Exception) {
+                Log.e("Error", e.message.toString())
+                subscriber.onError(e)
+            }
         }
     }
 

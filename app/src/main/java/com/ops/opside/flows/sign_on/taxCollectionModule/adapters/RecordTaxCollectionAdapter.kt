@@ -71,3 +71,4 @@ class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
 const val FLOOR_COLLECTION = "Cobro de Piso"
 const val ADDED = "Agregado al Tianguis"
 const val PENALTY_FEE = "Multa"
+const val ABSENCE = "Inasistencia"

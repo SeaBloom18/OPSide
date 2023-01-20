@@ -94,7 +94,7 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
                 CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
             mFinalizeCollection.taxCollection.endTime =
                 CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
-            mViewModel.searchIfExistTaxCollection(mFinalizeCollection.taxCollection)
+            mViewModel.searchIfExistTaxCollection(mFinalizeCollection.taxCollection, mFinalizeCollection.absences)
         } catch (e: Exception) {
             showError(e.message.toString())
         }
