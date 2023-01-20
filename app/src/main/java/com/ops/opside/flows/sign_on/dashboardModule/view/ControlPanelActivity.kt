@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
+import com.ops.opside.common.utils.Formaters.formatter
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
-import com.ops.opside.flows.sign_off.registrationModule.actions.RegistrationAction
 import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
 import com.ops.opside.flows.sign_on.dashboardModule.interfaces.ControlPanelInterface
@@ -22,15 +22,12 @@ import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewMo
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 @AndroidEntryPoint
 class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
 
     private lateinit var mBinding: ActivityControlPanelBinding
     private lateinit var controlPanelAdapter: ControlPanelAdapter
-    private val formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH)
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
     private var mPriceLinearMeter: Float = 0f

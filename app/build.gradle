@@ -11,29 +11,29 @@ plugins {
 
 android {
     signingConfigs {
-        debug {
-            storeFile file('/Users/mariorazo/Documents/Recursos/stp/release-ops.jks')
-            storePassword 'OPSide1234$'
-            keyAlias 'keyops'
-            keyPassword 'OPSide1234$'
-        }
         release {
-            storeFile file('/Users/mariorazo/Documents/Recursos/stp/release-ops.jks')
-            storePassword 'OPSide1234$'
-            keyAlias 'keyops'
-            keyPassword 'OPSide1234$'
+            storeFile file("${ops_jks_file}")
+            storePassword "${ops_password}"
+            keyAlias "${ops_key}"
+            keyPassword "${ops_password}"
         }
     }
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.ops.opside"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt{
+            arguments {
+                arg("room.schemaLocation","$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -73,6 +73,7 @@ android {
     }
     buildFeatures{
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -80,7 +81,7 @@ android {
 def roomVersion = "2.4.3"
 def zxingVersion = "4.1.0"
 def glideVersion = "4.13.2"
-def lifecycleVersion = "2.4.1"
+def lifecycleVersion = "2.5.1"
 def coroutinesVersion = "1.5.2"
 def lottieVersion = "5.2.0"
 def circularProgressBarVersion = "3.1.0"
@@ -88,34 +89,36 @@ def rxAndroidVersion = "2.1.1"
 def rxJavaVersion = "2.2.14"
 def rxJavaLegacyVersion = "1.0.14"
 def rxAndroidLegacyVersion = "1.2.1"
-def daggerHiltVersion = '2.38.1'
-def activityKtxVersion = '1.5.1'
+def daggerHiltVersion = '2.44.2'
+def activityKtxVersion = '1.6.1'
 def smtpVersion = '1.5.5'
 def biometricVersion = '1.1.0'
 def gsonVersion =  '2.9.0'
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'com.google.android.material:material:1.7.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:20.0.0'
-    implementation "androidx.fragment:fragment:1.5.2"
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.2.2'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation "androidx.fragment:fragment:1.5.5"
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.2'
+
+    //Unit Test
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     //Real Time Data Base
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
+    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     //FireStore
-    implementation 'com.google.firebase:firebase-firestore:24.4.0'
+    implementation 'com.google.firebase:firebase-firestore:24.4.1'
 
     //Room
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -174,6 +177,10 @@ dependencies {
 
     //Gson
     api "com.squareup.retrofit2:converter-gson:$gsonVersion"
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 secrets{

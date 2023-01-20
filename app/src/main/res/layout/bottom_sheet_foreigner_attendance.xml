@@ -77,7 +77,7 @@
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/tilOrigin"
+        app:layout_constraintBottom_toTopOf="@+id/tilPhone"
         app:layout_constraintEnd_toEndOf="@id/tilEmail"
         app:layout_constraintStart_toStartOf="@id/tilEmail"
         app:startIconDrawable="@drawable/ic_ops_user">
@@ -86,6 +86,27 @@
             android:id="@+id/teName"
             style="@style/TextInputEditTextStyle"
             android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhone"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_padding_min"
+        android:hint="@string/registration_hint_phone"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:endIconMode="clear_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tilOrigin"
+        app:layout_constraintEnd_toEndOf="@id/tilEmail"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
+        app:startIconDrawable="@drawable/ic_ops_phone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tePhone"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

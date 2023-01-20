@@ -28,6 +28,8 @@ data class TaxCollectionSE(
     var endTime: String,
     @ColumnInfo(name = "taxCollector")
     val taxCollector: String,
+    @ColumnInfo(name = "idTaxCollector", defaultValue = "")
+    val idTaxCollector: String
 ): Parcelable{
 
     fun getHashMap(): MutableMap<String,Any>{
@@ -40,6 +42,7 @@ data class TaxCollectionSE(
         map["startTime"] = startTime
         map["endTime"] = endTime
         map["taxCollector"] = taxCollector
+        map["idTaxCollector"] = idTaxCollector
 
         return map
     }
