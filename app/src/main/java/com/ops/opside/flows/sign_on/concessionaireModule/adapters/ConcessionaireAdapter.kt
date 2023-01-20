@@ -62,6 +62,9 @@ class ConcessionaireAdapter(
 
             binding.apply {
                 txtConcessionaire.text = item.name
+                tvEmail.text = item.email
+                val firstLetter = item.name[0]
+                imgConcessionaire.text = firstLetter.toString()
 
                 imgShowMore.animateOnPress()
                 imgShowMore.setOnClickListener {
