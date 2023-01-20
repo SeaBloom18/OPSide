@@ -8,21 +8,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.PUT_EXTRA_MARKET
+import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.databinding.ItemMarketListBinding
 import com.ops.opside.flows.sign_on.marketModule.interfaces.OnClickListener
 import com.ops.opside.flows.sign_on.marketModule.view.MarketRegisterActivity
+import java.util.*
 
 class MarketAdapter(private var markets: MutableList<MarketSE>, private var listener: OnClickListener):
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {
 
     private lateinit var context: Context
+    private val mFilteredData: MutableList<MarketSE> = mutableListOf()
 
     /** ADAPTER SETUP **/
     /** CreateViewHolder **/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.item_market_list, parent, false)
+        if (mFilteredData.isEmpty())
+            mFilteredData.addAll(markets)
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.item_market_list, parent, false)
         return ViewHolder(view)
     }
 
@@ -48,6 +54,23 @@ class MarketAdapter(private var markets: MutableList<MarketSE>, private var list
 
     /** ItemCount **/
     override fun getItemCount(): Int = markets.size
+
+    fun filter(filterText: String) {
+        markets.clear()
+        if (filterText.isEmpty()) {
+            markets.addAll(mFilteredData)
+        } else {
+            for (concess in mFilteredData) {
+                if (concess.name.lowercase(Locale.getDefault())
+                        .contains(filterText.lowercase(Locale.getDefault()))
+                ) {
+                    markets.add(concess)
+                }
+            }
+        }
+
+        notifyDataSetChanged()
+    }
 
     /** Inner Class **/
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
