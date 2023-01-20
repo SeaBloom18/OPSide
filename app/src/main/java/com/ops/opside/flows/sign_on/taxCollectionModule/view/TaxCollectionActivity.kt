@@ -33,6 +33,7 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.TaxCollectionV
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
@@ -40,6 +41,9 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
     private val mBinding: ActivityTaxCollectionBinding by lazy {
         ActivityTaxCollectionBinding.inflate(layoutInflater)
     }
+
+    @Inject
+    lateinit var permissionManagger: PermissionManagger
 
     private val mViewModel: TaxCollectionViewModel by viewModels()
 
@@ -383,44 +387,57 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
         }
 
         if (mParticipatingConcessMap.containsKey(idConcessionaire).not()) {
-            val alert = BaseDialog(
-                context = this,
-                imageResource = R.drawable.ic_store,
-                mTitle = getString(R.string.common_atention),
-                mDescription = getString(R.string.tax_collection_wish_add_concess),
-                buttonYesText = getString(R.string.common_accept),
-                buttonNoText = getString(R.string.common_cancel),
-                {
 
-                    val dialog = BottomSheetRelateConcessMarket(
-                        mConcessionairesMap[idConcessionaire]!!, mSelectedMarket.parseToSE()
-                    ) {
+            if (permissionManagger.getPermission().not()){
+                val alert = BaseDialog(
+                    context = this,
+                    imageResource = R.drawable.ic_store,
+                    mTitle = getString(R.string.common_atention),
+                    mDescription = getString(R.string.tax_collection_wish_add_concess_warning),
+                    buttonYesText = getString(R.string.common_accept)
+                )
 
-                        var status = ""
-                        if (it.first) {
-                            status = ADDED
+                alert.show()
+            } else {
+                val alert = BaseDialog(
+                    context = this,
+                    imageResource = R.drawable.ic_store,
+                    mTitle = getString(R.string.common_atention),
+                    mDescription = getString(R.string.tax_collection_wish_add_concess),
+                    buttonYesText = getString(R.string.common_accept),
+                    buttonNoText = getString(R.string.common_cancel),
+                    {
 
-                            createNewEvent(
-                                status = status,
-                                foreignIdRow = it.second.idFirebase,
-                                idConcessionaire = idConcessionaire,
-                                nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name.orEmpty(),
-                                amount = 0.0
-                            )
+                        val dialog = BottomSheetRelateConcessMarket(
+                            mConcessionairesMap[idConcessionaire]!!, mSelectedMarket.parseToSE()
+                        ) {
 
-                        } else {
-                            status = getString(R.string.tax_collection_cant_add_market)
+                            var status = ""
+                            if (it.first) {
+                                status = ADDED
+
+                                createNewEvent(
+                                    status = status,
+                                    foreignIdRow = it.second.idFirebase,
+                                    idConcessionaire = idConcessionaire,
+                                    nameConcessionaire = mConcessionairesMap[idConcessionaire]?.name.orEmpty(),
+                                    amount = 0.0
+                                )
+
+                            } else {
+                                status = getString(R.string.tax_collection_cant_add_market)
+                            }
+
+                            mParticipatingConcessMap[idConcessionaire] = it.second
+                            chargeDay(status, idConcessionaire)
                         }
 
-                        mParticipatingConcessMap[idConcessionaire] = it.second
-                        chargeDay(status, idConcessionaire)
+                        dialog.show(supportFragmentManager, dialog.tag)
                     }
+                )
 
-                    dialog.show(supportFragmentManager, dialog.tag)
-                }
-            )
-
-            alert.show()
+                alert.show()
+            }
             return
         }
 
