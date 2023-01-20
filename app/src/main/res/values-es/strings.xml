@@ -90,7 +90,9 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="dashboard_tax_collections">Recaudaciones</string>
     <string name="btn_print_qr_code">Imprimir mi código QR</string>
     <string name="dashboard_fab_history">Historial</string>
-    <string name="dashboard_fab_recollection">Recolección</string>
+    <string name="dashboard_fab_recollection">Nueva Recolección</string>
+    <string name="dashboard_tv_analytics_name">Hola, %1$s</string>
+    <string name="dashboard_tv_analytics_second_text">Aquí están tus analiticas</string>
 
     <!--Login Module Strings-->
     <string name="login_welcome">¡Bienvenido!</string>

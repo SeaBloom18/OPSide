@@ -2,62 +2,99 @@ package com.ops.opside.flows.sign_on.dashboardModule.view
 
 import android.os.Bundle
 import android.view.*
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ops.opside.R
-import com.ops.opside.common.dialogs.InDevelopmentFragment
+import com.ops.opside.common.bsd.BottomSheetFilter
+import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_NAME
+import com.ops.opside.common.utils.SP_USER_URL_PHOTO
 import com.ops.opside.common.utils.startActivity
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentDashBoardBinding
+import com.ops.opside.flows.sign_on.dashboardModule.adapter.TaxCollectionListAdapter
+import com.ops.opside.flows.sign_on.dashboardModule.viewModel.TaxCollectionListViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import com.ops.opside.flows.sign_on.taxCollectionCrudModule.view.TaxCollectionCrudActivity
 import com.ops.opside.flows.sign_on.taxCollectionModule.view.TaxCollectionActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashBoardFragment : BaseFragment() {
 
-    private var mBinding: FragmentDashBoardBinding? = null
-    private val binding get() = mBinding!!
-    private lateinit var mActivity: MainActivity
-
-    private val rotateOpen : Animation by lazy { AnimationUtils.loadAnimation(activity, R.anim.rotate_open_anim) }
-    private val rotateClose : Animation by lazy { AnimationUtils.loadAnimation(activity, R.anim.rotate_close_anim) }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(activity, R.anim.from_bottom_anim) }
-    private val toBottom : Animation by lazy { AnimationUtils.loadAnimation(activity, R.anim.to_bottom_anim) }
-    private var closed = false
+    private lateinit var mBinding: FragmentDashBoardBinding
+    private val mActivity: MainActivity by lazy { activity as MainActivity }
+    private lateinit var mTaxCollectionListAdapter: TaxCollectionListAdapter
+    private val mTaxCollectionListViewModel: TaxCollectionListViewModel by viewModels()
+    private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
+    @Inject lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         mBinding = FragmentDashBoardBinding.inflate(inflater, container, false)
-        mActivity = activity as MainActivity
+        return mBinding.root
+    }
 
-        setToolbar()
-        binding.apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            fabMenu.setOnClickListener {
-                onAddButtonClick()
-            }
+        mBinding.apply {
 
             fabInitTaxCollection.setOnClickListener {
                 mActivity.startActivity<TaxCollectionActivity>()
             }
 
-            fabTaxCollectionCrud.setOnClickListener {
-                mActivity.startActivity<TaxCollectionCrudActivity>()
+            tvAnalyticsUserName.text = getString(R.string.dashboard_tv_analytics_name,
+                preferences.getString(SP_NAME))
+
+            ibShowAnalytics.setOnClickListener {
+                val dialog = BottomSheetAnalytics()
+                dialog.show(mActivity.supportFragmentManager,dialog.tag)
             }
+
+            ibShowFilters.setOnClickListener { initBsd() }
+
+            if (preferences.getString(SP_USER_URL_PHOTO)?.isNotEmpty() == true) {
+                Glide.with(mActivity)
+                    .load(preferences.getString(SP_USER_URL_PHOTO)).circleCrop().into(mBinding.ivProfilePicture)
+                mBinding.lavUserProfileAnim.visibility = View.INVISIBLE
+            }
+
+            /*fabTaxCollectionCrud.setOnClickListener {
+                mActivity.startActivity<TaxCollectionCrudActivity>()
+            }*/
         }
+        /** Call's Methods **/
+        setToolbar()
+        bindViewModel()
+    }
 
-        mActivity.supportFragmentManager.beginTransaction().add(R.id.fragment_container, InDevelopmentFragment()).commit()
+    /** ViewModel and Methods SetUp **/
+    private fun bindViewModel() {
+        mTaxCollectionListViewModel.getShowProgress().observe(mActivity,
+            Observer(mActivity::showLoading))
+        mTaxCollectionListViewModel.getTaxCollectionList.observe(mActivity,
+            Observer(this::getTaxCollectionList))
+    }
 
-        return binding.root
+    private fun getTaxCollectionList(taxCollectionList: MutableList<TaxCollectionSE>) {
+        mTaxCollectionList = taxCollectionList
+        setUpRecyclerView()
+    }
+
+    private fun loadTaxCollectionList() {
+        mTaxCollectionListViewModel.getTaxCollectionList()
     }
 
     /** Toolbar SetUp**/
     private fun setToolbar(){
-        with(binding.toolbarTaxDashboard.commonToolbar) {
+        with(mBinding.toolbarTaxDashboard.commonToolbar) {
             this.title = getString(R.string.dashboard_analytics)
 
             this.addMenuProvider(object : MenuProvider {
@@ -84,41 +121,25 @@ class DashBoardFragment : BaseFragment() {
                     }
                 }
             }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            loadTaxCollectionList()
         }
     }
 
-    private fun onAddButtonClick() {
-        setVisibility(closed)
-        setAnimation(closed)
-        closed = !closed;
-    }
+    private fun setUpRecyclerView() {
+        val gridLayoutManager: RecyclerView.LayoutManager
+        gridLayoutManager = GridLayoutManager(mActivity, 2)
+        mTaxCollectionListAdapter = TaxCollectionListAdapter(mTaxCollectionList, mActivity)
 
-    /** Floating Button Animation**/
-    private fun setAnimation(closed:Boolean) {
-        if(!closed) {
-            binding.fabTaxCollectionCrud.startAnimation(fromBottom)
-            binding.fabInitTaxCollection.startAnimation(fromBottom)
-            binding.fabMenu.startAnimation(rotateOpen)
-        } else {
-            binding.fabTaxCollectionCrud.startAnimation(toBottom)
-            binding.fabInitTaxCollection.startAnimation(toBottom)
-            binding.fabMenu.startAnimation(rotateClose)
+        mBinding.rvTaxCollections.apply {
+            setHasFixedSize(true)
+            layoutManager = gridLayoutManager
+            adapter = mTaxCollectionListAdapter
         }
     }
 
-    private fun setVisibility(closed:Boolean) {
-        if(!closed) {
-            binding.fabTaxCollectionCrud.visibility = View.VISIBLE
-            binding.fabInitTaxCollection.visibility = View.VISIBLE
-        } else {
-            binding.fabTaxCollectionCrud.visibility = View.INVISIBLE
-            binding.fabInitTaxCollection.visibility = View.INVISIBLE
-        }
-    }
-
-    /** Override Methods **/
-    override fun onDestroy() {
-        super.onDestroy()
-        mBinding = null
+    private fun initBsd() {
+        val bottomSheetFilter =
+            BottomSheetFilter(showMarket = true, showCollector = true, showDate = true)
+        bottomSheetFilter.show(mActivity.supportFragmentManager, bottomSheetFilter.tag)
     }
 }

@@ -14,7 +14,6 @@ data class CollectorFE(
     fun getHashMap(): MutableMap<String, Any>{
 
         val map: MutableMap<String, Any> = mutableMapOf()
-
         map["name"] = name
         map["imageURL"] = imageURL
         map["address"] = address
