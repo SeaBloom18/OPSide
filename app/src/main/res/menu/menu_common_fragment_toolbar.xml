@@ -2,17 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/menu_print"
         android:title="print"
         android:icon="@drawable/ic_ops_print"
-        app:showAsAction="collapseActionView|ifRoom" />
-
-    <item
-        android:id="@+id/menu_cancel"
-        android:title="cancel"
-        android:icon="@drawable/ic_close_reg_screen"
         app:showAsAction="collapseActionView|ifRoom" />
 
 </menu>
