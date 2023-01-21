@@ -162,7 +162,7 @@ class LoginFragment : BaseFragment() {
         }
 
         if (result.first) {
-            launchHome()
+            mViewModel.getCurrentVersion()
         } else {
             showError(result.second)
         }
@@ -186,7 +186,7 @@ class LoginFragment : BaseFragment() {
             SP_COLLECTOR_ROLE, SP_TAX_EXECUTOR_ROLE, SP_SUPER_USER_ROLE -> {
                 if (mCollector.hasAccess || mCollector.role > SP_COLLECTOR_ROLE)
                     mActivity.startActivity<MainActivity>()
-                else showError("Actualmente no tienes permitido entrar al sistema")
+                else showError(getString(R.string.login_access_denied))
             }
         }
     }
@@ -234,7 +234,7 @@ class LoginFragment : BaseFragment() {
         if (mViewModel.isSPInitialized().not() || (emailTyped != emailRegistered)) {
             showBiometricsPermission()
         } else {
-            launchHome()
+            mViewModel.getCurrentVersion()
         }
     }
 
@@ -245,7 +245,7 @@ class LoginFragment : BaseFragment() {
                 imageResource = R.drawable.ic_ops_warning,
                 context = mActivity,
                 mTitle = getString(R.string.common_atention),
-                mDescription = "¿Deseas usar tus datos biometricos para acceder al sistema?",
+                mDescription = getString(R.string.login_biometrics_permission),
                 buttonYesText = getString(R.string.common_accept),
                 buttonNoText = getString(R.string.common_cancel),
                 yesAction = {

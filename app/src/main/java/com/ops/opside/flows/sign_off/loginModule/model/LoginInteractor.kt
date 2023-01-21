@@ -2,6 +2,7 @@ package com.ops.opside.flows.sign_off.loginModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ops.opside.BuildConfig
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
@@ -173,6 +174,25 @@ class LoginInteractor @Inject constructor(
                 .addOnFailureListener {
                     subscriber.onError(it)
                 }
+        }
+    }
+    fun getCurrentVersion(): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
+            if (false){//BuildConfig.DEBUG){
+                subscriber.onNext(true)
+            } else {
+                firestore.collection(TablesEnum.Resources.getName())
+                    .document("hs4Y97BiAldhyVEFYkAN")
+                    .get()
+                    .addOnSuccessListener { response ->
+                        val serverVersion = response.data?.get("version").toString()
+                        val localVersion = BuildConfig.VERSION_NAME
+                        subscriber.onNext(localVersion.contains(serverVersion))
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            }
         }
     }
 

@@ -105,6 +105,8 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="login_tv_forget_password">I forgot my password</string>
     <string name="login_toast_credentials_validation">The password or the email is incorrect, check it!</string>
     <string name="login_tv_remember_name">Welcome Back, %1$s!</string>
+    <string name="login_access_denied">You are not currently allowed to login</string>
+    <string name="login_biometrics_permission">Do you want to use your biometric data to login?</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Name(s)</string>

@@ -41,20 +41,23 @@ class LoginViewModel @Inject constructor(
         collector: CollectorFE,
         linearMeterPrice: Double,
         rememberMe: Boolean,
-        useBiometrics: Boolean): Pair<Boolean,String> {
-        return mLoginInteractor.initSPForCollector(collector, linearMeterPrice, rememberMe,
-            useBiometrics)
+        useBiometrics: Boolean
+    ): Pair<Boolean, String> {
+        return mLoginInteractor.initSPForCollector(
+            collector, linearMeterPrice, rememberMe,
+            useBiometrics
+        )
     }
 
     fun initSPForConcessionaire(
         concessionaire: ConcessionaireFE,
         rememberMe: Boolean,
         useBiometrics: Boolean
-    ): Pair<Boolean,String> {
+    ): Pair<Boolean, String> {
         return mLoginInteractor.initSPForConcessionaire(concessionaire, rememberMe, useBiometrics)
     }
 
-    fun getLinealMeterPrice(){
+    fun getLinealMeterPrice() {
         disposable.add(
             mLoginInteractor.getLinearMetersPrice().applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
@@ -114,6 +117,28 @@ class LoginViewModel @Inject constructor(
                     {
                         Log.e("Error", it.toString())
                         showProgress.value = false
+                        _action.value =
+                            LoginAction.ShowMessageError(it.message.toString())
+                    }
+                )
+        )
+    }
+
+    fun getCurrentVersion() {
+        disposable.add(
+            mLoginInteractor.getCurrentVersion().applySchedulers()
+                .subscribe(
+                    {
+                        if (it) {
+                            _action.value = LoginAction.LaunchHome
+                        } else {
+                            _action.value =
+                                LoginAction.ShowMessageError("Versión nueva disponible." +
+                                        "\nFavor de actualizar el sistema")
+                        }
+                    },
+                    {
+                        Log.e("Error", it.toString())
                         _action.value =
                             LoginAction.ShowMessageError(it.message.toString())
                     }
