@@ -21,69 +21,47 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/common_content_description"
             android:src="@drawable/ic_ops_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/txtLineBusiness"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/txtMarketName" />
 
         <ImageView
             android:id="@+id/imgMarket"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginVertical="@dimen/common_padding_default"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/common_padding_default"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@string/common_content_description"
-            android:src="@drawable/ic_ops_store"
+            android:src="@drawable/ic_store"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/linear_data"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linear_data"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtMarketName"
+            style="@style/textViewBodyBlackStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/common_padding_default"
-            app:layout_constraintBottom_toBottomOf="@id/imgMarket"
-            app:layout_constraintEnd_toStartOf="@id/imgDeleteRelation"
-            app:layout_constraintStart_toEndOf="@id/imgMarket"
-            app:layout_constraintTop_toTopOf="@id/imgMarket">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="1"
+            app:layout_constraintEnd_toStartOf="@+id/imgDeleteRelation"
+            app:layout_constraintStart_toEndOf="@+id/imgMarket"
+            app:layout_constraintTop_toTopOf="@+id/imgMarket"
+            tools:text="Nombre del Market" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txtMarketName"
-                style="@style/textViewBodyStyle"
-                android:fontFamily="@font/montserrat_semibold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/primaryTextColor"
-                tools:text="Nombre del Market" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtLineBusiness"
+            style="@style/textViewBodyStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="@+id/txtMarketName"
+            app:layout_constraintStart_toStartOf="@+id/txtMarketName"
+            app:layout_constraintTop_toBottomOf="@+id/txtMarketName"
+            tools:text="Giro del negocio" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txtLineBusiness"
-                style="@style/textViewBodyStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/primaryTextColor"
-                tools:text="Giro del negocio" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txtLinearMeters"
-                style="@style/textViewBodyStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="@color/primaryTextColor"
-                tools:text="Metros lineales" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

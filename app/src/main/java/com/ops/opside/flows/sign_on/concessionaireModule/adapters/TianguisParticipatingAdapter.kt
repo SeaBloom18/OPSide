@@ -46,8 +46,7 @@ class MarketParticipatingAdapter (
                 }
 
                 txtMarketName.text = item.marketName
-                txtLineBusiness.text = item.lineBusiness
-                txtLinearMeters.text = item.linearMeters.toString()
+                txtLineBusiness.text = "${item.lineBusiness}, ${item.linearMeters} metros"
             }
 
         }
