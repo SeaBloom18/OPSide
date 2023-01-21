@@ -178,7 +178,7 @@ class LoginInteractor @Inject constructor(
     }
     fun getCurrentVersion(): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
-            if (false){//BuildConfig.DEBUG){
+            if (BuildConfig.DEBUG){
                 subscriber.onNext(true)
             } else {
                 firestore.collection(TablesEnum.Resources.getName())
