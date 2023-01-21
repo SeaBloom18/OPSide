@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -39,8 +40,9 @@ class MarketFragment : BaseFragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setToolbar()
         bindViewModel()
+        setToolbar()
+        mMarketViewModel.getMarketList()
     }
 
     /** ViewModel and Methods SetUp **/
@@ -56,7 +58,7 @@ class MarketFragment : BaseFragment(), OnClickListener {
 
     private fun getMarketList(marketList: MutableList<MarketSE>){
         mMarketList = marketList
-        setUpRecyclerView()
+        initRecyclerView()
     }
 
     /** Sealed Class handleAction**/
@@ -91,21 +93,30 @@ class MarketFragment : BaseFragment(), OnClickListener {
                     }
                 }
             }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-            loadMarketsList()
+            //loadMarketsList()
         }
     }
 
-    /** RecyclerView SetUp **/
-    private fun setUpRecyclerView(){
+    /** RecyclerView SetUp and search**/
+    private fun initRecyclerView() {
+        updateRecyclerView()
+
+        mBinding.teSearch.doAfterTextChanged {
+            mMarketAdapter.filter(it.toString())
+        }
+    }
+
+    private fun updateRecyclerView(){
+        mMarketAdapter = MarketAdapter(mMarketList, this)
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(mActivity)
-        mMarketAdapter = MarketAdapter(mMarketList, this)
 
         mBinding.recycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
             adapter = mMarketAdapter
         }
+        mMarketAdapter.notifyDataSetChanged()
     }
 
     /** Interface Methods and SetUp**/

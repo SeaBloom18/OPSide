@@ -18,8 +18,7 @@ import java.util.*
 
 class ConcessionaireAdapter(
     var concessionaireRES: MutableList<ConcessionaireSE>
-) :
-    RecyclerView.Adapter<ConcessionaireAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ConcessionaireAdapter.ViewHolder>() {
 
     private lateinit var mContext: Context
     private val mFilteredData: MutableList<ConcessionaireSE> = mutableListOf()
@@ -53,7 +52,6 @@ class ConcessionaireAdapter(
                 }
             }
         }
-
         notifyDataSetChanged()
     }
 
@@ -64,6 +62,9 @@ class ConcessionaireAdapter(
 
             binding.apply {
                 txtConcessionaire.text = item.name
+                tvEmail.text = item.email
+                val firstLetter = item.name[0]
+                imgConcessionaire.text = firstLetter.toString()
 
                 imgShowMore.animateOnPress()
                 imgShowMore.setOnClickListener {

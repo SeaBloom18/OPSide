@@ -23,8 +23,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilConcessionaireName"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_padding_default"
             android:layout_marginTop="@dimen/common_padding_default"
             android:hint="@string/concessionaire"
@@ -33,15 +31,11 @@
             app:layout_constraintTop_toBottomOf="@id/toolbarCrudConce">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextStyle"
                 android:id="@+id/etConcessionaireName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
                 android:enabled="false"
-                android:fontFamily="@font/montserrat_regular"
                 android:inputType="textPersonName"
-                tools:text="Mario Armando Razo Valenzuela"
-                android:textColor="@color/primaryTextColor" />
+                tools:text="Mario Armando Razo Valenzuela" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

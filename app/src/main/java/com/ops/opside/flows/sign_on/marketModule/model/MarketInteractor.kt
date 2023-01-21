@@ -32,6 +32,7 @@ class MarketInteractor @Inject constructor(
                                 numberConcessionaires = listOf(document.get("concessionaires"))
                                     .toString()))
                         }
+                        //val sortedByName = marketsList.sortedBy { myObject -> myObject.name }
                         subscriber.onNext(marketsList)
                     }
                     .addOnFailureListener {
