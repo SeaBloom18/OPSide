@@ -19,45 +19,44 @@
             android:id="@+id/imgShowMore"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/common_padding_min"
-            android:backgroundTint="@color/fui_transparent"
-            android:checked="true"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/common_content_description"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_arrow_forward"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_ops_right_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEmail"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/txtConcessionaire" />
 
-        <ImageView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/imgConcessionaire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textViewBodyBlackStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginVertical="@dimen/common_padding_default"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="@dimen/common_padding_default"
-            android:src="@drawable/ic_profile"
             android:contentDescription="@string/common_content_description"
+            android:background="@drawable/circle_imageview"
+            tools:text="A"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtConcessionaire"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtConcessionaire"
+            style="@style/textViewBodyBlackStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserrat_regular"
-            android:maxLength="@integer/max_characteres"
-            android:textAppearance="?attr/textAppearanceSubtitle2"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
             android:textColor="@color/primaryTextColor"
-            tools:text="Nombre Completo"
-            app:layout_constraintBottom_toBottomOf="@id/imgConcessionaire"
-            app:layout_constraintEnd_toStartOf="@id/imgShowMore"
-            app:layout_constraintStart_toEndOf="@id/imgConcessionaire"
-            app:layout_constraintTop_toTopOf="@id/imgConcessionaire"/>
-
+            app:layout_constraintEnd_toStartOf="@+id/imgShowMore"
+            app:layout_constraintStart_toEndOf="@+id/imgConcessionaire"
+            app:layout_constraintTop_toTopOf="@id/imgConcessionaire"
+            tools:text="Nombre Completo" />
 
         <View
             style="@style/dividerStyle1"
@@ -65,6 +64,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/txtConcessionaire" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/textViewBodyStyle"
+            android:id="@+id/tvEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            tools:text="corre@opside.mx"
+            app:layout_constraintBottom_toBottomOf="@+id/imgConcessionaire"
+            app:layout_constraintEnd_toStartOf="@+id/imgShowMore"
+            app:layout_constraintStart_toEndOf="@+id/imgConcessionaire"
+            app:layout_constraintTop_toBottomOf="@+id/txtConcessionaire" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -24,7 +24,7 @@ import com.ops.opside.common.utils.PDFUtils
 import com.ops.opside.common.utils.PermissionManagger
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityConcessionaireCrudBinding
-import com.ops.opside.flows.sign_off.loginModule.actions.LoginAction
+import com.ops.opside.flows.sign_off.registrationModule.view.RegistrationActivity
 import com.ops.opside.flows.sign_on.concessionaireModule.action.ConcessionaireCrudAction
 import com.ops.opside.flows.sign_on.concessionaireModule.adapters.MarketParticipatingAdapter
 import com.ops.opside.flows.sign_on.concessionaireModule.viewModel.ConcessionaireCrudViewModel
@@ -84,21 +84,33 @@ class ConcessionaireCrudActivity : BaseActivity() {
         mViewModel.getAction().observe(this, Observer(this::handleAction))
     }
 
+    /** toolbar setUp **/
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_common_fragment_toolbar, menu)
+        return true
+    }
+
     private fun setToolbar() {
         with(mBinding.toolbarCrudConce.commonToolbar) {
             this.title = getString(R.string.bn_menu_concessionaire_opc2)
 
+            setSupportActionBar(this)
+            (context as ConcessionaireCrudActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
             this.addMenuProvider(object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.menu_common_fragment_toolbar, menu)
+                    //menuInflater.inflate(R.menu.menu_common_fragment_toolbar, menu)
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
-                        R.id.menu_cancel -> {
-                            onBackPressed()
-                            true
-                        }
                         R.id.menu_print -> {
                             PDFUtils.generatePDFBadgeSize(
                                 this@ConcessionaireCrudActivity,

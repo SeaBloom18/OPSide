@@ -103,6 +103,7 @@ class RegistrationActivity : BaseActivity() {
     private fun setToolbar(){
         with(mBinding.toolbarRegister.commonToolbar) {
             this.title = getString(R.string.login_txt_create_account_sign_in)
+
             setSupportActionBar(this)
             (context as RegistrationActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
