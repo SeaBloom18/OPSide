@@ -76,6 +76,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
         \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más
         pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se
         responderá ningún correo que sea enviado a esta misma dirección</string>
+    <string name="tax_collection_crud_btn_add">Agregar</string>
+    <string name="tax_collection_crud_second_text">%1$s, %1$s metros</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>

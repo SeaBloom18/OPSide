@@ -69,6 +69,8 @@ The OPS application is willing to help and provide a better experience to all us
     <!-- Finalize Tax Collection -->
     <string name="tax_collection_absence_email">Good afternoon, %1$s \n\nWe send you your absence report where we remember the following information:\n\nMarket: %2$s \nReport: %3$s
         \n\nIf the information submitted is incorrect, please inform the collectors as soon as possible.\n\nThis email with the invoice has been sent automatically. Any email sent to this same address will not be answered.</string>
+    <string name="tax_collection_crud_btn_add">Add</string>
+    <string name="tax_collection_crud_second_text">%1$s, %1$s meters</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics">Analytics</string>

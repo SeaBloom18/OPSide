@@ -25,15 +25,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtMarketName" />
 
-        <ImageView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/imgMarket"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            style="@style/textViewBodyBlackStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginVertical="@dimen/common_padding_default"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
             android:contentDescription="@string/common_content_description"
-            android:src="@drawable/ic_store"
+            android:background="@drawable/circle_imageview"
+            tools:text="A"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
