@@ -115,8 +115,8 @@
 
         <ImageButton
             android:id="@+id/ibShowFilters"
-            android:layout_width="@dimen/common_icon_size"
-            android:layout_height="@dimen/common_icon_size"
+            android:layout_width="@dimen/common_icon_size_large"
+            android:layout_height="@dimen/common_icon_size_large"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_ops_filter"

@@ -79,6 +79,10 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="tax_collection_crud_btn_add">Agregar</string>
     <string name="tax_collection_crud_second_text">%1$s, %1$s metros</string>
 
+    <!-- BottomSheet filter Strings -->
+    <string name="bottom_sheet_tv_filter">Filtro</string>
+    <string name="bottom_sheet_tv_collector">Recolector</string>
+
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>
     <string name="dashboard_weekly" >Semanal</string>
