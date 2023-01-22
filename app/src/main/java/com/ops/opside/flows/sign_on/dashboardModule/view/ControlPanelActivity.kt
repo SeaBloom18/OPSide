@@ -57,7 +57,6 @@ class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
         mControlPanelViewModel.getCollectorList.observe(this, Observer(this::getCollectors))
         mControlPanelViewModel.priceLinearMeter.observe(this, Observer(this::getPriceLinearMeter))
         mControlPanelViewModel.getAction().observe(this, Observer(this::handleAction))
-
     }
 
     private fun loadCollectorList() {
