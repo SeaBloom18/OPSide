@@ -14,224 +14,136 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarFragMaket"
-        tools:context=".flows.sign_on.marketModule.view.MarketRegisterActivity">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilMarketName"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/registration_hint_market_name"
-            app:boxStrokeColor="@drawable/states_colors_text_field"
-            app:endIconMode="clear_text"
-            app:helperText="@string/login_til_required"
-            app:layout_constraintBottom_toTopOf="@+id/tilMarketMeters"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:startIconDrawable="@drawable/ic_bn_market"
-            app:startIconTint="@color/primaryTextColor">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/teMarketName"
-                style="@style/TextInputEditTextStyle"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilMarketMeters"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
-            android:layout_marginTop="16dp"
-            android:hint="@string/registration_til_linear_meter"
-            app:boxStrokeColor="@drawable/states_colors_text_field"
-            app:endIconMode="clear_text"
-            app:helperText="@string/login_til_required"
-            app:layout_constraintBottom_toTopOf="@+id/mapPreview"
-            app:layout_constraintEnd_toEndOf="@+id/tilMarketName"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/tilMarketName"
-            app:layout_constraintTop_toBottomOf="@+id/tilMarketName"
-            app:layout_constraintVertical_bias="0.5"
-            app:startIconDrawable="@drawable/ic_ops_business"
-            app:startIconTint="@color/primaryTextColor">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/teMarketMeters"
-                style="@style/TextInputEditTextStyle"
-                android:inputType="numberDecimal" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!--<ImageView-->
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/mapPreview"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnSelectLocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilMarketMeters"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSelectLocation"
-            style="@style/CommonButtonStyle"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/registration_btn_select_location"
-            app:icon="@drawable/ic_ops_select_location"
-            app:layout_constraintBottom_toTopOf="@+id/tvAddressSelection"
-            app:layout_constraintEnd_toEndOf="@+id/mapPreview"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/mapPreview"
-            app:layout_constraintTop_toBottomOf="@+id/mapPreview"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvAddressSelection"
-            style="@style/textViewBodyStyle"
-            android:layout_width="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="4dp"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSelectLocation"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:background="#C9000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSaveMarket"
-                style="@style/CommonButtonStyle"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/registration_market_btn_save"
-                app:icon="@drawable/ic_ops_create_market"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primaryColor"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".flows.sign_on.marketModule.view.MarketRegisterActivity">
-
-
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/mapPreview"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnSelectLocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilMarketMeters" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSelectLocation"
-            style="@style/CommonButtonStyle"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/registration_btn_select_location"
-            app:icon="@drawable/ic_ops_select_location"
-            app:layout_constraintBottom_toTopOf="@+id/tvAddressSelection"
-            app:layout_constraintEnd_toEndOf="@+id/mapPreview"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/mapPreview"
-            app:layout_constraintTop_toBottomOf="@+id/mapPreview" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnViewConce"
-            style="@style/CommonButtonStyle"
-            android:layout_marginTop="16dp"
-            android:text="@string/registration_btn_view_concessionaires"
-            app:icon="@drawable/ic_ops_see_concessionaires"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="@+id/tvAddressSelection"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/tvAddressSelection"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddressSelection" />
-
-        <TextView
-            android:id="@+id/tvAddressSelection"
-            style="@style/textViewBodyStyle"
-            android:layout_width="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/btnViewConce"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSelectLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFragMaket">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:background="#C9000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarFragMaket"
+            tools:context=".flows.sign_on.marketModule.view.MarketRegisterActivity">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSaveMarket"
-                style="@style/CommonButtonStyle"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMarketName"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/registration_market_btn_save"
-                app:icon="@drawable/ic_ops_create_market"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:hint="@string/registration_hint_market_name"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:helperText="@string/login_til_required"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconDrawable="@drawable/ic_bn_market"
+                app:startIconTint="@color/primaryTextColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teMarketName"
+                    style="@style/TextInputEditTextStyle"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMarketMeters"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:hint="@string/registration_til_linear_meter"
+                app:boxStrokeColor="@drawable/states_colors_text_field"
+                app:endIconMode="clear_text"
+                app:helperText="@string/login_til_required"
+                app:layout_constraintBottom_toTopOf="@+id/mapPreview"
+                app:layout_constraintEnd_toEndOf="@+id/tilMarketName"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/tilMarketName"
+                app:layout_constraintTop_toBottomOf="@+id/tilMarketName"
+                app:layout_constraintVertical_bias="0.5"
+                app:startIconDrawable="@drawable/ic_ops_business"
+                app:startIconTint="@color/primaryTextColor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/teMarketMeters"
+                    style="@style/TextInputEditTextStyle"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<ImageView-->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/mapPreview"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tilMarketMeters" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSelectLocation"
+                style="@style/CommonButtonStyle"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/registration_btn_select_location"
+                app:icon="@drawable/ic_ops_select_location"
+                app:layout_constraintEnd_toEndOf="@+id/mapPreview"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/mapPreview"
+                app:layout_constraintTop_toBottomOf="@+id/mapPreview" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAddressSelection"
+                style="@style/textViewBodyStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/btnSelectLocation"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/btnSelectLocation"
+                app:layout_constraintTop_toBottomOf="@+id/btnSelectLocation" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="#C9000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveMarket"
+            style="@style/CommonButtonStyle"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/registration_market_btn_save"
+            app:icon="@drawable/ic_ops_create_market"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-    -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
