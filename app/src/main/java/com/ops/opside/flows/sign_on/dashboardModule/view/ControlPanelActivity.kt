@@ -30,7 +30,7 @@ class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
     private lateinit var controlPanelAdapter: ControlPanelAdapter
     private val mControlPanelViewModel: ControlPanelViewModel by viewModels()
     private lateinit var mCollectorList: MutableList<CollectorSE>
-    private var mPriceLinearMeter: Float = 0f
+    private var mPriceLinearMeter: Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

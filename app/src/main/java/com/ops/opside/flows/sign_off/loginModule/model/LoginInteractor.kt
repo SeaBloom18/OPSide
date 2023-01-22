@@ -70,7 +70,7 @@ class LoginInteractor @Inject constructor(
                 email = concessionaire.email,
                 roll = if (concessionaire.isForeigner) 1 else 2,
                 linearMeters = concessionaire.linearMeters.toString(),
-                priceLinearMeter = 0f,
+                priceLinearMeter = 0.0f,
                 lineBusiness = concessionaire.lineBusiness,
                 rememberMe = rememberMe,
                 useBiometrics = useBiometrics

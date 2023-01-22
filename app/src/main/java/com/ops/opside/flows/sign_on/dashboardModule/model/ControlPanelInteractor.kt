@@ -51,20 +51,22 @@ data class ControlPanelInteractor @Inject constructor(
 
     fun getLinealPriceMeter(): Observable<Float> {
         return Observable.unsafeCreate { subscriber ->
-            var priceLinealMeter = 0.0f
-            firestore.collection(TablesEnum.Resources.getName())
-                .get()
-                .addOnSuccessListener {
-                    for (document in it.documents) {
-                        priceLinealMeter =
-                            document.get("priceLinealMeter").toString().toFloat().orZero()
-                        sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter)
+            tryOrPrintException {
+                var priceLinealMeter = 0.0f
+                firestore.collection(TablesEnum.Resources.getName())
+                    .get()
+                    .addOnSuccessListener {
+                        for (document in it.documents) {
+                            priceLinealMeter =
+                                document.get("priceLinealMeter").toString().toFloat().orZero()
+                            sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter)
+                        }
+                        subscriber.onNext(priceLinealMeter)
                     }
-                    subscriber.onNext(priceLinealMeter)
-                }
-                .addOnFailureListener {
-                    subscriber.onError(it)
-                }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            }
         }
     }
 
