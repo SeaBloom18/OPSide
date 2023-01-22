@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.incidentsModule.model.CreateIncidentsInteractor
@@ -17,8 +18,11 @@ import javax.inject.Inject
 class CreateIncidentsViewModel @Inject constructor(
     private val mCreateIncidentsInteractor: CreateIncidentsInteractor): CommonViewModel() {
 
-    private val _getConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
-    val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = _getConcessionairesList
+    private val mGetConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
+    val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = mGetConcessionairesList
+
+    private val mGetTaxCollectionList = MutableLiveData<MutableList<TaxCollectionSE>>()
+    val getTaxCollectionList: LiveData<MutableList<TaxCollectionSE>> = mGetTaxCollectionList
 
     fun getConcessionairesList(){
         disposable.add(
@@ -27,7 +31,24 @@ class CreateIncidentsViewModel @Inject constructor(
                 .subscribe(
                     {
                         showProgress.value = false
-                        _getConcessionairesList.value = it
+                        mGetConcessionairesList.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+
+    fun getTaxCollectionList() {
+        disposable.add(
+            mCreateIncidentsInteractor.getTaxCollections().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        mGetTaxCollectionList.value = it
                     },
                     {
                         showProgress.value = false

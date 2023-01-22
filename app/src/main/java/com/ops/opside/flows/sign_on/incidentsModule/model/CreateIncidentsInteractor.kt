@@ -5,14 +5,19 @@ import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_ID
 import com.ops.opside.common.utils.getName
+import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
  * Created by davidgonzalez on 22/01/23
  */
-class CreateIncidentsInteractor @Inject constructor(private val firestore: FirebaseFirestore) {
+class CreateIncidentsInteractor @Inject constructor(
+    private val firestore: FirebaseFirestore, private val preferences: Preferences) {
 
     fun getConcessionaireList() : Observable<MutableList<ConcessionaireSE>> {
         return Observable.unsafeCreate { subscriber ->
@@ -45,6 +50,41 @@ class CreateIncidentsInteractor @Inject constructor(private val firestore: Fireb
                     .addOnFailureListener { subscriber.onNext(concessionaires) }
             } catch (exception: Exception) {
                 subscriber.onError(exception)
+            }
+        }
+    }
+
+    fun getTaxCollections(): Observable<MutableList<TaxCollectionSE>> {
+        return Observable.unsafeCreate { subscriber ->
+            tryOrPrintException {
+                val taxCollectionList = mutableListOf<TaxCollectionSE>()
+
+                firestore.collection(TablesEnum.TaxCollection.getName())
+                    .whereEqualTo("idTaxCollector", preferences.getString(SP_ID))
+                    .get()
+                    .addOnSuccessListener {
+                        for (document in it.documents) {
+                            taxCollectionList.add(
+                                TaxCollectionSE(
+                                    idFirebase = document.id,
+                                    idMarket = document.data!!["idMarket"].toString(),
+                                    marketName = document.data!!["marketName"].toString(),
+                                    totalAmount = document.data!!["totalAmount"].toString()
+                                        .toDouble(),
+                                    startDate = document.data!!["startDate"].toString(),
+                                    endDate = document.data!!["endDate"].toString(),
+                                    startTime = document.data!!["startTime"].toString(),
+                                    endTime = document.data!!["endTime"].toString(),
+                                    taxCollector = document.data!!["taxCollector"].toString(),
+                                    idTaxCollector = document.data!!["idTaxCollector"].toString()
+                                )
+                            )
+                        }
+                        subscriber.onNext(taxCollectionList)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
             }
         }
     }

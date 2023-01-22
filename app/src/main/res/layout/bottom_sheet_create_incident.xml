@@ -6,12 +6,24 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/common_padding_default">
 
+    <ImageButton
+        android:id="@+id/btnClose2"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/common_content_description"
+        android:src="@drawable/ic_ops_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView5"
         style="@style/textViewSubtitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/bottom_sheet_tv_title"
         app:layout_constraintBottom_toTopOf="@+id/tilIncidentName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +78,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:hint="Tax Collection"
+        app:startIconDrawable="@drawable/ic_ops_business"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +88,7 @@
             android:id="@+id/teTaxCollection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TextInputEditTextStyle"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -125,7 +125,7 @@ class BottomSheetFilter(
         val list = markets.map { it.key }
         val hMarket: ArrayAdapter<String> =
             ArrayAdapter<String>(
-                requireContext(), android.R.layout.simple_spinner_item, list
+                requireContext(), android.R.layout.simple_list_item_1, list
             )
 
         mBinding.apply {
@@ -143,7 +143,7 @@ class BottomSheetFilter(
         val list = collectors.map { it.key }
         val hCollector: ArrayAdapter<String> =
             ArrayAdapter<String>(
-                requireContext(), android.R.layout.simple_spinner_item, list
+                requireContext(), android.R.layout.simple_list_item_1, list
             )
 
         mBinding.apply {
