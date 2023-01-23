@@ -210,7 +210,7 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="control_panel_hasaccess_updated_success">The Access has been updated</string>
     <string name="control_panel_hasaccess_updated_error">The Access not has been updated</string>
 
-    <!--Incidents String-->
+    <!--Incidents person assign String-->
     <string name="bottom_sheet_tv_title">Assign a new Issue</string>
     <string name="bottom_sheet_see_list_tv_title">Incidents List</string>
     <string name="bottom_sheet_btn_create_inc">Create Incident</string>
@@ -219,6 +219,21 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="tax_collection_choose_market">Chose a Market</string>
     <string name="tax_collection_on_line">On Line</string>
     <string name="tax_collection_off_line">Off Line</string>
+
+    <string name="bs_assign_incident_tv_tittle">Assign a new Issue</string>
+    <string name="bs_assign_incident_til_hint_name">Issue assign name</string>
+    <string name="bs_assign_incident_til_hint_issue_track">Select issue track</string>
+    <string name="bs_assign_incident_til_hint_issue_conce">Select Concessionaire</string>
+    <string name="bs_assign_incident_til_hint_collection">Select TaxCollection</string>
+
+
+    <!--Incidents create String-->
+    <string name="bs_create_incident_tv_tittle">Create New Issue</string>
+    <string name="bs_create_incident_tv_til_hint_name">Issue Name</string>
+    <string name="bs_create_incident_tv_til_hint_price">Issue Price</string>
+    <string name="bs_create_incident_tv_til_hint_description">Issue Description</string>
+    <string name="bs_create_incident_btn_create">Create Issue</string>
+
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Log Out</string>
