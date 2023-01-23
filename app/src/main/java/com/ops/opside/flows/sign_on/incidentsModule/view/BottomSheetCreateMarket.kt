@@ -7,17 +7,19 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.ops.opside.R
-import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.Preferences
+import com.ops.opside.common.utils.SP_ID
+import com.ops.opside.common.utils.SP_NAME
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.CreateIncidentsViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): BaseBottomSheetFragment() {
@@ -28,6 +30,7 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
     private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
+    @Inject lateinit var preferences: Preferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -51,15 +54,25 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
 
     private fun insertIncident() {
         with(mIncidentPersonFE) {
-            incidentName = "name test"
-            idCollector = "id collector"
-            reportName = "report name"
-            assignName = "assign name"
-            date = "date"
-            idIncident = "id incident"
-            price = 12.3
+            val teIncidentName = mBinding.teIncidentName.text.toString().trim()
+            val teConcessionaireName = mBinding.teSearch.text.toString().trim()
+            val teTaxCollectionName = mBinding.teTaxCollection.text.toString().trim()
+            val teIncidentPrice = mBinding.teIncidentPrice.text.toString().trim()
+            if (teIncidentName.isNotEmpty()
+                && teConcessionaireName.isNotEmpty()
+                && teTaxCollectionName.isNotEmpty()
+                && teIncidentPrice.isNotEmpty()) {
+                incidentName = teIncidentName
+                idCollector = preferences.getString(SP_ID).toString()
+                reportName = preferences.getString(SP_NAME).toString()
+                assignName = teConcessionaireName
+                date = "current date"
+                idIncident = "id incident"
+                price = teIncidentPrice.toDouble()
+                idTaxCollection = teTaxCollectionName
+                mCreateIncidentsViewModel.funInsertIncident(mIncidentPersonFE)
+            } else { toast("debes de llenar todos los valorea") }
         }
-        mCreateIncidentsViewModel.funInsertIncident(mIncidentPersonFE)
     }
 
     /** ViewModel SetUp **/

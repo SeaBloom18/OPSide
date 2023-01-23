@@ -8,8 +8,8 @@ data class IncidentPersonFE(
     var assignName: String = "",
     var date: String = "",
     var idIncident: String = "",
-    var price: Double = 0.0
-
+    var price: Double = 0.0,
+    var idTaxCollection: String = ""
 
 ) {
     fun getHashMap(): MutableMap<String, Any> {
@@ -21,8 +21,10 @@ data class IncidentPersonFE(
         map["date"] = date
         map["price"] = price
         map["idIncident"] = idIncident
+        map["idTaxCollection"] = idTaxCollection
         return map
     }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -37,6 +39,7 @@ data class IncidentPersonFE(
         if (date != other.date) return false
         if (idIncident != other.idIncident) return false
         if (price != other.price) return false
+        if (idTaxCollection != other.idTaxCollection) return false
 
         return true
     }
@@ -50,7 +53,9 @@ data class IncidentPersonFE(
         result = 31 * result + date.hashCode()
         result = 31 * result + idIncident.hashCode()
         result = 31 * result + price.hashCode()
+        result = 31 * result + idTaxCollection.hashCode()
         return result
     }
+
 }
 
