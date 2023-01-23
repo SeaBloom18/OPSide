@@ -4,8 +4,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
 import com.ops.opside.common.entities.TablesEnum
+import com.ops.opside.common.entities.firestore.IncidentFE
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_ID
@@ -97,6 +99,31 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
                             )
                         }
                         subscriber.onNext(taxCollectionList)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            }
+        }
+    }
+
+    fun getIncidentList(): Observable<MutableList<IncidentSE>> {
+        return Observable.unsafeCreate { subscriber ->
+            tryOrPrintException {
+                val incidentList = mutableListOf<IncidentSE>()
+
+                firestore.collection(TablesEnum.Incident.getName())
+                    .get()
+                    .addOnSuccessListener {
+                        for (document in it.documents) {
+                            incidentList.add(IncidentSE(
+                                idFirebase = document.id,
+                                incidentName = document.data!!["incidentName"].toString(),
+                                incidentPrice = document.data!!["incidentPrice"].toString().toDouble(),
+                                incidentDescription = document.data!!["incidentDescription"].toString()
+                            ))
+                        }
+                        subscriber.onNext(incidentList)
                     }
                     .addOnFailureListener {
                         subscriber.onError(it)

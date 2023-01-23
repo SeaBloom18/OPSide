@@ -28,6 +28,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     private val mBottomSheetCreateIncidentPersonViewModel: BottomSheetCreateIncidentPersonViewModel by viewModels()
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
+    private lateinit var mIncidentList: MutableList<IncidentSE>
     private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
     @Inject lateinit var preferences: Preferences
 
@@ -94,11 +95,32 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     private fun getLists() {
         mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList()
         mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList()
+        mBottomSheetCreateIncidentPersonViewModel.getIncidentList()
     }
     private fun bindViewModel() {
         mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList.observe(this,
             Observer(this::getConcessionaireList))
-        mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList.observe(this, Observer(this::getTaxCollectionList))
+        mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList.observe(this,
+            Observer(this::getTaxCollectionList))
+        mBottomSheetCreateIncidentPersonViewModel.getIncidentList.observe(this,
+            Observer(this::getIncidentList))
+    }
+
+    /** Incidents List setUp **/
+    private fun getIncidentList(incidentList: MutableList<IncidentSE>) {
+        mIncidentList = incidentList
+        setUpIncidentList()
+    }
+
+    private fun getIncidentListNames(): MutableList<String> {
+        return mIncidentList.map { it.incidentName }
+            .toMutableList()
+    }
+    private fun setUpIncidentList() {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
+                getIncidentListNames())
+        mBinding.teIncidentPrice.setAdapter(adapter)
     }
 
     /** TaxCollector List setUp **/

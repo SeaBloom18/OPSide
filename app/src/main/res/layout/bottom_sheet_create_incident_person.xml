@@ -51,22 +51,21 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilIncidentPrice"
-        style="@style/TextInputLayoutStyle"
+        style="@style/TextInputDropDownLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="@string/bs_assign_incident_til_hint_issue_track"
         app:boxStrokeColor="@drawable/states_colors_text_field"
-        app:endIconMode="clear_text"
         app:layout_constraintBottom_toTopOf="@+id/tilSearch"
         app:layout_constraintEnd_toEndOf="@+id/tilSearch"
         app:layout_constraintStart_toStartOf="@+id/tilSearch"
         app:startIconDrawable="@drawable/ic_bn_dollar">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teIncidentPrice"
             style="@style/TextInputEditTextStyle"
-            android:inputType="numberDecimal" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

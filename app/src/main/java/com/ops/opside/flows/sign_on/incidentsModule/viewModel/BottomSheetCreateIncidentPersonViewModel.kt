@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
+import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
@@ -24,6 +25,9 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
 
     private val mGetTaxCollectionList = MutableLiveData<MutableList<TaxCollectionSE>>()
     val getTaxCollectionList: LiveData<MutableList<TaxCollectionSE>> = mGetTaxCollectionList
+
+    private val mGetIncidentList = MutableLiveData<MutableList<IncidentSE>>()
+    val getIncidentList: LiveData<MutableList<IncidentSE>> = mGetIncidentList
 
     fun getConcessionairesList(){
         disposable.add(
@@ -77,6 +81,22 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
                     }
                 )
         )
+    }
 
+    fun getIncidentList() {
+        disposable.add(
+            mBottomSheetCreateIncidentPersonInteractor.getIncidentList().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        mGetIncidentList.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
     }
 }
