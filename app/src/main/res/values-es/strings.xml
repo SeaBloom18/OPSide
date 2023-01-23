@@ -232,6 +232,7 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="bs_assign_incident_til_hint_issue_track">Seleccionar la Incidencia</string>
     <string name="bs_assign_incident_til_hint_issue_conce">Seleccionar Concesionario</string>
     <string name="bs_assign_incident_til_hint_collection">Seleccionar Recoleccion</string>
+    <string name="bs_assign_incident_btn_assign">Asignar Incidencia</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Crear Nueva Incidencia</string>
