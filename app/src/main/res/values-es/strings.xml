@@ -217,7 +217,7 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="control_panel_hasaccess_updated_error">Oops Error al actualizar el acceso!</string>
 
     <!--Incidents String-->
-    <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>
+    <string name="bottom_sheet_tv_title">Asignar una nueva Incidencia</string>
     <string name="bottom_sheet_see_list_tv_title">Lista de Incidencias</string>
     <string name="bottom_sheet_btn_create_inc">Crear Incidencia</string>
     <string name="bottom_sheet_til_hint_inc_name">Nombre de incidencia</string>

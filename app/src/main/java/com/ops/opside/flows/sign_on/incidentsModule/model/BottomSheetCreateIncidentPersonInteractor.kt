@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by davidgonzalez on 22/01/23
  */
-class CreateIncidentPersonInteractor @Inject constructor(
+class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
     private val firestore: FirebaseFirestore, private val preferences: Preferences) {
 
     fun insertIncident(incidentPersonFE: IncidentPersonFE): Observable<Boolean> {

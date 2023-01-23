@@ -211,7 +211,7 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="control_panel_hasaccess_updated_error">The Access not has been updated</string>
 
     <!--Incidents String-->
-    <string name="bottom_sheet_tv_title">Create new Incident</string>
+    <string name="bottom_sheet_tv_title">Assign a new Issue</string>
     <string name="bottom_sheet_see_list_tv_title">Incidents List</string>
     <string name="bottom_sheet_btn_create_inc">Create Incident</string>
     <string name="bottom_sheet_til_hint_inc_name">Name Incident</string>

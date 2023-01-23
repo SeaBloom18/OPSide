@@ -20,7 +20,6 @@ class IncidentsFragment : BaseFragment() {
     private lateinit var mBinding: FragmentIncidentsBinding
     private val mActivity: MainActivity by lazy { activity as MainActivity }
     private lateinit var mIncidentAdapter: IncidentAdapter
-    private lateinit var mViewModel: IncidentsViewModel
     private lateinit var mIncidentList: MutableList<IncidentPersonFE>
 
     override fun onCreateView(
@@ -37,12 +36,10 @@ class IncidentsFragment : BaseFragment() {
         loadIncidentsPersonsList()
     }
     private fun bindViewModel() {
-        mViewModel = ViewModelProvider(requireActivity())[IncidentsViewModel::class.java]
-        mViewModel.getIncidentsPersonList.observe(mActivity, Observer(this::getIncidentPersonsList))
+
     }
 
     private fun loadIncidentsPersonsList() {
-        mViewModel.getIncidentsPersonList()
     }
 
     private fun getIncidentPersonsList(incidentsList: MutableList<IncidentPersonFE>){
@@ -96,6 +93,8 @@ class IncidentsFragment : BaseFragment() {
     }
 
     private fun createIncident() {
-
+        val dialog = BottomSheetCreateIncident()
+        dialog.isCancelable = true
+        dialog.show(mActivity.supportFragmentManager, dialog.tag)
     }
 }

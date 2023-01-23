@@ -14,6 +14,7 @@ import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
+import com.ops.opside.databinding.BottomSheetCreateIncidentPersonBinding
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetCreateIncidentPersonViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit = {}): BaseBottomSheetFragment() {
 
-    private lateinit var mBinding: BottomSheetCreateIncidentBinding
+    private lateinit var mBinding: BottomSheetCreateIncidentPersonBinding
     private lateinit var mActivity: MainActivity
     private val mBottomSheetCreateIncidentPersonViewModel: BottomSheetCreateIncidentPersonViewModel by viewModels()
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
@@ -32,7 +33,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        mBinding = BottomSheetCreateIncidentBinding.inflate(inflater)
+        mBinding = BottomSheetCreateIncidentPersonBinding.inflate(inflater)
         return mBinding.root
     }
 
