@@ -10,7 +10,8 @@ data class IncidentPersonFE(
     var time: String = "",
     var idIncident: String = "",
     var price: Double = 0.0,
-    var idTaxCollection: String = ""
+    var idTaxCollection: String = "",
+    var idConcessionaire: String = ""
 
 ) {
     fun getHashMap(): MutableMap<String, Any> {
@@ -24,6 +25,7 @@ data class IncidentPersonFE(
         map["price"] = price
         map["idIncident"] = idIncident
         map["idTaxCollection"] = idTaxCollection
+        map["idConcessionaire"] = idConcessionaire
         return map
     }
 

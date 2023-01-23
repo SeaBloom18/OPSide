@@ -14,18 +14,17 @@ import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
-import com.ops.opside.flows.sign_on.incidentsModule.viewModel.CreateIncidentsViewModel
+import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetCreateIncidentPersonViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): BaseBottomSheetFragment() {
+class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit = {}): BaseBottomSheetFragment() {
 
     private lateinit var mBinding: BottomSheetCreateIncidentBinding
     private lateinit var mActivity: MainActivity
-    private val mCreateIncidentsViewModel: CreateIncidentsViewModel by viewModels()
+    private val mBottomSheetCreateIncidentPersonViewModel: BottomSheetCreateIncidentPersonViewModel by viewModels()
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
     private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
@@ -70,21 +69,35 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
                 idIncident = "id incident"
                 price = teIncidentPrice.toDouble()
                 idTaxCollection = teTaxCollectionName
-                mCreateIncidentsViewModel.funInsertIncident(mIncidentPersonFE)
+                idConcessionaire = ""
+                mBottomSheetCreateIncidentPersonViewModel.funInsertIncident(mIncidentPersonFE)
             } else { toast("debes de llenar todos los valorea") }
         }
+
+        /*
+        * assignName = Nombre de la persona multada. (done)
+        date = Fecha de cuando se asignó la multa (Debe cambiarse a timeStamp, actualmente es una string).
+        idCollector = el id del recolector que está generando la multa. (done)
+        idIncident = id de firebase del documento que representa la multa, en la tabla de incidents.
+        idTaxCollection = id de firebase de la recolección en la que se generó la multa.
+        IncidentName = Nombre de la incidencia, este dato también se saca de la tabla de incidents. (done)
+        price = monto total a pagar, este dato también se saca de la tabla de incidencias. ()
+        reportName = Nombre del recolector que generó la multa.
+        time = desaparecerá, ya que este dato se encontrará en el dato Date al convertirse en timeStamp.
+        También se añadirá el idConcessionaire, que será el id de firebase del concesionario al que se le asigna la multa.
+        * */
     }
 
     /** ViewModel SetUp **/
 
     private fun getLists() {
-        mCreateIncidentsViewModel.getConcessionairesList()
-        mCreateIncidentsViewModel.getTaxCollectionList()
+        mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList()
+        mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList()
     }
     private fun bindViewModel() {
-        mCreateIncidentsViewModel.getConcessionairesList.observe(this,
+        mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList.observe(this,
             Observer(this::getConcessionaireList))
-        mCreateIncidentsViewModel.getTaxCollectionList.observe(this, Observer(this::getTaxCollectionList))
+        mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList.observe(this, Observer(this::getTaxCollectionList))
     }
 
     /** TaxCollector List setUp **/

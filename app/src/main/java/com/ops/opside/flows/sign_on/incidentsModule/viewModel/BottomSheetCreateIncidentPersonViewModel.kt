@@ -8,7 +8,7 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
-import com.ops.opside.flows.sign_on.incidentsModule.model.CreateIncidentsInteractor
+import com.ops.opside.flows.sign_on.incidentsModule.model.CreateIncidentPersonInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,8 +16,8 @@ import javax.inject.Inject
  * Created by davidgonzalez on 22/01/23
  */
 @HiltViewModel
-class CreateIncidentsViewModel @Inject constructor(
-    private val mCreateIncidentsInteractor: CreateIncidentsInteractor): CommonViewModel() {
+class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
+    private val mCreateIncidentPersonInteractor: CreateIncidentPersonInteractor): CommonViewModel() {
 
     private val mGetConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
     val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = mGetConcessionairesList
@@ -27,7 +27,7 @@ class CreateIncidentsViewModel @Inject constructor(
 
     fun getConcessionairesList(){
         disposable.add(
-            mCreateIncidentsInteractor.getConcessionaireList().applySchedulers()
+            mCreateIncidentPersonInteractor.getConcessionaireList().applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
@@ -44,7 +44,7 @@ class CreateIncidentsViewModel @Inject constructor(
 
     fun getTaxCollectionList() {
         disposable.add(
-            mCreateIncidentsInteractor.getTaxCollections().applySchedulers()
+            mCreateIncidentPersonInteractor.getTaxCollections().applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
@@ -61,7 +61,7 @@ class CreateIncidentsViewModel @Inject constructor(
 
     fun funInsertIncident(incidentPersonFE: IncidentPersonFE) {
         disposable.add(
-            mCreateIncidentsInteractor.insertIncident(incidentPersonFE).applySchedulers()
+            mCreateIncidentPersonInteractor.insertIncident(incidentPersonFE).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {

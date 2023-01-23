@@ -11,7 +11,6 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.databinding.FragmentIncidentsBinding
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.IncidentAdapter
-import com.ops.opside.flows.sign_on.incidentsModule.viewModel.IncidentsViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import androidx.lifecycle.Observer
 import com.ops.opside.common.views.BaseFragment
@@ -75,6 +74,10 @@ class IncidentsFragment : BaseFragment() {
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when(menuItem.itemId){
+                        R.id.create_incident_person -> {
+                            createIncidentPerson()
+                            true
+                        }
                         R.id.create_incident -> {
                             createIncident()
                             true
@@ -86,9 +89,13 @@ class IncidentsFragment : BaseFragment() {
         }
     }
 
-    private fun createIncident(){
-        val dialog = BottomSheetCreateMarket()
+    private fun createIncidentPerson(){
+        val dialog = BottomSheetCreateIncidentPerson()
         dialog.isCancelable = true
         dialog.show(mActivity.supportFragmentManager, dialog.tag)
+    }
+
+    private fun createIncident() {
+
     }
 }

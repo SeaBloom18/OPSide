@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/create_incident"
-        android:title="CreateIncident"
+        android:id="@+id/create_incident_person"
+        android:title="CreateIncidentPerson"
         android:icon="@drawable/ic_ops_add_incident"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/create_incident"
+        android:title="CreateIncident"
+        android:icon="@drawable/ic_ops_add"
+        app:showAsAction="always" />
 </menu>
