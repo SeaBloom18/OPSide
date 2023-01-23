@@ -66,7 +66,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/teIncidentPrice"
             style="@style/TextInputEditTextStyle"
-            android:inputType="textPersonName" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

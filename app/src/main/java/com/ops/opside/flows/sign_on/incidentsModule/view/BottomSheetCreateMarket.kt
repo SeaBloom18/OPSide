@@ -11,14 +11,13 @@ import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
-import com.ops.opside.common.utils.Preferences
-import com.ops.opside.common.utils.SP_ID
-import com.ops.opside.common.utils.SP_NAME
+import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.CreateIncidentsViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -58,15 +57,16 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
             val teConcessionaireName = mBinding.teSearch.text.toString().trim()
             val teTaxCollectionName = mBinding.teTaxCollection.text.toString().trim()
             val teIncidentPrice = mBinding.teIncidentPrice.text.toString().trim()
-            if (teIncidentName.isNotEmpty()
-                && teConcessionaireName.isNotEmpty()
-                && teTaxCollectionName.isNotEmpty()
-                && teIncidentPrice.isNotEmpty()) {
+            val dateTimeFormatter = CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
+            val timeFor = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
+            if (teIncidentName.isNotEmpty() && teConcessionaireName.isNotEmpty()
+                && teTaxCollectionName.isNotEmpty() && teIncidentPrice.isNotEmpty()) {
                 incidentName = teIncidentName
                 idCollector = preferences.getString(SP_ID).toString()
                 reportName = preferences.getString(SP_NAME).toString()
                 assignName = teConcessionaireName
-                date = "current date"
+                date = dateTimeFormatter
+                time = timeFor
                 idIncident = "id incident"
                 price = teIncidentPrice.toDouble()
                 idTaxCollection = teTaxCollectionName

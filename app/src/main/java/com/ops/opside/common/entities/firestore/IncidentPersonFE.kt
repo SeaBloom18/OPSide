@@ -7,6 +7,7 @@ data class IncidentPersonFE(
     var reportName: String = "",
     var assignName: String = "",
     var date: String = "",
+    var time: String = "",
     var idIncident: String = "",
     var price: Double = 0.0,
     var idTaxCollection: String = ""
@@ -19,6 +20,7 @@ data class IncidentPersonFE(
         map["reportName"] = reportName
         map["assignName"] = assignName
         map["date"] = date
+        map["time"] = time
         map["price"] = price
         map["idIncident"] = idIncident
         map["idTaxCollection"] = idTaxCollection
