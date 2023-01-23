@@ -108,7 +108,7 @@
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teSearch"
             style="@style/TextInputEditTextStyle"
-            android:inputType="textEmailAddress" />
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

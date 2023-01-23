@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ops.opside.R
+import com.ops.opside.common.entities.firestore.CollectorFE
+import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
@@ -25,7 +27,7 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
     private val mCreateIncidentsViewModel: CreateIncidentsViewModel by viewModels()
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
-
+    private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -37,12 +39,27 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
         super.onViewCreated(view, savedInstanceState)
 
         mBinding.apply {
-            btnCreateIncident.setOnClickListener { toast(getString(R.string.tax_collection_toast_incident_success)) }
+            btnCreateIncident.setOnClickListener {
+                insertIncident()
+            }
             btnClose2.setOnClickListener { dismiss() }
         }
         setUpActivity()
         getLists()
         bindViewModel()
+    }
+
+    private fun insertIncident() {
+        with(mIncidentPersonFE) {
+            incidentName = "name test"
+            idCollector = "id collector"
+            reportName = "report name"
+            assignName = "assign name"
+            date = "date"
+            idIncident = "id incident"
+            price = 12.3
+        }
+        mCreateIncidentsViewModel.funInsertIncident(mIncidentPersonFE)
     }
 
     /** ViewModel SetUp **/
@@ -71,7 +88,9 @@ class BottomSheetCreateMarket(private val incident: (IncidentSE) -> Unit = {}): 
     }
 
     private fun getTaxCollectionListNames(): MutableList<String> {
-        return mTaxCollectionList.map { it.marketName }.toMutableList()
+        //text to show: marketName, date
+        return mTaxCollectionList.map { "${it.marketName}, ${it.startDate} to ${it.endDate}" }
+            .toMutableList()
     }
 
     /** Concessionaire List setUp**/

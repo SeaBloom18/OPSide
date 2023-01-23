@@ -3,6 +3,7 @@ package com.ops.opside.flows.sign_on.incidentsModule.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
@@ -56,5 +57,26 @@ class CreateIncidentsViewModel @Inject constructor(
                     }
                 )
         )
+    }
+
+    fun funInsertIncident(incidentPersonFE: IncidentPersonFE) {
+        disposable.add(
+            mCreateIncidentsInteractor.insertIncident(incidentPersonFE).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        //_registerConcessionaire.value = it
+                        showProgress.value = false
+                        //_action.value = RegistrationAction.ShowMessageSuccess
+                    },
+                    {
+                        //_registerConcessionaire.value = false
+                        Log.e("Error", it.toString())
+                        showProgress.value = false
+                        //_action.value = RegistrationAction.ShowMessageError
+                    }
+                )
+        )
+
     }
 }

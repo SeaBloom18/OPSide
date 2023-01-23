@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
 import com.ops.opside.common.entities.TablesEnum
+import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.Preferences
@@ -18,6 +19,21 @@ import javax.inject.Inject
  */
 class CreateIncidentsInteractor @Inject constructor(
     private val firestore: FirebaseFirestore, private val preferences: Preferences) {
+
+    fun insertIncident(incidentPersonFE: IncidentPersonFE): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
+            tryOrPrintException {
+                firestore.collection(TablesEnum.IncidentPerson.getName())
+                    .add(incidentPersonFE.getHashMap())
+                    .addOnSuccessListener {
+                        subscriber.onNext(true)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onNext(false)
+                    }
+            }
+        }
+    }
 
     fun getConcessionaireList() : Observable<MutableList<ConcessionaireSE>> {
         return Observable.unsafeCreate { subscriber ->

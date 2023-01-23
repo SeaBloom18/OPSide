@@ -11,12 +11,12 @@ class IncidentsInteractor {
             try {
                 val incident = mutableListOf<IncidentPersonFE>()
 
-                val incident1 = IncidentPersonFE("", "David Gonzalez", "Mario Razo", "03/08/2022", 7, 76.0)
-                val incident2 = IncidentPersonFE("", "Alejandro Quezada", "Mario Razo", "08/03/2022", 87, 54.0)
+                //val incident1 = IncidentPersonFE("", "David Gonzalez", "Mario Razo", "03/08/2022", 7, 76.0)
+                //val incident2 = IncidentPersonFE("", "Alejandro Quezada", "Mario Razo", "08/03/2022", 87, 54.0)
 
-                incident.add(incident1)
-                incident.add(incident2)
-                incident.add(incident2)
+                //incident.add(incident1)
+                //incident.add(incident2)
+                //incident.add(incident2)
 
                 subscriber.onNext(incident)
 
