@@ -98,27 +98,6 @@
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilAbsences"
-            style="@style/TextInputLayoutStyle"
-            android:layout_marginHorizontal="@dimen/common_padding_default"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/tax_collection_absence"
-            app:boxStrokeColor="@drawable/states_colors_text_field"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilEmail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditTextStyle"
-                android:id="@+id/etAbsences"
-                android:backgroundTint="@color/primaryLightColor"
-                android:enabled="false"
-                android:inputType="number"
-                tools:text="2"
-                android:textColor="@color/primaryTextColor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPickMarket"
@@ -126,11 +105,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/common_padding_default"
+            android:layout_marginTop="16dp"
             android:hint="@string/bn_menu_market_opc1"
             app:boxStrokeColor="@drawable/states_colors_text_field"
-            app:layout_constraintTop_toBottomOf="@+id/tilAbsences"
+            app:layout_constraintEnd_toStartOf="@id/btnAddMarket"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnAddMarket">
+            app:layout_constraintTop_toBottomOf="@+id/tilEmail">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/spPickMarket"

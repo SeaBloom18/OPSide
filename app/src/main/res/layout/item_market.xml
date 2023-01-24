@@ -21,7 +21,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/common_content_description"
             android:src="@drawable/ic_ops_delete"
-            app:layout_constraintBottom_toBottomOf="@+id/txtLineBusiness"
+            app:layout_constraintBottom_toBottomOf="@+id/tvmeters"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtMarketName" />
 
@@ -32,13 +32,12 @@
             android:layout_height="40dp"
             android:layout_marginVertical="@dimen/common_padding_default"
             android:layout_marginStart="16dp"
-            android:contentDescription="@string/common_content_description"
             android:background="@drawable/circle_imageview"
-            tools:text="A"
+            android:contentDescription="@string/common_content_description"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtMarketName"
@@ -64,6 +63,18 @@
             app:layout_constraintStart_toStartOf="@+id/txtMarketName"
             app:layout_constraintTop_toBottomOf="@+id/txtMarketName"
             tools:text="Giro del negocio" />
+
+        <TextView
+            android:id="@+id/tvmeters"
+            style="@style/textViewBodyStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            tools:text="8.5 meters, 3 absences"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/txtLineBusiness"
+            app:layout_constraintStart_toStartOf="@+id/txtLineBusiness"
+            app:layout_constraintTop_toBottomOf="@+id/txtLineBusiness" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

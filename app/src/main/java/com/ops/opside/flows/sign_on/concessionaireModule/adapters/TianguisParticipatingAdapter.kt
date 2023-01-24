@@ -47,7 +47,8 @@ class MarketParticipatingAdapter (
                 }
 
                 txtMarketName.text = item.marketName
-                txtLineBusiness.text = "${item.lineBusiness}, ${item.linearMeters} metros"
+                txtLineBusiness.text = item.lineBusiness
+                tvmeters.text = "${item.linearMeters} metros and 4 absences"
                 val firstLetter = item.marketName[0]
                 imgMarket.text = firstLetter.toString()
             }

@@ -54,15 +54,13 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
 
     private fun insertIncident() {
         with(mIncidentPersonFE) {
-            val teIncidentName = mBinding.teIncidentName.text.toString().trim()
             val teConcessionaireName = mBinding.teSearch.text.toString().trim()
             val teTaxCollectionName = mBinding.teTaxCollection.text.toString().trim()
             val teIncidentPrice = mBinding.teIncidentPrice.text.toString().trim()
             val dateTimeFormatter = CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
             val timeFor = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
-            if (teIncidentName.isNotEmpty() && teConcessionaireName.isNotEmpty()
+            if (teConcessionaireName.isNotEmpty()
                 && teTaxCollectionName.isNotEmpty() && teIncidentPrice.isNotEmpty()) {
-                incidentName = teIncidentName
                 idCollector = preferences.getString(SP_ID).toString()
                 reportName = preferences.getString(SP_NAME).toString()
                 assignName = teConcessionaireName
