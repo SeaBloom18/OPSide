@@ -267,6 +267,8 @@ The OPS application is willing to help and provide a better experience to all us
     <!--BottomSheet RelateConcessMarket-->
     <string name="bottom_sheet_relateconcessmarket_toast_linear_meter_validation">Linear meters must be greater than 0</string>
     <string name="bottom_sheet_relateconcessmarket_toast_line_business_validation">Business line cannot be empty</string>
+    <string name="bs_relate_concess_btn_reg">Registrar</string>
+    <string name="bs_relate_concess_tv_tittle">Add Market</string>
 
     <!--Policies Strings-->
     <string name="tv_title_policies">Privacy Policy for OPS</string>
