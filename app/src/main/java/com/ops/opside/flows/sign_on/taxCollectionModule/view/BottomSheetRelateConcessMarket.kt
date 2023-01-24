@@ -11,6 +11,7 @@ import com.ops.opside.common.entities.share.ParticipatingConcessSE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.views.BaseBottomSheetFragment
+import com.ops.opside.databinding.BottomSheetCreateIncidentPersonBinding
 import com.ops.opside.databinding.BottomSheetRelateConcessMarketBinding
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.BottomSheetRelateConcessMarketViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,12 +23,9 @@ class BottomSheetRelateConcessMarket(
     private val status: (Pair<Boolean, ParticipatingConcessSE>) -> Unit = {}
 ) : BaseBottomSheetFragment() {
 
-    private val mBinding: BottomSheetRelateConcessMarketBinding by lazy {
-        BottomSheetRelateConcessMarketBinding.inflate(layoutInflater)
-    }
+    private lateinit var mBinding: BottomSheetRelateConcessMarketBinding
 
     private lateinit var participatingConcess: ParticipatingConcessSE
-
     private val mViewModel: BottomSheetRelateConcessMarketViewModel by viewModels()
 
     override fun onCreateView(
@@ -35,6 +33,7 @@ class BottomSheetRelateConcessMarket(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        mBinding = BottomSheetRelateConcessMarketBinding.inflate(inflater)
         return mBinding.root
     }
 
@@ -46,9 +45,7 @@ class BottomSheetRelateConcessMarket(
 
             etDealerName.setText(concessionaire.name)
             etMarketName.setText(market.name)
-            btnRelate.setOnClickListener {
-                relate(etLinearMeters.text.toString().toDouble(), etLineOfBusiness.text.toString())
-            }
+            btnRelate.setOnClickListener { relate() }
         }
 
 
@@ -79,27 +76,23 @@ class BottomSheetRelateConcessMarket(
     }
 
 
-    private fun relate(linearMeters: Double, lineBusiness: String) {
-        if (linearMeters <= 0) {
-            toast(getString(R.string.bottom_sheet_relateconcessmarket_toast_linear_meter_validation))
-            return
+    private fun relate() {
+        val linearMeters = mBinding.etLinearMeters.text.toString().trim()
+        val lineBusiness = mBinding.etLineOfBusiness.text.toString().trim()
+        if (linearMeters.isEmpty()) {
+            toast("Debes de rellenar los metros lineales!")
+        } else if (lineBusiness.isEmpty()) {
+            toast("Debes de rellenar el tipo de puesto!")
+        } else {
+            participatingConcess = ParticipatingConcessSE(
+                market.idFirebase,
+                concessionaire.idFirebase,
+                idFirebase = "",
+                linearMeters.toDouble(),
+                lineBusiness,
+                market.name)
+            mViewModel.relateConcessWithMarket(participatingConcess)
         }
-
-        if (lineBusiness.isEmpty()) {
-            toast(getString(R.string.bottom_sheet_relateconcessmarket_toast_line_business_validation))
-            return
-        }
-
-        participatingConcess = ParticipatingConcessSE(
-            market.idFirebase,
-            concessionaire.idFirebase,
-            idFirebase = "",
-            linearMeters,
-            lineBusiness,
-            market.name
-        )
-
-        mViewModel.relateConcessWithMarket(participatingConcess)
     }
 
 }
