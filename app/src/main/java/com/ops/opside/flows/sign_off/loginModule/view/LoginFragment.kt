@@ -19,8 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.*
-import com.ops.opside.common.entities.firestore.CollectorFE
-import com.ops.opside.common.entities.firestore.ConcessionaireFE
+import com.ops.opside.common.entities.firestore.*
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentLoginBinding
@@ -92,7 +91,6 @@ class LoginFragment : BaseFragment() {
 
         bindViewModel()
         setFormWhitSharedPreferences()
-
         mViewModel.getLinealMeterPrice()
     }
 

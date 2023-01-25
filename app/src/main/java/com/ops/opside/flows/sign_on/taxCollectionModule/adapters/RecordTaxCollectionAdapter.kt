@@ -11,6 +11,8 @@ import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.utils.FORMAT_TIME
 import com.ops.opside.common.utils.FORMAT_TIMESTAMP
 import com.ops.opside.common.utils.Formaters
+import com.ops.opside.common.utils.Formaters.formatCurrency
+import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.databinding.ItemRecordTaxCollectionBinding
 
 class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
@@ -41,7 +43,7 @@ class RecordTaxCollectionAdapter(var events: MutableList<EventRE>, ) :
                 tvName.text = item.nameConcessionaire
                 tvHour.text = Formaters.parseFormat(item.timeStamp, FORMAT_TIMESTAMP, FORMAT_TIME)
                 tvAction.text = item.status
-                tvAmount.text = "$ ${item.amount}"
+                tvAmount.text = item.amount.orZero().formatCurrency()
 
                 if (adapterPosition == itemCount - 1)
                     divider.isVisible = false

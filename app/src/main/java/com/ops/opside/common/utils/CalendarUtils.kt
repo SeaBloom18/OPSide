@@ -24,11 +24,12 @@ object CalendarUtils {
         return Timestamp(date)
     }
 
-    fun getCurrentMonth(): Pair<Date,Date>{
+    fun getCurrentMonth(getCurrent: Boolean, selectedMonth: Int = 0, selectedYear: Int = 0): Pair<Date,Date>{
         val calendarStart = Calendar.getInstance()
         val calendarEnd = Calendar.getInstance()
-        val month = calendarStart.get(Calendar.MONTH)
-        val year = calendarStart.get(Calendar.YEAR)
+
+        val month = if (getCurrent) calendarStart.get(Calendar.MONTH) else selectedMonth
+        val year  = if (getCurrent) calendarStart.get(Calendar.YEAR)  else selectedYear
 
         val startOfMonth = calendarStart.apply {
             set(Calendar.YEAR, year)

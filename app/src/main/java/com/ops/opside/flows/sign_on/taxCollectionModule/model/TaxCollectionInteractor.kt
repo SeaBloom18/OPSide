@@ -245,7 +245,7 @@ class TaxCollectionInteractor @Inject constructor(
     fun getAbsences(idMarket: String): Observable<MutableMap<String, Int>> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                val month = CalendarUtils.getCurrentMonth()
+                val month = CalendarUtils.getCurrentMonth(getCurrent = true)
                 firestore.collection(TablesEnum.Event.getName())
                     .whereEqualTo("status", ABSENCE)
                     .whereEqualTo("idMarket", idMarket)

@@ -2,7 +2,6 @@ package com.ops.opside.flows.sign_on.dashboardModule.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ops.opside.common.entities.DB_TABLE_RESOURCES
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.Formaters.orZero
@@ -53,13 +52,13 @@ data class ControlPanelInteractor @Inject constructor(
         return Observable.unsafeCreate { subscriber ->
             var priceLinealMeter = 0.0f
             firestore.collection(TablesEnum.Resources.getName())
+                .document("Ulmp4yMD4noSlOE6IwpX")
                 .get()
                 .addOnSuccessListener {
-                    for (document in it.documents) {
                         priceLinealMeter =
-                            document.get("priceLinealMeter").toString().toFloat().orZero()
+                            it.get("priceLinealMeter").toString().toFloat().orZero()
                         sp.putValue(SP_PRICE_LINEAR_METER, priceLinealMeter)
-                    }
+
                     subscriber.onNext(priceLinealMeter)
                 }
                 .addOnFailureListener {

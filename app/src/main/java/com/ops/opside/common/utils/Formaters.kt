@@ -32,6 +32,10 @@ object Formaters {
         return format.format(this.toString().toDouble())
     }
 
+    fun Double?.round(): Double {
+        return Math.round(this.orZero() * 100.0) / 100.0
+    }
+
     fun formatDate(strDate: String?): String {
         val formatIn = SimpleDateFormat(FORMAT_SQL_DATE, Locale.getDefault())
         formatIn.timeZone = TimeZone.getTimeZone("UTC")

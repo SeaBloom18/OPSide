@@ -64,6 +64,7 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="tax_collection_error_saving_info_market">Hubo un error al guardar la información del Tianguis seleccionado</string>
     <string name="tax_collection_delete_collection">No hay eventos por procesar.\n¿Deseas eliminar la recolección?</string>
     <string name="tax_collection_collection_deleted">Recolección Eliminada</string>
+    <string name="tax_collection_limit_absences_reached">El concesionario alcanzó el limite de inasistencias mensual.\n¿Deseas continuar con su cobro de piso?</string>
     <string name="tax_collection_receipt">Buenas tardes, %1$s \n\nTe hacemos llegar tu recibo de pago
         donde recaudamos la siguiente información:\n\nTianguis: %2$s \nMetros lineales cobrados: %3$s
         \nMonto total: %4$s \nTe cobró: %5$s \n\nSi la información presentada es incorrecta, favor de

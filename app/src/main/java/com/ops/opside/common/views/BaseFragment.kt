@@ -3,6 +3,9 @@ package com.ops.opside.common.views
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.ops.opside.common.utils.Manager
+import com.ops.opside.common.entities.firestore.Moduls
+import com.ops.opside.common.entities.firestore.Permission
 
 open class BaseFragment: Fragment() {
     protected val mBaseActivity by lazy {
@@ -26,4 +29,8 @@ open class BaseFragment: Fragment() {
     }
 
     fun toast(message: String) = Toast.makeText(mBaseActivity, message, Toast.LENGTH_LONG).show()
+
+    fun verify(modul: Moduls, permission: Permission): Boolean{
+        return Manager.getInstance().hasPermission(modul,permission)
+    }
 }

@@ -64,6 +64,7 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="tax_collection_error_saving_info_market">An error occurred while trying to sava the information of the selected market</string>
     <string name="tax_collection_delete_collection">There aren\'t events for processing.\nDo yo want to delete  the recollection?</string>
     <string name="tax_collection_collection_deleted">Recollection Deleted</string>
+    <string name="tax_collection_limit_absences_reached">The dealership reached the monthly no-show limit.\nDo you want to continue with your flat collection?</string>
     <string name="tax_collection_receipt">Good Day, %1$s \n\nWe send you your payment receipt where we remember the following information:\n\nMarket: %2$s \nLinear meters collected: %3$s
         \nTotal: %4$s \nCharged you: %5$s \n\nIf the information submitted is incorrect, please inform the collectors as soon as possible.\n\nThis email with the invoice has been sent automatically. Any email sent to this same address will not be answered.</string>
     <!-- Finalize Tax Collection -->
