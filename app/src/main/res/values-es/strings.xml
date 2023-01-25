@@ -121,6 +121,7 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="login_tv_remember_name">Bienvenido de vuelta, %1$s!</string>
     <string name="login_access_denied">Actualmente no tienes permitido entrar al sistema</string>
     <string name="login_biometrics_permission">¿Deseas usar tus datos biometricos para acceder al sistema?</string>
+    <string name="login_new_version">Nueva versión disponible.\nFavor de actualizarla</string>
 
     <!--Registration Module Strings-->
     <string name="registration_hint_username">Nombre(s)</string>
