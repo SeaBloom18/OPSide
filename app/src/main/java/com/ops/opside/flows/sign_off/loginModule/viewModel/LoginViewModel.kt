@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.CollectorFE
 import com.ops.opside.common.entities.firestore.ConcessionaireFE
-import com.ops.opside.common.entities.firestore.OriginFE
 import com.ops.opside.common.utils.BiometricsManager
 import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
@@ -133,8 +132,7 @@ class LoginViewModel @Inject constructor(
                             _action.value = LoginAction.LaunchHome
                         } else {
                             _action.value =
-                                LoginAction.ShowMessageError("Versión nueva disponible." +
-                                        "\nFavor de actualizar el sistema")
+                                LoginAction.ShowMessageError(application.getString(R.string.login_new_version))
                         }
                     },
                     {

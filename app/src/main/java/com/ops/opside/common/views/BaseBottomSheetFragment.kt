@@ -2,6 +2,9 @@ package com.ops.opside.common.views
 
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ops.opside.common.utils.Manager
+import com.ops.opside.common.entities.firestore.Moduls
+import com.ops.opside.common.entities.firestore.Permission
 
 open class BaseBottomSheetFragment: BottomSheetDialogFragment() {
     protected val mBaseActivity by lazy {
@@ -21,4 +24,8 @@ open class BaseBottomSheetFragment: BottomSheetDialogFragment() {
     }
 
     fun toast(message: String) = Toast.makeText(mBaseActivity,message, Toast.LENGTH_LONG).show()
+
+    fun verify(modul: Moduls, permission: Permission): Boolean{
+        return Manager.getInstance().hasPermission(modul,permission)
+    }
 }

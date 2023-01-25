@@ -6,8 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.ops.opside.common.utils.Manager
 import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
+import com.ops.opside.common.entities.firestore.Moduls
+import com.ops.opside.common.entities.firestore.Permission
 import com.ops.opside.common.utils.Formaters.orFalse
 import com.ops.opside.common.utils.tryOrPrintException
 
@@ -111,4 +114,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 
+    fun verify(modul: Moduls, permission: Permission): Boolean{
+        return Manager.getInstance().hasPermission(modul,permission)
+    }
 }

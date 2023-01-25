@@ -21,6 +21,7 @@ import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.common.utils.Formaters.orZero
+import com.ops.opside.common.utils.Formaters.round
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityTaxCollectionBinding
 import com.ops.opside.flows.sign_off.loginModule.view.LoginActivity
@@ -188,7 +189,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             endDate = "01-01-2000",
             startTime = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME),
             endTime = "00:00:00",
-            taxCollector = mCollectorName,
+            taxCollector = mCollectorName
         )
 
         setUpPieChart()
@@ -300,8 +301,6 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             mParticipatingConcessMap.put(it.idConcessionaire, it)
         }
 
-
-
         mViewModel.persistConcessionairesSEList(
             mSelectedMarket.idFirebase,
             mConcessionairesFEList,
@@ -406,7 +405,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
                     mDescription = getString(R.string.tax_collection_wish_add_concess),
                     buttonYesText = getString(R.string.common_accept),
                     buttonNoText = getString(R.string.common_cancel),
-                    {
+                    yesAction = {
 
                         val dialog = BottomSheetRelateConcessMarket(
                             mConcessionairesMap[idConcessionaire]!!, mSelectedMarket.parseToSE()
@@ -441,7 +440,12 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             return
         }
 
-        chargeDay(FLOOR_COLLECTION, idConcessionaire)
+        val absences = mAbsencesMap[idConcessionaire].orZero()
+        if (verifyLastThreeAbsences(absences)){
+            showAbsencesPermissionDialog(idConcessionaire)
+        } else{
+            chargeDay(FLOOR_COLLECTION, idConcessionaire)
+        }
     }
 
     private fun createNewEvent(
@@ -458,7 +462,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             idMarket = mOpenedTaxCollection.idMarket,
             nameConcessionaire = nameConcessionaire,
             status = status,
-            amount = amount,
+            amount = amount.round(),
             timeStamp = CalendarUtils.getCurrentTimeStamp(FORMAT_TIMESTAMP),
             foreignIdRow = foreignIdRow
         )
@@ -479,19 +483,49 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             etDealerName.setText(name)
             etLinearMeters.setText(linearMeters)
             etLineOfBusiness.setText(lineBusiness)
-            etTotalAmount.setText(amount)
+            etTotalAmount.setText(if (amount == "") amount else amount.toDouble().formatCurrency())
             etStatus.setText(status)
             etStatus.setTextColor(color)
             etAbsences.setText(absences.orZero().toString())
         }
+
+
     }
+
+    private fun verifyLastThreeAbsences(absences: Int) = absences >= 3
+
+    private fun showAbsencesPermissionDialog(idConcessionaire: String){
+        val alert = BaseDialog(
+            context = this,
+            imageResource = R.drawable.ic_ops_warning,
+            mTitle = getString(R.string.common_atention),
+            mDescription = getString(R.string.tax_collection_limit_absences_reached),
+            buttonYesText = getString(R.string.common_accept),
+            buttonNoText = getString(R.string.common_cancel),
+            yesAction = {
+                chargeDay(FLOOR_COLLECTION, idConcessionaire)
+            },
+            noAction = {
+                setLabelTexts(
+                    name = "",
+                    linearMeters = "",
+                    lineBusiness = "",
+                    amount = "",
+                    status = "",
+                    absences = 0
+                )
+            }
+        )
+
+        alert.show()
+    }
+
 
     private fun chargeDay(status: String, idConcessionaire: String) {
         val concessionaire = mConcessionairesMap[idConcessionaire]
         val participating = mParticipatingConcessMap[idConcessionaire]
 
         if (concessionaire != null && participating != null) {
-
             try {
                 val amount = (participating.linearMeters * mPriceLinearMeter).orZero()
                 mTotalAmount += amount
@@ -684,7 +718,7 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             idMarket = mSelectedMarket.idFirebase,
             marketName = mSelectedMarket.name,
             collector = mCollectorName,
-            totalAmount = mTotalAmount,
+            totalAmount = mTotalAmount.round(),
             taxCollection = mOpenedTaxCollection,
             absences = mConcessionairesMap.filterValues {
                 it.wasPaid.not() && mParticipatingConcessMap.containsKey(it.idFirebase)

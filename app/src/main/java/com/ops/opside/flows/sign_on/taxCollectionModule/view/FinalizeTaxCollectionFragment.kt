@@ -16,6 +16,7 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
+import com.ops.opside.common.utils.Formaters.formatCurrency
 import com.ops.opside.common.views.BaseFragment
 import com.ops.opside.databinding.FragmentFinalizeTaxCollectionBinding
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
@@ -184,7 +185,7 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
 
         mBinding.apply {
             etMarketName.setText(mFinalizeCollection.marketName)
-            etTotalAmount.setText(mFinalizeCollection.totalAmount.toString())
+            etTotalAmount.setText(mFinalizeCollection.totalAmount.formatCurrency())
             etSent.setText(mFinalizeCollection.collector)
         }
 
