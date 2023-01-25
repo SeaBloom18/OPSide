@@ -58,13 +58,6 @@
             app:layout_constraintTop_toTopOf="@id/imgConcessionaire"
             tools:text="Nombre Completo" />
 
-        <View
-            style="@style/dividerStyle1"
-            android:layout_width="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/txtConcessionaire" />
-
         <com.google.android.material.textview.MaterialTextView
             style="@style/textViewBodyStyle"
             android:id="@+id/tvEmail"

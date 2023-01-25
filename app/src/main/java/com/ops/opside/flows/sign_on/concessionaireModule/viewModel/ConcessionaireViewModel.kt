@@ -14,8 +14,8 @@ import javax.inject.Inject
 class ConcessionaireViewModel @Inject constructor(
     private val mConcessionaireInteractor: ConcessionaireInteractor
 ): CommonViewModel() {
-    private val _getConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
 
+    private val _getConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
     val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = _getConcessionairesList
 
     fun getConcessionairesList(){

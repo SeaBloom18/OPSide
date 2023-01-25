@@ -111,7 +111,6 @@ class BottomSheetFilter(
             teSearchMarket.isGone = showMarket.not()
             tilSearchMarket.isGone = showMarket.not()
 
-            txtCollector.isGone = showCollector.not()
             tilSearchCollector.isGone = showCollector.not()
 
             btnCalendar.isGone = showDate.not()
@@ -126,7 +125,7 @@ class BottomSheetFilter(
         val list = markets.map { it.key }
         val hMarket: ArrayAdapter<String> =
             ArrayAdapter<String>(
-                context!!, android.R.layout.simple_spinner_item, list
+                requireContext(), android.R.layout.simple_list_item_1, list
             )
 
         mBinding.apply {
@@ -144,7 +143,7 @@ class BottomSheetFilter(
         val list = collectors.map { it.key }
         val hCollector: ArrayAdapter<String> =
             ArrayAdapter<String>(
-                context!!, android.R.layout.simple_spinner_item, list
+                requireContext(), android.R.layout.simple_list_item_1, list
             )
 
         mBinding.apply {

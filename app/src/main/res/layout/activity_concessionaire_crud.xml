@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@color/primaryLightColor"
     tools:context=".flows.sign_on.concessionaireModule.view.ConcessionaireCrudActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,13 +25,14 @@
             android:layout_marginHorizontal="@dimen/common_padding_default"
             android:layout_marginTop="@dimen/common_padding_default"
             android:hint="@string/concessionaire"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbarCrudConce">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/TextInputEditTextStyle"
                 android:id="@+id/etConcessionaireName"
+                style="@style/TextInputEditTextStyle"
                 android:enabled="false"
                 android:inputType="textPersonName"
                 tools:text="Mario Armando Razo Valenzuela" />
@@ -41,25 +41,19 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilAddress"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_padding_default"
             android:layout_marginTop="@dimen/common_padding_default"
             android:hint="@string/concessionaire_address"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilConcessionaireName">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextStyle"
                 android:id="@+id/etAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
                 android:enabled="false"
-                android:fontFamily="@font/montserrat_regular"
-                android:inputType="textPostalAddress"
-                tools:text="Priv. Tepeyac #17, Barrio Nuevo, Tonalá"
-                android:textColor="@color/primaryTextColor" />
+                tools:text="Priv. Tepeyac #17, Barrio Nuevo, Tonalá"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -70,67 +64,37 @@
             android:layout_marginHorizontal="@dimen/common_padding_default"
             android:layout_marginTop="@dimen/common_padding_default"
             android:hint="@string/fui_phone_hint"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilAddress">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextStyle"
                 android:id="@+id/etPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
                 android:enabled="false"
-                android:fontFamily="@font/montserrat_regular"
                 android:inputType="phone"
-                tools:text="3321837561"
-                android:textColor="@color/primaryTextColor" />
+                tools:text="3321837561" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_padding_default"
             android:layout_marginTop="@dimen/common_padding_default"
             android:hint="@string/fui_email_hint"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilPhone">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextStyle"
                 android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
                 android:enabled="false"
-                android:fontFamily="@font/montserrat_regular"
                 android:inputType="textEmailAddress"
                 tools:text="mario.v.r404@gmail.com"
-                android:textColor="@color/primaryTextColor" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilAbsences"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/common_padding_default"
-            android:layout_marginTop="@dimen/common_padding_default"
-            android:hint="@string/tax_collection_absence"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilEmail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etAbsences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primaryLightColor"
-                android:enabled="false"
-                android:fontFamily="@font/montserrat_regular"
-                android:inputType="number"
-                android:text="2"
                 android:textColor="@color/primaryTextColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,11 +105,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/common_padding_default"
-            android:hint="Tianguis"
+            android:layout_marginTop="16dp"
+            android:hint="@string/bn_menu_market_opc1"
             app:boxStrokeColor="@drawable/states_colors_text_field"
-            app:layout_constraintTop_toBottomOf="@+id/tilAbsences"
+            app:layout_constraintEnd_toStartOf="@id/btnAddMarket"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnAddMarket">
+            app:layout_constraintTop_toBottomOf="@+id/tilEmail">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/spPickMarket"
@@ -161,14 +126,13 @@
             style="@style/CommonButtonSolidStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:iconGravity="start"
-            app:icon="@drawable/ic_ops_create_market"
-            android:text="Add"
             android:layout_marginEnd="@dimen/common_padding_default"
-            android:layout_marginTop="@dimen/common_padding_default"
+            android:text="@string/tax_collection_crud_btn_add"
+            app:icon="@drawable/ic_ops_create_market"
+            app:iconGravity="start"
+            app:layout_constraintBottom_toBottomOf="@+id/tilPickMarket"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tilPickMarket"
-            app:layout_constraintBottom_toBottomOf="@+id/tilPickMarket"/>
+            app:layout_constraintTop_toTopOf="@+id/tilPickMarket" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvParticipatingMarket"

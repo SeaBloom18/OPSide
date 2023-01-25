@@ -10,37 +10,22 @@
         android:id="@+id/btnClose"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="@dimen/common_padding_min"
-        android:layout_marginBottom="@dimen/common_padding_min"
+        android:layout_marginStart="16dp"
         android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_close_reg_screen"
-        app:layout_constraintBottom_toTopOf="@+id/txtTanguis"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:src="@drawable/ic_ops_arrow_back"
+        android:contentDescription="@string/common_content_description"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTitle"
-        style="@style/WhiteTextTitle"
-        android:layout_width="0dp"
+        style="@style/textViewSubtitleStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/common_padding_default"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="Filtrar"
-        android:gravity="center"
-        android:textColor="@color/primaryTextColor"
-        app:layout_constraintBottom_toBottomOf="@id/btnClose"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtTanguis"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="@string/filter_tax_collection_market"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/subtitle"
+        android:layout_marginBottom="16dp"
+        android:text="@string/bottom_sheet_tv_filter"
         app:layout_constraintBottom_toTopOf="@+id/tilSearchMarket"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -48,22 +33,18 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSearchMarket"
         style="@style/TextInputDropDownLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
-        android:hint="Tianguis"
+        android:hint="@string/bn_menu_market_opc1"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/cgChipsMarket"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teSearchMarket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="none" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.chip.ChipGroup
@@ -71,21 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/common_padding_default"
-        android:layout_marginBottom="@dimen/common_padding_default"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/txtCollector" />
-
-    <TextView
-        android:id="@+id/txtCollector"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_padding_default"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="@string/filter_tax_collection_collector"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/subtitle"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/tilSearchCollector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
-        android:hint="Recaudador"
+        android:hint="@string/bottom_sheet_tv_collector"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/cgChipsCollector"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,16 +88,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtDate"
+        style="@style/textViewSubtitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_min"
-        android:fontFamily="@font/montserrat_semibold"
         android:text="@string/common_date"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/subtitle"
         app:layout_constraintBottom_toTopOf="@+id/tilStartDate"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -140,7 +105,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_padding_default"
         android:background="@color/fui_transparent"
-        android:src="@drawable/ic_edit_calendar"
+        android:src="@drawable/ic_ops_calendar"
+        android:contentDescription="@string/common_content_description"
         app:layout_constraintBottom_toBottomOf="@id/txtDate"
         app:layout_constraintStart_toEndOf="@id/txtDate"
         app:layout_constraintTop_toTopOf="@+id/txtDate" />
@@ -153,21 +119,17 @@
         android:layout_marginStart="@dimen/common_padding_default"
         android:layout_marginEnd="@dimen/common_padding_min"
         android:hint="@string/filter_tax_collection_start_date"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintEnd_toStartOf="@+id/tilEndDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tilEndDate">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextInputEditTextStyle"
             android:id="@+id/etStartDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryLightColor"
             android:enabled="false"
-            android:fontFamily="@font/montserrat_regular"
-            android:inputType="textPersonName"
-            android:text=" "
-            android:textAlignment="center"
-            android:textColor="@color/primaryTextColor" />
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -179,21 +141,19 @@
         android:layout_marginEnd="@dimen/common_padding_default"
         android:layout_marginBottom="@dimen/common_padding_default"
         android:hint="@string/filter_tax_collection_end_date"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tilStartDate">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextInputEditTextStyle"
             android:id="@+id/etEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryLightColor"
             android:enabled="false"
-            android:fontFamily="@font/montserrat_regular"
-            android:inputType="textPersonName"
-            android:text=" "
-            android:textAlignment="center"
-            android:textColor="@color/primaryTextColor" />
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,12 +167,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnConfirmFilter"
             style="@style/CommonButtonStyle"
+            android:id="@+id/btnConfirmFilter"
             android:layout_width="wrap_content"
             android:layout_margin="@dimen/common_padding_default"
             android:text="@string/common_accept"
-            app:icon="@drawable/ic_shop"
+            android:contentDescription="@string/common_content_description"
+            app:icon="@drawable/ic_ops_btn_confirm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

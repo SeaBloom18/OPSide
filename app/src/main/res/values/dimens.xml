@@ -8,6 +8,7 @@
     <dimen name="common_padding_large_xl">54dp</dimen>
     <dimen name="common_padding_corners_btn">17dp</dimen>
     <dimen name="common_icon_size">20dp</dimen>
+    <dimen name="common_icon_size_large">40dp</dimen>
     <dimen name="button_corner_radius">8dp</dimen>
 
     <dimen name="title">22sp</dimen>

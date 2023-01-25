@@ -33,6 +33,9 @@ RecyclerView.Adapter<ControlPanelAdapter.ViewHolder>(){
         val collectors = collectorsList[position]
         holder.apply {
             binding.tvConcessionaireName.text = collectors.name
+            binding.tvEmail.text = collectors.email
+            val firstLetter = collectors.name[0]
+            binding.tvImgUserName.text = firstLetter.toString()
             binding.switchHasAccess.isChecked = collectors.hasAccess
             binding.switchHasAccess.setOnClickListener {
                     changeHasAccess(collectors.name, collectors.idFirebase,

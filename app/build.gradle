@@ -105,8 +105,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation "androidx.fragment:fragment:1.5.5"
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.3'
 
     //Unit Test
     testImplementation 'junit:junit:4.13.2'
@@ -118,7 +118,7 @@ dependencies {
     //Real Time Data Base
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     //FireStore
-    implementation 'com.google.firebase:firebase-firestore:24.4.1'
+    implementation 'com.google.firebase:firebase-firestore:24.4.2'
 
     //Room
     implementation "androidx.room:room-runtime:$roomVersion"
