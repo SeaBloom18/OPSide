@@ -11,7 +11,7 @@ data class CollectorFE(
     var hasAccess: Boolean = false,
     var password: String = ""
 ){
-    fun getHashMap(): MutableMap<String, Any>{
+    fun getHashMap(): MutableMap<String, Any> {
 
         val map: MutableMap<String, Any> = mutableMapOf()
         map["name"] = name

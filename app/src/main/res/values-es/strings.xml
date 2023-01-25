@@ -77,6 +77,12 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
         \n\nSi la información presentada es incorrecta, favor de reportarlo a los recaudadores lo más
         pronto posible\n\nEste correo electronico solo envía recibos de forma automatizada. No se
         responderá ningún correo que sea enviado a esta misma dirección</string>
+    <string name="tax_collection_crud_btn_add">Agregar</string>
+    <string name="tax_collection_crud_second_text">%1$s, %1$s metros</string>
+
+    <!-- BottomSheet filter Strings -->
+    <string name="bottom_sheet_tv_filter">Filtro</string>
+    <string name="bottom_sheet_tv_collector">Recolector</string>
 
     <!-- Dashboard Module Strings -->
     <string name="dashboard_analytics" >Análiticas</string>
@@ -211,8 +217,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="control_panel_hasaccess_updated_success">El acceso ha sido actualizado correctamente</string>
     <string name="control_panel_hasaccess_updated_error">Oops Error al actualizar el acceso!</string>
 
-    <!--Incidents String-->
-    <string name="bottom_sheet_tv_title">Crear nueva Incidencia</string>
+    <!--Incidents person assign String-->
+    <string name="bottom_sheet_tv_title">Asignar una nueva Incidencia</string>
     <string name="bottom_sheet_see_list_tv_title">Lista de Incidencias</string>
     <string name="bottom_sheet_btn_create_inc">Crear Incidencia</string>
     <string name="bottom_sheet_til_hint_inc_name">Nombre de incidencia</string>
@@ -221,6 +227,20 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="tax_collection_on_line">On Line</string>
     <string name="tax_collection_off_line">Off Line</string>
     <string name="tax_collection_toast_incident_success">Incidente createdo</string>
+
+    <string name="bs_assign_incident_tv_tittle">Asignar una nueva Incidencia</string>
+    <string name="bs_assign_incident_til_hint_name">Nombre de la Incidencia</string>
+    <string name="bs_assign_incident_til_hint_issue_track">Seleccionar la Incidencia</string>
+    <string name="bs_assign_incident_til_hint_issue_conce">Seleccionar Concesionario</string>
+    <string name="bs_assign_incident_til_hint_collection">Seleccionar Recoleccion</string>
+    <string name="bs_assign_incident_btn_assign">Asignar Incidencia</string>
+
+    <!--Incidents create String-->
+    <string name="bs_create_incident_tv_tittle">Crear Nueva Incidencia</string>
+    <string name="bs_create_incident_tv_til_hint_name">Nombre de la Incidencia</string>
+    <string name="bs_create_incident_tv_til_hint_price">Nombre de la Incidencia</string>
+    <string name="bs_create_incident_tv_til_hint_description">Descripcion de la Incidencia</string>
+    <string name="bs_create_incident_btn_create">Crear Incidencia</string>
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>
@@ -254,6 +274,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <!--BottomSheet RelateConcessMarket-->
     <string name="bottom_sheet_relateconcessmarket_toast_linear_meter_validation">Los metros lineales deben ser mayores que 0</string>
     <string name="bottom_sheet_relateconcessmarket_toast_line_business_validation">La línea de negocio no puede estar vacía</string>
+    <string name="bs_relate_concess_btn_reg">Registrar</string>
+    <string name="bs_relate_concess_tv_tittle">Agregar Tianguis</string>
 
     <!--Policies Strings-->
     <string name="tv_title_policies">Política de privacidad para OPS</string>

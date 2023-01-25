@@ -1,6 +1,7 @@
 package com.ops.opside.flows.sign_on.concessionaireModule.adapters
 
 import android.content.Context
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,9 @@ class MarketParticipatingAdapter (
 
                 txtMarketName.text = item.marketName
                 txtLineBusiness.text = item.lineBusiness
-                txtLinearMeters.text = item.linearMeters.toString()
+                tvmeters.text = "${item.linearMeters} metros and 4 absences"
+                val firstLetter = item.marketName[0]
+                imgMarket.text = firstLetter.toString()
             }
 
         }

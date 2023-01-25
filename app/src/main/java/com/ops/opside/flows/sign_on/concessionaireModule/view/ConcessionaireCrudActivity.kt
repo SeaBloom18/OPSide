@@ -42,10 +42,7 @@ class ConcessionaireCrudActivity : BaseActivity() {
     }
 
     private val mViewModel: ConcessionaireCrudViewModel by viewModels()
-
-    @Inject
-    lateinit var permissionManagger: PermissionManagger
-
+    @Inject lateinit var permissionManagger: PermissionManagger
     private lateinit var mRelatesList: MutableList<ParticipatingConcessSE>
     private lateinit var mConcessionaire: ConcessionaireSE
     private lateinit var mMarketsList: MutableList<MarketSE>
@@ -62,7 +59,6 @@ class ConcessionaireCrudActivity : BaseActivity() {
             etAddress.setText(mConcessionaire.address)
             etEmail.setText(mConcessionaire.email)
             etPhone.setText(mConcessionaire.phone)
-            etAbsences.setText("0")
 
             btnAddMarket.setOnClickListener {
                 openRealateConcess()

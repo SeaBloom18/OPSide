@@ -15,43 +15,57 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryLightColor">
 
-        <ImageView
-            android:id="@+id/ivMarketItem"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_ops_user"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvImgUserName"
+            style="@style/textViewBodyBlackStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginVertical="@dimen/common_padding_default"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/circle_imageview"
             android:contentDescription="@string/common_content_description"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvConcessionaireName"
-            style="@style/textViewBodyStyle"
-            android:layout_width="wrap_content"
+            style="@style/textViewBodyBlackStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:maxLines="2"
-            app:layout_constraintBottom_toBottomOf="@+id/ivMarketItem"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toStartOf="@+id/switchHasAccess"
-            app:layout_constraintStart_toEndOf="@+id/ivMarketItem"
-            app:layout_constraintTop_toTopOf="@+id/ivMarketItem"
+            app:layout_constraintStart_toEndOf="@+id/tvImgUserName"
+            app:layout_constraintTop_toTopOf="@+id/tvImgUserName"
             tools:text="David Alejandro Gonzalez Quezada" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvEmail"
+            style="@style/textViewBodyStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/tvConcessionaireName"
+            app:layout_constraintStart_toStartOf="@+id/tvConcessionaireName"
+            app:layout_constraintTop_toBottomOf="@+id/tvConcessionaireName"
+            tools:text="corre@opside.mx" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switchHasAccess"
+            style="@style/CommonSwitchStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_item_arrow_down"
             android:checked="false"
-            app:layout_constraintBottom_toBottomOf="@+id/tvConcessionaireName"
+            android:src="@drawable/ic_item_arrow_down"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEmail"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvConcessionaireName"
-            style="@style/CommonSwitchStyle"/>
+            app:layout_constraintTop_toTopOf="@+id/tvConcessionaireName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

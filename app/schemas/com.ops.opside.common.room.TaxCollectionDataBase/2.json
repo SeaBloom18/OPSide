@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "1323dbb1e62d46da491e344ac50e5c90",
+    "identityHash": "eba8728505e7c3be24df8cab5274eabb",
     "entities": [
       {
         "tableName": "taxCollection",
@@ -161,7 +161,7 @@
       },
       {
         "tableName": "incident",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `incidentName` TEXT NOT NULL, `incidentPrice` REAL NOT NULL, PRIMARY KEY(`idFirebase`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFirebase` TEXT NOT NULL, `incidentName` TEXT NOT NULL, `incidentPrice` REAL NOT NULL, `incidentDescription` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`idFirebase`))",
         "fields": [
           {
             "fieldPath": "idFirebase",
@@ -180,6 +180,13 @@
             "columnName": "incidentPrice",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "incidentDescription",
+            "columnName": "incidentDescription",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -521,7 +528,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1323dbb1e62d46da491e344ac50e5c90')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eba8728505e7c3be24df8cab5274eabb')"
     ]
   }
 }

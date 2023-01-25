@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@color/primaryLightColor"
     tools:context=".flows.sign_on.marketModule.view.MarketFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryColor">
+        android:background="@color/primaryLightColor">
 
         <include
             android:id="@+id/toolbarFrgMarket"
@@ -44,7 +44,8 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_constraint_layout"
             android:padding="@dimen/common_padding_min"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

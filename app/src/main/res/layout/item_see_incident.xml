@@ -8,7 +8,7 @@
     android:background="@color/primaryLightColor">
 
     <ImageView
-        android:id="@+id/ivMarketItem"
+        android:id="@+id/tvImgUserName"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
         android:textSize="@dimen/common_text_size"
         app:layout_anchorGravity="center"
         app:layout_constraintEnd_toStartOf="@+id/tvIncidentCode"
-        app:layout_constraintStart_toEndOf="@+id/ivMarketItem"
+        app:layout_constraintStart_toEndOf="@+id/tvImgUserName"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Incidencia por falta" />
 
