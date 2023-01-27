@@ -1,6 +1,6 @@
 package com.ops.opside.flows.sign_on.incidentsModule.view
 
-import android.os.Bundle
+import  android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +10,10 @@ import androidx.lifecycle.Observer
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseBottomSheetFragment
-import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
 import com.ops.opside.databinding.BottomSheetCreateIncidentPersonBinding
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetCreateIncidentPersonViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
@@ -21,16 +21,21 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit = {}): BaseBottomSheetFragment() {
+class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit = {})
+    : BaseBottomSheetFragment() {
 
+    @Inject lateinit var preferences: Preferences
     private lateinit var mBinding: BottomSheetCreateIncidentPersonBinding
     private lateinit var mActivity: MainActivity
-    private val mBottomSheetCreateIncidentPersonViewModel: BottomSheetCreateIncidentPersonViewModel by viewModels()
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
     private lateinit var mIncidentList: MutableList<IncidentSE>
+    private lateinit var mMarketList: MutableMap<String, String>
+    private val mBottomSheetCreateIncidentPersonViewModel: BottomSheetCreateIncidentPersonViewModel by viewModels()
     private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
-    @Inject lateinit var preferences: Preferences
+    private val monthList: MutableList<String> = mutableListOf("Enero", "Febrero")
+    private val yearsList: MutableList<String> = mutableListOf("2022", "2023")
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -41,15 +46,26 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.apply {
-            btnCreateIncident.setOnClickListener {
-                insertIncident()
-            }
-            btnClose2.setOnClickListener { dismiss() }
-        }
         setUpActivity()
         getLists()
         bindViewModel()
+
+        val monthAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
+                monthList)
+        val yearsAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
+                yearsList)
+        mBinding.apply {
+            btnCreateIncident.setOnClickListener {
+                //insertIncident()
+                mBottomSheetCreateIncidentPersonViewModel.getConcessByMarketList(
+                    mMarketList[mBinding.teSelectMarket.text.toString()].orEmpty())
+            }
+            btnClose2.setOnClickListener { dismiss() }
+            mBinding.teSelectMonth.setAdapter(monthAdapter)
+            mBinding.teSelectYear.setAdapter(yearsAdapter)
+        }
     }
 
     private fun insertIncident() {
@@ -91,9 +107,10 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     /** ViewModel SetUp **/
 
     private fun getLists() {
-        mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList()
         mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList()
         mBottomSheetCreateIncidentPersonViewModel.getIncidentList()
+        mBottomSheetCreateIncidentPersonViewModel.getMarketList()
+        //mBottomSheetCreateIncidentPersonViewModel.getConcessByMarketList(mMarketList as MutableList<String>)
     }
     private fun bindViewModel() {
         mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList.observe(this,
@@ -102,6 +119,26 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
             Observer(this::getTaxCollectionList))
         mBottomSheetCreateIncidentPersonViewModel.getIncidentList.observe(this,
             Observer(this::getIncidentList))
+        mBottomSheetCreateIncidentPersonViewModel.getMarketList.observe(this,
+            Observer(this::getMarketList))
+    }
+
+    /** Markets List setUp **/
+    private fun getMarketList(marketList: MutableMap<String, String>) {
+        mMarketList = marketList
+        setUpMarketList()
+    }
+
+    private fun getMarketListNames():MutableList<String> {
+        return mMarketList.map { it.key }
+            .toMutableList()
+    }
+
+    private fun setUpMarketList() {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
+                getMarketListNames())
+        mBinding.teSelectMarket.setAdapter(adapter)
     }
 
     /** Incidents List setUp **/
@@ -143,7 +180,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     /** Concessionaire List setUp**/
     private fun getConcessionaireList(ConcessionaireList: MutableList<ConcessionaireSE>){
         mConcessionaireList = ConcessionaireList
-        setUpConcessionaireList()
+        //setUpConcessionaireList()
     }
 
     private fun setUpConcessionaireList() {

@@ -33,6 +33,7 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
         mBinding = BottomSheetCreateIncidentBinding.inflate(layoutInflater)
         mBinding.apply {
             mBinding.btnCreateIncident.setOnClickListener { insertIncident() }
+            mBinding.btnDismiss.setOnClickListener { dismiss() }
         }
         return mBinding.root
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
@@ -29,9 +30,27 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
     private val mGetIncidentList = MutableLiveData<MutableList<IncidentSE>>()
     val getIncidentList: LiveData<MutableList<IncidentSE>> = mGetIncidentList
 
-    fun getConcessionairesList(){
+    val getMarketList = MutableLiveData<MutableMap<String, String>>()
+
+    fun getMarketList(){
         disposable.add(
-            mBottomSheetCreateIncidentPersonInteractor.getConcessionaireList().applySchedulers()
+            mBottomSheetCreateIncidentPersonInteractor.getMarkets().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        getMarketList.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+    fun getConcessByMarketList(market: String){
+        disposable.add(
+            mBottomSheetCreateIncidentPersonInteractor.getConcessByMarket(market).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {

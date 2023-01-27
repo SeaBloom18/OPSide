@@ -8,6 +8,7 @@ import com.ops.opside.common.entities.firestore.IncidentFE
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_ID
@@ -37,11 +38,12 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
         }
     }
 
-    fun getConcessionaireList() : Observable<MutableList<ConcessionaireSE>> {
+    fun getConcessByMarket(market: String): Observable<MutableList<ConcessionaireSE>> {
         return Observable.unsafeCreate { subscriber ->
             try {
                 val concessionaires = mutableListOf<ConcessionaireSE>()
                 firestore.collection(TablesEnum.Concessionaire.getName())
+                    .whereArrayContains("participatingMarkets", market)
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
@@ -103,6 +105,30 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
                     .addOnFailureListener {
                         subscriber.onError(it)
                     }
+            }
+        }
+    }
+
+    fun getMarkets(): Observable<MutableMap<String, String>> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val marketsList = mutableMapOf<String, String>()
+
+                firestore.collection(TablesEnum.Market.getName())
+                    .whereEqualTo("isDeleted", false)
+                    .get()
+                    .addOnSuccessListener {
+                        for (document in it.documents) {
+                            marketsList[document.get("name").toString()] = document.id
+                        }
+                        //val sortedByName = marketsList.sortedBy { myObject -> myObject.name }
+                        subscriber.onNext(marketsList)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            } catch (exception: Exception){
+                subscriber.onError(exception)
             }
         }
     }
