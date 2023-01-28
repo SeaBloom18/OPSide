@@ -36,32 +36,16 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
         }
     }
 
-    fun getConcessByMarket(market: String): Observable<MutableList<ConcessionaireSE>> {
+    fun getConcessByMarket(market: String): Observable<MutableMap<String, String>> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                val concessionaires = mutableListOf<ConcessionaireSE>()
+                val concessionaires = mutableMapOf<String, String>()
                 firestore.collection(TablesEnum.Concessionaire.getName())
                     .whereArrayContains("participatingMarkets", market)
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
-                            concessionaires.add(
-                                ConcessionaireSE(
-                                    idFirebase = document.id,
-                                    name = document.get("name").toString(),
-                                    imageURL = document.get("imageURL").toString(),
-                                    address = document.get("address").toString(),
-                                    phone = document.get("phone").toString(),
-                                    email = document.get("email").toString(),
-                                    role = if (document.get("isForeigner").toString().toBoolean())
-                                        SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE,
-                                    lineBusiness = document.get("lineBusiness").toString(),
-                                    absence = document.get("absence").toString().toInt(),
-                                    isForeigner = document.get("isForeigner").toString()
-                                        .toBoolean(),
-                                    origin = document.get("origin").toString()
-                                )
-                            )
+                            concessionaires[document.get("name").toString()] = document.id
                         }
                         subscriber.onNext(concessionaires)
                     }

@@ -21,8 +21,8 @@ import javax.inject.Inject
 class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
     private val mBottomSheetCreateIncidentPersonInteractor: BottomSheetCreateIncidentPersonInteractor): CommonViewModel() {
 
-    private val mGetConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
-    val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = mGetConcessionairesList
+    private val mGetConcessionairesList = MutableLiveData<MutableMap<String, String>>()
+    val getConcessionairesList: LiveData<MutableMap<String, String>> = mGetConcessionairesList
 
     private val mGetTaxCollectionList = MutableLiveData<MutableList<TaxCollectionSE>>()
     val getTaxCollectionList: LiveData<MutableList<TaxCollectionSE>> = mGetTaxCollectionList

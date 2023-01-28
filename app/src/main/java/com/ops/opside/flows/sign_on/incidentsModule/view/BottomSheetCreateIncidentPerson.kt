@@ -29,7 +29,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     @Inject lateinit var preferences: Preferences
     private lateinit var mBinding: BottomSheetCreateIncidentPersonBinding
     private val mActivity: MainActivity by lazy { activity as MainActivity }
-    private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
+    private lateinit var mConcessionaireList: MutableMap<String, String>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
     private lateinit var mIncidentList: MutableMap<String, String>
     private lateinit var mMarketList: MutableMap<String, String>
@@ -86,7 +86,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
             date = CalendarUtils.getCurrentTimeStamp(FORMAT_TIMESTAMP)
             price = 12.3
             idIncident = mIncidentList[mBinding.teSelectIssueTrack.text.toString()].toString()
-            idConcessionaire = "idConcessionaire"
+            idConcessionaire = mConcessionaireList[mBinding.teSelectConcessionaire.text.toString()].toString()
             idTaxCollection = mBinding.teTaxCollection.text.toString().trim()
         }
         mBottomSheetCreateIncidentPersonViewModel.funInsertIncidentPerson(mIncidentPersonFE)
@@ -130,8 +130,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
         mBinding.teSelectMarket.setAdapter(adapter)    }
 
     private fun getMarketListNames(): MutableList<String> {
-        return mMarketList.map { it.key }
-            .toMutableList()
+        return mMarketList.map { it.key }.toMutableList()
     }
 
     /** Incidents List setUp **/
@@ -144,8 +143,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     }
 
     private fun getIncidentListNames(): MutableList<String> {
-        return mIncidentList.map { it.key }
-            .toMutableList()
+        return mIncidentList.map { it.key }.toMutableList()
     }
 
     /** TaxCollector List setUp **/
@@ -162,7 +160,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     }
 
     /** Concessionaire List setUp **/
-    private fun getConcessionaireList(ConcessionaireList: MutableList<ConcessionaireSE>){
+    private fun getConcessionaireList(ConcessionaireList: MutableMap<String, String>){
         mConcessionaireList = ConcessionaireList
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
@@ -171,6 +169,6 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     }
 
     private fun getConcessionaireListNames(): MutableList<String> {
-        return mConcessionaireList.map { it.name }.toMutableList()
+        return mConcessionaireList.map { it.key }.toMutableList()
     }
 }
