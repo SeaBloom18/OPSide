@@ -119,7 +119,6 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
                         for (document in it.documents) {
                             marketsList[document.get("name").toString()] = document.id
                         }
-                        //val sortedByName = marketsList.sortedBy { myObject -> myObject.name }
                         subscriber.onNext(marketsList)
                     }
                     .addOnFailureListener {
@@ -131,21 +130,16 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
         }
     }
 
-    fun getIncidentList(): Observable<MutableList<IncidentSE>> {
+    fun getIncidentList(): Observable<MutableMap<String, String>> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
-                val incidentList = mutableListOf<IncidentSE>()
+                val incidentList = mutableMapOf<String, String>()
 
                 firestore.collection(TablesEnum.Incident.getName())
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
-                            incidentList.add(IncidentSE(
-                                idFirebase = document.id,
-                                incidentName = document.data!!["incidentName"].toString(),
-                                incidentPrice = document.data!!["incidentPrice"].toString().toDouble(),
-                                incidentDescription = document.data!!["incidentDescription"].toString()
-                            ))
+                            incidentList[document.get("incidentName").toString()] = document.id
                         }
                         subscriber.onNext(incidentList)
                     }

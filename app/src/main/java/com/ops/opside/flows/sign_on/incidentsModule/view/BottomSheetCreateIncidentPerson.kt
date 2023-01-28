@@ -31,7 +31,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     private val mActivity: MainActivity by lazy { activity as MainActivity }
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
-    private lateinit var mIncidentList: MutableList<IncidentSE>
+    private lateinit var mIncidentList: MutableMap<String, String>
     private lateinit var mMarketList: MutableMap<String, String>
     private val mBottomSheetCreateIncidentPersonViewModel: BottomSheetCreateIncidentPersonViewModel by viewModels()
     private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
@@ -79,35 +79,13 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     }
 
     private fun insertIncident() {
-        /*with(mIncidentPersonFE) {
-            val teConcessionaireName = mBinding.teSelectConcessionaire.text.toString().trim()
-            val teTaxCollectionName = mBinding.teTaxCollection.text.toString().trim()
-            val teIncidentPrice = mBinding.teSelectIssueTrack.text.toString().trim()
-            val dateTimeFormatter = CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
-            val timeFor = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
-            if (teConcessionaireName.isNotEmpty()
-                && teTaxCollectionName.isNotEmpty() && teIncidentPrice.isNotEmpty()) {
-                idCollector = preferences.getString(SP_ID).toString()
-                reportName = preferences.getString(SP_NAME).toString()
-                assignName = teConcessionaireName
-                date = dateTimeFormatter
-                time = timeFor
-                idIncident = "id incident"
-                price = 12.2
-                idTaxCollection = teTaxCollectionName
-                idConcessionaire = ""
-                mBottomSheetCreateIncidentPersonViewModel.funInsertIncidentPerson(mIncidentPersonFE)
-            } else { toast("debes de llenar todos los valorea") }
-        }*/
-
         with(mIncidentPersonFE) {
             idCollector = preferences.getString(SP_ID).toString()
             reportName = preferences.getString(SP_NAME).toString()
             assignName = mBinding.teSelectConcessionaire.text.toString().trim()
             date = CalendarUtils.getCurrentTimeStamp(FORMAT_TIMESTAMP)
-            time = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
             price = 12.3
-            idIncident = "idIncident"
+            idIncident = mIncidentList[mBinding.teSelectIssueTrack.text.toString()].toString()
             idConcessionaire = "idConcessionaire"
             idTaxCollection = mBinding.teTaxCollection.text.toString().trim()
         }
@@ -151,13 +129,13 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
                 getMarketListNames())
         mBinding.teSelectMarket.setAdapter(adapter)    }
 
-    private fun getMarketListNames():MutableList<String> {
+    private fun getMarketListNames(): MutableList<String> {
         return mMarketList.map { it.key }
             .toMutableList()
     }
 
     /** Incidents List setUp **/
-    private fun getIncidentList(incidentList: MutableList<IncidentSE>) {
+    private fun getIncidentList(incidentList: MutableMap<String, String>) {
         mIncidentList = incidentList
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
@@ -166,7 +144,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     }
 
     private fun getIncidentListNames(): MutableList<String> {
-        return mIncidentList.map { it.incidentName }
+        return mIncidentList.map { it.key }
             .toMutableList()
     }
 

@@ -9,7 +9,6 @@ data class IncidentPersonFE(
     var reportName: String = "",
     var assignName: String = "",
     var date: String = "",
-    var time: String = "",
     var idIncident: String = "",
     var price: Double = 0.0,
     var idTaxCollection: String = "",
@@ -21,7 +20,6 @@ data class IncidentPersonFE(
         map["reportName"] = reportName
         map["assignName"] = assignName
         map["date"] = CalendarUtils.getTimeStampFromStr(date)
-        map["time"] = time
         map["price"] = price
         map["idIncident"] = idIncident
         map["idTaxCollection"] = idTaxCollection
@@ -40,7 +38,6 @@ data class IncidentPersonFE(
         if (reportName != other.reportName) return false
         if (assignName != other.assignName) return false
         if (date != other.date) return false
-        if (time != other.time) return false
         if (idIncident != other.idIncident) return false
         if (price != other.price) return false
         if (idTaxCollection != other.idTaxCollection) return false
@@ -55,7 +52,6 @@ data class IncidentPersonFE(
         result = 31 * result + reportName.hashCode()
         result = 31 * result + assignName.hashCode()
         result = 31 * result + date.hashCode()
-        result = 31 * result + time.hashCode()
         result = 31 * result + idIncident.hashCode()
         result = 31 * result + price.hashCode()
         result = 31 * result + idTaxCollection.hashCode()

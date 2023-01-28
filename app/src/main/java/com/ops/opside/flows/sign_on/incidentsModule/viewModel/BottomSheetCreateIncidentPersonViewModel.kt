@@ -27,8 +27,8 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
     private val mGetTaxCollectionList = MutableLiveData<MutableList<TaxCollectionSE>>()
     val getTaxCollectionList: LiveData<MutableList<TaxCollectionSE>> = mGetTaxCollectionList
 
-    private val mGetIncidentList = MutableLiveData<MutableList<IncidentSE>>()
-    val getIncidentList: LiveData<MutableList<IncidentSE>> = mGetIncidentList
+    private val mGetIncidentList = MutableLiveData<MutableMap<String, String>>()
+    val getIncidentList: LiveData<MutableMap<String, String>> = mGetIncidentList
 
     val getMarketList = MutableLiveData<MutableMap<String, String>>()
 
