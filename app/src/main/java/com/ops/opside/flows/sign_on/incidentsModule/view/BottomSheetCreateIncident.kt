@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.IncidentFE
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentBinding
+import com.ops.opside.flows.sign_on.incidentsModule.actions.CreateIncidentAction
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetCreateIncidentViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +51,21 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
 
     /** ViewModel setUp **/
     private fun bindViewModel() {
+        mBottomSheetCreateIncidentViewModel.getShowProgress().observe(mActivity,
+            Observer(mActivity::showLoading))
+        mBottomSheetCreateIncidentViewModel.getAction().observe(mActivity, Observer(this::handleAction))
 
+    }
+
+    private fun handleAction(action: CreateIncidentAction) {
+        when(action) {
+            is CreateIncidentAction.ShowMessageSuccess -> {
+                toast(getString(R.string.bs_create_incident_handle_success))
+            }
+            is CreateIncidentAction.ShowMessageError -> {
+                toast(getString(R.string.bs_create_incident_handle_error))
+            }
+        }
     }
     private fun setUpActivity() {
         mActivity = activity as MainActivity

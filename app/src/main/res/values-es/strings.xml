@@ -248,6 +248,9 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
         <item>2022</item>
         <item>2023</item>
     </string-array>
+    
+    <string name="bs_assign_incident_handle_success">Incidencia asignada con éxito!</string>
+    <string name="bs_assign_incident_handle_error">Ha ocurrido un error al momento de asignar la incidencia!</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Crear Nueva Incidencia</string>
@@ -255,6 +258,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="bs_create_incident_tv_til_hint_price">Nombre de la Incidencia</string>
     <string name="bs_create_incident_tv_til_hint_description">Descripcion de la Incidencia</string>
     <string name="bs_create_incident_btn_create">Crear Incidencia</string>
+    <string name="bs_create_incident_handle_success">Incidencia creada con éxito!</string>
+    <string name="bs_create_incident_handle_error">Ha ocurrido un error al momento de crear la incidencia!</string>
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>

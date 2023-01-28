@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
@@ -17,8 +18,10 @@ import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.views.BaseBottomSheetFragment
 import com.ops.opside.databinding.BottomSheetCreateIncidentPersonBinding
+import com.ops.opside.flows.sign_on.incidentsModule.actions.CreateIncidentAction
 import com.ops.opside.flows.sign_on.incidentsModule.viewModel.BottomSheetCreateIncidentPersonViewModel
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
+import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -111,6 +114,8 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
         mBottomSheetCreateIncidentPersonViewModel.getMarketList()
     }
     private fun bindViewModel() {
+        mBottomSheetCreateIncidentPersonViewModel.getShowProgress().observe(mActivity,
+            Observer(mActivity::showLoading))
         mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList.observe(this,
             Observer(this::getConcessionaireList))
         mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList.observe(this,
@@ -119,6 +124,19 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
             Observer(this::getIncidentList))
         mBottomSheetCreateIncidentPersonViewModel.getMarketList.observe(this,
             Observer(this::getMarketList))
+        mBottomSheetCreateIncidentPersonViewModel.getAction().observe(mActivity, Observer(this::handleAction))
+
+    }
+
+    private fun handleAction(action: CreateIncidentAction) {
+        when(action) {
+            is CreateIncidentAction.ShowMessageSuccess -> {
+                toast(getString(R.string.bs_assign_incident_handle_success))
+            }
+            is CreateIncidentAction.ShowMessageError -> {
+                toast(getString(R.string.bs_assign_incident_handle_error))
+            }
+        }
     }
 
     /** Markets List setUp **/

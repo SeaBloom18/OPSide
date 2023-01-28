@@ -1,9 +1,12 @@
 package com.ops.opside.flows.sign_on.incidentsModule.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.ops.opside.common.entities.firestore.IncidentFE
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_on.incidentsModule.actions.CreateIncidentAction
 import com.ops.opside.flows.sign_on.incidentsModule.model.BottomSheetCreateIncidentInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,6 +19,8 @@ class BottomSheetCreateIncidentViewModel @Inject constructor(
     private val mBottomSheetCreateIncidentInteractor: BottomSheetCreateIncidentInteractor)
     : CommonViewModel() {
 
+    private val _action: SingleLiveEvent<CreateIncidentAction> = SingleLiveEvent()
+    fun getAction(): LiveData<CreateIncidentAction> = _action
         fun insertIncident(incidentFE: IncidentFE) {
             disposable.add(
                 mBottomSheetCreateIncidentInteractor.insertIncident(incidentFE).applySchedulers()
@@ -24,13 +29,13 @@ class BottomSheetCreateIncidentViewModel @Inject constructor(
                         {
                             //_registerConcessionaire.value = it
                             showProgress.value = false
-                            //_action.value = RegistrationAction.ShowMessageSuccess
+                            _action.value = CreateIncidentAction.ShowMessageSuccess
                         },
                         {
                             //_registerConcessionaire.value = false
                             Log.e("Error", it.toString())
                             showProgress.value = false
-                            //_action.value = RegistrationAction.ShowMessageError
+                            _action.value = CreateIncidentAction.ShowMessageError
                         }
                     )
             )

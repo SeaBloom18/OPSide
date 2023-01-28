@@ -242,13 +242,18 @@ The OPS application is willing to help and provide a better experience to all us
         <item>2023</item>
     </string-array>
 
+    <string name="bs_assign_incident_handle_success">Issue has been assigned successfully!</string>
+    <string name="bs_assign_incident_handle_error">An error occurred when tried to assign issue!</string>
+
+
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Create New Issue</string>
     <string name="bs_create_incident_tv_til_hint_name">Issue Name</string>
     <string name="bs_create_incident_tv_til_hint_price">Issue Price</string>
     <string name="bs_create_incident_tv_til_hint_description">Issue Description</string>
     <string name="bs_create_incident_btn_create">Create Issue</string>
-
+    <string name="bs_create_incident_handle_success">Issue has been created successfully!</string>
+    <string name="bs_create_incident_handle_error">An error occurred when tried to create issue!</string>
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Log Out</string>

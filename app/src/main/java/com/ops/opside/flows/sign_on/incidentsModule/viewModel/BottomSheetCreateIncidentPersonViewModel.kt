@@ -8,9 +8,12 @@ import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_on.incidentsModule.actions.CreateIncidentAction
 import com.ops.opside.flows.sign_on.incidentsModule.model.BottomSheetCreateIncidentPersonInteractor
+import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -31,6 +34,9 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
     val getIncidentList: LiveData<MutableMap<String, String>> = mGetIncidentList
 
     val getMarketList = MutableLiveData<MutableMap<String, String>>()
+    private val _action: SingleLiveEvent<CreateIncidentAction> = SingleLiveEvent()
+    fun getAction(): LiveData<CreateIncidentAction> = _action
+
 
     fun getMarketList(){
         disposable.add(
@@ -91,13 +97,13 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
                     {
                         //_registerConcessionaire.value = it
                         showProgress.value = false
-                        //_action.value = RegistrationAction.ShowMessageSuccess
+                        _action.value = CreateIncidentAction.ShowMessageSuccess
                     },
                     {
                         //_registerConcessionaire.value = false
                         Log.e("Error", it.toString())
                         showProgress.value = false
-                        //_action.value = RegistrationAction.ShowMessageError
+                        _action.value = CreateIncidentAction.ShowMessageError
                     }
                 )
         )
