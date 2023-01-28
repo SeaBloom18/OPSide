@@ -228,6 +228,9 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="bs_assign_incident_til_hint_issue_conce">Select Concessionaire</string>
     <string name="bs_assign_incident_til_hint_collection">Select TaxCollection</string>
     <string name="bs_assign_incident_btn_assign">Assign Issue</string>
+    <string name="bs_assign_incident_til_hint_select_market">Select Market</string>
+    <string name="bs_assign_incident_til_hint_select_month">Month</string>
+    <string name="bs_assign_incident_til_hint_select_year">Year</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Create New Issue</string>

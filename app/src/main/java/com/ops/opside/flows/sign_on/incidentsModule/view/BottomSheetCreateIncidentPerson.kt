@@ -1,6 +1,8 @@
 package com.ops.opside.flows.sign_on.incidentsModule.view
 
 import  android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +28,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
 
     @Inject lateinit var preferences: Preferences
     private lateinit var mBinding: BottomSheetCreateIncidentPersonBinding
-    private lateinit var mActivity: MainActivity
+    private val mActivity: MainActivity by lazy { activity as MainActivity }
     private lateinit var mConcessionaireList: MutableList<ConcessionaireSE>
     private lateinit var mTaxCollectionList: MutableList<TaxCollectionSE>
     private lateinit var mIncidentList: MutableList<IncidentSE>
@@ -35,7 +37,6 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     private val mIncidentPersonFE: IncidentPersonFE = IncidentPersonFE()
     private val monthList: MutableList<String> = mutableListOf("Enero", "Febrero")
     private val yearsList: MutableList<String> = mutableListOf("2022", "2023")
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -46,33 +47,44 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpActivity()
         getLists()
         bindViewModel()
 
-        val monthAdapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                monthList)
-        val yearsAdapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                yearsList)
         mBinding.apply {
-            btnCreateIncident.setOnClickListener {
-                //insertIncident()
-                mBottomSheetCreateIncidentPersonViewModel.getConcessByMarketList(
-                    mMarketList[mBinding.teSelectMarket.text.toString()].orEmpty())
-            }
-            btnClose2.setOnClickListener { dismiss() }
+            btnCreateIncident.setOnClickListener {  }
+            mBinding.teSelectMarket.addTextChangedListener(object: TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int,
+                                               count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    mBinding.teSelectConcessionaire.isEnabled = true
+                    mBinding.tilSelectConcessionaire.isEnabled = true
+                    mBottomSheetCreateIncidentPersonViewModel.getConcessByMarketList(
+                        mMarketList[mBinding.teSelectMarket.text.toString()].orEmpty())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+
+            })
+
+            val monthAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mActivity,
+                android.R.layout.simple_list_item_1, monthList)
+            val yearsAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mActivity,
+                android.R.layout.simple_list_item_1, yearsList)
+
+            btnDismiss.setOnClickListener { dismiss() }
             mBinding.teSelectMonth.setAdapter(monthAdapter)
             mBinding.teSelectYear.setAdapter(yearsAdapter)
         }
+
+
     }
 
     private fun insertIncident() {
         with(mIncidentPersonFE) {
-            val teConcessionaireName = mBinding.teSearch.text.toString().trim()
+            val teConcessionaireName = mBinding.teSelectConcessionaire.text.toString().trim()
             val teTaxCollectionName = mBinding.teTaxCollection.text.toString().trim()
-            val teIncidentPrice = mBinding.teIncidentPrice.text.toString().trim()
+            val teIncidentPrice = mBinding.teSelectIssueTrack.text.toString().trim()
             val dateTimeFormatter = CalendarUtils.getCurrentTimeStamp(FORMAT_SQL_DATE)
             val timeFor = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
             if (teConcessionaireName.isNotEmpty()
@@ -105,12 +117,10 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     }
 
     /** ViewModel SetUp **/
-
     private fun getLists() {
         mBottomSheetCreateIncidentPersonViewModel.getTaxCollectionList()
         mBottomSheetCreateIncidentPersonViewModel.getIncidentList()
         mBottomSheetCreateIncidentPersonViewModel.getMarketList()
-        //mBottomSheetCreateIncidentPersonViewModel.getConcessByMarketList(mMarketList as MutableList<String>)
     }
     private fun bindViewModel() {
         mBottomSheetCreateIncidentPersonViewModel.getConcessionairesList.observe(this,
@@ -126,75 +136,53 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     /** Markets List setUp **/
     private fun getMarketList(marketList: MutableMap<String, String>) {
         mMarketList = marketList
-        setUpMarketList()
-    }
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
+                getMarketListNames())
+        mBinding.teSelectMarket.setAdapter(adapter)    }
 
     private fun getMarketListNames():MutableList<String> {
         return mMarketList.map { it.key }
             .toMutableList()
     }
 
-    private fun setUpMarketList() {
-        val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                getMarketListNames())
-        mBinding.teSelectMarket.setAdapter(adapter)
-    }
-
     /** Incidents List setUp **/
     private fun getIncidentList(incidentList: MutableList<IncidentSE>) {
         mIncidentList = incidentList
-        setUpIncidentList()
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
+                getIncidentListNames())
+        mBinding.teSelectIssueTrack.setAdapter(adapter)
     }
 
     private fun getIncidentListNames(): MutableList<String> {
         return mIncidentList.map { it.incidentName }
             .toMutableList()
     }
-    private fun setUpIncidentList() {
-        val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                getIncidentListNames())
-        mBinding.teIncidentPrice.setAdapter(adapter)
-    }
 
     /** TaxCollector List setUp **/
     private fun getTaxCollectionList(taxCollectionList: MutableList<TaxCollectionSE>) {
         mTaxCollectionList = taxCollectionList
-        setUpTaxCollectionList()
-    }
-
-    private fun setUpTaxCollectionList() {
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
                 getTaxCollectionListNames())
-        mBinding.teTaxCollection.setAdapter(adapter)
-    }
+        mBinding.teTaxCollection.setAdapter(adapter)    }
 
     private fun getTaxCollectionListNames(): MutableList<String> {
-        //text to show: marketName, date
         return mTaxCollectionList.map { "${it.marketName}, ${it.startDate} to ${it.endDate}" }
             .toMutableList()
     }
 
-    /** Concessionaire List setUp**/
+    /** Concessionaire List setUp **/
     private fun getConcessionaireList(ConcessionaireList: MutableList<ConcessionaireSE>){
         mConcessionaireList = ConcessionaireList
-        //setUpConcessionaireList()
-    }
-
-    private fun setUpConcessionaireList() {
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
                 getConcessionaireListNames())
-        mBinding.teSearch.setAdapter(adapter)
+        mBinding.teSelectConcessionaire.setAdapter(adapter)
     }
 
     private fun getConcessionaireListNames(): MutableList<String> {
         return mConcessionaireList.map { it.name }.toMutableList()
-    }
-
-    private fun setUpActivity() {
-        mActivity = activity as MainActivity
     }
 }
