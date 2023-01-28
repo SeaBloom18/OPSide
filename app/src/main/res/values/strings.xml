@@ -231,6 +231,16 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="bs_assign_incident_til_hint_select_market">Select Market</string>
     <string name="bs_assign_incident_til_hint_select_month">Month</string>
     <string name="bs_assign_incident_til_hint_select_year">Year</string>
+    <string-array name="bs_assign_incident_months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+    </string-array>
+
+    <string-array name="bs_assign_incident_years">
+        <item>2022</item>
+        <item>2023</item>
+    </string-array>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Create New Issue</string>

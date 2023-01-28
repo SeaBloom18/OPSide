@@ -4,11 +4,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
 import com.ops.opside.common.entities.TablesEnum
-import com.ops.opside.common.entities.firestore.IncidentFE
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
-import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
 import com.ops.opside.common.utils.Preferences
 import com.ops.opside.common.utils.SP_ID
@@ -23,7 +21,7 @@ import javax.inject.Inject
 class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
     private val firestore: FirebaseFirestore, private val preferences: Preferences) {
 
-    fun insertIncident(incidentPersonFE: IncidentPersonFE): Observable<Boolean> {
+    fun insertIncidentPerson(incidentPersonFE: IncidentPersonFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
                 firestore.collection(TablesEnum.IncidentPerson.getName())

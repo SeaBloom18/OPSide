@@ -31,22 +31,22 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = BottomSheetCreateIncidentBinding.inflate(layoutInflater)
-        mBinding.apply {
-            mBinding.btnCreateIncident.setOnClickListener { insertIncident() }
-            mBinding.btnDismiss.setOnClickListener { dismiss() }
-        }
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.apply {
+            mBinding.btnCreateIncident.setOnClickListener { insertIncident() }
+            mBinding.btnDismiss.setOnClickListener { dismiss() }
+        }
+
         setUpActivity()
         bindViewModel()
     }
 
     /** ViewModel setUp **/
-
     private fun bindViewModel() {
 
     }

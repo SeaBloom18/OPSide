@@ -1,5 +1,8 @@
 package com.ops.opside.common.entities.firestore
 
+import com.ops.opside.common.utils.CalendarUtils
+import com.ops.opside.common.utils.FORMAT_TIME
+
 data class IncidentPersonFE(
     var idFirebase: String = "",
     var idCollector: String = "",
@@ -11,14 +14,13 @@ data class IncidentPersonFE(
     var price: Double = 0.0,
     var idTaxCollection: String = "",
     var idConcessionaire: String = ""
-
 ) {
     fun getHashMap(): MutableMap<String, Any> {
         val map: MutableMap<String, Any> = mutableMapOf()
         map["idCollector"] = idCollector
         map["reportName"] = reportName
         map["assignName"] = assignName
-        map["date"] = date
+        map["date"] = CalendarUtils.getTimeStampFromStr(date)
         map["time"] = time
         map["price"] = price
         map["idIncident"] = idIncident

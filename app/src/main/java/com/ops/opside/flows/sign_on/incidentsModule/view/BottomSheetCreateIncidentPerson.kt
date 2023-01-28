@@ -51,16 +51,16 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
         bindViewModel()
 
         mBinding.apply {
-            btnCreateIncident.setOnClickListener {  }
-            mBinding.teSelectMarket.addTextChangedListener(object: TextWatcher{
+            btnCreateIncidentPerson.setOnClickListener { insertIncident() }
+            teSelectMarket.addTextChangedListener(object: TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int,
                                                count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    mBinding.teSelectConcessionaire.isEnabled = true
-                    mBinding.tilSelectConcessionaire.isEnabled = true
+                    teSelectConcessionaire.isEnabled = true
+                    tilSelectConcessionaire.isEnabled = true
                     mBottomSheetCreateIncidentPersonViewModel.getConcessByMarketList(
-                        mMarketList[mBinding.teSelectMarket.text.toString()].orEmpty())
+                        mMarketList[teSelectMarket.text.toString()].orEmpty())
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
@@ -73,15 +73,13 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
                 android.R.layout.simple_list_item_1, yearsList)
 
             btnDismiss.setOnClickListener { dismiss() }
-            mBinding.teSelectMonth.setAdapter(monthAdapter)
-            mBinding.teSelectYear.setAdapter(yearsAdapter)
+            teSelectMonth.setAdapter(monthAdapter)
+            teSelectYear.setAdapter(yearsAdapter)
         }
-
-
     }
 
     private fun insertIncident() {
-        with(mIncidentPersonFE) {
+        /*with(mIncidentPersonFE) {
             val teConcessionaireName = mBinding.teSelectConcessionaire.text.toString().trim()
             val teTaxCollectionName = mBinding.teTaxCollection.text.toString().trim()
             val teIncidentPrice = mBinding.teSelectIssueTrack.text.toString().trim()
@@ -95,13 +93,25 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
                 date = dateTimeFormatter
                 time = timeFor
                 idIncident = "id incident"
-                price = teIncidentPrice.toDouble()
+                price = 12.2
                 idTaxCollection = teTaxCollectionName
                 idConcessionaire = ""
-                mBottomSheetCreateIncidentPersonViewModel.funInsertIncident(mIncidentPersonFE)
+                mBottomSheetCreateIncidentPersonViewModel.funInsertIncidentPerson(mIncidentPersonFE)
             } else { toast("debes de llenar todos los valorea") }
-        }
+        }*/
 
+        with(mIncidentPersonFE) {
+            idCollector = preferences.getString(SP_ID).toString()
+            reportName = preferences.getString(SP_NAME).toString()
+            assignName = mBinding.teSelectConcessionaire.text.toString().trim()
+            date = CalendarUtils.getCurrentTimeStamp(FORMAT_TIMESTAMP)
+            time = CalendarUtils.getCurrentTimeStamp(FORMAT_TIME)
+            price = 12.3
+            idIncident = "idIncident"
+            idConcessionaire = "idConcessionaire"
+            idTaxCollection = mBinding.teTaxCollection.text.toString().trim()
+        }
+        mBottomSheetCreateIncidentPersonViewModel.funInsertIncidentPerson(mIncidentPersonFE)
         /*
         * assignName = Nombre de la persona multada. (done)
         date = Fecha de cuando se asignó la multa (Debe cambiarse a timeStamp, actualmente es una string).

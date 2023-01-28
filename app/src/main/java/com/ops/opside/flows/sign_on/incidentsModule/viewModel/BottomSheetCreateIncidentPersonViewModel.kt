@@ -82,9 +82,10 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
         )
     }
 
-    fun funInsertIncident(incidentPersonFE: IncidentPersonFE) {
+    fun funInsertIncidentPerson(incidentPersonFE: IncidentPersonFE) {
         disposable.add(
-            mBottomSheetCreateIncidentPersonInteractor.insertIncident(incidentPersonFE).applySchedulers()
+            mBottomSheetCreateIncidentPersonInteractor.insertIncidentPerson(incidentPersonFE)
+                .applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
