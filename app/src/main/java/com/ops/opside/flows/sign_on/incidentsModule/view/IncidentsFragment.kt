@@ -3,24 +3,28 @@ package com.ops.opside.flows.sign_on.incidentsModule.view
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.databinding.FragmentIncidentsBinding
-import com.ops.opside.flows.sign_on.incidentsModule.adapter.IncidentAdapter
+import com.ops.opside.flows.sign_on.incidentsModule.adapter.IncidentsAssignedAdapter
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
 import com.ops.opside.common.views.BaseFragment
+import com.ops.opside.flows.sign_on.incidentsModule.viewModel.IncidentsAssignedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IncidentsFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentIncidentsBinding
-    private val mActivity: MainActivity by lazy { activity as MainActivity }
-    private lateinit var mIncidentAdapter: IncidentAdapter
+    private lateinit var mIncidentsAssignedAdapter: IncidentsAssignedAdapter
     private lateinit var mIncidentList: MutableList<IncidentPersonFE>
+    private val mIncidentsViewModel: IncidentsAssignedViewModel by viewModels()
+    private val mActivity: MainActivity by lazy { activity as MainActivity }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,): View {
@@ -31,15 +35,20 @@ class IncidentsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /** Method call's **/
         setToolbar()
         bindViewModel()
         loadIncidentsPersonsList()
     }
     private fun bindViewModel() {
-
+        mIncidentsViewModel.getShowProgress().observe(mActivity,
+            Observer(mActivity::showLoading))
+        mIncidentsViewModel._getIncidentPersonList.observe(mActivity,
+            Observer(this::getIncidentPersonsList))
     }
 
     private fun loadIncidentsPersonsList() {
+        mIncidentsViewModel.getTaxCollectionList()
     }
 
     private fun getIncidentPersonsList(incidentsList: MutableList<IncidentPersonFE>){
@@ -51,12 +60,12 @@ class IncidentsFragment : BaseFragment() {
         val linearLayoutManager: RecyclerView.LayoutManager
         linearLayoutManager = LinearLayoutManager(mActivity)
 
-        mIncidentAdapter = IncidentAdapter(mIncidentList)
+        mIncidentsAssignedAdapter = IncidentsAssignedAdapter(mIncidentList)
 
         mBinding.recycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
-            adapter = mIncidentAdapter
+            adapter = mIncidentsAssignedAdapter
         }
     }
 
@@ -83,6 +92,7 @@ class IncidentsFragment : BaseFragment() {
                     }
                 }
             }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            loadIncidentsPersonsList()
         }
     }
 

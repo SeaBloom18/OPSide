@@ -9,8 +9,8 @@ import com.ops.opside.R
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.databinding.ItemRecollectionIncidentsBinding
 
-class IncidentAdapter(private var incidentPersonEntity: MutableList<IncidentPersonFE>):
-    RecyclerView.Adapter<IncidentAdapter.ViewHolder>() {
+class IncidentsAssignedAdapter(private var incidentPersonEntity: MutableList<IncidentPersonFE>):
+    RecyclerView.Adapter<IncidentsAssignedAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -21,11 +21,12 @@ class IncidentAdapter(private var incidentPersonEntity: MutableList<IncidentPers
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val incident = incidentPersonEntity.get(position)
+        val incident = incidentPersonEntity[position]
         with(holder){
-            binding.tvReportName.text = incident.reportName
-            binding.tvCompoundTextAssign.text = "Incidencia asignada a ${incident.assignName} con la fecha ${incident.date}, $${incident.price}"
-            binding.tvIncidentCode.text = incident.idIncident.toString()
+            binding.apply {
+                tvCompoundTextAssign.text = incident.assignName
+                tvDateAssigned.text = incident.date
+            }
         }
     }
 
