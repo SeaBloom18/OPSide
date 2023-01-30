@@ -25,12 +25,14 @@ class IncidentsAssignedInteractor @Inject constructor(
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
+                            val timestamp = document.data!!["date"] as com.google.firebase.Timestamp
+                            val date = timestamp.toDate()
                             incidentAssignedList.add(IncidentPersonFE(
                                 idFirebase = document.id,
                                 idCollector = document.data!!["idCollector"].toString(),
                                 reportName = document.data!!["reportName"].toString(),
                                 assignName = document.data!!["assignName"].toString(),
-                                date = document.data!!["date"].toString(),
+                                date = date.toString(),
                                 idIncident = document.data!!["idIncident"].toString(),
                                 price = document.data!!["price"] as Double,
                                 idTaxCollection = document.data!!["idTaxCollection"].toString(),

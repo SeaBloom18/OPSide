@@ -16,7 +16,8 @@ class IncidentsAssignedAdapter(private var incidentPersonEntity: MutableList<Inc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.item_recollection_incidents, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_recollection_incidents,
+            parent, false)
         return ViewHolder(view)
     }
 
@@ -24,8 +25,10 @@ class IncidentsAssignedAdapter(private var incidentPersonEntity: MutableList<Inc
         val incident = incidentPersonEntity[position]
         with(holder){
             binding.apply {
-                tvCompoundTextAssign.text = incident.assignName
+                tvCompoundTextAssign.text = "${R.string.bs_assign_incident_item_tv_assigned}"
+                tvCompoundTextAssign.text = context.getString(R.string.bs_assign_incident_item_tv_assigned, incident.assignName)
                 tvDateAssigned.text = incident.date
+
             }
         }
     }

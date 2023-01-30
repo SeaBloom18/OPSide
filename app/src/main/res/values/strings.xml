@@ -245,7 +245,7 @@ The OPS application is willing to help and provide a better experience to all us
 
     <string name="bs_assign_incident_handle_success">Issue has been assigned successfully!</string>
     <string name="bs_assign_incident_handle_error">An error occurred when tried to assign issue!</string>
-
+    <string name="bs_assign_incident_item_tv_assigned">Incident assigned to %1$s</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Create New Issue</string>

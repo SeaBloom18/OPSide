@@ -252,6 +252,7 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     
     <string name="bs_assign_incident_handle_success">Incidencia asignada con éxito!</string>
     <string name="bs_assign_incident_handle_error">Ha ocurrido un error al momento de asignar la incidencia!</string>
+    <string name="bs_assign_incident_item_tv_assigned">Incidencia asignada a %1$s</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Crear Nueva Incidencia</string>
