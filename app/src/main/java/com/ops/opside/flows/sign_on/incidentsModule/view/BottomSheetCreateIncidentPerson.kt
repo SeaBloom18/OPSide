@@ -50,11 +50,7 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getLists()
-        bindViewModel()
-
         mBinding.apply {
-            btnCreateIncidentPerson.setOnClickListener { insertIncident() }
             teSelectMarket.addTextChangedListener(object: TextWatcher{
                 override fun beforeTextChanged(s: CharSequence?, start: Int,
                                                count: Int, after: Int) {}
@@ -70,17 +66,24 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
 
             })
 
-            val monthAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mActivity,
+            val monthAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),
                 android.R.layout.simple_list_item_1, monthList)
-            val yearsAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mActivity,
+            val yearsAdapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(),
                 android.R.layout.simple_list_item_1, yearsList)
 
+            btnCreateIncidentPerson.setOnClickListener { insertIncident() }
             btnDismiss.setOnClickListener { dismiss() }
             teSelectMonth.setAdapter(monthAdapter)
             teSelectYear.setAdapter(yearsAdapter)
         }
+
+        /** Method call's **/
+        getLists()
+        bindViewModel()
+
     }
 
+    /** Methods **/
     private fun insertIncident() {
         with(mIncidentPersonFE) {
             idCollector = preferences.getString(SP_ID).toString()
@@ -144,24 +147,16 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
         mMarketList = marketList
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                getMarketListNames())
+                mMarketList.map { it.key }.toMutableList())
         mBinding.teSelectMarket.setAdapter(adapter)    }
-
-    private fun getMarketListNames(): MutableList<String> {
-        return mMarketList.map { it.key }.toMutableList()
-    }
-
+    
     /** Incidents List setUp **/
     private fun getIncidentList(incidentList: MutableMap<String, String>) {
         mIncidentList = incidentList
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                getIncidentListNames())
+                mIncidentList.map { it.key }.toMutableList())
         mBinding.teSelectIssueTrack.setAdapter(adapter)
-    }
-
-    private fun getIncidentListNames(): MutableList<String> {
-        return mIncidentList.map { it.key }.toMutableList()
     }
 
     /** TaxCollector List setUp **/
@@ -169,24 +164,15 @@ class BottomSheetCreateIncidentPerson(private val incident: (IncidentSE) -> Unit
         mTaxCollectionList = taxCollectionList
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                getTaxCollectionListNames())
+                mTaxCollectionList.map { "${it.marketName}, ${it.startDate} to ${it.endDate}" })
         mBinding.teTaxCollection.setAdapter(adapter)    }
-
-    private fun getTaxCollectionListNames(): MutableList<String> {
-        return mTaxCollectionList.map { "${it.marketName}, ${it.startDate} to ${it.endDate}" }
-            .toMutableList()
-    }
 
     /** Concessionaire List setUp **/
     private fun getConcessionaireList(ConcessionaireList: MutableMap<String, String>){
         mConcessionaireList = ConcessionaireList
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1,
-                getConcessionaireListNames())
+                mConcessionaireList.map { it.key }.toMutableList())
         mBinding.teSelectConcessionaire.setAdapter(adapter)
-    }
-
-    private fun getConcessionaireListNames(): MutableList<String> {
-        return mConcessionaireList.map { it.key }.toMutableList()
     }
 }

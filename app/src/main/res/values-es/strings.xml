@@ -10,6 +10,7 @@
     <string name="common_cancelled">Cancelado</string>
     <string name="common_atention">Atención</string>
     <string name="common_close">Cerrar</string>
+    <string name="common_toast_fill_text">Debes de llenar todos los campos!</string>
 
     <!--About App Strings-->
     <string name="ops_about_app_title">Sobre OPS</string>

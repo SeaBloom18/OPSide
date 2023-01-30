@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class BottomSheetCreateIncident : BaseBottomSheetFragment() {
 
     private lateinit var mBinding: BottomSheetCreateIncidentBinding
-    private lateinit var mActivity: MainActivity
+    private val mActivity: MainActivity by lazy { activity as MainActivity }
     private val mBottomSheetCreateIncidentViewModel: BottomSheetCreateIncidentViewModel by viewModels()
     private val mIncidentFE: IncidentFE = IncidentFE()
 
@@ -45,7 +45,7 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
             mBinding.btnDismiss.setOnClickListener { dismiss() }
         }
 
-        setUpActivity()
+        /** Methods call's **/
         bindViewModel()
     }
 
@@ -53,8 +53,8 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
     private fun bindViewModel() {
         mBottomSheetCreateIncidentViewModel.getShowProgress().observe(mActivity,
             Observer(mActivity::showLoading))
-        mBottomSheetCreateIncidentViewModel.getAction().observe(mActivity, Observer(this::handleAction))
-
+        mBottomSheetCreateIncidentViewModel.getAction().observe(mActivity,
+            Observer(this::handleAction))
     }
 
     private fun handleAction(action: CreateIncidentAction) {
@@ -67,10 +67,8 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
             }
         }
     }
-    private fun setUpActivity() {
-        mActivity = activity as MainActivity
-    }
 
+    /** Methods **/
     private fun insertIncident() {
         with(mIncidentFE) {
             val teIncidentName = mBinding.teIncidentName.text.toString().trim()
@@ -82,7 +80,7 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
                 incidentDescription = teIncidentDescription
                 mBottomSheetCreateIncidentViewModel.insertIncident(mIncidentFE)
             } else {
-                toast("debes de llenar todos los valorea")
+                toast(getString(R.string.common_toast_fill_text))
             }
         }
     }

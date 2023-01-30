@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ops.opside.R
@@ -12,9 +11,10 @@ import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.databinding.FragmentIncidentsBinding
 import com.ops.opside.flows.sign_on.incidentsModule.adapter.IncidentAdapter
 import com.ops.opside.flows.sign_on.mainModule.view.MainActivity
-import androidx.lifecycle.Observer
 import com.ops.opside.common.views.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class IncidentsFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentIncidentsBinding
