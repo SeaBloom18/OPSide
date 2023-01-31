@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BottomSheetFilterViewModel @Inject constructor(
-    val interactor: BottomSheetFilterInteractor
+    private val interactor: BottomSheetFilterInteractor
 ) : CommonViewModel() {
     private val _getCollectorList = MutableLiveData<MutableMap<String,String>>()
     val getCollectorList: LiveData<MutableMap<String,String>> = _getCollectorList

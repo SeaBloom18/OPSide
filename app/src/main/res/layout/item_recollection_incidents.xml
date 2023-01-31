@@ -15,53 +15,44 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryColor">
 
-        <TextView
-            android:id="@+id/tvReportName"
+        <ImageButton
+            android:id="@+id/imgShowMore2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/common_content_description"
+            android:src="@drawable/ic_ops_right_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCompoundTextAssign"
+            style="@style/textViewBodyBlackStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/montserrat_semibold"
             android:maxLines="2"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/common_text_size"
-            app:layout_anchorGravity="center"
-            app:layout_constraintEnd_toStartOf="@+id/tvIncidentCode"
+            app:layout_constraintEnd_toStartOf="@+id/imgShowMore2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="David Gonzalez" />
+            app:layout_constraintTop_toTopOf="@+id/imgShowMore2"
+            tools:text="Incidencia asignada a Mario Razo" />
 
-        <TextView
-            android:id="@+id/tvIncidentCode"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDateAssigned"
             style="@style/textViewBodyStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:maxLines="2"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/common_text_size"
             app:layout_anchorGravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCompoundTextAssign"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="#09" />
-
-        <TextView
-            android:id="@+id/tvCompoundTextAssign"
-            style="@style/textViewBodyStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:maxLines="2"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/common_text_size"
-            app:layout_anchorGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvReportName"
-            app:layout_constraintStart_toStartOf="@+id/tvReportName"
-            app:layout_constraintTop_toBottomOf="@+id/tvReportName"
-            tools:text="Incidencia asignada a Mario Razo con la fecha 03/08/2022" />
+            app:layout_constraintEnd_toEndOf="@+id/tvCompoundTextAssign"
+            app:layout_constraintStart_toStartOf="@+id/tvCompoundTextAssign"
+            app:layout_constraintTop_toBottomOf="@+id/tvCompoundTextAssign"
+            tools:text="30 de enero de 2023, 10:59:52 UTC-6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

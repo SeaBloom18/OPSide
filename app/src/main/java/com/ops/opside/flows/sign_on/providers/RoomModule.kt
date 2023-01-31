@@ -1,4 +1,4 @@
-package com.ops.opside.di.providers
+package com.ops.opside.flows.sign_on.providers
 
 import android.content.Context
 import androidx.room.Room

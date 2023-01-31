@@ -10,6 +10,7 @@
     <string name="common_cancelled">Cancelled</string>
     <string name="common_atention">Attention</string>
     <string name="common_close">Close</string>
+    <string name="common_toast_fill_text">You have to fill all the fields!</string>
 
     <!--About App-->
     <string name="ops_about_app_title">About OPS</string>
@@ -228,6 +229,23 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="bs_assign_incident_til_hint_issue_conce">Select Concessionaire</string>
     <string name="bs_assign_incident_til_hint_collection">Select TaxCollection</string>
     <string name="bs_assign_incident_btn_assign">Assign Issue</string>
+    <string name="bs_assign_incident_til_hint_select_market">Select Market</string>
+    <string name="bs_assign_incident_til_hint_select_month">Month</string>
+    <string name="bs_assign_incident_til_hint_select_year">Year</string>
+    <string-array name="bs_assign_incident_months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+    </string-array>
+
+    <string-array name="bs_assign_incident_years">
+        <item>2022</item>
+        <item>2023</item>
+    </string-array>
+
+    <string name="bs_assign_incident_handle_success">Issue has been assigned successfully!</string>
+    <string name="bs_assign_incident_handle_error">An error occurred when tried to assign issue!</string>
+    <string name="bs_assign_incident_item_tv_assigned">Incident assigned to %1$s</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Create New Issue</string>
@@ -235,7 +253,8 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="bs_create_incident_tv_til_hint_price">Issue Price</string>
     <string name="bs_create_incident_tv_til_hint_description">Issue Description</string>
     <string name="bs_create_incident_btn_create">Create Issue</string>
-
+    <string name="bs_create_incident_handle_success">Issue has been created successfully!</string>
+    <string name="bs_create_incident_handle_error">An error occurred when tried to create issue!</string>
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Log Out</string>
