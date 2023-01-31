@@ -14,6 +14,7 @@ import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_on.profileModule.model.ProfileInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.actions.TaxCollectionAction
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.PickMarketInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.RecordTaxCollectionInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.TaxCollectionInteractor
@@ -280,6 +281,20 @@ class TaxCollectionViewModel @Inject constructor(
                     {
                         Log.e("Error", it.toString())
                         _revertEvent.value = false
+                    }
+                )
+        )
+    }
+    fun sendEmail(emails: MutableList<EmailObject>){
+        disposable.add(
+            mTaxCollectionInteractor.sendEmail(emails).applySchedulers()
+                .subscribe(
+                    {
+                        //not op
+                    },
+                    {
+                        Log.e("Error", it.toString())
+                        _action.value = TaxCollectionAction.ShowMessageError(it.message.toString())
                     }
                 )
         )

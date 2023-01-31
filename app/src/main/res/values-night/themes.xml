@@ -109,6 +109,15 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+    <!-- CheckBox Style -->
+    <style name="CheckBoxThicStyle" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="buttonTint">@color/secondaryColor</item>
+    </style>
+
     <!--Switch Style-->
     <style name="CommonSwitchStyle" >
         <!--<item name="thumbIcon">@drawable/ic_ops_close_switch</item>-->

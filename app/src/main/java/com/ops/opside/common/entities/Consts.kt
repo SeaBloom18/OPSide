@@ -14,6 +14,8 @@ const val DB_TABLE_PENDING_EMAIL = "pendingEmail"
 const val DB_TABLE_RESOURCES = "resources"
 const val DB_TABLE_ORIGIN = "origin"
 const val DB_TABLE_COLLECTOR = "collector"
+const val DB_TABLE_EMAIL = "email"
+const val DB_TABLE_ROL = "rol"
 
 /** SHARED PREFERENCES **/
 const val SP_FOREIGN_CONCE_ROLE = 1

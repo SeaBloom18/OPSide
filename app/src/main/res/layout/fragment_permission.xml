@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/primaryLightColor"
+    tools:context=".flows.sign_on.permissionModule.view.PermissionActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryLightColor">
+
+        <include
+            android:id="@+id/toolbarFrgPermission"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPickRol"
+            style="@style/TextInputDropDownLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_padding_default"
+            android:layout_marginTop="16dp"
+            android:hint="Rol"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+            app:layout_constraintEnd_toStartOf="@id/btnSearchRol"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarFrgPermission">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/spPickRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSearchRol"
+            style="@style/CommonButtonSolidStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/common_padding_default"
+            android:text="@string/common_til_search"
+            android:src="@drawable/ic_ops_search"
+            android:contentDescription="@string/common_til_search"
+            app:iconGravity="start"
+            app:layout_constraintBottom_toBottomOf="@+id/tilPickRol"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tilPickRol" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRolName"
+            style="@style/TextInputLayoutStyle"
+            android:layout_marginStart="@dimen/common_padding_default"
+            android:layout_marginTop="@dimen/common_padding_default"
+            android:layout_marginEnd="@dimen/common_padding_default"
+            android:hint="Nombre del Rol"
+            app:boxStrokeColor="@drawable/states_colors_text_field"
+            app:endIconMode="clear_text"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilPickRol"
+            app:startIconDrawable="@drawable/ic_ops_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/teRolName"
+                style="@style/TextInputEditTextStyle"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvModules"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/common_padding_default"
+            tools:listitem="@layout/item_permission"
+            app:layout_constraintTop_toBottomOf="@id/tilRolName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabAddRol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/common_padding_default"
+            android:layout_marginBottom="@dimen/common_padding_default"
+            android:contentDescription="@string/common_til_search"
+            android:text="Save"
+            android:visibility="gone"
+            android:textColor="@color/primaryTextColor"
+            app:iconTint="@color/primaryTextColor"
+            app:backgroundTint="@color/secondaryColor"
+            app:icon="@drawable/ic_ops_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

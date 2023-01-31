@@ -20,5 +20,7 @@ fun TablesEnum.getName(): String {
         TablesEnum.Resources            -> base.plus(DB_TABLE_RESOURCES            )
         TablesEnum.Origin               -> base.plus(DB_TABLE_ORIGIN               )
         TablesEnum.Collector            -> base.plus(DB_TABLE_COLLECTOR            )
+        TablesEnum.Rol                  -> base.plus(DB_TABLE_ROL                  )
+        TablesEnum.Email                -> DB_TABLE_EMAIL
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+   <!-- <item
+        android:id="@+id/menu_rol_reset"
+        android:title="@string/login_til_required"
+        android:icon="@drawable/ic_record"
+        app:showAsAction="always"/>-->
+    <item
+        android:id="@+id/menu_check_all"
+        android:title="@string/login_til_required"
+        android:icon="@drawable/ic_ops_filter"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_add_rol"
+        android:title="@string/login_til_required"
+        android:icon="@drawable/ic_ops_add"
+        app:showAsAction="always"/>
+</menu>
