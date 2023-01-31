@@ -363,7 +363,14 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             return
         }
 
-        val concess = mConcessionairesMap[result.contents]
+        var concess: ConcessionaireSE?
+
+        try {
+            concess = mConcessionairesMap.get(result.contents)
+        } catch (e: Exception){
+            showError(getString(R.string.tax_collection_concess_not_found))
+            return
+        }
 
         if (concess == null) {
             showError(getString(R.string.tax_collection_concess_not_found))
@@ -611,28 +618,21 @@ class TaxCollectionActivity : BaseActivity(), TaxCollectionAux {
             email.name,
             email.market,
             email.linearMeters,
-            email.totalAmount,
+            email.totalAmount.toDouble().orZero().round().toString(),
             mCollectorName
         )
-
-        GlobalScope.launch {
-            EmailSender.send(
-                mutableListOf(
-                    EmailObject(
-                        subject = getString(
-                            R.string.tax_collection_receipt_subject,
-                            CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)
-                        ),
-                        body = body,
-                        recipient = email.emailConcessionaire
-                    )
-                )
-            ) {
-                if (it.first.not()) {
-                    showError(it.second)
-                }
-            }
-        }
+         mViewModel.sendEmail(
+             mutableListOf(
+                 EmailObject(
+                     subject = getString(
+                         R.string.tax_collection_receipt_subject,
+                         CalendarUtils.getCurrentTimeStamp(FORMAT_DATE)
+                     ),
+                     body = body,
+                     recipient = email.emailConcessionaire
+                 )
+             )
+         )
     }
 
     override fun hideButtons() {

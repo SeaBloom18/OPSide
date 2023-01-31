@@ -15,6 +15,7 @@ import com.ops.opside.common.room.TaxCollectionDataBase
 import com.ops.opside.common.utils.*
 import com.ops.opside.common.utils.Formaters.orZero
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ABSENCE
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import io.reactivex.Observable
 import java.text.SimpleDateFormat
 import java.util.*
@@ -265,6 +266,25 @@ class TaxCollectionInteractor @Inject constructor(
                         Log.e("Error", it.message.toString())
                         subscriber.onError(it)
                     }
+            } catch (e: Exception) {
+                Log.e("Error", e.message.toString())
+                subscriber.onError(e)
+            }
+        }
+    }
+
+    fun sendEmail(emails: MutableList<EmailObject>): Observable<Boolean> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                for (email in emails){
+                    firestore.collection(TablesEnum.Email.getName())
+                        .add(email.getHashMap())
+                        .addOnFailureListener {
+                            Log.e("Error", it.message.toString())
+                            subscriber.onError(it)
+                        }
+                }
+                subscriber.onNext(true)
             } catch (e: Exception) {
                 Log.e("Error", e.message.toString())
                 subscriber.onError(e)

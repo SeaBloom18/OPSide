@@ -366,4 +366,18 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="tv1_title_policies_contact_us">Contáctenos</string>
     <string name="tv1_body_policies_contact_us">Si tiene alguna pregunta sobre esta Política de privacidad, puede contactarnos.</string>
 
+    <!-- Tables Name -->
+    <string name="tables_name_concessionaire">Concesionarios</string>
+    <string name="tables_name_market">Tianguis</string>
+    <string name="tables_name_login">Acceso</string>
+    <string name="tables_name_registration">Registro</string>
+    <string name="tables_name_dashboard">Tablero</string>
+    <string name="tables_name_dealer">Vendedor</string>
+    <string name="tables_name_incident">Multa</string>
+    <string name="tables_name_profile">Perfil</string>
+    <string name="tables_name_taxcollection">Recolección</string>
+    <string name="tables_name_taxcollection_crud">Recolección Revisión</string>
+    <string name="tables_name_control_panel">Panel de Control</string>
+    <string name="tables_name_permission">Permisos</string>
+
 </resources>

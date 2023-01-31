@@ -91,6 +91,11 @@
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".flows.sign_on.permissionModule.view.PermissionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".flows.sign_off.splashModule.view.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">

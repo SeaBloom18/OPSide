@@ -367,5 +367,18 @@ The OPS application is willing to help and provide a better experience to all us
     <string name="tv1_title_policies_contact_us">Contact Us</string>
     <string name="tv1_body_policies_contact_us">If you have any questions about this Privacy Policy, You can contact us.</string>
 
+    <!-- Tables Name -->
+    <string name="tables_name_concessionaire">Concessionaires</string>
+    <string name="tables_name_market">Market</string>
+    <string name="tables_name_login">Login</string>
+    <string name="tables_name_registration">Registration</string>
+    <string name="tables_name_dashboard">Dashboard</string>
+    <string name="tables_name_dealer">Dealer</string>
+    <string name="tables_name_incident">Incident</string>
+    <string name="tables_name_profile">Profile</string>
+    <string name="tables_name_taxcollection">Tax Collection</string>
+    <string name="tables_name_taxcollection_crud">Collection Revision</string>
+    <string name="tables_name_control_panel">Control Panel</string>
+    <string name="tables_name_permission">Permission</string>
 
 </resources>

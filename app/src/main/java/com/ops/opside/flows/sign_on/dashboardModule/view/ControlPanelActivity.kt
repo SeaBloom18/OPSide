@@ -2,9 +2,13 @@ package com.ops.opside.flows.sign_on.dashboardModule.view
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,13 +16,17 @@ import com.ops.opside.R
 import com.ops.opside.common.dialogs.BaseDialog
 import com.ops.opside.common.entities.share.CollectorSE
 import com.ops.opside.common.utils.Formaters.formatter
+import com.ops.opside.common.utils.PDFUtils
 import com.ops.opside.common.utils.TimePickerDialog.Companion.newInstance
+import com.ops.opside.common.utils.startActivity
 import com.ops.opside.common.views.BaseActivity
 import com.ops.opside.databinding.ActivityControlPanelBinding
 import com.ops.opside.flows.sign_on.dashboardModule.actions.ControlPanelAction
 import com.ops.opside.flows.sign_on.dashboardModule.adapter.ControlPanelAdapter
 import com.ops.opside.flows.sign_on.dashboardModule.interfaces.ControlPanelInterface
 import com.ops.opside.flows.sign_on.dashboardModule.viewModel.ControlPanelViewModel
+import com.ops.opside.flows.sign_on.dealerModule.view.view.DealerActivity
+import com.ops.opside.flows.sign_on.permissionModule.view.PermissionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.LocalTime
@@ -38,7 +46,9 @@ class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
         setContentView(mBinding.root)
 
         mBinding.apply {
-            btnSaveChanges.setOnClickListener { confirmUpdateLinearPrice() }
+            btnSaveChanges.setOnClickListener {
+                confirmUpdateLinearPrice()
+            }
         }
 
         /** Methods call's **/
@@ -102,7 +112,29 @@ class ControlPanelActivity : BaseActivity(), ControlPanelInterface {
             this.title = getString(R.string.bn_menu_control_panel_opc4)
             setSupportActionBar(this)
             (context as ControlPanelActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            this.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    //menuInflater.inflate(R.menu.menu_common_fragment_toolbar, menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.menu_permission -> {
+                            startActivity<PermissionActivity>()
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }, this@ControlPanelActivity, Lifecycle.State.RESUMED)
         }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_control_panel_toolbar, menu)
+        return true
     }
 
     private fun updateDuration() {

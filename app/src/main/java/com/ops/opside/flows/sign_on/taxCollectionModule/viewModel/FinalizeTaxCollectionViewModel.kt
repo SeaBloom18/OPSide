@@ -1,7 +1,9 @@
 package com.ops.opside.flows.sign_on.taxCollectionModule.viewModel
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.room.EventRE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
@@ -10,14 +12,17 @@ import com.ops.opside.common.viewModel.CommonViewModel
 import com.ops.opside.flows.sign_off.loginModule.model.LoginInteractor
 import com.ops.opside.flows.sign_on.taxCollectionModule.actions.FinalizeTaxCollectionAction
 import com.ops.opside.flows.sign_on.taxCollectionModule.adapters.ABSENCE
+import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import com.ops.opside.flows.sign_on.taxCollectionModule.model.FinalizeTaxCollectionInteractor
+import com.ops.opside.flows.sign_on.taxCollectionModule.model.TaxCollectionInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FinalizeTaxCollectionViewModel @Inject constructor(
     private val mFinalizeTaxCollectionInteractor: FinalizeTaxCollectionInteractor,
-    private val mLoginInteractor: LoginInteractor
+    private val mLoginInteractor: LoginInteractor,
+    private val mTaxCollectionInteractor: TaxCollectionInteractor
 ) : CommonViewModel(), BiometricsManager.BiometricListener {
 
     private val _action: SingleLiveEvent<FinalizeTaxCollectionAction> = SingleLiveEvent()
@@ -161,6 +166,28 @@ class FinalizeTaxCollectionViewModel @Inject constructor(
                 FinalizeTaxCollectionAction.ShowMessageError(exception.message.toString())
             false
         }
+    }
+
+    fun sendEmail(emails: MutableList<EmailObject>) {
+        disposable.add(
+            mTaxCollectionInteractor.sendEmail(emails).applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        if (it){
+                            _action.value = FinalizeTaxCollectionAction.EmailsSent
+                        }
+
+                        showProgress.value = false
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                        _action.value =
+                            FinalizeTaxCollectionAction.ShowMessageError(it.message.toString())
+                    }
+                )
+        )
     }
 
     fun closeTaxcollection(taxCollection: TaxCollectionSE) {

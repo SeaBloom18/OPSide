@@ -13,5 +13,7 @@ enum class TablesEnum {
     PendingEmail,
     Resources,
     Origin,
-    Collector
+    Collector,
+    Rol,
+    Email
 }

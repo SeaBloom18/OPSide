@@ -4,5 +4,6 @@ sealed class FinalizeTaxCollectionAction {
     data class ShowMessageError(val error: String): FinalizeTaxCollectionAction()
     object SendCollection: FinalizeTaxCollectionAction()
     object SendEmails: FinalizeTaxCollectionAction()
+    object EmailsSent: FinalizeTaxCollectionAction()
     object FinalizeCollection: FinalizeTaxCollectionAction()
 }

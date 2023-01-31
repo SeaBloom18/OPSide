@@ -3,7 +3,6 @@ package com.ops.opside.flows.sign_on.taxCollectionModule.view
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +26,6 @@ import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.EmailObject
 import com.ops.opside.flows.sign_on.taxCollectionModule.dataClasses.ItemAbsence
 import com.ops.opside.flows.sign_on.taxCollectionModule.viewModel.FinalizeTaxCollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @AndroidEntryPoint
@@ -86,6 +83,9 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
             is FinalizeTaxCollectionAction.SendEmails -> sendAbsenceEmails(mAdapter.getListAbsenceEmails())
             is FinalizeTaxCollectionAction.ShowMessageError -> showError(action.error)
             is FinalizeTaxCollectionAction.FinalizeCollection -> finalizeCollection()
+            is FinalizeTaxCollectionAction.EmailsSent -> mViewModel.closeTaxcollection(
+                mFinalizeCollection.taxCollection
+            )
         }
     }
 
@@ -102,8 +102,6 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
     }
 
     private fun sendAbsenceEmails(list: List<ItemAbsence>) {
-        GlobalScope.launch {
-
             val emails: MutableList<EmailObject> = mutableListOf()
             list.forEach { concessionaire ->
                 val body = getString(
@@ -121,16 +119,7 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
                 )
             }
 
-            EmailSender.send(emails) {
-                if (it.first) {
-                    showLoading(false)
-                    mViewModel.closeTaxcollection(mFinalizeCollection.taxCollection)
-                } else {
-                    showError(it.second)
-                }
-            }
-
-        }
+        mViewModel.sendEmail(emails)
     }
 
     private fun finalizeCollection() {
@@ -200,7 +189,7 @@ class FinalizeTaxCollectionFragment : BaseFragment() {
         )
 
         val linearLayoutManager: RecyclerView.LayoutManager
-        linearLayoutManager = LinearLayoutManager(context!!)
+        linearLayoutManager = LinearLayoutManager(requireContext())
 
         mBinding.rvAbsence.apply {
             setHasFixedSize(true)

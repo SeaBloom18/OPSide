@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/cvPermission"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_padding_default">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbRol"
+            style="@style/CheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Market"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbCreate"
+            style="@style/CheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_padding_middle"
+            android:text="Create"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/common_padding_min"
+            android:layout_marginStart="@dimen/common_padding_large"
+            app:layout_constraintTop_toBottomOf="@+id/cbRol"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbRead"
+            style="@style/CheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_padding_middle"
+            android:text="Read"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/common_padding_large"
+            app:layout_constraintTop_toBottomOf="@+id/cbCreate"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbUpdate"
+            style="@style/CheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_padding_middle"
+            android:text="Update"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/common_padding_large"
+            app:layout_constraintTop_toBottomOf="@+id/cbRead"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbDelete"
+            style="@style/CheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_padding_middle"
+            android:text="Delete"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/common_padding_large"
+            app:layout_constraintTop_toBottomOf="@+id/cbUpdate"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
