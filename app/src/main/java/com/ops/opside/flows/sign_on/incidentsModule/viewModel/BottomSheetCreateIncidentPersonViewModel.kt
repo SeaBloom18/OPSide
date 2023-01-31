@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
+import com.ops.opside.common.entities.share.MarketSE
 import com.ops.opside.common.entities.share.TaxCollectionSE
+import com.ops.opside.common.utils.SingleLiveEvent
 import com.ops.opside.common.utils.applySchedulers
 import com.ops.opside.common.viewModel.CommonViewModel
+import com.ops.opside.flows.sign_on.incidentsModule.actions.CreateIncidentAction
 import com.ops.opside.flows.sign_on.incidentsModule.model.BottomSheetCreateIncidentPersonInteractor
+import com.ops.opside.flows.sign_on.marketModule.actions.MarketAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,18 +24,39 @@ import javax.inject.Inject
 class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
     private val mBottomSheetCreateIncidentPersonInteractor: BottomSheetCreateIncidentPersonInteractor): CommonViewModel() {
 
-    private val mGetConcessionairesList = MutableLiveData<MutableList<ConcessionaireSE>>()
-    val getConcessionairesList: LiveData<MutableList<ConcessionaireSE>> = mGetConcessionairesList
+    private val mGetConcessionairesList = MutableLiveData<MutableMap<String, String>>()
+    val getConcessionairesList: LiveData<MutableMap<String, String>> = mGetConcessionairesList
 
     private val mGetTaxCollectionList = MutableLiveData<MutableList<TaxCollectionSE>>()
     val getTaxCollectionList: LiveData<MutableList<TaxCollectionSE>> = mGetTaxCollectionList
 
-    private val mGetIncidentList = MutableLiveData<MutableList<IncidentSE>>()
-    val getIncidentList: LiveData<MutableList<IncidentSE>> = mGetIncidentList
+    private val mGetIncidentList = MutableLiveData<MutableMap<String, String>>()
+    val getIncidentList: LiveData<MutableMap<String, String>> = mGetIncidentList
 
-    fun getConcessionairesList(){
+    val getMarketList = MutableLiveData<MutableMap<String, String>>()
+    private val _action: SingleLiveEvent<CreateIncidentAction> = SingleLiveEvent()
+    fun getAction(): LiveData<CreateIncidentAction> = _action
+
+
+    fun getMarketList(){
         disposable.add(
-            mBottomSheetCreateIncidentPersonInteractor.getConcessionaireList().applySchedulers()
+            mBottomSheetCreateIncidentPersonInteractor.getMarkets().applySchedulers()
+                .doOnSubscribe { showProgress.value = true }
+                .subscribe(
+                    {
+                        showProgress.value = false
+                        getMarketList.value = it
+                    },
+                    {
+                        showProgress.value = false
+                        Log.e("Error", it.toString())
+                    }
+                )
+        )
+    }
+    fun getConcessByMarketList(market: String){
+        disposable.add(
+            mBottomSheetCreateIncidentPersonInteractor.getConcessByMarket(market).applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
@@ -63,21 +88,22 @@ class BottomSheetCreateIncidentPersonViewModel @Inject constructor(
         )
     }
 
-    fun funInsertIncident(incidentPersonFE: IncidentPersonFE) {
+    fun funInsertIncidentPerson(incidentPersonFE: IncidentPersonFE) {
         disposable.add(
-            mBottomSheetCreateIncidentPersonInteractor.insertIncident(incidentPersonFE).applySchedulers()
+            mBottomSheetCreateIncidentPersonInteractor.insertIncidentPerson(incidentPersonFE)
+                .applySchedulers()
                 .doOnSubscribe { showProgress.value = true }
                 .subscribe(
                     {
                         //_registerConcessionaire.value = it
                         showProgress.value = false
-                        //_action.value = RegistrationAction.ShowMessageSuccess
+                        _action.value = CreateIncidentAction.ShowMessageSuccess
                     },
                     {
                         //_registerConcessionaire.value = false
                         Log.e("Error", it.toString())
                         showProgress.value = false
-                        //_action.value = RegistrationAction.ShowMessageError
+                        _action.value = CreateIncidentAction.ShowMessageError
                     }
                 )
         )

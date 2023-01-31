@@ -10,6 +10,7 @@
     <string name="common_cancelled">Cancelado</string>
     <string name="common_atention">Atención</string>
     <string name="common_close">Cerrar</string>
+    <string name="common_toast_fill_text">Debes de llenar todos los campos!</string>
 
     <!--About App Strings-->
     <string name="ops_about_app_title">Sobre OPS</string>
@@ -235,6 +236,23 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="bs_assign_incident_til_hint_issue_conce">Seleccionar Concesionario</string>
     <string name="bs_assign_incident_til_hint_collection">Seleccionar Recoleccion</string>
     <string name="bs_assign_incident_btn_assign">Asignar Incidencia</string>
+    <string name="bs_assign_incident_til_hint_select_market">Seleccionar Tianguis</string>
+    <string name="bs_assign_incident_til_hint_select_month">Mes</string>
+    <string name="bs_assign_incident_til_hint_select_year">Año</string>
+    <string-array name="bs_assign_incident_months">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+    </string-array>
+
+    <string-array name="bs_assign_incident_years">
+        <item>2022</item>
+        <item>2023</item>
+    </string-array>
+    
+    <string name="bs_assign_incident_handle_success">Incidencia asignada con éxito!</string>
+    <string name="bs_assign_incident_handle_error">Ha ocurrido un error al momento de asignar la incidencia!</string>
+    <string name="bs_assign_incident_item_tv_assigned">Incidencia asignada a %1$s</string>
 
     <!--Incidents create String-->
     <string name="bs_create_incident_tv_tittle">Crear Nueva Incidencia</string>
@@ -242,6 +260,8 @@ La aplicación OPS está dispuesta a ayudar y brindar una mejor experiencia a to
     <string name="bs_create_incident_tv_til_hint_price">Nombre de la Incidencia</string>
     <string name="bs_create_incident_tv_til_hint_description">Descripcion de la Incidencia</string>
     <string name="bs_create_incident_btn_create">Crear Incidencia</string>
+    <string name="bs_create_incident_handle_success">Incidencia creada con éxito!</string>
+    <string name="bs_create_incident_handle_error">Ha ocurrido un error al momento de crear la incidencia!</string>
 
     <!--BottomSheet UserProfile String-->
     <string name="bottom_sheet_tv_logout_session">Cerrar Sesión</string>

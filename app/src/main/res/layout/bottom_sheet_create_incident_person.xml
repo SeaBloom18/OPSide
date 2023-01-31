@@ -2,13 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/common_padding_default">
 
     <ImageButton
-        android:id="@+id/btnClose2"
+        android:id="@+id/btnDismiss"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
@@ -26,28 +25,86 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/bs_assign_incident_tv_tittle"
-        app:layout_constraintBottom_toTopOf="@+id/tilIncidentPrice"
+        app:layout_constraintBottom_toTopOf="@+id/tilSelectIssueTrack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilIncidentPrice"
-        style="@style/TextInputDropDownLayoutStyle"
+        android:id="@+id/tilSelectIssueTrack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:hint="@string/bs_assign_incident_til_hint_issue_track"
         app:boxStrokeColor="@drawable/states_colors_text_field"
-        app:layout_constraintBottom_toTopOf="@+id/tilSearch"
-        app:layout_constraintEnd_toEndOf="@+id/tilSearch"
-        app:layout_constraintStart_toStartOf="@+id/tilSearch"
-        app:startIconDrawable="@drawable/ic_bn_dollar">
+        app:layout_constraintBottom_toTopOf="@+id/divider1"
+        app:layout_constraintEnd_toEndOf="@+id/tilSelectConcessionaire"
+        app:layout_constraintStart_toStartOf="@+id/tilSelectConcessionaire"
+        app:startIconDrawable="@drawable/ic_ops_warning"
+        style="@style/TextInputDropDownLayoutStyle">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/teIncidentPrice"
+            android:id="@+id/teSelectIssueTrack"
+            android:inputType="none"
+            style="@style/TextInputEditTextStyle" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/divider1"
+        style="@style/dividerStyle1"
+        android:layout_width="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tilSelectMarket"
+        app:layout_constraintEnd_toEndOf="@+id/tilSelectIssueTrack"
+        app:layout_constraintStart_toStartOf="@+id/tilSelectIssueTrack" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSelectConcessionaire"
+        style="@style/TextInputDropDownLayoutStyle"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/bs_assign_incident_til_hint_issue_conce"
+        android:enabled="false"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="@+id/divider2"
+        app:startIconDrawable="@drawable/ic_ops_user">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             style="@style/TextInputEditTextStyle"
+            android:id="@+id/teSelectConcessionaire"
+            android:enabled="false"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSelectMarket"
+        android:layout_width="0dp"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/bs_assign_incident_til_hint_select_market"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/tilSelectConcessionaire"
+        app:layout_constraintEnd_toEndOf="@+id/tilSelectConcessionaire"
+        app:layout_constraintStart_toStartOf="@+id/tilSelectConcessionaire"
+        app:startIconDrawable="@drawable/ic_ops_store"
+        style="@style/TextInputDropDownLayoutStyle">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/teSelectMarket"
+            android:inputType="none"
+            style="@style/TextInputEditTextStyle" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/divider2"
+        style="@style/dividerStyle1"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tilSelectMonth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTaxCollection"
@@ -58,35 +115,55 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/bs_assign_incident_til_hint_collection"
-        app:startIconDrawable="@drawable/ic_ops_business"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/ic_ops_payments">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teTaxCollection"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="none" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSelectMonth"
+        style="@style/TextInputDropDownLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/bs_assign_incident_til_hint_select_month"
+        app:boxStrokeColor="@drawable/states_colors_text_field"
+        app:layout_constraintBottom_toTopOf="@+id/tilTaxCollection"
+        app:layout_constraintEnd_toStartOf="@+id/tilSelectYear"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/tilTaxCollection"
+        app:startIconDrawable="@drawable/ic_ops_calendar_month">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/teSelectMonth"
             style="@style/TextInputEditTextStyle"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilSearch"
+        android:id="@+id/tilSelectYear"
         style="@style/TextInputDropDownLayoutStyle"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/bs_assign_incident_til_hint_issue_conce"
+        android:layout_width="0dp"
+        android:hint="@string/bs_assign_incident_til_hint_select_year"
         app:boxStrokeColor="@drawable/states_colors_text_field"
-        app:layout_constraintBottom_toTopOf="@+id/tilTaxCollection"
+        app:layout_constraintBottom_toBottomOf="@+id/tilSelectMonth"
         app:layout_constraintEnd_toEndOf="@+id/tilTaxCollection"
-        app:layout_constraintStart_toStartOf="@+id/tilTaxCollection"
-        app:startIconDrawable="@drawable/ic_ops_search">
+        app:layout_constraintStart_toEndOf="@+id/tilSelectMonth"
+        app:layout_constraintTop_toTopOf="@+id/tilSelectMonth"
+        app:startIconDrawable="@drawable/ic_ops_calendar_year">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/teSearch"
+            android:id="@+id/teSelectYear"
             style="@style/TextInputEditTextStyle"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +179,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCreateIncident"
+            android:id="@+id/btnCreateIncidentPerson"
             style="@style/CommonButtonStyle"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"

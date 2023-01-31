@@ -3,7 +3,6 @@ package com.ops.opside.flows.sign_on.incidentsModule.model
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.TablesEnum
 import com.ops.opside.common.entities.firestore.IncidentFE
-import com.ops.opside.common.entities.share.IncidentSE
 import com.ops.opside.common.utils.getName
 import com.ops.opside.common.utils.tryOrPrintException
 import io.reactivex.Observable

@@ -4,7 +4,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ops.opside.common.entities.SP_FOREIGN_CONCE_ROLE
 import com.ops.opside.common.entities.SP_NORMAL_CONCE_ROLE
 import com.ops.opside.common.entities.TablesEnum
-import com.ops.opside.common.entities.firestore.IncidentFE
 import com.ops.opside.common.entities.firestore.IncidentPersonFE
 import com.ops.opside.common.entities.share.ConcessionaireSE
 import com.ops.opside.common.entities.share.IncidentSE
@@ -22,7 +21,7 @@ import javax.inject.Inject
 class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
     private val firestore: FirebaseFirestore, private val preferences: Preferences) {
 
-    fun insertIncident(incidentPersonFE: IncidentPersonFE): Observable<Boolean> {
+    fun insertIncidentPerson(incidentPersonFE: IncidentPersonFE): Observable<Boolean> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
                 firestore.collection(TablesEnum.IncidentPerson.getName())
@@ -37,31 +36,16 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
         }
     }
 
-    fun getConcessionaireList() : Observable<MutableList<ConcessionaireSE>> {
+    fun getConcessByMarket(market: String): Observable<MutableMap<String, String>> {
         return Observable.unsafeCreate { subscriber ->
             try {
-                val concessionaires = mutableListOf<ConcessionaireSE>()
+                val concessionaires = mutableMapOf<String, String>()
                 firestore.collection(TablesEnum.Concessionaire.getName())
+                    .whereArrayContains("participatingMarkets", market)
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
-                            concessionaires.add(
-                                ConcessionaireSE(
-                                    idFirebase = document.id,
-                                    name = document.get("name").toString(),
-                                    imageURL = document.get("imageURL").toString(),
-                                    address = document.get("address").toString(),
-                                    phone = document.get("phone").toString(),
-                                    email = document.get("email").toString(),
-                                    role = if (document.get("isForeigner").toString().toBoolean())
-                                        SP_FOREIGN_CONCE_ROLE else SP_NORMAL_CONCE_ROLE,
-                                    lineBusiness = document.get("lineBusiness").toString(),
-                                    absence = document.get("absence").toString().toInt(),
-                                    isForeigner = document.get("isForeigner").toString()
-                                        .toBoolean(),
-                                    origin = document.get("origin").toString()
-                                )
-                            )
+                            concessionaires[document.get("name").toString()] = document.id
                         }
                         subscriber.onNext(concessionaires)
                     }
@@ -107,21 +91,39 @@ class BottomSheetCreateIncidentPersonInteractor @Inject constructor(
         }
     }
 
-    fun getIncidentList(): Observable<MutableList<IncidentSE>> {
+    fun getMarkets(): Observable<MutableMap<String, String>> {
+        return Observable.unsafeCreate { subscriber ->
+            try {
+                val marketsList = mutableMapOf<String, String>()
+
+                firestore.collection(TablesEnum.Market.getName())
+                    .whereEqualTo("isDeleted", false)
+                    .get()
+                    .addOnSuccessListener {
+                        for (document in it.documents) {
+                            marketsList[document.get("name").toString()] = document.id
+                        }
+                        subscriber.onNext(marketsList)
+                    }
+                    .addOnFailureListener {
+                        subscriber.onError(it)
+                    }
+            } catch (exception: Exception){
+                subscriber.onError(exception)
+            }
+        }
+    }
+
+    fun getIncidentList(): Observable<MutableMap<String, String>> {
         return Observable.unsafeCreate { subscriber ->
             tryOrPrintException {
-                val incidentList = mutableListOf<IncidentSE>()
+                val incidentList = mutableMapOf<String, String>()
 
                 firestore.collection(TablesEnum.Incident.getName())
                     .get()
                     .addOnSuccessListener {
                         for (document in it.documents) {
-                            incidentList.add(IncidentSE(
-                                idFirebase = document.id,
-                                incidentName = document.data!!["incidentName"].toString(),
-                                incidentPrice = document.data!!["incidentPrice"].toString().toDouble(),
-                                incidentDescription = document.data!!["incidentDescription"].toString()
-                            ))
+                            incidentList[document.get("incidentName").toString()] = document.id
                         }
                         subscriber.onNext(incidentList)
                     }

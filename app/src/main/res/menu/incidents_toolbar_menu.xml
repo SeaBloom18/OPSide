@@ -5,12 +5,12 @@
     <item
         android:id="@+id/create_incident_person"
         android:title="CreateIncidentPerson"
-        android:icon="@drawable/ic_ops_add_incident"
+        android:icon="@drawable/ic_ops_add_incident_person"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/create_incident"
         android:title="CreateIncident"
-        android:icon="@drawable/ic_ops_add"
+        android:icon="@drawable/ic_ops_add_incident"
         app:showAsAction="always" />
 </menu>

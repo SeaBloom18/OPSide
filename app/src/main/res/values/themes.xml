@@ -102,11 +102,12 @@
     </style>
 
     <!-- CheckBox Style -->
-    <style name="CheckBoxStyle">
+    <style name="CheckBoxStyle" parent="Widget.Material3.CompoundButton.CheckBox">
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="buttonTint">@color/secondaryColor</item>
     </style>
 
     <!--Switch Style-->
