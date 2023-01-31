@@ -80,6 +80,8 @@
         android:hint="@string/bs_create_incident_tv_til_hint_description"
         app:boxStrokeColor="@drawable/states_colors_text_field"
         app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

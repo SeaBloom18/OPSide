@@ -74,13 +74,17 @@ class BottomSheetCreateIncident : BaseBottomSheetFragment() {
             val teIncidentName = mBinding.teIncidentName.text.toString().trim()
             val teIncidentPrice = mBinding.teIncidentPrice.text.toString().trim()
             val teIncidentDescription = mBinding.teIncidentDescription.text.toString().trim()
-            if (teIncidentName.isNotEmpty()) {
+            if (teIncidentName.isEmpty()) {
+                mBinding.tilIncidentName.error = "The name is necessary to complete the incident"
+            } else if (teIncidentPrice.isEmpty()) {
+                toast(getString(R.string.common_toast_fill_text))
+            } else if (teIncidentDescription.isEmpty()) {
+                toast(getString(R.string.common_toast_fill_text))
+            } else {
                 incidentName = teIncidentName
                 incidentPrice = teIncidentPrice
                 incidentDescription = teIncidentDescription
                 mBottomSheetCreateIncidentViewModel.insertIncident(mIncidentFE)
-            } else {
-                toast(getString(R.string.common_toast_fill_text))
             }
         }
     }
